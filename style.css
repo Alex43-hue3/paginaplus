@@ -729,5 +729,83 @@ font-size:38px;
 
 
 }
+/* ==========================
+   SECCIONES DE CATEGORIAS
+========================== */
 
+
+.seccion-peliculas{
+
+margin-bottom:50px;
+
+}
+
+
+
+.seccion-peliculas h2{
+
+font-size:28px;
+
+margin-bottom:20px;
+
+}
+
+
+
+.seccion-peliculas .catalogo{
+
+
+display:flex;
+
+overflow-x:auto;
+
+gap:20px;
+
+padding-bottom:20px;
+
+
+}
+
+
+
+.seccion-peliculas .card{
+
+
+min-width:180px;
+
+}
+
+
+
+.seccion-peliculas .card img{
+
+
+height:270px;
+
+}
+
+
+
+.seccion-peliculas .catalogo::-webkit-scrollbar{
+
+
+height:8px;
+
+
+}
+
+
+
+@media(max-width:800px){
+
+
+.seccion-peliculas .card{
+
+min-width:150px;
+
+}
+
+
+
+}
 }
