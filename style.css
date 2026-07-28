@@ -596,6 +596,137 @@ header{
 
 }
 
+/* ==========================
+   BANNER DINAMICO
+========================== */
 
+
+.hero{
+
+
+height:75vh;
+
+
+background-size:cover;
+
+
+background-position:center;
+
+
+display:flex;
+
+
+align-items:center;
+
+
+padding:5%;
+
+
+transition:.5s;
+
+
+}
+
+
+
+.hero-info{
+
+
+max-width:650px;
+
+
+}
+
+
+
+.hero-info h1{
+
+
+font-size:60px;
+
+
+margin-bottom:20px;
+
+
+}
+
+
+
+.datos-banner{
+
+
+display:flex;
+
+
+gap:15px;
+
+
+flex-wrap:wrap;
+
+
+}
+
+
+
+.datos-banner span{
+
+
+background:#22222c;
+
+
+padding:10px 15px;
+
+
+border-radius:20px;
+
+
+}
+
+
+
+.hero-info p{
+
+
+font-size:20px;
+
+
+line-height:1.6;
+
+
+color:#ddd;
+
+
+margin:25px 0;
+
+
+}
+
+
+
+#boton-banner{
+
+
+background:#ffd166;
+
+
+font-size:16px;
+
+
+}
+
+
+@media(max-width:800px){
+
+
+.hero-info h1{
+
+
+font-size:38px;
+
+
+}
+
+
+}
 
 }
