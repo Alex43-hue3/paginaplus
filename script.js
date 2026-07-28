@@ -1,56 +1,91 @@
 const catalogo = document.getElementById("catalogo");
 
-console.log("Script cargado");
-console.log(peliculas);
 
+// Mostrar películas
 
-function mostrarPeliculas(lista){
+function mostrarPeliculas(lista) {
 
     catalogo.innerHTML = "";
 
-    lista.forEach(function(p){
 
-        let tarjeta = document.createElement("div");
+    lista.forEach((pelicula, index) => {
+
+
+        const tarjeta = document.createElement("div");
 
         tarjeta.className = "card";
 
 
-   tarjeta.innerHTML = `
+        tarjeta.innerHTML = `
 
-<img src="${p.imagen}">
+            <img src="${pelicula.imagen}" alt="${pelicula.titulo}">
 
-<h3>${p.titulo}</h3>
 
-<p>${p.genero} | ${p.año}</p>
+            <h3>
+                ${pelicula.titulo}
+            </h3>
 
-<button class="detalle-btn">
-Ver detalles
-</button>
 
-`;
+            <p>
+                ${pelicula.genero} | ${pelicula.año}
+            </p>
+
+
+            <p>
+                ${pelicula.descripcion}
+            </p>
+
+
+            <button class="btn-detalle">
+                Ver detalles
+            </button>
+
+        `;
+
+
+
+        // Botón detalles
+
+        const boton = tarjeta.querySelector(".btn-detalle");
+
+
+        boton.addEventListener("click", function(){
+
+
+            console.log("Abriendo:", pelicula.titulo);
+
+
+            localStorage.setItem(
+                "pelicula",
+                peliculas.indexOf(pelicula)
+            );
+
+
+            window.location.href = "detalles.html";
+
+
+        });
+
+
 
         catalogo.appendChild(tarjeta);
 
-tarjeta.querySelector(".detalle-btn")
-.addEventListener("click",()=>{
 
-let id = peliculas.indexOf(p);
-
-localStorage.setItem("pelicula", id);
-
-window.location.href="detalles.html";
-
-});
     });
+
 
 }
 
 
 
+// Cargar películas al iniciar
+
 mostrarPeliculas(peliculas);
 
 
 
+
+// Filtro por categoría
 
 function filtrar(categoria){
 
@@ -58,80 +93,60 @@ function filtrar(categoria){
     if(categoria === "Todas"){
 
         mostrarPeliculas(peliculas);
+
         return;
 
     }
 
 
-    let resultado = peliculas.filter(
+
+    const resultado = peliculas.filter(
+
         pelicula => pelicula.genero === categoria
+
     );
 
 
-   const catalogo = document.getElementById("catalogo");
+    mostrarPeliculas(resultado);
 
 
-function mostrarPeliculas(lista){
-
-    catalogo.innerHTML = "";
+}
 
 
-    lista.forEach((p, index)=>{
 
 
-        let tarjeta = document.createElement("div");
+// Buscador
 
-        tarjeta.className = "card";
-
-
-        tarjeta.innerHTML = `
-
-        <img src="${p.imagen}">
-
-        <h3>${p.titulo}</h3>
-
-        <p>${p.genero} | ${p.año}</p>
-
-        <button>
-        Ver detalles
-        </button>
-
-        `;
+const buscador = document.getElementById("buscar");
 
 
-        let boton = tarjeta.querySelector("button");
+if(buscador){
 
 
-        boton.onclick = function(){
-
-            console.log("Click en:", p.titulo);
+    buscador.addEventListener("input", function(){
 
 
-            localStorage.setItem(
-                "pelicula",
-                index
-            );
+        const texto = this.value.toLowerCase();
 
 
-            window.location.href="detalles.html";
 
-        };
+        const resultado = peliculas.filter(
+
+            pelicula =>
+
+            pelicula.titulo
+            .toLowerCase()
+            .includes(texto)
+
+        );
 
 
-        catalogo.appendChild(tarjeta);
+
+        mostrarPeliculas(resultado);
+
 
 
     });
 
 
 }
-
-
-mostrarPeliculas(peliculas);
-
-
-window.location.href="detalles.html";
-
-
-}
-});
