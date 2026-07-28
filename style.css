@@ -101,6 +101,7 @@ nav a{
 
     padding:5%;
 
+transition: background-image 1s ease;
 }
 
 
