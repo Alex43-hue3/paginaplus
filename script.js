@@ -1,52 +1,43 @@
+const catalogo = document.getElementById("catalogo");
 
-const catalogo=document.getElementById("catalogo");
+console.log("Script cargado");
+console.log(peliculas);
 
 
 function mostrarPeliculas(lista){
 
+    catalogo.innerHTML = "";
 
-catalogo.innerHTML="";
+    lista.forEach(function(p){
 
+        let tarjeta = document.createElement("div");
 
-lista.forEach(p=>{
-
-
-catalogo.innerHTML+=`
-
-<div class="card">
+        tarjeta.className = "card";
 
 
-<img src="${p.imagen}">
+        tarjeta.innerHTML = `
+
+        <img src="${p.imagen}">
+
+        <h3>${p.titulo}</h3>
+
+        <p>${p.genero} | ${p.año}</p>
+
+        <p>${p.descripcion}</p>
+
+        `;
 
 
-<h3>${p.titulo}</h3>
+        catalogo.appendChild(tarjeta);
 
 
-<p>
-${p.genero} | ${p.año}
-</p>
-
-
-<p>
-${p.descripcion}
-</p>
-
-
-</div>
-
-
-`;
-
-
-});
-
+    });
 
 }
 
 
 
 mostrarPeliculas(peliculas);
-
 
 
 
@@ -54,24 +45,20 @@ mostrarPeliculas(peliculas);
 function filtrar(categoria){
 
 
-if(categoria=="Todas"){
+    if(categoria === "Todas"){
 
-mostrarPeliculas(peliculas);
+        mostrarPeliculas(peliculas);
+        return;
 
-return;
-
-}
-
+    }
 
 
-let resultado=
-peliculas.filter(
-p=>p.genero==categoria
-);
+    let resultado = peliculas.filter(
+        pelicula => pelicula.genero === categoria
+    );
 
 
-mostrarPeliculas(resultado);
-
+    mostrarPeliculas(resultado);
 
 }
 
@@ -80,23 +67,22 @@ mostrarPeliculas(resultado);
 
 document
 .getElementById("buscar")
-.addEventListener(
-"input",
-function(){
+.addEventListener("input", function(){
 
 
-let texto=this.value.toLowerCase();
+    let texto = this.value.toLowerCase();
 
 
-let resultado=
-peliculas.filter(
-p=>
-p.titulo.toLowerCase()
-.includes(texto)
-);
+    let resultado = peliculas.filter(
+
+        pelicula => 
+        pelicula.titulo.toLowerCase()
+        .includes(texto)
+
+    );
 
 
-mostrarPeliculas(resultado);
+    mostrarPeliculas(resultado);
 
 
 });
