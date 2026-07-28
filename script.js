@@ -15,17 +15,19 @@ function mostrarPeliculas(lista){
         tarjeta.className = "card";
 
 
-        tarjeta.innerHTML = `
+       tarjeta.innerHTML = `
 
-        <img src="${p.imagen}">
+<img src="${p.imagen}">
 
-        <h3>${p.titulo}</h3>
+<h3>${p.titulo}</h3>
 
-        <p>${p.genero} | ${p.año}</p>
+<p>${p.genero} | ${p.año}</p>
 
-        <p>${p.descripcion}</p>
+<button onclick="verDetalle(${peliculas.indexOf(p)})">
+Ver detalles
+</button>
 
-        `;
+`;
 
 
         catalogo.appendChild(tarjeta);
@@ -84,5 +86,16 @@ document
 
     mostrarPeliculas(resultado);
 
+function verDetalle(id){
 
+localStorage.setItem(
+"pelicula",
+id
+);
+
+
+window.location.href="detalles.html";
+
+
+}
 });
