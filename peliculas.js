@@ -47,7 +47,15 @@ genero:"Anime",
 año:"1988",
 imagen:"https://image.tmdb.org/t/p/w500/neZ0ykEsPqxamsX6o5QNUFILQ0.jpg",
 descripcion:"Un clásico del anime japonés."
+  
 }
 
-
+{
+titulo:"El Conjuro",
+genero:"Terror",
+año:"2013",
+rating:"7.5",
+imagen:"imagen",
+descripcion:"..."
+},
 ];
