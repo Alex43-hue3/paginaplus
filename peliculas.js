@@ -8,10 +8,11 @@ genero:"Ciencia ficción",
 año:"2014",
 rating:"8.7",
 duracion:"2h 49min",
-imagen:"...",
-descripcion:"Un viaje espacial buscando salvar a la humanidad."
+director:"Christopher Nolan",
+reparto:"Matthew McConaughey, Anne Hathaway",
+imagen:"https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+descripcion:"Un grupo de astronautas viaja a través de un agujero de gusano buscando una nueva esperanza para la humanidad."
 },
-
 
 {
 titulo:"Batman: El Caballero de la Noche",
