@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CINEVERSE</title>
+<title>CINEVERSE - Detalles</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -33,29 +33,23 @@ CINEVERSE
 
 
 
-
-<div id="detalle">
-
-
-</div>
+<div id="detalle"></div>
 
 
+
+
+<script src="peliculas.js"></script>
 
 
 <script>
 
-let parametros = new URLSearchParams(window.location.search);
 
-let id = parametros.get("id");
+const parametros = new URLSearchParams(window.location.search);
 
-
-console.log("ID:", id);
+const id = parametros.get("id");
 
 
-let pelicula = peliculas[id];
-
-
-console.log("Película:", pelicula);
+const pelicula = peliculas[id];
 
 
 
@@ -65,17 +59,34 @@ if(pelicula){
 document.getElementById("detalle").innerHTML = `
 
 
-<section class="detalle">
 
-
-<div class="contenido-detalle">
-
-
-<img class="poster-detalle" src="${pelicula.imagen}">
+<section class="detalle-pelicula">
 
 
 
-<div class="info-detalle">
+<div class="fondo-pelicula"
+
+style="background-image:url('${pelicula.imagen}')">
+
+</div>
+
+
+
+
+
+<div class="detalle-contenido">
+
+
+
+<img 
+class="poster"
+src="${pelicula.imagen}"
+>
+
+
+
+
+<div class="informacion">
 
 
 <h1>
@@ -83,7 +94,8 @@ ${pelicula.titulo}
 </h1>
 
 
-<div class="datos">
+
+<div class="etiquetas">
 
 
 <span>
@@ -101,29 +113,77 @@ ${pelicula.titulo}
 </span>
 
 
+<span>
+⏱ ${pelicula.duracion || "2h"}
+</span>
+
+
 </div>
 
 
 
-<p>
+
+<p class="descripcion">
+
 ${pelicula.descripcion}
+
 </p>
 
 
 
-<button>
+
+<p>
+
+<b>Director:</b>
+
+${pelicula.director || "Desconocido"}
+
+</p>
+
+
+
+<p>
+
+<b>Reparto:</b>
+
+${pelicula.reparto || "Información no disponible"}
+
+</p>
+
+
+
+
+<div class="botones">
+
+
+<button class="ver">
+
 ▶ Ver trailer
+
 </button>
 
 
+<button class="fav">
+
+❤ Favorito
+
+</button>
+
 
 </div>
 
 
+
 </div>
+
+
+
+</div>
+
 
 
 </section>
+
 
 
 `;
@@ -140,7 +200,7 @@ Película no encontrada
 </h1>
 
 <a href="index.html">
-Volver
+Regresar
 </a>
 
 `;
@@ -152,4 +212,5 @@ Volver
 
 
 </body>
+
 </html>
