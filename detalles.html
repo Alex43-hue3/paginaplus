@@ -44,16 +44,26 @@ CINEVERSE
 <script>
 
 
-const parametros = new URLSearchParams(window.location.search);
+// Obtener ID desde la URL
+
+const parametros = new URLSearchParams(
+    window.location.search
+);
+
 
 const id = parametros.get("id");
 
+
+// Buscar película
 
 const pelicula = peliculas[id];
 
 
 
+
+
 if(pelicula){
+
 
 
 document.getElementById("detalle").innerHTML = `
@@ -81,7 +91,9 @@ style="background-image:url('${pelicula.imagen}')">
 <img 
 class="poster"
 src="${pelicula.imagen}"
+alt="${pelicula.titulo}"
 >
+
 
 
 
@@ -89,13 +101,19 @@ src="${pelicula.imagen}"
 <div class="informacion">
 
 
+
 <h1>
+
 ${pelicula.titulo}
+
 </h1>
 
 
 
+
+
 <div class="etiquetas">
+
 
 
 <span>
@@ -103,9 +121,11 @@ ${pelicula.titulo}
 </span>
 
 
+
 <span>
 📅 ${pelicula.año}
 </span>
+
 
 
 <span>
@@ -113,12 +133,15 @@ ${pelicula.titulo}
 </span>
 
 
+
 <span>
 ⏱ ${pelicula.duracion || "2h"}
 </span>
 
 
+
 </div>
+
 
 
 
@@ -132,13 +155,16 @@ ${pelicula.descripcion}
 
 
 
+
 <p>
 
 <b>Director:</b>
 
-${pelicula.director || "Desconocido"}
+${pelicula.director || "No disponible"}
 
 </p>
+
+
 
 
 
@@ -146,9 +172,10 @@ ${pelicula.director || "Desconocido"}
 
 <b>Reparto:</b>
 
-${pelicula.reparto || "Información no disponible"}
+${pelicula.reparto || "No disponible"}
 
 </p>
+
 
 
 
@@ -163,6 +190,7 @@ ${pelicula.reparto || "Información no disponible"}
 </button>
 
 
+
 <button class="fav">
 
 ❤ Favorito
@@ -170,11 +198,14 @@ ${pelicula.reparto || "Información no disponible"}
 </button>
 
 
+
+</div>
+
+
+
 </div>
 
 
-
-</div>
 
 
 
@@ -195,20 +226,28 @@ ${pelicula.reparto || "Información no disponible"}
 
 document.getElementById("detalle").innerHTML = `
 
+<section>
+
 <h1>
 Película no encontrada
 </h1>
 
-<a href="index.html">
+<br>
+
+<a href="index.html" class="volver">
 Regresar
 </a>
+
+</section>
 
 `;
 
 }
 
 
+
 </script>
+
 
 
 </body>
