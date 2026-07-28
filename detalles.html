@@ -23,24 +23,28 @@
 CINEVERSE
 </div>
 
+
 <a href="index.html" class="volver">
 ← Volver
 </a>
+
 
 </header>
 
 
 
 
-<section id="detalle" class="detalle">
+<div id="detalle">
 
 
-</section>
+</div>
+
 
 
 
 
 <script src="peliculas.js"></script>
+
 
 <script>
 
@@ -48,82 +52,38 @@ CINEVERSE
 let id = localStorage.getItem("pelicula");
 
 
-if(id === null){
-
-document.getElementById("detalle").innerHTML = `
-<h1>No se encontró la película</h1>
-<a href="index.html">Volver</a>
-`;
-
-}else{
-
-
 let pelicula = peliculas[id];
 
 
-document.getElementById("detalle").innerHTML = `
-
-
-<div class="detalle-img">
-
-<img src="${pelicula.imagen}">
-
-</div>
-
-
-
-<div class="detalle-info">
-
-
-<h1>${pelicula.titulo}</h1>
-
-
-<h3>
-⭐ ${pelicula.rating || "8.5"}/10
-</h3>
-
-
-<p>
-<b>Año:</b> ${pelicula.año}
-</p>
-
-
-<p>
-<b>Género:</b> ${pelicula.genero}
-</p>
-
-
-<p>
-${pelicula.descripcion}
-</p>
-
-
-<button>
-▶ Ver trailer
-</button>
-
-
-</div>
-
-
-`;
-
-}
-
-
 
 document.getElementById("detalle").innerHTML = `
 
 
-<div class="detalle-img">
+<section class="detalle">
 
-<img src="${pelicula.imagen}">
 
+<div class="fondo"
+style="
+background-image:url(${pelicula.imagen})
+">
 </div>
 
 
 
-<div class="detalle-info">
+
+<div class="contenido-detalle">
+
+
+
+<img 
+class="poster-detalle"
+src="${pelicula.imagen}"
+>
+
+
+
+
+<div class="info-detalle">
 
 
 <h1>
@@ -131,25 +91,48 @@ ${pelicula.titulo}
 </h1>
 
 
-<h3>
-⭐ ${pelicula.rating || "8.5"}/10
-</h3>
+
+<div class="datos">
+
+<span>
+⭐ ${pelicula.rating}/10
+</span>
+
+
+<span>
+📅 ${pelicula.año}
+</span>
+
+
+<span>
+🎬 ${pelicula.genero}
+</span>
+
+
+<span>
+⏱ ${pelicula.duracion}
+</span>
+
+</div>
+
 
 
 <p>
-<b>Año:</b> ${pelicula.año}
-</p>
-
-
-<p>
-<b>Género:</b> ${pelicula.genero}
-</p>
-
-
-<p>
-
 ${pelicula.descripcion}
+</p>
 
+
+
+<p>
+<b>Director:</b>
+${pelicula.director}
+</p>
+
+
+
+<p>
+<b>Reparto:</b>
+${pelicula.reparto}
 </p>
 
 
@@ -160,8 +143,19 @@ ${pelicula.descripcion}
 
 
 
+<button class="favorito">
+❤ Favorito
+</button>
+
+
+
 </div>
 
+
+</div>
+
+
+</section>
 
 
 `;
