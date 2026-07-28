@@ -6,8 +6,10 @@ const peliculas=[
 titulo:"Interestelar",
 genero:"Ciencia ficción",
 año:"2014",
-imagen:"https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-descripcion:"Un viaje espacial buscando un nuevo hogar para la humanidad."
+rating:"8.7",
+duracion:"2h 49min",
+imagen:"...",
+descripcion:"Un viaje espacial buscando salvar a la humanidad."
 },
 
 
