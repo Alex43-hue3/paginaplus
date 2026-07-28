@@ -68,38 +68,66 @@ function filtrar(categoria){
     );
 
 
-    mostrarPeliculas(resultado);
+   const catalogo = document.getElementById("catalogo");
+
+
+function mostrarPeliculas(lista){
+
+    catalogo.innerHTML = "";
+
+
+    lista.forEach((p, index)=>{
+
+
+        let tarjeta = document.createElement("div");
+
+        tarjeta.className = "card";
+
+
+        tarjeta.innerHTML = `
+
+        <img src="${p.imagen}">
+
+        <h3>${p.titulo}</h3>
+
+        <p>${p.genero} | ${p.año}</p>
+
+        <button>
+        Ver detalles
+        </button>
+
+        `;
+
+
+        let boton = tarjeta.querySelector("button");
+
+
+        boton.onclick = function(){
+
+            console.log("Click en:", p.titulo);
+
+
+            localStorage.setItem(
+                "pelicula",
+                index
+            );
+
+
+            window.location.href="detalles.html";
+
+        };
+
+
+        catalogo.appendChild(tarjeta);
+
+
+    });
+
 
 }
 
 
-
-
-document
-.getElementById("buscar")
-.addEventListener("input", function(){
-
-
-    let texto = this.value.toLowerCase();
-
-
-    let resultado = peliculas.filter(
-
-        pelicula => 
-        pelicula.titulo.toLowerCase()
-        .includes(texto)
-
-    );
-
-
-    mostrarPeliculas(resultado);
-
-function verDetalle(id){
-
-localStorage.setItem(
-"pelicula",
-id
-);
+mostrarPeliculas(peliculas);
 
 
 window.location.href="detalles.html";
