@@ -49,22 +49,13 @@ function mostrarPeliculas(lista) {
         const boton = tarjeta.querySelector(".btn-detalle");
 
 
-        boton.addEventListener("click", function(){
+       boton.addEventListener("click", function(){
 
+    let id = peliculas.indexOf(pelicula);
 
-            console.log("Abriendo:", pelicula.titulo);
+    window.location.href = "detalles.html?id=" + id;
 
-
-            localStorage.setItem(
-                "pelicula",
-                peliculas.indexOf(pelicula)
-            );
-
-
-            window.location.href = "detalles.html";
-
-
-        });
+});
 
 
 
