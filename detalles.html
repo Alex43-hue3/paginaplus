@@ -42,24 +42,24 @@ CINEVERSE
 
 
 
-
-<script src="peliculas.js"></script>
-
-
 <script>
 
+let parametros = new URLSearchParams(window.location.search);
 
-let id = localStorage.getItem("pelicula");
+let id = parametros.get("id");
 
-console.log("ID recibido:", id);
-console.log("Peliculas:", peliculas);
+
+console.log("ID:", id);
 
 
 let pelicula = peliculas[id];
 
 
-console.log("Película seleccionada:", pelicula);
+console.log("Película:", pelicula);
 
+
+
+if(pelicula){
 
 
 document.getElementById("detalle").innerHTML = `
@@ -68,24 +68,10 @@ document.getElementById("detalle").innerHTML = `
 <section class="detalle">
 
 
-<div class="fondo"
-style="
-background-image:url(${pelicula.imagen})
-">
-</div>
-
-
-
-
 <div class="contenido-detalle">
 
 
-
-<img 
-class="poster-detalle"
-src="${pelicula.imagen}"
->
-
+<img class="poster-detalle" src="${pelicula.imagen}">
 
 
 
@@ -97,11 +83,11 @@ ${pelicula.titulo}
 </h1>
 
 
-
 <div class="datos">
 
+
 <span>
-⭐ ${pelicula.rating}/10
+⭐ ${pelicula.rating || "8.5"}
 </span>
 
 
@@ -115,10 +101,6 @@ ${pelicula.titulo}
 </span>
 
 
-<span>
-⏱ ${pelicula.duracion}
-</span>
-
 </div>
 
 
@@ -129,28 +111,8 @@ ${pelicula.descripcion}
 
 
 
-<p>
-<b>Director:</b>
-${pelicula.director}
-</p>
-
-
-
-<p>
-<b>Reparto:</b>
-${pelicula.reparto}
-</p>
-
-
-
 <button>
 ▶ Ver trailer
-</button>
-
-
-
-<button class="favorito">
-❤ Favorito
 </button>
 
 
@@ -168,8 +130,25 @@ ${pelicula.reparto}
 
 
 
-</script>
+}else{
 
+
+document.getElementById("detalle").innerHTML = `
+
+<h1>
+Película no encontrada
+</h1>
+
+<a href="index.html">
+Volver
+</a>
+
+`;
+
+}
+
+
+</script>
 
 
 </body>
