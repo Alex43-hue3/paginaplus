@@ -1,239 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CINEVERSE</title>
 
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
-}
-
-body{
-    background:#0b0b0f;
-    color:white;
-}
-
-
-/* HEADER */
-
-header{
-    width:100%;
-    padding:20px 5%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:absolute;
-    top:0;
-    z-index:10;
-}
-
-.logo{
-    font-size:30px;
-    font-weight:bold;
-    letter-spacing:3px;
-    color:#ffd166;
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    margin-left:25px;
-}
-
-
-/* HERO */
-
-.hero{
-
-    height:80vh;
-
-    background:
-    linear-gradient(
-    to top,
-    #0b0b0f,
-    transparent
-    ),
-    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba")
-    center/cover;
-
-    display:flex;
-    align-items:center;
-    padding:0 5%;
-
-}
-
-
-.hero-content{
-
-    max-width:550px;
-
-}
-
-.hero h1{
-
-    font-size:60px;
-    margin-bottom:20px;
-
-}
-
-.hero p{
-
-    font-size:18px;
-    line-height:1.5;
-    color:#ddd;
-
-}
-
-
-.btn{
-
-    display:inline-block;
-    margin-top:25px;
-    padding:12px 30px;
-    background:#ffd166;
-    color:black;
-    text-decoration:none;
-    border-radius:30px;
-    font-weight:bold;
-
-}
-
-
-/* SECCIONES */
-
-section{
-
-    padding:30px 5%;
-
-}
-
-.title{
-
-    font-size:28px;
-    margin-bottom:20px;
-
-}
-
-
-
-/* PELICULAS */
-
-
-.movies{
-
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(170px,1fr));
-
-    gap:20px;
-
-}
-
-
-.card{
-
-    background:#15151c;
-    border-radius:15px;
-    overflow:hidden;
-    transition:.3s;
-
-}
-
-
-.card:hover{
-
-    transform:translateY(-8px);
-
-}
-
-
-.card img{
-
-    width:100%;
-    height:250px;
-    object-fit:cover;
-
-}
-
-
-.card h3{
-
-    padding:15px;
-
-}
-
-
-.card span{
-
-    color:#aaa;
-    padding:0 15px 15px;
-    display:block;
-
-}
-
-
-/* CATEGORIAS */
-
-
-.categories{
-
-display:flex;
-gap:15px;
-flex-wrap:wrap;
-
-}
-
-
-.tag{
-
-background:#20202a;
-padding:12px 20px;
-border-radius:20px;
-
-}
-
-
-/* FOOTER */
-
-footer{
-
-text-align:center;
-padding:30px;
-color:#777;
-
-}
-
-
-/* MOVIL */
-
-@media(max-width:700px){
-
-.hero h1{
-
-font-size:40px;
-
-}
-
-nav{
-
-display:none;
-
-}
-
-}
-
-
-</style>
-
+<link rel="stylesheet" href="style.css">
 
 </head>
+
 
 <body>
 
@@ -246,12 +23,9 @@ CINEVERSE
 
 
 <nav>
-
 <a href="#">Inicio</a>
-<a href="#">Películas</a>
-<a href="#">Series</a>
-<a href="#">Contacto</a>
-
+<a href="#peliculas">Películas</a>
+<a href="#categorias">Categorías</a>
 </nav>
 
 
@@ -259,95 +33,80 @@ CINEVERSE
 
 
 
+<section class="hero">
 
-<div class="hero">
 
-
-<div class="hero-content">
+<div>
 
 <h1>
-Historias que merecen ser vistas
+Historias que viven más allá de la pantalla
 </h1>
 
-
 <p>
-Explora películas, aventuras y mundos diferentes
-en una plataforma creada para amantes del cine.
+Explora películas, mundos y aventuras seleccionadas para amantes del cine.
 </p>
 
 
-<a class="btn" href="#">
-Ver ahora
-</a>
+<button>
+Explorar
+</button>
 
 
 </div>
 
 
-</div>
+</section>
 
 
 
 
+<section class="busqueda">
 
-<section>
+
+<input 
+type="text"
+id="buscar"
+placeholder="Buscar película..."
+>
 
 
-<h2 class="title">
-Películas destacadas
+</section>
+
+
+
+
+<section id="categorias">
+
+<h2>
+Categorías
 </h2>
 
 
-<div class="movies">
+<div class="filtros">
+
+<button onclick="filtrar('Todas')">
+Todas
+</button>
 
 
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
-
-<h3>El Último Viaje</h3>
-
-<span>Acción • 2026</span>
-
-</div>
+<button onclick="filtrar('Acción')">
+Acción
+</button>
 
 
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c">
-
-<h3>Sombras del Tiempo</h3>
-
-<span>Misterio • 2025</span>
-
-</div>
+<button onclick="filtrar('Terror')">
+Terror
+</button>
 
 
+<button onclick="filtrar('Ciencia ficción')">
+Ciencia ficción
+</button>
 
 
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1485846234645-a62644f84728">
-
-<h3>Horizonte Perdido</h3>
-
-<span>Aventura • 2026</span>
-
-</div>
-
-
-
-
-<div class="card">
-
-<img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf">
-
-<h3>Destino Final</h3>
-
-<span>Ciencia ficción</span>
-
-</div>
+<button onclick="filtrar('Anime')">
+Anime
+</button>
 
 
 </div>
@@ -359,23 +118,20 @@ Películas destacadas
 
 
 
-<section>
 
-<h2 class="title">
-Explora categorías
+<section id="peliculas">
+
+
+<h2>
+Películas destacadas
 </h2>
 
 
-<div class="categories">
-
-<div class="tag">Acción</div>
-<div class="tag">Terror</div>
-<div class="tag">Anime</div>
-<div class="tag">Ciencia ficción</div>
-<div class="tag">Drama</div>
+<div id="catalogo" class="catalogo">
 
 
 </div>
+
 
 </section>
 
@@ -385,10 +141,15 @@ Explora categorías
 
 <footer>
 
-© 2026 CINEVERSE - Proyecto prototipo
+CINEVERSE © 2026
 
 </footer>
 
+
+
+
+<script src="peliculas.js"></script>
+<script src="script.js"></script>
 
 
 </body>
