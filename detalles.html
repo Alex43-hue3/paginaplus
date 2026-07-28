@@ -48,7 +48,67 @@ CINEVERSE
 let id = localStorage.getItem("pelicula");
 
 
+if(id === null){
+
+document.getElementById("detalle").innerHTML = `
+<h1>No se encontró la película</h1>
+<a href="index.html">Volver</a>
+`;
+
+}else{
+
+
 let pelicula = peliculas[id];
+
+
+document.getElementById("detalle").innerHTML = `
+
+
+<div class="detalle-img">
+
+<img src="${pelicula.imagen}">
+
+</div>
+
+
+
+<div class="detalle-info">
+
+
+<h1>${pelicula.titulo}</h1>
+
+
+<h3>
+⭐ ${pelicula.rating || "8.5"}/10
+</h3>
+
+
+<p>
+<b>Año:</b> ${pelicula.año}
+</p>
+
+
+<p>
+<b>Género:</b> ${pelicula.genero}
+</p>
+
+
+<p>
+${pelicula.descripcion}
+</p>
+
+
+<button>
+▶ Ver trailer
+</button>
+
+
+</div>
+
+
+`;
+
+}
 
 
 
