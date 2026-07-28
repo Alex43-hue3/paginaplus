@@ -1,0 +1,54 @@
+[
+    {
+        "id": 1,
+        "titulo": "HotelTransylvania",
+        "tipo": "facebook",
+        "descripcion": "Video de demostración.",
+        "categoria": "Animación",
+        "miniatura": "img/HotelTransylvania.jpg",
+        "banner": "img/HotelTransylvania.jpg",
+        "url": "https://www.facebook.com/reel/1944365032889716",
+        "año": 2012,
+        "duracion": "123 min",
+        "destacado": true
+    },
+    {
+        "id": 2,
+        "titulo": "los pequeños travieso",
+        "tipo": "facebook",
+        "descripcion": "Video almacenado en la carpeta videos.",
+        "categoria": "Personal",
+        "miniatura": "img/los pequeños travieso.webp",
+        "banner": "img/banner2.jpg",
+        "url": "https://www.facebook.com/reel/1507323484378986",
+        "año": 2025,
+        "duracion": "5 min",
+        "destacado": false
+    },
+     {
+        "id": 3,
+        "titulo": "susurros del corazon",
+        "tipo": "facebook",
+        "descripcion": "Video de demostración.",
+        "categoria": "Infantil/Romance",
+        "miniatura": "img/susurros del corazon.webp",
+        "banner": "img/susurros del corazon.webp",
+        "url": "https://www.facebook.com/reel/1715035322842765",
+        "año": 1995,
+        "duracion": "111 min",
+        "destacado": true
+    },
+     {
+        "id": 4,
+        "titulo": "Coraline y la puerta secreta",
+        "tipo": "facebook",
+        "descripcion": "Video de demostración.",
+        "categoria": " Infantil/Terror ",
+        "miniatura": "img/CoralineylaPuertaSecreta.webp",
+        "banner": "img/CoralineylaPuertaSecreta.webp",
+        "url": "https://www.facebook.com/reel/2026047954763061",
+        "año": 2009,
+        "duracion": "100 min",
+        "destacado": true
+    }
+]
