@@ -15,7 +15,7 @@ function mostrarPeliculas(lista){
         tarjeta.className = "card";
 
 
-       tarjeta.innerHTML = `
+   tarjeta.innerHTML = `
 
 <img src="${p.imagen}">
 
@@ -23,16 +23,24 @@ function mostrarPeliculas(lista){
 
 <p>${p.genero} | ${p.año}</p>
 
-<button onclick="verDetalle(${peliculas.indexOf(p)})">
+<button class="detalle-btn">
 Ver detalles
 </button>
 
 `;
 
-
         catalogo.appendChild(tarjeta);
 
+tarjeta.querySelector(".detalle-btn")
+.addEventListener("click",()=>{
 
+let id = peliculas.indexOf(p);
+
+localStorage.setItem("pelicula", id);
+
+window.location.href="detalles.html";
+
+});
     });
 
 }
