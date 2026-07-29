@@ -5,11 +5,14 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CINEVERSE - Detalles</title>
+<title>Detalles | CINEVERSE</title>
+
 
 <link rel="stylesheet" href="style.css">
+
 
 </head>
 
@@ -17,70 +20,40 @@
 <body>
 
 
+
 <header>
 
+
 <div class="logo">
+
 CINEVERSE
+
 </div>
 
 
-<a href="index.html" class="volver">
-← Volver
+
+<nav>
+
+<a href="index.html">
+
+Inicio
+
 </a>
+
+</nav>
 
 
 </header>
 
 
 
-<div id="detalle"></div>
-
-
-
-
-<script src="peliculas.js"></script>
-
-
-<script>
-
-
-// Obtener ID desde la URL
-
-const parametros = new URLSearchParams(
-    window.location.search
-);
-
-
-const id = parametros.get("id");
-
-
-// Buscar película
-
-const pelicula = peliculas[id];
-
-
-
-
-
-if(pelicula){
-
-
-
-document.getElementById("detalle").innerHTML = `
 
 
 
 <section class="detalle-pelicula">
 
 
-
-<div class="fondo-pelicula"
-
-style="background-image:url('${pelicula.imagen}')">
-
-</div>
-
-
+<div class="fondo-pelicula" id="fondo"></div>
 
 
 
@@ -89,12 +62,10 @@ style="background-image:url('${pelicula.imagen}')">
 
 
 <img 
+id="poster"
 class="poster"
-src="${pelicula.imagen}"
-alt="${pelicula.titulo}"
+src=""
 >
-
-
 
 
 
@@ -102,9 +73,9 @@ alt="${pelicula.titulo}"
 
 
 
-<h1>
+<h1 id="titulo">
 
-${pelicula.titulo}
+Cargando...
 
 </h1>
 
@@ -116,26 +87,25 @@ ${pelicula.titulo}
 
 
 
-<span>
-⭐ ${pelicula.rating || "8.5"}
+<span id="rating">
+
+⭐
+
+</span>
+
+
+<span id="genero">
+
+🎬
+
 </span>
 
 
 
-<span>
-📅 ${pelicula.año}
-</span>
+<span id="año">
 
+📅
 
-
-<span>
-🎬 ${pelicula.genero}
-</span>
-
-
-
-<span>
-⏱ ${pelicula.duracion || "2h"}
 </span>
 
 
@@ -146,35 +116,14 @@ ${pelicula.titulo}
 
 
 
-<p class="descripcion">
 
-${pelicula.descripcion}
-
-</p>
-
-
-
-
-
-<p>
-
-<b>Director:</b>
-
-${pelicula.director || "No disponible"}
+<p 
+class="descripcion"
+id="descripcion">
 
 </p>
 
 
-
-
-
-<p>
-
-<b>Reparto:</b>
-
-${pelicula.reparto || "No disponible"}
-
-</p>
 
 
 
@@ -183,7 +132,10 @@ ${pelicula.reparto || "No disponible"}
 <div class="botones">
 
 
-<button class="ver">
+
+<button 
+class="ver"
+id="trailer">
 
 ▶ Ver trailer
 
@@ -191,17 +143,18 @@ ${pelicula.reparto || "No disponible"}
 
 
 
-<button class="fav">
 
-❤ Favorito
+
+<button 
+class="fav"
+id="pelicula">
+
+🎬 Ver película
 
 </button>
 
 
 
-</div>
-
-
 
 </div>
 
@@ -211,45 +164,29 @@ ${pelicula.reparto || "No disponible"}
 
 </div>
 
+
+
+
+</div>
 
 
 </section>
 
 
 
-`;
 
 
 
-}else{
-
-
-document.getElementById("detalle").innerHTML = `
-
-<section>
-
-<h1>
-Película no encontrada
-</h1>
-
-<br>
-
-<a href="index.html" class="volver">
-Regresar
-</a>
-
-</section>
-
-`;
-
-}
 
 
 
-</script>
+<script src="peliculas.js"></script>
+
+<script src="detalles.js"></script>
 
 
 
 </body>
+
 
 </html>
