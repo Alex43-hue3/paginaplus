@@ -1,55 +1,75 @@
-const secciones = document.getElementById("secciones-cine");
+const contenedor =
+document.getElementById("secciones-cine");
+
+
 
 
 
 function crearTarjeta(pelicula){
 
 
-    const tarjeta = document.createElement("div");
-
-    tarjeta.className="card";
+let tarjeta=document.createElement("div");
 
 
-    tarjeta.innerHTML = `
-
-    <img src="${pelicula.imagen}">
-
-
-    <h3>
-    ${pelicula.titulo}
-    </h3>
-
-
-    <p>
-    ${pelicula.genero} | ${pelicula.año}
-    </p>
-
-
-    <button>
-    Ver detalles
-    </button>
-
-    `;
+tarjeta.className="card";
 
 
 
-    tarjeta.querySelector("button").onclick=function(){
+tarjeta.innerHTML=`
 
 
-        let id = peliculas.indexOf(pelicula);
+<img src="${pelicula.imagen}">
 
 
-        window.location.href =
-        "detalles.html?id="+id;
+<h3>
+
+${pelicula.titulo}
+
+</h3>
 
 
-    };
+<p>
+
+${pelicula.genero} | ${pelicula.año}
+
+</p>
 
 
-    return tarjeta;
+
+<button>
+
+Ver detalles
+
+</button>
+
+
+`;
+
+
+
+tarjeta.querySelector("button").onclick=function(){
+
+
+let id = peliculas.indexOf(pelicula);
+
+
+
+window.location.href =
+"detalles.html?id="+id;
+
+
+
+};
+
+
+
+return tarjeta;
 
 
 }
+
+
+
 
 
 
@@ -57,120 +77,144 @@ function crearTarjeta(pelicula){
 function crearSecciones(){
 
 
-    secciones.innerHTML="";
+contenedor.innerHTML="";
 
 
 
-    const categorias=[
+let categorias=[
 
 
-        {
-        titulo:"🔥 Más populares",
-        genero:null
-        },
+{
+nombre:"🔥 Más populares",
+genero:null
+},
 
 
-        {
-        titulo:"🚀 Ciencia ficción",
-        genero:"Ciencia ficción"
-        },
+{
+nombre:"🚀 Ciencia ficción",
+genero:"Ciencia ficción"
+},
 
 
-        {
-        titulo:"💥 Acción",
-        genero:"Acción"
-        },
+{
+nombre:"💥 Acción",
+genero:"Acción"
+},
 
 
-        {
-        titulo:"👻 Terror",
-        genero:"Terror"
-        },
+{
+nombre:"👻 Terror",
+genero:"Terror"
+},
 
 
-        {
-        titulo:"🎌 Anime",
-        genero:"Anime"
-        }
+{
+nombre:"🎌 Anime",
+genero:"Anime"
+}
 
 
-    ];
-
-
-
-
-    categorias.forEach(categoria=>{
-
-
-        let peliculasFiltradas;
+];
 
 
 
-        if(categoria.genero==null){
 
-            peliculasFiltradas=peliculas;
 
-        }else{
+categorias.forEach(categoria=>{
 
-            peliculasFiltradas =
-            peliculas.filter(
-                p=>p.genero===categoria.genero
-            );
 
-        }
+let lista;
 
 
 
-        if(peliculasFiltradas.length>0){
+if(categoria.genero===null){
 
 
-
-            let bloque=document.createElement("div");
-
-
-            bloque.className="seccion-peliculas";
+lista=peliculas;
 
 
-            bloque.innerHTML=`
-
-            <h2>
-            ${categoria.titulo}
-            </h2>
+}else{
 
 
-            <div class="catalogo">
+lista=peliculas.filter(
 
-            </div>
+pelicula=>
+pelicula.genero===categoria.genero
 
-            `;
-
-
-
-            let fila=bloque.querySelector(".catalogo");
-
-
-
-            peliculasFiltradas.forEach(pelicula=>{
-
-                fila.appendChild(
-                    crearTarjeta(pelicula)
-                );
-
-            });
-
-
-
-            secciones.appendChild(bloque);
-
-
-        }
-
-
-
-    });
+);
 
 
 }
+
+
+
+
+
+if(lista.length>0){
+
+
+
+let bloque=document.createElement("div");
+
+
+bloque.className="seccion-peliculas";
+
+
+
+bloque.innerHTML=`
+
+<h2>
+
+${categoria.nombre}
+
+</h2>
+
+
+<div class="catalogo">
+
+</div>
+
+`;
+
+
+
+
+let fila =
+bloque.querySelector(".catalogo");
+
+
+
+
+lista.forEach(pelicula=>{
+
+
+fila.appendChild(
+crearTarjeta(pelicula)
+);
+
+
+});
+
+
+
+
+contenedor.appendChild(bloque);
+
+
+
+}
+
+
+
+});
+
+
+}
+
+
+
+
+crearSecciones();
 
 
 
