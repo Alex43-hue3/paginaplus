@@ -1,104 +1,52 @@
-const catalogo = document.getElementById("catalogo");
-
-
-// Mostrar películas
-
-function mostrarPeliculas(lista) {
-
-    catalogo.innerHTML = "";
-
-
-    lista.forEach((pelicula, index) => {
-
-
-        const tarjeta = document.createElement("div");
-
-        tarjeta.className = "card";
-
-
-        tarjeta.innerHTML = `
-
-            <img src="${pelicula.imagen}" alt="${pelicula.titulo}">
-
-
-            <h3>
-                ${pelicula.titulo}
-            </h3>
-
-
-            <p>
-                ${pelicula.genero} | ${pelicula.año}
-            </p>
-
-
-            <p>
-                ${pelicula.descripcion}
-            </p>
-
-
-            <button class="btn-detalle">
-                Ver detalles
-            </button>
-
-        `;
+const secciones = document.getElementById("secciones-cine");
 
 
 
-        // Botón detalles
-
-        const boton = tarjeta.querySelector(".btn-detalle");
+function crearTarjeta(pelicula){
 
 
-       boton.addEventListener("click", function(){
+    const tarjeta = document.createElement("div");
 
-    let id = peliculas.indexOf(pelicula);
-
-    window.location.href = "detalles.html?id=" + id;
-
-});
+    tarjeta.className="card";
 
 
+    tarjeta.innerHTML = `
 
-        catalogo.appendChild(tarjeta);
-
-
-    });
+    <img src="${pelicula.imagen}">
 
 
-}
+    <h3>
+    ${pelicula.titulo}
+    </h3>
 
 
-
-// Cargar películas al iniciar
-
-mostrarPeliculas(peliculas);
-
+    <p>
+    ${pelicula.genero} | ${pelicula.año}
+    </p>
 
 
+    <button>
+    Ver detalles
+    </button>
 
-// Filtro por categoría
-
-function filtrar(categoria){
-
-
-    if(categoria === "Todas"){
-
-     crearSecciones();
-
-        return;
-
-    }
+    `;
 
 
 
-    const resultado = peliculas.filter(
-
-        pelicula => pelicula.genero === categoria
-
-    );
+    tarjeta.querySelector("button").onclick=function(){
 
 
-    mostrarPeliculas(resultado);
+        let id = peliculas.indexOf(pelicula);
+
+
+        window.location.href =
+        "detalles.html?id="+id;
+
+
+    };
+
+
+    return tarjeta;
 
 
 }
@@ -106,231 +54,126 @@ function filtrar(categoria){
 
 
 
-// Buscador
-
-const buscador = document.getElementById("buscar");
-
-
-if(buscador){
-
-
-    buscador.addEventListener("input", function(){
-
-
-        const texto = this.value.toLowerCase();
-
-
-
-        const resultado = peliculas.filter(
-
-            pelicula =>
-
-            pelicula.titulo
-            .toLowerCase()
-            .includes(texto)
-
-        );
-
-
-
-        mostrarPeliculas(resultado);
-
-
-
-    });
-
-
-}
 function crearSecciones(){
 
 
-const contenedor =
-document.getElementById("secciones-cine");
+    secciones.innerHTML="";
 
 
-contenedor.innerHTML="";
 
+    const categorias=[
 
 
-const categorias = [
+        {
+        titulo:"🔥 Más populares",
+        genero:null
+        },
 
 
-{
-nombre:"🔥 Más populares",
-filtro:"Todas"
-},
+        {
+        titulo:"🚀 Ciencia ficción",
+        genero:"Ciencia ficción"
+        },
 
 
-{
-nombre:"🚀 Ciencia ficción",
-filtro:"Ciencia ficción"
-},
+        {
+        titulo:"💥 Acción",
+        genero:"Acción"
+        },
 
 
-{
-nombre:"👻 Terror",
-filtro:"Terror"
-},
+        {
+        titulo:"👻 Terror",
+        genero:"Terror"
+        },
 
 
-{
-nombre:"🎌 Anime",
-filtro:"Anime"
-},
+        {
+        titulo:"🎌 Anime",
+        genero:"Anime"
+        }
 
 
-{
-nombre:"💥 Acción",
-filtro:"Acción"
-}
+    ];
 
 
-];
 
 
+    categorias.forEach(categoria=>{
 
 
+        let peliculasFiltradas;
 
-categorias.forEach(categoria=>{
 
 
-let lista;
+        if(categoria.genero==null){
 
+            peliculasFiltradas=peliculas;
 
+        }else{
 
-if(categoria.filtro==="Todas"){
+            peliculasFiltradas =
+            peliculas.filter(
+                p=>p.genero===categoria.genero
+            );
 
+        }
 
-lista = peliculas;
 
 
-}else{
+        if(peliculasFiltradas.length>0){
 
 
-lista = peliculas.filter(
 
-pelicula =>
-pelicula.genero === categoria.filtro
+            let bloque=document.createElement("div");
 
-);
 
+            bloque.className="seccion-peliculas";
 
-}
 
+            bloque.innerHTML=`
 
+            <h2>
+            ${categoria.titulo}
+            </h2>
 
 
-if(lista.length > 0){
+            <div class="catalogo">
 
+            </div>
 
+            `;
 
-let bloque = document.createElement("div");
 
 
-bloque.className="seccion-peliculas";
+            let fila=bloque.querySelector(".catalogo");
 
 
 
-bloque.innerHTML=`
+            peliculasFiltradas.forEach(pelicula=>{
 
+                fila.appendChild(
+                    crearTarjeta(pelicula)
+                );
 
-<h2>
+            });
 
-${categoria.nombre}
 
-</h2>
 
+            secciones.appendChild(bloque);
 
-<div class="catalogo">
 
+        }
 
-</div>
 
 
-`;
-
-
-
-let catalogoSeccion =
-bloque.querySelector(".catalogo");
-
-
-
-
-
-lista.forEach((pelicula)=>{
-
-
-let tarjeta=document.createElement("div");
-
-
-tarjeta.className="card";
-
-
-
-tarjeta.innerHTML=`
-
-
-<img src="${pelicula.imagen}">
-
-
-<h3>
-${pelicula.titulo}
-</h3>
-
-
-<p>
-${pelicula.genero} | ${pelicula.año}
-</p>
-
-
-<button>
-Ver detalles
-</button>
-
-
-`;
-
-
-
-
-
-tarjeta.querySelector("button")
-.onclick=function(){
-
-
-let id =
-peliculas.indexOf(pelicula);
-
-
-
-window.location.href =
-"detalles.html?id="+id;
-
-
-};
-
-
-
-catalogoSeccion.appendChild(tarjeta);
-
-
-
-});
-
-
-
-
-contenedor.appendChild(bloque);
-
+    });
 
 
 }
 
 
 
-});
 
 
-
-}
+crearSecciones();
