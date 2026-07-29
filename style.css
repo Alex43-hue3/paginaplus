@@ -192,14 +192,13 @@ padding:30px 5%;
 
 display:flex;
 
-justify-content:space-between;
-
 align-items:center;
 
-margin-bottom:20px;
+position:relative;
+
+padding-right:100px;
 
 }
-
 
 
 .titulo-seccion h2{
@@ -217,12 +216,17 @@ font-size:28px;
 
 .controles{
 
+
 display:flex;
 
 gap:10px;
 
-}
+position:absolute;
 
+right:0;
+
+
+}
 
 
 .controles button{
@@ -313,7 +317,8 @@ display:none;
 .card{
 
 
-min-width:180px;
+flex:0 0 180px;
+
 
 background:#15151d;
 
