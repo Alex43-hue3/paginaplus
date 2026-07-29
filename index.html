@@ -4,123 +4,382 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>CINEVERSE</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
-
 <body>
 
+<!-- ================= HEADER ================= -->
 
-<header>
+<header class="header">
 
 <div class="logo">
-CINEVERSE
-</div>
 
+<span>CINE</span>VERSE
+
+</div>
 
 <nav>
 
-<a href="index.html">
-Inicio
-</a>
+<a class="active">Inicio</a>
+
+<a>Explorar</a>
+
+<a>Películas</a>
+
+<a>Series</a>
+
+<a>Mi lista</a>
 
 </nav>
 
+<div class="header-right">
+
+<input
+type="text"
+placeholder="Buscar película...">
+
+<div class="perfil">
+
+👤
+
+</div>
+
+</div>
 
 </header>
 
+<!-- ================= HERO ================= -->
 
+<section class="hero">
 
+<div class="hero-overlay"></div>
 
-<!-- BANNER -->
+<div class="hero-content">
 
-<section class="hero" id="banner">
+<p class="destacado">
 
-
-<div class="hero-info">
-
-
-<h1 id="titulo-banner">
-Cargando...
-</h1>
-
-
-
-<div class="datos-banner">
-
-
-<span id="rating-banner">
-⭐
-</span>
-
-
-<span id="genero-banner">
-🎬
-</span>
-
-
-<span id="año-banner">
-📅
-</span>
-
-
-</div>
-
-
-
-<p id="descripcion-banner">
+DESTACADO DE LA SEMANA
 
 </p>
 
+<h1 id="heroTitulo">
 
+Cargando...
 
-<button id="boton-banner">
+</h1>
 
-Ver detalles
+<div class="rating">
+
+★★★★★
+
+<span id="heroRating"></span>
+
+</div>
+
+<p id="heroDescripcion">
+
+Cargando información...
+
+</p>
+
+<div class="hero-buttons">
+
+<button id="btnVer">
+
+▶ Ver película
 
 </button>
 
+<button id="btnDetalles">
+
+Más información
+
+</button>
 
 </div>
 
+</div>
 
 </section>
 
+<!-- ================= UNIVERSOS ================= -->
 
+<section class="section">
 
+<h2>
 
+Explora Universos
 
+</h2>
 
-<!-- PELICULAS -->
+<div class="universos">
 
+<div class="universo">
 
-<section>
+🚀
 
+<h3>Ciencia ficción</h3>
 
-<div id="secciones-cine">
+<p>
+
+Explora galaxias, inteligencia artificial y futuros increíbles.
+
+</p>
 
 </div>
 
+<div class="universo">
+
+👻
+
+<h3>Terror</h3>
+
+<p>
+
+Desde el horror psicológico hasta criaturas sobrenaturales.
+
+</p>
+
+</div>
+
+<div class="universo">
+
+🎌
+
+<h3>Anime</h3>
+
+<p>
+
+Historias épicas, mundos fantásticos y aventuras inolvidables.
+
+</p>
+
+</div>
+
+<div class="universo">
+
+⚔
+
+<h3>Acción</h3>
+
+<p>
+
+Persecuciones, héroes y adrenalina sin límites.
+
+</p>
+
+</div>
+
+<div class="universo">
+
+😂
+
+<h3>Comedia</h3>
+
+<p>
+
+Relájate con historias llenas de humor.
+
+</p>
+
+</div>
+
+</div>
 
 </section>
 
+<!-- ================= CONTINUAR ================= -->
 
+<section class="section">
 
+<h2>
 
+Continuar viendo
 
+</h2>
 
-<script src="peliculas.js"></script>
+<div id="continuarViendo">
 
-<script src="script.js"></script>
+<!-- JavaScript -->
 
-<script src="banner.js"></script>
+</div>
 
+</section>
 
+<!-- ================= TENDENCIAS ================= -->
+
+<section class="section">
+
+<div class="titulo-fila">
+
+<h2>
+
+Tendencias
+
+</h2>
+
+<div class="flechas">
+
+<button id="prevT">
+
+❮
+
+</button>
+
+<button id="nextT">
+
+❯
+
+</button>
+
+</div>
+
+</div>
+
+<div
+class="fila-peliculas"
+id="tendencias">
+
+</div>
+
+</section>
+
+<!-- ================= ESTRENOS ================= -->
+
+<section class="section">
+
+<div class="titulo-fila">
+
+<h2>
+
+Estrenos
+
+</h2>
+
+<div class="flechas">
+
+<button id="prevE">
+
+❮
+
+</button>
+
+<button id="nextE">
+
+❯
+
+</button>
+
+</div>
+
+</div>
+
+<div
+class="fila-peliculas"
+id="estrenos">
+
+</div>
+
+</section>
+
+<!-- ================= PROXIMAMENTE ================= -->
+
+<section class="section">
+
+<h2>
+
+Próximamente
+
+</h2>
+
+<div class="proximamente">
+
+<div class="coming">
+
+<h3>
+
+Proyecto Aurora
+
+</h3>
+
+<p>
+
+Muy pronto
+
+</p>
+
+</div>
+
+<div class="coming">
+
+<h3>
+
+Horizonte Final
+
+</h3>
+
+<p>
+
+Muy pronto
+
+</p>
+
+</div>
+
+<div class="coming">
+
+<h3>
+
+Ciudad Eclipse
+
+</h3>
+
+<p>
+
+Muy pronto
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="logo">
+
+CINEVERSE
+
+</div>
+
+<p>
+
+La experiencia del cine reinventada.
+
+</p>
+
+</footer>
+
+<script src="js/peliculas.js"></script>
+
+<script src="js/app.js"></script>
 
 </body>
 
