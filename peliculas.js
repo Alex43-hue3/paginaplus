@@ -50,12 +50,5 @@ descripcion:"Un clásico del anime japonés."
   
 }
 
-{
-titulo:"El Conjuro",
-genero:"Terror",
-año:"2013",
-rating:"7.5",
-imagen:"imagen",
-descripcion:"..."
-},
+
 ];
