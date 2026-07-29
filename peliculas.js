@@ -6,7 +6,7 @@ genero:"Ciencia ficción",
 año:"2014",
 rating:"8.7",
 
-"https://play-lh.googleusercontent.com/Kf_1fCIuuy2ufsEBKwv08e9AvzwrSyCItG6Nsk4C2tGurknKjOS0H8k9KldDPC6hfzc",
+",
 
 descripcion:
 "Un grupo de astronautas viaja a través de un agujero de gusano buscando un nuevo hogar para la humanidad.",
