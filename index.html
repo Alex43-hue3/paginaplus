@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
@@ -23,15 +24,20 @@ CINEVERSE
 
 
 <nav>
-<a href="#">Inicio</a>
-<a href="#peliculas">Películas</a>
-<a href="#categorias">Categorías</a>
+
+<a href="index.html">
+Inicio
+</a>
+
 </nav>
 
 
 </header>
 
 
+
+
+<!-- BANNER -->
 
 <section class="hero" id="banner">
 
@@ -44,7 +50,9 @@ Cargando...
 </h1>
 
 
+
 <div class="datos-banner">
+
 
 <span id="rating-banner">
 ⭐
@@ -78,63 +86,6 @@ Ver detalles
 </button>
 
 
-
-</div>
-
-
-</section>
-
-
-
-<section class="busqueda">
-
-
-<input 
-type="text"
-id="buscar"
-placeholder="Buscar película..."
->
-
-
-</section>
-
-
-
-
-<section id="categorias">
-
-<h2>
-Categorías
-</h2>
-
-
-<div class="filtros">
-
-<button onclick="filtrar('Todas')">
-Todas
-</button>
-
-
-<button onclick="filtrar('Acción')">
-Acción
-</button>
-
-
-<button onclick="filtrar('Terror')">
-Terror
-</button>
-
-
-<button onclick="filtrar('Ciencia ficción')">
-Ciencia ficción
-</button>
-
-
-<button onclick="filtrar('Anime')">
-Anime
-</button>
-
-
 </div>
 
 
@@ -144,12 +95,15 @@ Anime
 
 
 
-<section id="peliculas">
+
+<!-- PELICULAS -->
+
+
+<section>
 
 
 <div id="secciones-cine">
 
-
 </div>
 
 
@@ -159,17 +113,15 @@ Anime
 
 
 
-<footer>
 
-CINEVERSE © 2026
+<script src="peliculas.js"></script>
 
-</footer>
-
-
+<script src="script.js"></script>
 
 <script src="banner.js"></script>
-<script src="script.js"></script>
+
 
 
 </body>
+
 </html>
