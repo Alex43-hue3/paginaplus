@@ -1,36 +1,104 @@
 
-document.getElementById("fondo").style.backgroundImage =
-`url(${pelicula.imagen})`;
+const parametros = new URLSearchParams(
+    window.location.search
+);
+
+
+const id = parametros.get("id");
+
+
+const pelicula = peliculas[id];
+
+
+const video = document.getElementById("video");
 
 
 
-document.getElementById("detalle").onclick=function(){
-
-window.location.href =
-"detalles.html?id="+id;
-
-};
+if (pelicula) {
 
 
+    // Titulo
 
-document.getElementById("siguiente").onclick=function(){
-
-
-let siguiente =
-Number(id)+1;
+    document.getElementById("titulo").textContent =
+    pelicula.titulo;
 
 
-if(siguiente >= peliculas.length){
 
-siguiente=0;
+    // Informacion
+
+    document.getElementById("info").textContent =
+    pelicula.genero + " | " + pelicula.año +
+    " | ⭐ " + pelicula.rating;
+
+
+
+    // Fondo
+
+    document.getElementById("fondo").style.backgroundImage =
+    `url(${pelicula.imagen})`;
+
+
+
+    // Video
+
+    video.src = pelicula.video;
+
+    video.load();
+
+
+
+    // Volver
+
+    document.getElementById("volver").onclick=function(){
+
+        window.location.href =
+        "detalles.html?id="+id;
+
+    };
+
+
+
+    // Boton detalles
+
+    document.getElementById("detalle").onclick=function(){
+
+        window.location.href =
+        "detalles.html?id="+id;
+
+    };
+
+
+
+    // Siguiente pelicula
+
+    document.getElementById("siguiente").onclick=function(){
+
+
+        let siguiente = Number(id)+1;
+
+
+
+        if(siguiente >= peliculas.length){
+
+            siguiente = 0;
+
+        }
+
+
+
+        window.location.href =
+        "reproductor.html?id="+siguiente;
+
+
+    };
+
 
 }
+else{
 
 
-
-window.location.href =
-"reproductor.html?id="+siguiente;
-
+    document.getElementById("titulo").textContent =
+    "Película no encontrada";
 
 
-};
+}
