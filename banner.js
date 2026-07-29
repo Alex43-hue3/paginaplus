@@ -1,85 +1,110 @@
 
-let posicionBanner = 0;
+let posicionBanner=0;
+
 
 
 function cambiarBanner(){
 
 
-    const peliculaBanner = peliculas[posicionBanner];
 
-
-    const banner = document.getElementById("banner");
-
-
-    banner.style.backgroundImage = `
-
-    linear-gradient(
-        to right,
-        #09090d,
-        transparent
-    ),
-
-    url(${peliculaBanner.imagen})
-
-    `;
+let pelicula =
+peliculas[posicionBanner];
 
 
 
-    document.getElementById("titulo-banner").textContent =
-    peliculaBanner.titulo;
+let banner =
+document.getElementById("banner");
 
 
 
-    document.getElementById("rating-banner").textContent =
-    "⭐ " + (peliculaBanner.rating || "8.5");
+banner.style.backgroundImage=`
+
+linear-gradient(
+to right,
+#09090d,
+transparent
+),
+
+url(${pelicula.imagen})
+
+`;
 
 
 
-    document.getElementById("genero-banner").textContent =
-    "🎬 " + peliculaBanner.genero;
+
+
+document.getElementById("titulo-banner")
+.textContent =
+pelicula.titulo;
 
 
 
-    document.getElementById("año-banner").textContent =
-    "📅 " + peliculaBanner.año;
+
+document.getElementById("rating-banner")
+.textContent =
+"⭐ "+(pelicula.rating || "8.5");
 
 
 
-    document.getElementById("descripcion-banner").textContent =
-    peliculaBanner.descripcion;
+
+document.getElementById("genero-banner")
+.textContent =
+"🎬 "+pelicula.genero;
 
 
 
-    document.getElementById("boton-banner").onclick=function(){
+
+document.getElementById("año-banner")
+.textContent =
+"📅 "+pelicula.año;
 
 
-        window.location.href =
-        "detalles.html?id=" + posicionBanner;
 
 
-    };
+document.getElementById("descripcion-banner")
+.textContent =
+pelicula.descripcion;
 
 
-    posicionBanner++;
 
 
-    if(posicionBanner >= peliculas.length){
+document.getElementById("boton-banner")
+.onclick=function(){
 
-        posicionBanner = 0;
 
-    }
+window.location.href =
+"detalles.html?id="+posicionBanner;
+
+
+};
+
+
+
+posicionBanner++;
+
+
+
+if(posicionBanner>=peliculas.length){
+
+
+posicionBanner=0;
 
 
 }
 
 
 
-// Cargar primer banner
+}
+
+
+
+
 
 cambiarBanner();
 
 
 
-// Cambiar cada 8 segundos
-
-setInterval(cambiarBanner,8000);
+setInterval(
+cambiarBanner,
+8000
+);
