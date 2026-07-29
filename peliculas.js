@@ -15,7 +15,7 @@ trailer:
 "https://www.youtube.com/embed/zSWdZVtXT7E",
 
 video:
-"https://drive.google.com/file/d/1tu4yOECNUyys35JFJEv0au3cdgBNooQ9/view?fbclid=IwY2xjawTWe11wZG9mAWV4dG4DYWVtAjExAGJyaWQRMVBBSGlDWkpEMm0wTFJ2akRzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJk_GuCkrCkyiPujbcwnkzab2MJSYt-zykTYeIPdsb5e22JJAlL6KXr4NT4c_aem_hLYGSEaJvIomY3GFT11D2A"
+"https://www.youtube.com/watch?v=a5JwKreLbS0"
 },
 
 
