@@ -1,75 +1,36 @@
 
-const parametros =
-new URLSearchParams(
-window.location.search
-);
+document.getElementById("fondo").style.backgroundImage =
+`url(${pelicula.imagen})`;
 
 
 
-const id =
-parametros.get("id");
-
-
-
-const pelicula =
-peliculas[id];
-
-
-
-
-const video =
-document.getElementById("video");
-
-
-
-
-if(pelicula){
-
-
-
-document.getElementById("titulo")
-.textContent =
-pelicula.titulo;
-
-
-
-
-document.getElementById("info")
-.textContent =
-pelicula.genero +
-" | " +
-pelicula.año;
-
-
-
-
-
-video.src =
-pelicula.video;
-
-
-
-
-document.getElementById("volver")
-.onclick=function(){
-
+document.getElementById("detalle").onclick=function(){
 
 window.location.href =
 "detalles.html?id="+id;
-
 
 };
 
 
 
+document.getElementById("siguiente").onclick=function(){
+
+
+let siguiente =
+Number(id)+1;
+
+
+if(siguiente >= peliculas.length){
+
+siguiente=0;
 
 }
-else{
 
 
-document.getElementById("titulo")
-.textContent =
-"Película no encontrada";
+
+window.location.href =
+"reproductor.html?id="+siguiente;
 
 
-}
+
+};
