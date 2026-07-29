@@ -6,7 +6,7 @@ genero:"Ciencia ficción",
 año:"2014",
 rating:"8.7",
 
-imagen:"img/interestelar.jpg",
+"https://imagen-de-la-pelicula.com/interestelar.jpg",
 
 descripcion:
 "Un grupo de astronautas viaja a través de un agujero de gusano buscando un nuevo hogar para la humanidad.",
