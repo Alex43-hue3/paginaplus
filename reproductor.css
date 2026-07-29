@@ -2,12 +2,9 @@
 *{
 
 margin:0;
-
 padding:0;
-
 box-sizing:border-box;
-
-font-family:Arial, sans-serif;
+font-family:Arial, Helvetica, sans-serif;
 
 }
 
@@ -19,7 +16,34 @@ background:#050505;
 
 color:white;
 
+min-height:100vh;
+
+overflow-x:hidden;
+
 }
+
+
+
+
+.fondo{
+
+position:fixed;
+
+inset:0;
+
+background-size:cover;
+
+background-position:center;
+
+filter:blur(25px);
+
+opacity:.25;
+
+z-index:-1;
+
+}
+
+
 
 
 
@@ -29,19 +53,25 @@ height:80px;
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
+
+align-items:center;
 
 padding:0 5%;
 
-background:#101014;
+background:rgba(0,0,0,.6);
 
 }
 
 
 
-.player-header h1{
+
+
+.logo{
+
+font-size:30px;
+
+font-weight:bold;
 
 color:#ffd166;
 
@@ -49,19 +79,22 @@ color:#ffd166;
 
 
 
+
+
 .player-header a{
 
-cursor:pointer;
+
+background:#22222c;
+
+padding:12px 25px;
+
+border-radius:30px;
 
 color:white;
 
 text-decoration:none;
 
-padding:10px 20px;
-
-border-radius:20px;
-
-background:#22222c;
+cursor:pointer;
 
 }
 
@@ -84,6 +117,21 @@ justify-content:center;
 
 padding:40px;
 
+}
+
+
+
+
+
+.player-container h1{
+
+
+font-size:45px;
+
+margin-bottom:30px;
+
+text-align:center;
+
 
 }
 
@@ -94,22 +142,17 @@ padding:40px;
 .video-box{
 
 
-width:85%;
+width:90%;
 
-
-max-width:1100px;
-
+max-width:1200px;
 
 background:black;
 
-
-border-radius:15px;
-
+border-radius:20px;
 
 overflow:hidden;
 
-
-box-shadow:0 0 30px rgba(0,0,0,.8);
+box-shadow:0 0 40px rgba(0,0,0,.8);
 
 
 }
@@ -123,7 +166,6 @@ video{
 
 width:100%;
 
-
 display:block;
 
 
@@ -133,10 +175,36 @@ display:block;
 
 
 
-.player-container h2{
+.informacion{
 
 
-font-size:35px;
+margin-top:25px;
+
+
+}
+
+
+
+.informacion p{
+
+
+font-size:20px;
+
+color:#ccc;
+
+
+}
+
+
+
+
+
+.acciones{
+
+
+display:flex;
+
+gap:20px;
 
 margin-top:30px;
 
@@ -145,12 +213,64 @@ margin-top:30px;
 
 
 
-.player-container p{
+
+.acciones button{
 
 
-color:#aaa;
+padding:14px 30px;
 
-font-size:18px;
+border:none;
+
+border-radius:30px;
+
+background:#ffd166;
+
+cursor:pointer;
+
+font-size:16px;
+
+font-weight:bold;
+
+
+}
+
+
+
+
+
+.acciones button:hover{
+
+
+transform:scale(1.05);
+
+
+}
+
+
+
+
+
+@media(max-width:800px){
+
+
+
+.player-container h1{
+
+
+font-size:30px;
+
+
+}
+
+
+
+.video-box{
+
+
+width:100%;
+
+
+}
 
 
 }
