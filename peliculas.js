@@ -15,7 +15,7 @@ trailer:
 "https://www.youtube.com/embed/zSWdZVtXT7E",
 
 video:
-"https://www.youtube.com/watch?v=a5JwKreLbS0"
+"https://www.w3schools.com/html/mov_bbb.mp4"
 },
 
 
