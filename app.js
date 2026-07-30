@@ -706,3 +706,344 @@ function abrirPelicula(id){
     "reproductor.html";
 
 }
+/*==========================================================
+                FLECHAS CARRUSELES
+==========================================================*/
+
+function iniciarSliders(){
+
+    document.querySelectorAll(".sliderWrapper").forEach(wrapper=>{
+
+        const slider=wrapper.querySelector(".movieSlider");
+
+        const left=wrapper.querySelector(".sliderArrow.left");
+
+        const right=wrapper.querySelector(".sliderArrow.right");
+
+        if(!slider) return;
+
+        const mover=320;
+
+        if(left){
+
+            left.onclick=()=>{
+
+                slider.scrollBy({
+
+                    left:-mover,
+
+                    behavior:"smooth"
+
+                });
+
+            };
+
+        }
+
+        if(right){
+
+            right.onclick=()=>{
+
+                slider.scrollBy({
+
+                    left:mover,
+
+                    behavior:"smooth"
+
+                });
+
+            };
+
+        }
+
+    });
+
+}
+/*==========================================================
+                FAVORITOS
+==========================================================*/
+
+let favoritos=
+
+JSON.parse(
+
+localStorage.getItem("favoritos")
+
+)||[];
+
+
+function guardarFavoritos(){
+
+    localStorage.setItem(
+
+        "favoritos",
+
+        JSON.stringify(favoritos)
+
+    );
+
+}
+
+
+function esFavorita(id){
+
+    return favoritos.includes(id);
+
+}
+
+
+function alternarFavorito(id){
+
+    if(esFavorita(id)){
+
+        favoritos=
+
+        favoritos.filter(
+
+            item=>item!==id
+
+        );
+
+    }else{
+
+        favoritos.push(id);
+
+    }
+
+    guardarFavoritos();
+
+    actualizarFavoritos();
+
+}
+/*==========================================================
+            ACTUALIZAR FAVORITOS
+==========================================================*/
+
+function actualizarFavoritos(){
+
+    document
+
+    .querySelectorAll(".movieCard")
+
+    .forEach(card=>{
+
+        const id=
+
+        Number(card.dataset.id);
+
+        const icono=
+
+        card.querySelector(
+
+            ".favoriteMovie"
+
+        );
+
+        if(!icono) return;
+
+        if(esFavorita(id)){
+
+            icono.classList.add(
+
+                "activo"
+
+            );
+
+        }else{
+
+            icono.classList.remove(
+
+                "activo"
+
+            );
+
+        }
+
+    });
+
+}
+/*==========================================================
+            EVENTOS FAVORITOS
+==========================================================*/
+
+document.addEventListener(
+
+"click",
+
+(event)=>{
+
+const favorito=
+
+event.target.closest(
+
+".favoriteMovie"
+
+);
+
+if(!favorito) return;
+
+event.preventDefault();
+
+event.stopPropagation();
+
+const card=
+
+favorito.closest(
+
+".movieCard"
+
+);
+
+if(!card) return;
+
+alternarFavorito(
+
+Number(card.dataset.id)
+
+);
+
+});
+/*==========================================================
+            EFECTO PLAY
+==========================================================*/
+
+document.addEventListener(
+
+"mouseover",
+
+(event)=>{
+
+const card=
+
+event.target.closest(
+
+".movieCard"
+
+);
+
+if(!card) return;
+
+card.classList.add(
+
+"hover"
+
+);
+
+});
+
+document.addEventListener(
+
+"mouseout",
+
+(event)=>{
+
+const card=
+
+event.target.closest(
+
+".movieCard"
+
+);
+
+if(!card) return;
+
+card.classList.remove(
+
+"hover"
+
+);
+
+});
+/*==========================================================
+                CREAR CARRUSELES
+==========================================================*/
+
+function crearCarruseles(){
+
+    /*==============================
+        LIMPIAR CONTENEDORES
+    ==============================*/
+
+    if(tendenciasContainer){
+
+        tendenciasContainer.innerHTML="";
+
+    }
+
+    if(estrenosContainer){
+
+        estrenosContainer.innerHTML="";
+
+    }
+
+    if(miListaContainer){
+
+        miListaContainer.innerHTML="";
+
+    }
+
+
+    /*==============================
+        GENERAR TARJETAS
+    ==============================*/
+
+    peliculas.forEach(pelicula=>{
+
+        const tarjeta=crearTarjeta(pelicula);
+
+        if(tendenciasContainer){
+
+            tendenciasContainer.appendChild(
+
+                tarjeta.cloneNode(true)
+
+            );
+
+        }
+
+        if(
+
+            pelicula.estreno===true &&
+
+            estrenosContainer
+
+        ){
+
+            estrenosContainer.appendChild(
+
+                tarjeta.cloneNode(true)
+
+            );
+
+        }
+
+        if(
+
+            pelicula.miLista===true &&
+
+            miListaContainer
+
+        ){
+
+            miListaContainer.appendChild(
+
+                tarjeta.cloneNode(true)
+
+            );
+
+        }
+
+    });
+
+
+    /*==============================
+        ACTIVAR FUNCIONES
+    ==============================*/
+
+    activarEventosTarjetas();
+
+    actualizarFavoritos();
+
+    iniciarSliders();
+
+}
