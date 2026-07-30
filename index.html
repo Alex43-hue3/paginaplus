@@ -1,1 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>CINEVERSE</title>
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link
+rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<div class="backgroundGlow"></div>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<div class="logo">
+
+<span class="logoYellow">CINE</span><span class="logoPurple">VERSE</span>
+
+</div>
+
+<nav class="menu">
+
+<a
+href="#"
+class="activo">
+
+Inicio
+
+</a>
+
+<a href="#">
+
+Películas
+
+</a>
+
+<a href="#">
+
+Series
+
+</a>
+
+<a href="#">
+
+Universos
+
+</a>
+
+<a href="#">
+
+Mi Lista
+
+</a>
+
+</nav>
+
+<div class="headerRight">
+
+<div class="searchBox">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input
+
+id="buscar"
+
+type="text"
+
+placeholder="Buscar película...">
+
+</div>
+
+<button
+class="perfil">
+
+<i class="fa-solid fa-user"></i>
+
+</button>
+
+</div>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section
+class="hero"
+id="hero">
+
+<div
+
+class="heroBackground"
+
+id="heroBackground">
+
+<div class="heroGradient"></div>
+
+</div>
+
+<div class="heroContenido">
+
+<div class="heroTexto">
+
+<span class="destacado">
+
+DESTACADO
+
+</span>
+
+<h1
+
+id="heroTitulo">
+
+Cargando...
+
+</h1>
+
+<div class="heroInfo">
+
+<span>
+
+⭐
+
+<span id="heroRating">
+
+0.0
+
+</span>
+
+</span>
+
+<span>
+
+📅
+
+<span id="heroAno">
+
+2026
+
+</span>
+
+</span>
+
+<span>
+
+🕒
+
+<span id="heroDuracion">
+
+0 min
+
+</span>
+
+</span>
+
+</div>
+
+<p
+
+id="heroDescripcion">
+
+Cargando información...
+
+</p>
+
+<div class="heroBotones">
+
+<button
+
+id="btnVer"
+
+class="btnPrincipal">
+
+<i class="fa-solid fa-play"></i>
+
+Ver película
+
+</button>
+
+<button
+
+id="btnTrailer"
+
+class="btnSecundario">
+
+<i class="fa-solid fa-film"></i>
+
+Trailer
+
+</button>
+
+<button
+
+id="btnDetalles"
+
+class="btnGlass">
+
+<i class="fa-solid fa-circle-info"></i>
+
+Detalles
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Flechas -->
+
+<button
+
+id="heroAnterior"
+
+class="heroArrow left">
+
+<i class="fa-solid fa-chevron-left"></i>
+
+</button>
+
+<button
+
+id="heroSiguiente"
+
+class="heroArrow right">
+
+<i class="fa-solid fa-chevron-right"></i>
+
+</button>
+
+<!-- Indicadores -->
+
+<div
+
+id="heroIndicadores"
+
+class="heroIndicadores">
+
+<span class="activo"></span>
+
+<span></span>
+
+<span></span>
+
+<span></span>
+
+<span></span>
+
+</div>
+
+<div class="scrollDown">
+
+<i class="fa-solid fa-angle-down"></i>
+
+</div>
+
+</section>
+  <!-- ======================================================
+                    EXPLORA UNIVERSOS
+======================================================= -->
+
+<section class="universos">
+
+    <div class="sectionHeader">
+
+        <div>
+
+            <span class="sectionMini">
+
+                Descubre
+
+            </span>
+
+            <h2>
+
+                Explora Universos
+
+            </h2>
+
+        </div>
+
+        <button class="verTodo">
+
+            Ver todo
+
+        </button>
+
+    </div>
+
+
+    <div class="universosGrid">
+
+        <div class="universoCard accion">
+
+            <div class="universoOverlay"></div>
+
+            <div class="universoInfo">
+
+                <h3>
+
+                    Acción
+
+                </h3>
+
+                <p>
+
+                    Explosiones, persecuciones y adrenalina.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="universoCard ciencia">
+
+            <div class="universoOverlay"></div>
+
+            <div class="universoInfo">
+
+                <h3>
+
+                    Ciencia ficción
+
+                </h3>
+
+                <p>
+
+                    Viajes espaciales y mundos futuristas.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="universoCard fantasia">
+
+            <div class="universoOverlay"></div>
+
+            <div class="universoInfo">
+
+                <h3>
+
+                    Fantasía
+
+                </h3>
+
+                <p>
+
+                    Dragones, magia y aventuras épicas.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="universoCard terror">
+
+            <div class="universoOverlay"></div>
+
+            <div class="universoInfo">
+
+                <h3>
+
+                    Terror
+
+                </h3>
+
+                <p>
+
+                    Suspenso y miedo hasta el último minuto.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+                    CONTINUAR VIENDO
+======================================================= -->
+
+<section class="continuar">
+
+    <div class="sectionHeader">
+
+        <div>
+
+            <span class="sectionMini">
+
+                Sigue disfrutando
+
+            </span>
+
+            <h2>
+
+                Continuar viendo
+
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="continuarCard">
+
+        <div
+            id="continuarPoster"
+            class="continuarPoster">
+
+        </div>
+
+
+        <div class="continuarContenido">
+
+            <span class="continuarEtiqueta">
+
+                REANUDAR
+
+            </span>
+
+            <h2 id="continuarTitulo">
+
+                No hay películas recientes
+
+            </h2>
+
+            <p id="continuarDescripcion">
+
+                Cuando empieces a ver una película aparecerá aquí para continuar exactamente donde la dejaste.
+
+            </p>
+
+
+            <div class="progressArea">
+
+                <div class="progressBar">
+
+                    <div
+                        id="continuarProgreso"
+                        class="progressValue">
+
+                    </div>
+
+                </div>
+
+                <span
+                    id="continuarTiempo">
+
+                    0%
+
+                </span>
+
+            </div>
+
+
+            <div class="continuarBotones">
+
+                <button
+                    id="btnContinuar"
+                    class="btnPrincipal">
+
+                    <i class="fa-solid fa-play"></i>
+
+                    Continuar
+
+                </button>
+
+                <button
+                    id="btnEliminarContinuar"
+                    class="btnGlass">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                    Eliminar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+                    TENDENCIAS
+======================================================= -->
+
+<section class="moviesSection">
+
+    <div class="sectionHeader">
+
+        <div>
+
+            <span class="sectionMini">
+
+                Lo más visto
+
+            </span>
+
+            <h2>
+
+                Tendencias
+
+            </h2>
+
+        </div>
+
+        <button
+            class="verTodo">
+
+            Ver todo
+
+        </button>
+
+    </div>
+
+
+    <div class="sliderWrapper">
+
+        <button
+            id="tendenciasPrev"
+            class="sliderArrow left">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+
+        <div
+            id="tendencias"
+            class="movieSlider">
+
+            <!-- app.js llenará este carrusel -->
+
+        </div>
+
+
+        <button
+            id="tendenciasNext"
+            class="sliderArrow right">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+</section>
+  <!-- ======================================================
+                    ESTRENOS
+======================================================= -->
+
+<section class="moviesSection">
+
+    <div class="sectionHeader">
+
+        <div>
+
+            <span class="sectionMini">
+
+                Recién agregadas
+
+            </span>
+
+            <h2>
+
+                Estrenos
+
+            </h2>
+
+        </div>
+
+        <button class="verTodo">
+
+            Ver todo
+
+        </button>
+
+    </div>
+
+    <div class="sliderWrapper">
+
+        <button
+            id="estrenosPrev"
+            class="sliderArrow left">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <div
+            id="estrenos"
+            class="movieSlider">
+
+            <!-- app.js -->
+
+        </div>
+
+        <button
+            id="estrenosNext"
+            class="sliderArrow right">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+                    MI LISTA
+======================================================= -->
+
+<section class="moviesSection">
+
+    <div class="sectionHeader">
+
+        <div>
+
+            <span class="sectionMini">
+
+                Tus favoritos
+
+            </span>
+
+            <h2>
+
+                Mi Lista
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div
+        id="miLista"
+        class="movieSlider">
+
+        <!-- app.js -->
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+                    PROXIMAMENTE
+======================================================= -->
+
+<section class="comingSoon">
+
+    <div class="comingOverlay"></div>
+
+    <div class="comingContent">
+
+        <span>
+
+            MUY PRONTO
+
+        </span>
+
+        <h2>
+
+            Próximamente mucho más contenido
+
+        </h2>
+
+        <p>
+
+            Estamos preparando nuevas películas,
+            series y contenido exclusivo para
+            CINEVERSE.
+
+        </p>
+
+        <button class="btnPrincipal">
+
+            Explorar catálogo
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================================
+                    FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+<div class="footerTop">
+
+<div class="footerLogo">
+
+<h2>
+
+<span class="logoYellow">
+
+CINE
+
+</span>
+
+<span class="logoPurple">
+
+VERSE
+
+</span>
+
+</h2>
+
+<p>
+
+Una experiencia moderna para disfrutar
+películas y series desde un solo lugar.
+
+</p>
+
+</div>
+
+
+
+<div class="footerLinks">
+
+<h3>
+
+Explorar
+
+</h3>
+
+<a href="#">
+
+Inicio
+
+</a>
+
+<a href="#">
+
+Películas
+
+</a>
+
+<a href="#">
+
+Series
+
+</a>
+
+<a href="#">
+
+Mi Lista
+
+</a>
+
+</div>
+
+
+
+<div class="footerLinks">
+
+<h3>
+
+Categorías
+
+</h3>
+
+<a href="#">
+
+Acción
+
+</a>
+
+<a href="#">
+
+Ciencia ficción
+
+</a>
+
+<a href="#">
+
+Animación
+
+</a>
+
+<a href="#">
+
+Terror
+
+</a>
+
+</div>
+
+
+
+<div class="footerLinks">
+
+<h3>
+
+Síguenos
+
+</h3>
+
+<div class="social">
+
+<a href="#">
+
+<i class="fa-brands fa-facebook-f"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fa-brands fa-instagram"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fa-brands fa-x-twitter"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fa-brands fa-youtube"></i>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="footerBottom">
+
+<p>
+
+© 2026 CINEVERSE
+
+</p>
+
+<p>
+
+Diseñado para ofrecer una experiencia
+cinematográfica moderna.
+
+</p>
+
+</div>
+
+</footer>
+  <!-- ======================================================
+                    TEMPLATE TARJETA
+======================================================= -->
+
+<template id="movieCardTemplate">
+
+    <article class="movieCard">
+
+        <div class="moviePoster">
+
+            <img
+                class="poster"
+                src=""
+                alt="">
+
+            <div class="movieOverlay">
+
+                <button class="playMovie">
+
+                    <i class="fa-solid fa-play"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="movieInfo">
+
+            <h3 class="movieTitle">
+
+                Título
+
+            </h3>
+
+            <div class="movieMeta">
+
+                <span class="movieYear">
+
+                    2026
+
+                </span>
+
+                <span class="movieRating">
+
+                    ⭐ 8.5
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </article>
+
+</template>
+
+
+<!-- ======================================================
+                    PANTALLA DE CARGA
+======================================================= -->
+
+<div
+id="loadingScreen"
+class="loadingScreen">
+
+<div class="loader">
+
+<div class="loaderCircle"></div>
+
+<h2>
+
+Cargando CINEVERSE
+
+</h2>
+
+<p>
+
+Preparando la mejor experiencia...
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- ======================================================
+                    BOTÓN SUBIR
+======================================================= -->
+
+<button
+id="btnTop"
+class="btnTop">
+
+<i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+
+<!-- ======================================================
+                    MODAL FUTURO
+======================================================= -->
+
+<div
+id="modal"
+class="modal">
+
+<div class="modalContent">
+
+<button
+id="cerrarModal"
+class="cerrarModal">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+<div
+id="modalBody">
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ======================================================
+                    SCRIPTS
+======================================================= -->
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
