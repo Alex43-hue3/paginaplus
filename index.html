@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,385 +6,957 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>CINEVERSE</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet"
+href="css/style.css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-
 <header class="header">
 
 <div class="logo">
 
+<a href="index.html">
+
 <span>CINE</span>VERSE
+
+</a>
 
 </div>
 
 <nav>
 
-<a class="active">Inicio</a>
+<a class="activo">
 
-<a>Explorar</a>
+Inicio
 
-<a>Películas</a>
+</a>
 
-<a>Series</a>
+<a>
 
-<a>Mi lista</a>
+Películas
+
+</a>
+
+<a>
+
+Series
+
+</a>
+
+<a>
+
+Universos
+
+</a>
+
+<a>
+
+Mi Lista
+
+</a>
 
 </nav>
 
-<div class="header-right">
+<div class="acciones">
+
+<div class="buscador">
+
+<i class="fa-solid fa-magnifying-glass"></i>
 
 <input
 type="text"
+id="buscar"
 placeholder="Buscar película...">
 
-<div class="perfil">
-
-👤
-
 </div>
+
+<button class="perfil">
+
+<i class="fa-solid fa-user"></i>
+
+</button>
 
 </div>
 
 </header>
 
-<!-- ================= HERO ================= -->
+<section
+class="hero"
+id="hero">
 
-<section class="hero">
-<section class="hero" id="hero">
-    <div class="hero-overlay" id="heroOverlay"></div>
-<div class="hero-overlay"></div>
+<div
+class="hero-background"
+id="heroBackground">
 
-<div class="hero-content">
-  <span id="heroGenero"></span>
-<span id="heroDuracion"></span>
-<span id="heroAno"></span>
+</div>
 
-<p class="destacado">
+<div
+class="hero-gradient">
 
-DESTACADO DE LA SEMANA
+</div>
 
-</p>
+<div
+class="hero-content">
 
-<h1 id="heroTitulo">
+<div
+class="hero-info">
+
+<span
+class="hero-badge">
+
+DESTACADO
+
+</span>
+
+<h1
+id="heroTitulo">
 
 Cargando...
 
 </h1>
 
-<div class="rating">
+<div
+class="hero-meta">
 
-★★★★★
+<div>
 
-<span id="heroRating"></span>
+⭐
+
+<span
+id="heroRating">
+
+0.0
+
+</span>
 
 </div>
 
-<p id="heroDescripcion">
+<div>
+
+📅
+
+<span
+id="heroAno">
+
+2026
+
+</span>
+
+</div>
+
+<div>
+
+🕒
+
+<span
+id="heroDuracion">
+
+0 min
+
+</span>
+
+</div>
+
+</div>
+
+<p
+id="heroDescripcion">
 
 Cargando información...
 
 </p>
 
-<div class="hero-buttons">
+<div
+class="hero-botones">
 
-<button id="btnVer">
+<button
+id="btnVer"
+class="btn-principal">
 
-▶ Ver película
+<i class="fa-solid fa-play"></i>
+
+Ver película
 
 </button>
 
-<button id="btnDetalles">
+<button
+id="btnTrailer"
+class="btn-secundario">
 
-Más información
+<i class="fa-solid fa-film"></i>
+
+Ver trailer
+
+</button>
+
+<button
+id="btnDetalles"
+class="btn-secundario">
+
+<i class="fa-solid fa-circle-info"></i>
+
+Detalles
 
 </button>
 
 </div>
-
-</div>
-
-</section>
-
-<!-- ================= UNIVERSOS ================= -->
-
-<section class="section">
-
-<h2>
-
-Explora Universos
-
-</h2>
-
-<div class="universos">
-
-<div class="universo">
-
-🚀
-
-<h3>Ciencia ficción</h3>
-
-<p>
-
-Explora galaxias, inteligencia artificial y futuros increíbles.
-
-</p>
-
-</div>
-
-<div class="universo">
-
-👻
-
-<h3>Terror</h3>
-
-<p>
-
-Desde el horror psicológico hasta criaturas sobrenaturales.
-
-</p>
-
-</div>
-
-<div class="universo">
-
-🎌
-
-<h3>Anime</h3>
-
-<p>
-
-Historias épicas, mundos fantásticos y aventuras inolvidables.
-
-</p>
-
-</div>
-
-<div class="universo">
-
-⚔
-
-<h3>Acción</h3>
-
-<p>
-
-Persecuciones, héroes y adrenalina sin límites.
-
-</p>
-
-</div>
-
-<div class="universo">
-
-😂
-
-<h3>Comedia</h3>
-
-<p>
-
-Relájate con historias llenas de humor.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ================= CONTINUAR ================= -->
-
-<section class="section">
-
-<h2>
-
-Continuar viendo
-
-</h2>
-
-<div id="continuarViendo">
-
-<!-- JavaScript -->
-
-</div>
-
-</section>
-
-<!-- ================= TENDENCIAS ================= -->
-
-<section class="section">
-
-<div class="titulo-fila">
-
-<h2>
-
-Tendencias
-
-</h2>
-
-<div class="flechas">
-
-<button id="prevT">
-
-❮
-
-</button>
-
-<button id="nextT">
-
-❯
-
-</button>
 
 </div>
 
 </div>
 
 <div
-class="fila-peliculas"
-id="tendencias">
+class="hero-scroll">
+
+<i
+class="fa-solid fa-angle-down">
+
+</i>
 
 </div>
 
 </section>
 
-<!-- ================= ESTRENOS ================= -->
+    <!-- =====================================================
+                EXPLORA UNIVERSOS
+====================================================== -->
 
-<section class="section">
+<section class="universos-section">
 
-<div class="titulo-fila">
+    <div class="section-header">
 
-<h2>
+        <div>
 
-Estrenos
+            <span class="mini-title">
+                DESCUBRE
+            </span>
 
-</h2>
+            <h2>
+                Explora Universos
+            </h2>
 
-<div class="flechas">
+            <p>
+                Cada universo reúne películas con estilos e historias similares.
+            </p>
 
-<button id="prevE">
+        </div>
 
-❮
+    </div>
 
-</button>
+    <div class="universos-grid">
 
-<button id="nextE">
+        <div class="universo-card" data-genero="accion">
 
-❯
+            <div class="universo-icono">
+                ⚔️
+            </div>
 
-</button>
+            <h3>
+                Acción
+            </h3>
 
-</div>
+            <p>
+                Explosiones, persecuciones, héroes y adrenalina.
+            </p>
 
-</div>
+        </div>
 
-<div
-class="fila-peliculas"
-id="estrenos">
+        <div class="universo-card" data-genero="ciencia">
 
-</div>
+            <div class="universo-icono">
+                🚀
+            </div>
+
+            <h3>
+                Ciencia Ficción
+            </h3>
+
+            <p>
+                Viajes espaciales, inteligencia artificial y futuros increíbles.
+            </p>
+
+        </div>
+
+        <div class="universo-card" data-genero="terror">
+
+            <div class="universo-icono">
+                👻
+            </div>
+
+            <h3>
+                Terror
+            </h3>
+
+            <p>
+                Casas embrujadas, criaturas y horror psicológico.
+            </p>
+
+        </div>
+
+        <div class="universo-card" data-genero="anime">
+
+            <div class="universo-icono">
+                🎌
+            </div>
+
+            <h3>
+                Anime
+            </h3>
+
+            <p>
+                Aventuras, fantasía y grandes historias japonesas.
+            </p>
+
+        </div>
+
+        <div class="universo-card" data-genero="fantasia">
+
+            <div class="universo-icono">
+                🧙
+            </div>
+
+            <h3>
+                Fantasía
+            </h3>
+
+            <p>
+                Magia, reinos, criaturas legendarias y aventuras épicas.
+            </p>
+
+        </div>
+
+        <div class="universo-card" data-genero="comedia">
+
+            <div class="universo-icono">
+                😂
+            </div>
+
+            <h3>
+                Comedia
+            </h3>
+
+            <p>
+                Relájate con historias llenas de humor.
+            </p>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- ================= PROXIMAMENTE ================= -->
 
-<section class="section">
 
-<h2>
+<!-- =====================================================
+            CONTINUAR VIENDO
+====================================================== -->
 
-Próximamente
+<section class="continuar-section">
 
-</h2>
+    <div class="section-header">
 
-<div class="proximamente">
+        <div>
 
-<div class="coming">
+            <span class="mini-title">
+                CONTINÚA
+            </span>
 
-<h3>
+            <h2>
+                Continuar viendo
+            </h2>
 
-Proyecto Aurora
+        </div>
 
-</h3>
+    </div>
 
-<p>
+    <div
+        id="continuarViendo"
+        class="continuar-container">
 
-Muy pronto
+        <!-- JavaScript -->
 
-</p>
-
-</div>
-
-<div class="coming">
-
-<h3>
-
-Horizonte Final
-
-</h3>
-
-<p>
-
-Muy pronto
-
-</p>
-
-</div>
-
-<div class="coming">
-
-<h3>
-
-Ciudad Eclipse
-
-</h3>
-
-<p>
-
-Muy pronto
-
-</p>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- ================= FOOTER ================= -->
 
-<footer>
 
-<div class="logo">
+<!-- =====================================================
+            RECOMENDADAS
+====================================================== -->
 
-CINEVERSE
+<section class="peliculas-section">
 
-</div>
+    <div class="section-header">
 
-<p>
+        <div>
 
-La experiencia del cine reinventada.
+            <span class="mini-title">
+                POPULARES
+            </span>
 
-</p>
+            <h2>
+                Tendencias
+            </h2>
+
+        </div>
+
+        <div class="slider-buttons">
+
+            <button
+                id="prevTendencias"
+                class="slider-btn">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+            </button>
+
+            <button
+                id="nextTendencias"
+                class="slider-btn">
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        id="tendencias"
+        class="peliculas-slider">
+
+    </div>
+
+</section>
+
+    <!-- =====================================================
+                    ESTRENOS
+====================================================== -->
+
+<section class="peliculas-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="mini-title">
+
+                NUEVO
+
+            </span>
+
+            <h2>
+
+                Estrenos
+
+            </h2>
+
+        </div>
+
+        <div class="slider-buttons">
+
+            <button
+                id="prevEstrenos"
+                class="slider-btn">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+            </button>
+
+            <button
+                id="nextEstrenos"
+                class="slider-btn">
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        id="estrenos"
+        class="peliculas-slider">
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+                MÁS VALORADAS
+====================================================== -->
+
+<section class="peliculas-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="mini-title">
+
+                TOP
+
+            </span>
+
+            <h2>
+
+                Mejor calificadas
+
+            </h2>
+
+        </div>
+
+        <div class="slider-buttons">
+
+            <button
+                id="prevTop"
+                class="slider-btn">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+            </button>
+
+            <button
+                id="nextTop"
+                class="slider-btn">
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        id="topPeliculas"
+        class="peliculas-slider">
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- =====================================================
+                PRÓXIMAMENTE
+====================================================== -->
+
+<section class="proximamente-section">
+
+    <div class="section-header">
+
+        <div>
+
+            <span class="mini-title">
+
+                MUY PRONTO
+
+            </span>
+
+            <h2>
+
+                Próximamente
+
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="proximamente-grid">
+
+        <div class="coming-card">
+
+            <div class="coming-overlay"></div>
+
+            <h3>
+
+                Proyecto Aurora
+
+            </h3>
+
+            <p>
+
+                Ciencia ficción
+
+            </p>
+
+        </div>
+
+        <div class="coming-card">
+
+            <div class="coming-overlay"></div>
+
+            <h3>
+
+                Eclipse Final
+
+            </h3>
+
+            <p>
+
+                Acción
+
+            </p>
+
+        </div>
+
+        <div class="coming-card">
+
+            <div class="coming-overlay"></div>
+
+            <h3>
+
+                La Torre Negra
+
+            </h3>
+
+            <p>
+
+                Fantasía
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- =====================================================
+                    FOOTER
+====================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-top">
+
+        <div class="footer-logo">
+
+            <h2>
+
+                <span>CINE</span>VERSE
+
+            </h2>
+
+            <p>
+
+                Vive el cine de una forma diferente.
+                Descubre, explora y disfruta miles de historias
+                desde una sola plataforma.
+
+            </p>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h3>
+
+                Navegación
+
+            </h3>
+
+            <a href="#">
+
+                Inicio
+
+            </a>
+
+            <a href="#">
+
+                Películas
+
+            </a>
+
+            <a href="#">
+
+                Series
+
+            </a>
+
+            <a href="#">
+
+                Mi Lista
+
+            </a>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h3>
+
+                Categorías
+
+            </h3>
+
+            <a href="#">
+
+                Acción
+
+            </a>
+
+            <a href="#">
+
+                Ciencia ficción
+
+            </a>
+
+            <a href="#">
+
+                Terror
+
+            </a>
+
+            <a href="#">
+
+                Anime
+
+            </a>
+
+        </div>
+
+        <div class="footer-links">
+
+            <h3>
+
+                Redes
+
+            </h3>
+
+            <a href="#">
+
+                Facebook
+
+            </a>
+
+            <a href="#">
+
+                Instagram
+
+            </a>
+
+            <a href="#">
+
+                YouTube
+
+            </a>
+
+            <a href="#">
+
+                TikTok
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        © 2026 CINEVERSE.
+
+        Todos los derechos reservados.
+
+    </div>
 
 </footer>
+
+
+
+
+
+<!-- ==========================================
+            BOTÓN SUBIR
+=========================================== -->
+
+<button
+id="btnTop"
+class="btn-top">
+
+<i class="fa-solid fa-chevron-up"></i>
+
+</button>
+
+
+
+
+
+<!-- ==========================================
+            MODAL DETALLES RÁPIDOS
+=========================================== -->
+
+<div
+class="modal"
+id="modalPelicula">
+
+    <div class="modal-contenido">
+
+        <button
+        class="cerrar-modal"
+        id="cerrarModal">
+
+            ✕
+
+        </button>
+
+        <div
+        class="modal-banner"
+        id="modalBanner">
+
+        </div>
+
+        <div
+        class="modal-info">
+
+            <h2
+            id="modalTitulo">
+
+                Cargando...
+
+            </h2>
+
+            <div
+            class="modal-meta">
+
+                <span
+                id="modalRating">
+
+                    ★★★★★
+
+                </span>
+
+                <span
+                id="modalAno">
+
+                </span>
+
+                <span
+                id="modalDuracion">
+
+                </span>
+
+            </div>
+
+            <p
+            id="modalDescripcion">
+
+            </p>
+
+            <div
+            class="modal-buttons">
+
+                <button
+                id="modalVer">
+
+                    ▶ Ver película
+
+                </button>
+
+                <button
+                id="modalTrailer">
+
+                    🎬 Ver trailer
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ==========================================
+        PANTALLA DE CARGA
+=========================================== -->
+
+<div
+id="loader"
+class="loader">
+
+    <div class="loader-logo">
+
+        <span>CINE</span>VERSE
+
+    </div>
+
+    <div class="loader-bar">
+
+        <span></span>
+
+    </div>
+
+</div>
+<!-- =====================================================
+                SCRIPTS
+====================================================== -->
 
 <script src="js/peliculas.js"></script>
 
 <script src="js/app.js"></script>
+
+<script>
+
+window.addEventListener("load",()=>{
+
+    const loader=document.getElementById("loader");
+
+    if(loader){
+
+        setTimeout(()=>{
+
+            loader.classList.add("loader-hide");
+
+            setTimeout(()=>{
+
+                loader.remove();
+
+            },600);
+
+        },900);
+
+    }
+
+});
+
+</script>
 
 </body>
 
