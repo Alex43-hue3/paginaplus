@@ -1,1 +1,632 @@
 
+{
+  "peliculas": [
+
+    {
+      "id": 1,
+      "titulo": "Interestelar",
+      "categoria": "Ciencia ficción",
+      "anio": 2014,
+      "duracion": "2h 49m",
+      "rating": 8.7,
+
+      "descripcion": "Un grupo de astronautas viaja a través de un agujero de gusano buscando un nuevo hogar para la humanidad.",
+
+      "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+
+      "banner": "https://image.tmdb.org/t/p/original/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+
+      "director": "Christopher Nolan",
+
+      "actores":[
+        "Matthew McConaughey",
+        "Anne Hathaway",
+        "Jessica Chastain"
+      ],
+
+      "trailer":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/zSWdZVtXT7E"
+      },
+
+      "pelicula":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/zSWdZVtXT7E"
+      },
+
+      "color":"#4A7CFF",
+
+      "destacada":true
+    },
+
+
+
+    {
+      "id":2,
+
+      "titulo":"Top Gun Maverick",
+
+      "categoria":"Acción",
+
+      "anio":2022,
+
+      "duracion":"2h 10m",
+
+      "rating":8.2,
+
+      "descripcion":"Pete Maverick regresa para entrenar a una nueva generación de pilotos de combate.",
+
+      "poster":"https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+
+      "banner":"https://image.tmdb.org/t/p/original/odJ4hx6g6vBt4lBWKFD1tI8WS4x.jpg",
+
+      "director":"Joseph Kosinski",
+
+      "actores":[
+        "Tom Cruise",
+        "Miles Teller"
+      ],
+
+      "trailer":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/giXco2jaZ_4"
+      },
+
+      "pelicula":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/giXco2jaZ_4"
+      },
+
+      "color":"#FF8A00",
+
+      "destacada":false
+
+    },
+
+
+
+    {
+      "id":3,
+
+      "titulo":"Avatar",
+
+      "categoria":"Fantasía",
+
+      "anio":2009,
+
+      "duracion":"2h 42m",
+
+      "rating":7.9,
+
+      "descripcion":"Un exmarine viaja al planeta Pandora donde descubrirá una nueva forma de vida.",
+
+      "poster":"https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg",
+
+      "banner":"https://image.tmdb.org/t/p/original/Yc9qGQ4AfyZXEpuF4QWgPJDkHu.jpg",
+
+      "director":"James Cameron",
+
+      "actores":[
+        "Sam Worthington",
+        "Zoe Saldaña"
+      ],
+
+      "trailer":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/5PSNL1qE6VY"
+      },
+
+      "pelicula":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/5PSNL1qE6VY"
+      },
+
+      "color":"#00BFFF",
+
+      "destacada":false
+
+    },
+
+
+
+    {
+      "id":4,
+
+      "titulo":"John Wick 4",
+
+      "categoria":"Acción",
+
+      "anio":2023,
+
+      "duracion":"2h 49m",
+
+      "rating":8.0,
+
+      "descripcion":"John Wick enfrenta a la Alta Mesa en el capítulo más intenso de la saga.",
+
+      "poster":"https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+
+      "banner":"https://image.tmdb.org/t/p/original/h8gHn0OzBoaefsYseUByqsmEDMY.jpg",
+
+      "director":"Chad Stahelski",
+
+      "actores":[
+        "Keanu Reeves"
+      ],
+
+      "trailer":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/qEVUtrk8_B4"
+      },
+
+      "pelicula":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/qEVUtrk8_B4"
+      },
+
+      "color":"#B71C1C",
+
+      "destacada":false
+
+    },
+
+
+
+    {
+      "id":5,
+
+      "titulo":"The Batman",
+
+      "categoria":"Acción",
+
+      "anio":2022,
+
+      "duracion":"2h 56m",
+
+      "rating":7.8,
+
+      "descripcion":"Batman investiga una serie de asesinatos mientras descubre la corrupción de Gotham.",
+
+      "poster":"https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg",
+
+      "banner":"https://image.tmdb.org/t/p/original/b0PlSFdDwbyK0cf5RxwDpaOJQvQ.jpg",
+
+      "director":"Matt Reeves",
+
+      "actores":[
+        "Robert Pattinson"
+      ],
+
+      "trailer":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/mqqft2x_Aa4"
+      },
+
+      "pelicula":{
+        "tipo":"youtube",
+        "url":"https://www.youtube.com/embed/mqqft2x_Aa4"
+      },
+
+      "color":"#3F3F46",
+
+      "destacada":false
+
+    },
+    ,
+{
+  "id": 6,
+  "titulo": "Dune",
+  "categoria": "Ciencia ficción",
+  "anio": 2021,
+  "duracion": "2h 35m",
+  "rating": 8.0,
+  "descripcion": "Paul Atreides viaja al planeta Arrakis y descubre el destino que cambiará el universo.",
+  "poster": "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/iopYFB1b6Bh7FWZh3onQhph1sih.jpg",
+  "director": "Denis Villeneuve",
+  "actores": [
+    "Timothée Chalamet",
+    "Zendaya",
+    "Oscar Isaac"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/8g18jFHCLXk"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/8g18jFHCLXk"
+  },
+  "color": "#D7A86E",
+  "destacada": false
+},
+
+{
+  "id": 7,
+  "titulo": "Spider-Man: No Way Home",
+  "categoria": "Superhéroes",
+  "anio": 2021,
+  "duracion": "2h 28m",
+  "rating": 8.2,
+  "descripcion": "Peter Parker enfrenta las consecuencias de que el mundo conozca su identidad.",
+  "poster": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/14QbnygCuTO0vl7CAFmPf1fgZfV.jpg",
+  "director": "Jon Watts",
+  "actores": [
+    "Tom Holland",
+    "Zendaya",
+    "Benedict Cumberbatch"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/JfVOs4VSpmA"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/JfVOs4VSpmA"
+  },
+  "color": "#D62828",
+  "destacada": false
+},
+
+{
+  "id": 8,
+  "titulo": "Oppenheimer",
+  "categoria": "Drama",
+  "anio": 2023,
+  "duracion": "3h 00m",
+  "rating": 8.5,
+  "descripcion": "La historia del físico J. Robert Oppenheimer y el desarrollo de la bomba atómica.",
+  "poster": "https://image.tmdb.org/t/p/w500/ptpr0kGAckfQkJeJIt8st5dglvd.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg",
+  "director": "Christopher Nolan",
+  "actores": [
+    "Cillian Murphy",
+    "Emily Blunt",
+    "Matt Damon"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/uYPbbksJxIg"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/uYPbbksJxIg"
+  },
+  "color": "#A65E2E",
+  "destacada": false
+},
+
+{
+  "id": 9,
+  "titulo": "El Señor de los Anillos: La Comunidad del Anillo",
+  "categoria": "Fantasía",
+  "anio": 2001,
+  "duracion": "2h 58m",
+  "rating": 8.8,
+  "descripcion": "Frodo comienza un viaje para destruir el Anillo Único y salvar la Tierra Media.",
+  "poster": "https://image.tmdb.org/t/p/w500/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/56zTpe2xvaA4alU51sRWPoKPYZy.jpg",
+  "director": "Peter Jackson",
+  "actores": [
+    "Elijah Wood",
+    "Ian McKellen",
+    "Viggo Mortensen"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/V75dMMIW2B4"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/V75dMMIW2B4"
+  },
+  "color": "#4D7C0F",
+  "destacada": false
+},
+
+{
+  "id": 10,
+  "titulo": "Matrix",
+  "categoria": "Ciencia ficción",
+  "anio": 1999,
+  "duracion": "2h 16m",
+  "rating": 8.7,
+  "descripcion": "Neo descubre que el mundo que conoce es una simulación creada por las máquinas.",
+  "poster": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/icmmSD4vTTDKOq2vvdulafOGw93.jpg",
+  "director": "Lana y Lilly Wachowski",
+  "actores": [
+    "Keanu Reeves",
+    "Laurence Fishburne",
+    "Carrie-Anne Moss"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/vKQi3bBA1y8"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/vKQi3bBA1y8"
+  },
+  "color": "#00C853",
+  "destacada": false
+}
+    ,
+{
+  "id": 11,
+  "titulo": "Gladiador",
+  "categoria": "Acción",
+  "anio": 2000,
+  "duracion": "2h 35m",
+  "rating": 8.5,
+  "descripcion": "El general Máximo busca justicia después de perder a su familia y convertirse en esclavo.",
+  "poster": "https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/7M0j0h4SaR5s1xA6wE6N4xM6qQG.jpg",
+  "director": "Ridley Scott",
+  "actores": [
+    "Russell Crowe",
+    "Joaquin Phoenix"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/owK1qxDselE"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/owK1qxDselE"
+  },
+  "color": "#C79A3B",
+  "destacada": false
+},
+
+{
+  "id": 12,
+  "titulo": "Titanic",
+  "categoria": "Romance",
+  "anio": 1997,
+  "duracion": "3h 14m",
+  "rating": 7.9,
+  "descripcion": "Dos jóvenes de clases sociales diferentes viven una historia de amor a bordo del Titanic.",
+  "poster": "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/sCzcYW9h55WcesOqA12cgEr9Exw.jpg",
+  "director": "James Cameron",
+  "actores": [
+    "Leonardo DiCaprio",
+    "Kate Winslet"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/kVrqfYjkTdQ"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/kVrqfYjkTdQ"
+  },
+  "color": "#1565C0",
+  "destacada": false
+},
+
+{
+  "id": 13,
+  "titulo": "Jurassic Park",
+  "categoria": "Aventura",
+  "anio": 1993,
+  "duracion": "2h 07m",
+  "rating": 8.2,
+  "descripcion": "Un parque temático con dinosaurios clonados se convierte en una lucha por la supervivencia.",
+  "poster": "https://image.tmdb.org/t/p/w500/oU7Oq2kFAAlGqbU4VoAE36g4hoI.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/9iQWsXwjOMGDvTDdvCnpiyR0UG3.jpg",
+  "director": "Steven Spielberg",
+  "actores": [
+    "Sam Neill",
+    "Laura Dern",
+    "Jeff Goldblum"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/QWBKEmWWL38"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/QWBKEmWWL38"
+  },
+  "color": "#2E7D32",
+  "destacada": false
+},
+
+{
+  "id": 14,
+  "titulo": "Avengers: Endgame",
+  "categoria": "Superhéroes",
+  "anio": 2019,
+  "duracion": "3h 01m",
+  "rating": 8.4,
+  "descripcion": "Los Vengadores supervivientes intentan revertir el chasquido de Thanos.",
+  "poster": "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+  "director": "Anthony y Joe Russo",
+  "actores": [
+    "Robert Downey Jr.",
+    "Chris Evans",
+    "Scarlett Johansson"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/TcMBFSGVi1c"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/TcMBFSGVi1c"
+  },
+  "color": "#6A1B9A",
+  "destacada": false
+},
+
+{
+  "id": 15,
+  "titulo": "Inception",
+  "categoria": "Ciencia ficción",
+  "anio": 2010,
+  "duracion": "2h 28m",
+  "rating": 8.8,
+  "descripcion": "Un experto en infiltrarse en los sueños acepta la misión más peligrosa de su carrera.",
+  "poster": "https://image.tmdb.org/t/p/w500/edv5CZvWj09upOsy2Y6IwDhK8bt.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+  "director": "Christopher Nolan",
+  "actores": [
+    "Leonardo DiCaprio",
+    "Joseph Gordon-Levitt",
+    "Tom Hardy"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/YoHD9XEInc0"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/YoHD9XEInc0"
+  },
+  "color": "#3949AB",
+  "destacada": false
+}
+    ,
+{
+  "id": 16,
+  "titulo": "Deadpool & Wolverine",
+  "categoria": "Superhéroes",
+  "anio": 2024,
+  "duracion": "2h 07m",
+  "rating": 8.1,
+  "descripcion": "Deadpool une fuerzas con Wolverine para enfrentar una amenaza multiversal.",
+  "poster": "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
+  "director": "Shawn Levy",
+  "actores": [
+    "Ryan Reynolds",
+    "Hugh Jackman"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/73_1biulkYk"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/73_1biulkYk"
+  },
+  "color": "#C62828",
+  "destacada": false
+},
+
+{
+  "id": 17,
+  "titulo": "El Rey León",
+  "categoria": "Animación",
+  "anio": 1994,
+  "duracion": "1h 28m",
+  "rating": 8.5,
+  "descripcion": "Simba debe aceptar su destino para convertirse en el rey de las Tierras del Reino.",
+  "poster": "https://image.tmdb.org/t/p/w500/sKCr78MXSLixwmZ8DyJLrpMsd15.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/1TUg5pO1VZ4B0Q1amk3OlXvlpXV.jpg",
+  "director": "Roger Allers",
+  "actores": [
+    "Matthew Broderick",
+    "James Earl Jones"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/lFzVJEksoDY"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/lFzVJEksoDY"
+  },
+  "color": "#F9A825",
+  "destacada": false
+},
+
+{
+  "id": 18,
+  "titulo": "Transformers",
+  "categoria": "Acción",
+  "anio": 2007,
+  "duracion": "2h 24m",
+  "rating": 7.1,
+  "descripcion": "Autobots y Decepticons llegan a la Tierra para librar una guerra que decidirá el destino del planeta.",
+  "poster": "https://image.tmdb.org/t/p/w500/bgSHbGEA1OM6qDs3Qba4VlSZsNG.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/z6Y0GoTnEeQniAx3KmsDZq5djrH.jpg",
+  "director": "Michael Bay",
+  "actores": [
+    "Shia LaBeouf",
+    "Megan Fox"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/v8ItGrI-Ou0"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/v8ItGrI-Ou0"
+  },
+  "color": "#455A64",
+  "destacada": false
+},
+
+{
+  "id": 19,
+  "titulo": "Piratas del Caribe: La Maldición del Perla Negra",
+  "categoria": "Aventura",
+  "anio": 2003,
+  "duracion": "2h 23m",
+  "rating": 8.1,
+  "descripcion": "Jack Sparrow y Will Turner buscan rescatar a Elizabeth y romper una antigua maldición pirata.",
+  "poster": "https://image.tmdb.org/t/p/w500/z8onk7LV9Mmw6zKz4hT6pzzvmvl.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/8AUQ7Yl0Q4XQfK8K5J5A9m9d4wM.jpg",
+  "director": "Gore Verbinski",
+  "actores": [
+    "Johnny Depp",
+    "Orlando Bloom",
+    "Keira Knightley"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/naQr0uTrH_s"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/naQr0uTrH_s"
+  },
+  "color": "#8D6E63",
+  "destacada": false
+},
+
+{
+  "id": 20,
+  "titulo": "Batman: El Caballero de la Noche",
+  "categoria": "Superhéroes",
+  "anio": 2008,
+  "duracion": "2h 32m",
+  "rating": 9.0,
+  "descripcion": "Batman enfrenta al Joker, un criminal que busca sembrar el caos absoluto en Gotham.",
+  "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+  "banner": "https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
+  "director": "Christopher Nolan",
+  "actores": [
+    "Christian Bale",
+    "Heath Ledger",
+    "Gary Oldman"
+  ],
+  "trailer": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/EXeTwQWrcwY"
+  },
+  "pelicula": {
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/embed/EXeTwQWrcwY"
+  },
+  "color": "#263238",
+  "destacada": true
+}
+
+  ]
+}
