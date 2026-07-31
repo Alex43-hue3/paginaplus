@@ -1,32 +1,33 @@
-/*=========================================================
-    CINEVERSE v2.0
-    APP PRINCIPAL
-=========================================================*/
+/*==========================================================
+                CINEVERSE 3.0
+==========================================================*/
 
 "use strict";
 
-/*=========================================================
-                VARIABLES GLOBALES
-=========================================================*/
+/*==========================================================
+                    CONFIGURACIÓN
+==========================================================*/
 
-let peliculas = [];
-let peliculaActual = null;
-let indiceHero = 0;
-let intervaloHero = null;
+const APP = {
 
-let miLista =
-JSON.parse(
-localStorage.getItem("miLista")
-) || [];
+    nombre: "CINEVERSE",
 
-let continuarViendo =
-JSON.parse(
-localStorage.getItem("continuarViendo")
-) || [];
+    version: "3.0.0",
 
-/*=========================================================
-                ELEMENTOS DEL DOM
-=========================================================*/
+    peliculas: [],
+
+    peliculaActual: null,
+
+    bannerActual: 0,
+
+    intervaloBanner: null
+
+};
+
+
+/*==========================================================
+                    ELEMENTOS HTML
+==========================================================*/
 
 const heroTitulo =
 document.getElementById("heroTitulo");
@@ -67,122 +68,277 @@ document.getElementById("estrenos");
 const continuarViendo =
 document.getElementById("continuarViendo");
 
-const heroPrev =
-document.getElementById("heroAnterior");
 
-const heroNext =
-document.getElementById("heroSiguiente");
+/*==========================================================
+                    CARGAR JSON
+==========================================================*/
 
-const heroIndicators =
-document.getElementById("heroIndicadores");
-/*=========================================================
-            INICIAR CINEVERSE
-=========================================================*/
+async function cargarPeliculas(){
+
+    try{
+
+        const respuesta =
+        await fetch("peliculas.json");
+
+        if(!respuesta.ok){
+
+            throw new Error("No se encontró peliculas.json");
+
+        }
+
+        const datos =
+        await respuesta.json();
+
+        APP.peliculas =
+        datos.peliculas;
+
+        console.log("Películas cargadas:",
+        APP.peliculas.length);
+
+        iniciarAplicacion();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        heroTitulo.textContent =
+        "Error cargando películas";
+
+        heroDescripcion.textContent =
+        "No fue posible leer peliculas.json";
+
+    }
+
+}
+
+
+
+/*==========================================================
+                INICIAR APP
+==========================================================*/
+
+function iniciarAplicacion(){
+
+    if(APP.peliculas.length===0){
+
+        return;
+
+    }
+
+    crearBannerPrincipal();
+
+}
+
+
+
+/*==========================================================
+                CREAR BANNER
+==========================================================*/
+
+function crearBannerPrincipal(){
+
+    let destacadas =
+    APP.peliculas.filter(
+
+        pelicula=>pelicula.destacada===true
+
+    );
+
+    if(destacadas.length===0){
+
+        destacadas=
+        APP.peliculas;
+
+    }
+
+    APP.bannerActual=0;
+
+    APP.peliculaActual=
+    destacadas[0];
+
+    actualizarBanner();
+
+    iniciarBannerAutomatico(
+        destacadas
+    );
+
+}
+
+
+
+/*==========================================================
+            ACTUALIZAR BANNER
+==========================================================*/
+
+function actualizarBanner(){
+
+    const pelicula=
+    APP.peliculaActual;
+
+    if(!pelicula){
+
+        return;
+
+    }
+
+    heroTitulo.textContent=
+    pelicula.titulo;
+
+    heroDescripcion.textContent=
+    pelicula.descripcion;
+
+    heroAno.textContent=
+    pelicula.anio;
+
+    heroDuracion.textContent=
+    pelicula.duracion;
+
+    heroRating.textContent=
+    pelicula.rating;
+
+    heroBackground.style.backgroundImage=
+
+    `url(${pelicula.banner})`;
+
+}
+
+
+
+/*==========================================================
+        CAMBIO AUTOMÁTICO
+==========================================================*/
+
+function iniciarBannerAutomatico(lista){
+
+    clearInterval(
+        APP.intervaloBanner
+    );
+
+    APP.intervaloBanner=
+    setInterval(()=>{
+
+        APP.bannerActual++;
+
+        if(APP.bannerActual>=lista.length){
+
+            APP.bannerActual=0;
+
+        }
+
+        APP.peliculaActual=
+        lista[
+            APP.bannerActual
+        ];
+
+        actualizarBanner();
+
+    },8000);
+
+}
+
+
+
+/*==========================================================
+            BOTONES
+==========================================================*/
+
+btnVer.addEventListener(
+
+"click",
+
+()=>{
+
+    if(!APP.peliculaActual)
+    return;
+
+    localStorage.setItem(
+
+        "peliculaSeleccionada",
+
+        JSON.stringify(
+
+            APP.peliculaActual
+
+        )
+
+    );
+
+    location.href=
+    "reproductor.html";
+
+}
+
+);
+
+
+
+btnTrailer.addEventListener(
+
+"click",
+
+()=>{
+
+    if(!APP.peliculaActual)
+    return;
+
+    window.open(
+
+        APP.peliculaActual.trailer.url,
+
+        "_blank"
+
+    );
+
+}
+
+);
+
+
+
+btnDetalles.addEventListener(
+
+"click",
+
+()=>{
+
+    if(!APP.peliculaActual)
+    return;
+
+    localStorage.setItem(
+
+        "peliculaSeleccionada",
+
+        JSON.stringify(
+
+            APP.peliculaActual
+
+        )
+
+    );
+
+    location.href=
+    "detalles.html";
+
+}
+
+);
+
+
+
+/*==========================================================
+                INICIAR
+==========================================================*/
 
 document.addEventListener(
 
 "DOMContentLoaded",
 
-async()=>{
+()=>{
 
-console.clear();
-
-console.log("🚀 Iniciando CINEVERSE...");
-
-await cargarPeliculas();
-
-if(!peliculas.length){
-
-console.error("No se encontraron películas.");
-
-return;
+    cargarPeliculas();
 
 }
-
-indiceHero=0;
-
-peliculaActual=peliculas[0];
-
-mostrarHero();
-
-activarBotones();
-
-iniciarHeroAutomatico();
-
-console.log("✅ CINEVERSE cargado.");
-
-});
-/*=========================================================
-            CARGAR JSON
-=========================================================*/
-
-async function cargarPeliculas(){
-
-try{
-
-const respuesta=
-
-await fetch("peliculas.json");
-
-peliculas=
-
-await respuesta.json();
-
-console.log(
-
-"Películas cargadas:",
-
-peliculas.length
 
 );
-
-}catch(error){
-
-console.error(error);
-
-}
-
-}
-/*=========================================================
-            MOSTRAR HERO
-=========================================================*/
-
-function mostrarHero(){
-
-if(!peliculaActual){
-
-return;
-
-}
-
-heroTitulo.textContent=
-peliculaActual.titulo;
-
-heroDescripcion.textContent=
-peliculaActual.descripcion;
-
-heroRating.textContent=
-peliculaActual.rating;
-
-heroYear.textContent=
-peliculaActual.anio;
-
-heroDuration.textContent=
-peliculaActual.duracion;
-
-if(heroPoster){
-
-heroPoster.src=
-peliculaActual.poster;
-
-}
-
-if(heroBanner){
-
-heroBanner.style.backgroundImage=
-
-`url(${peliculaActual.banner})`;
-
-}
-
-}
