@@ -29,28 +29,28 @@ localStorage.getItem("continuarViendo")
 =========================================================*/
 
 const heroTitulo =
-document.getElementById("heroTitle");
+document.getElementById("heroTitulo");
 
 const heroDescripcion =
-document.getElementById("heroDescription");
+document.getElementById("heroDescripcion");
 
 const heroPoster =
 document.getElementById("heroPoster");
 
 const heroBanner =
-document.getElementById("heroBanner");
+document.getElementById("heroBackground");
 
 const heroRating =
 document.getElementById("heroRating");
 
 const heroYear =
-document.getElementById("heroYear");
+document.getElementById("heroAno");
 
 const heroDuration =
-document.getElementById("heroDuration");
+document.getElementById("heroDuracion");
 
 const btnVerPelicula =
-document.getElementById("btnVerPelicula");
+document.getElementById("btnVer");
 
 const btnTrailer =
 document.getElementById("btnTrailer");
@@ -59,16 +59,16 @@ const btnDetalles =
 document.getElementById("btnDetalles");
 
 const buscador =
-document.getElementById("searchInput");
+document.getElementById("buscar");
 
 const heroPrev =
-document.getElementById("heroPrev");
+document.getElementById("heroAnterior");
 
 const heroNext =
-document.getElementById("heroNext");
+document.getElementById("heroSiguiente");
 
 const heroIndicators =
-document.getElementById("heroIndicators");
+document.getElementById("heroIndicadores");
 /*=========================================================
             INICIAR CINEVERSE
 =========================================================*/
