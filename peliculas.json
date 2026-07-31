@@ -1,1 +1,219 @@
 
+[
+  {
+    "id": 1,
+    "titulo": "Big Buck Bunny",
+    "tituloOriginal": "Big Buck Bunny",
+    "descripcion": "Un enorme conejo decide vengarse de tres pequeños animales que lo molestan constantemente. Un cortometraje de animación creado por la Blender Foundation.",
+    "poster": "img/posters/bigbuckbunny.jpg",
+    "banner": "img/banners/bigbuckbunny.jpg",
+    "trailer": "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
+    "duracion": "9 min",
+    "anio": "2008",
+    "genero": "Animación",
+    "subgenero": "Comedia",
+    "clasificacion": "AA",
+    "calidad": "1080P",
+    "idioma": "Sin diálogo",
+    "subtitulos": "No",
+    "director": "Blender Foundation",
+    "reparto": [
+      "Big Buck Bunny"
+    ],
+    "pais": "Países Bajos",
+    "rating": "8.8",
+    "destacada": true,
+    "nuevo": false,
+    "tendencia": true,
+    "universo": "Blender",
+    "tags": [
+      "Animación",
+      "Conejo",
+      "Open Movie",
+      "Blender"
+    ],
+    "relacionadas": [2,3,4]
+  },
+
+  {
+    "id": 2,
+    "titulo": "Sintel",
+    "tituloOriginal": "Sintel",
+    "descripcion": "Una joven guerrera recorre un mundo fantástico buscando a la criatura que considera su familia. Otro proyecto abierto de la Blender Foundation.",
+    "poster": "img/posters/sintel.jpg",
+    "banner": "img/banners/sintel.jpg",
+    "trailer": "https://www.youtube.com/watch?v=eRsGyueVLvQ",
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/watch?v=eRsGyueVLvQ",
+    "duracion": "15 min",
+    "anio": "2010",
+    "genero": "Animación",
+    "subgenero": "Fantasía",
+    "clasificacion": "A",
+    "calidad": "1080P",
+    "idioma": "Inglés",
+    "subtitulos": "Español",
+    "director": "Blender Foundation",
+    "reparto": [
+      "Sintel"
+    ],
+    "pais": "Países Bajos",
+    "rating": "9.0",
+    "destacada": true,
+    "nuevo": false,
+    "tendencia": true,
+    "universo": "Blender",
+    "tags": [
+      "Dragón",
+      "Fantasía",
+      "Aventura"
+    ],
+    "relacionadas": [1,3,5]
+  },
+
+  {
+    "id": 3,
+    "titulo": "Tears of Steel",
+    "tituloOriginal": "Tears of Steel",
+    "descripcion": "En un futuro cercano, un grupo de científicos intenta salvar a la humanidad de una amenaza robótica utilizando tecnología y emociones.",
+    "poster": "img/posters/tearsofsteel.jpg",
+    "banner": "img/banners/tearsofsteel.jpg",
+    "trailer": "https://www.youtube.com/watch?v=R6MlUcmOul8",
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/watch?v=R6MlUcmOul8",
+    "duracion": "12 min",
+    "anio": "2012",
+    "genero": "Ciencia Ficción",
+    "subgenero": "Acción",
+    "clasificacion": "B",
+    "calidad": "1080P",
+    "idioma": "Inglés",
+    "subtitulos": "Español",
+    "director": "Blender Foundation",
+    "reparto": [
+      "Emily",
+      "Thom"
+    ],
+    "pais": "Países Bajos",
+    "rating": "8.9",
+    "destacada": true,
+    "nuevo": false,
+    "tendencia": true,
+    "universo": "Blender",
+    "tags": [
+      "Robots",
+      "Futuro",
+      "Acción"
+    ],
+    "relacionadas": [1,2,4]
+  },
+    {
+    "id": 4,
+    "titulo": "Elephants Dream",
+    "tituloOriginal": "Elephants Dream",
+    "descripcion": "Dos personajes recorren un extraño mundo mecánico lleno de estructuras imposibles y misterios. Fue el primer Open Movie de la Blender Foundation.",
+    "poster": "img/posters/elephantsdream.jpg",
+    "banner": "img/banners/elephantsdream.jpg",
+    "trailer": "https://www.youtube.com/watch?v=bsX0qFGs-KU",
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/watch?v=bsX0qFGs-KU",
+    "duracion": "11 min",
+    "anio": "2006",
+    "genero": "Ciencia Ficción",
+    "subgenero": "Experimental",
+    "clasificacion": "A",
+    "calidad": "1080P",
+    "idioma": "Inglés",
+    "subtitulos": "Español",
+    "director": "Blender Foundation",
+    "reparto": [
+      "Proog",
+      "Emo"
+    ],
+    "pais": "Países Bajos",
+    "rating": "8.5",
+    "destacada": false,
+    "nuevo": false,
+    "tendencia": true,
+    "universo": "Blender",
+    "tags": [
+      "Open Movie",
+      "Sci-Fi",
+      "Blender"
+    ],
+    "relacionadas": [1,2,3]
+  },
+
+  {
+    "id": 5,
+    "titulo": "Cosmos Laundromat",
+    "tituloOriginal": "Cosmos Laundromat",
+    "descripcion": "Una oveja con problemas existenciales encuentra una oportunidad inesperada para cambiar su destino en un universo lleno de posibilidades.",
+    "poster": "img/posters/cosmos.jpg",
+    "banner": "img/banners/cosmos.jpg",
+    "trailer": "https://www.youtube.com/watch?v=Y-rmzh0PI3c",
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/watch?v=Y-rmzh0PI3c",
+    "duracion": "12 min",
+    "anio": "2015",
+    "genero": "Animación",
+    "subgenero": "Drama",
+    "clasificacion": "A",
+    "calidad": "1080P",
+    "idioma": "Inglés",
+    "subtitulos": "Español",
+    "director": "Blender Foundation",
+    "reparto": [
+      "Franck"
+    ],
+    "pais": "Países Bajos",
+    "rating": "9.1",
+    "destacada": true,
+    "nuevo": false,
+    "tendencia": true,
+    "universo": "Blender",
+    "tags": [
+      "Animación",
+      "Drama",
+      "Open Movie"
+    ],
+    "relacionadas": [1,2,6]
+  },
+
+  {
+    "id": 6,
+    "titulo": "Sprite Fright",
+    "tituloOriginal": "Sprite Fright",
+    "descripcion": "Un grupo de exploradores se adentra en un bosque donde pequeñas criaturas esconden un terrible secreto. Un divertido homenaje al cine de terror.",
+    "poster": "img/posters/spritefright.jpg",
+    "banner": "img/banners/spritefright.jpg",
+    "trailer": "https://www.youtube.com/watch?v=_cMxraX_5RE",
+    "tipo": "youtube",
+    "url": "https://www.youtube.com/watch?v=_cMxraX_5RE",
+    "duracion": "11 min",
+    "anio": "2021",
+    "genero": "Comedia",
+    "subgenero": "Terror",
+    "clasificacion": "B",
+    "calidad": "4K",
+    "idioma": "Inglés",
+    "subtitulos": "Español",
+    "director": "Blender Studio",
+    "reparto": [
+      "Exploradores"
+    ],
+    "pais": "Países Bajos",
+    "rating": "9.3",
+    "destacada": true,
+    "nuevo": true,
+    "tendencia": true,
+    "universo": "Blender",
+    "tags": [
+      "Terror",
+      "Comedia",
+      "Bosque"
+    ],
+    "relacionadas": [2,5,7]
+  }
