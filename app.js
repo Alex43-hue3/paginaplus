@@ -34,22 +34,19 @@ document.getElementById("heroTitulo");
 const heroDescripcion =
 document.getElementById("heroDescripcion");
 
-const heroPoster =
-document.getElementById("heroPoster");
+const heroAno =
+document.getElementById("heroAno");
 
-const heroBanner =
-document.getElementById("heroBackground");
+const heroDuracion =
+document.getElementById("heroDuracion");
 
 const heroRating =
 document.getElementById("heroRating");
 
-const heroYear =
-document.getElementById("heroAno");
+const heroBackground =
+document.getElementById("heroBackground");
 
-const heroDuration =
-document.getElementById("heroDuracion");
-
-const btnVerPelicula =
+const btnVer =
 document.getElementById("btnVer");
 
 const btnTrailer =
@@ -58,8 +55,17 @@ document.getElementById("btnTrailer");
 const btnDetalles =
 document.getElementById("btnDetalles");
 
-const buscador =
+const inputBuscar =
 document.getElementById("buscar");
+
+const tendencias =
+document.getElementById("tendencias");
+
+const estrenos =
+document.getElementById("estrenos");
+
+const continuarViendo =
+document.getElementById("continuarViendo");
 
 const heroPrev =
 document.getElementById("heroAnterior");
