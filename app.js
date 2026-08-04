@@ -1,24 +1,22 @@
-/*==========================================================
-                    CINEVERSE APP V1
-==========================================================*/
-
 "use strict";
 
-/*==========================================================
-                    VARIABLES
-==========================================================*/
+/*=========================================================
+                    VARIABLES GLOBALES
+=========================================================*/
 
 let peliculas = [];
+let peliculaActual = null;
+let indiceHero = 0;
+let intervaloHero = null;
 
-let peliculaActual = 0;
+let miLista =
+JSON.parse(localStorage.getItem("miLista")) || [];
 
-
-/*==========================================================
-                    ELEMENTOS HERO
-==========================================================*/
-
-const heroBackground =
-document.querySelector(".heroBackground");
+let continuarViendo =
+JSON.parse(localStorage.getItem("continuarViendo")) || [];
+/*=========================================================
+                        DOM
+=========================================================*/
 
 const heroTitulo =
 document.getElementById("heroTitulo");
@@ -26,17 +24,32 @@ document.getElementById("heroTitulo");
 const heroDescripcion =
 document.getElementById("heroDescripcion");
 
+const heroPoster =
+document.getElementById("heroPoster");
+
+const heroBackground =
+document.getElementById("heroBackground");
+
 const heroRating =
 document.getElementById("heroRating");
 
-const heroYear =
-document.getElementById("heroYear");
+const heroAno =
+document.getElementById("heroAno");
 
 const heroDuracion =
 document.getElementById("heroDuracion");
 
-const btnVerPelicula =
-document.getElementById("btnVerPelicula");
+const heroAnterior =
+document.getElementById("heroAnterior");
+
+const heroSiguiente =
+document.getElementById("heroSiguiente");
+
+const heroIndicadores =
+document.getElementById("heroIndicadores");
+
+const btnVer =
+document.getElementById("btnVer");
 
 const btnTrailer =
 document.getElementById("btnTrailer");
@@ -44,1006 +57,88 @@ document.getElementById("btnTrailer");
 const btnDetalles =
 document.getElementById("btnDetalles");
 
-
-/*==========================================================
-                    CONTINUAR VIENDO
-==========================================================*/
-
-const continuarPoster =
-document.getElementById("continuarPoster");
-
-const continuarTitulo =
-document.getElementById("continuarTitulo");
-
-const continuarDescripcion =
-document.getElementById("continuarDescripcion");
-
-const continuarTiempo =
-document.getElementById("continuarTiempo");
-
-const progressValue =
-document.querySelector(".progressValue");
-
-
-/*==========================================================
-                    CONTENEDORES
-==========================================================*/
-
-const tendenciasContainer =
-document.getElementById("tendenciasContainer");
-
-const estrenosContainer =
-document.getElementById("estrenosContainer");
-
-const miListaContainer =
-document.getElementById("miListaContainer");
-
-
-/*==========================================================
-                    BOTONES
-==========================================================*/
-
-const btnTop =
-document.getElementById("btnTop");
-
-const loader =
-document.getElementById("loadingScreen");
-
-const buscador =
+const buscar =
 document.getElementById("buscar");
+/*=========================================================
+                CARGAR PELICULAS
+=========================================================*/
 
+async function cargarPeliculas(){
 
-/*==========================================================
-                    MODAL
-==========================================================*/
+    try{
 
-const modal =
-document.getElementById("modal");
+        const respuesta =
+        await fetch("peliculas.json");
 
-const modalBody =
-document.getElementById("modalBody");
+        peliculas =
+        await respuesta.json();
 
-const cerrarModal =
-document.getElementById("cerrarModal");
+        console.log(
+            "Películas:",
+            peliculas.length
+        );
 
+    }catch(error){
 
-/*==========================================================
-                    UTILIDADES
-==========================================================*/
+        console.error(error);
 
-function obtenerPeliculaActual(){
-
-return peliculas[peliculaActual];
-
-}
-
-
-function ocultarLoader(){
-
-setTimeout(()=>{
-
-loader.classList.add("hide");
-
-},700);
+    }
 
 }
-
-
-function mostrarLoader(){
-
-loader.classList.remove("hide");
-
-}
-
-
-/*==========================================================
-                    MENSAJES
-==========================================================*/
-
-function mostrarError(mensaje){
-
-console.error(mensaje);
-
-heroTitulo.textContent =
-"Error cargando películas";
-
-heroDescripcion.textContent =
-mensaje;
-
-}
-
-
-/*==========================================================
-                    INICIO
-==========================================================*/
+/*=========================================================
+                    INICIAR
+=========================================================*/
 
 document.addEventListener(
 
 "DOMContentLoaded",
 
-()=>{
+async()=>{
 
-cargarPeliculas();
+    console.clear();
 
-}
+    console.log("Iniciando CINEVERSE...");
 
-);
-/*==========================================================
-                CARGAR PELÍCULAS
-==========================================================*/
+    await cargarPeliculas();
 
-async function cargarPeliculas() {
+    if(!peliculas.length){
 
-    mostrarLoader();
+        console.error("No hay películas");
 
-    try {
-
-        const respuesta = await fetch("peliculas.json");
-
-        if (!respuesta.ok) {
-
-            throw new Error(
-                "No se pudo cargar peliculas.json"
-            );
-
-        }
-
-        peliculas = await respuesta.json();
-
-        if (!Array.isArray(peliculas)) {
-
-            throw new Error(
-                "El archivo peliculas.json no contiene un arreglo."
-            );
-
-        }
-
-        if (peliculas.length === 0) {
-
-            throw new Error(
-                "No existen películas registradas."
-            );
-
-        }
-
-        peliculaActual = 0;
-
-        /*==============================
-            CARGAR INTERFAZ
-        ==============================*/
-
-        cargarHero();
-
-        crearIndicadoresHero();
-
-        crearCarruseles();
-
-        cargarContinuarViendo();
-
-        ocultarLoader();
+        return;
 
     }
 
-    catch(error){
+    peliculaActual = peliculas[0];
 
-        console.error(error);
-
-        mostrarError(error.message);
-
-        ocultarLoader();
-
-    }
-
-}
-
-
-/*==========================================================
-                OBTENER PELÍCULA
-==========================================================*/
-
-function obtenerPelicula(id){
-
-    return peliculas.find(
-
-        pelicula => pelicula.id == id
-
-    );
-
-}
-
-function obtenerPeliculaActual(){
-
-    return peliculas[peliculaActual];
-
-}
-
-
-/*==========================================================
-                CAMBIAR HERO
-==========================================================*/
-
-function cambiarHero(indice){
-
-    if(indice < 0){
-
-        indice = peliculas.length - 1;
-
-    }
-
-    if(indice >= peliculas.length){
-
-        indice = 0;
-
-    }
-
-    peliculaActual = indice;
-
-    cargarHero();
-
-}
-
-
-/*==========================================================
-                BOTONES HERO
-==========================================================*/
-
-document.addEventListener("click",(e)=>{
-
-    if(e.target.closest("#heroAnterior")){
-
-        cambiarHero(peliculaActual-1);
-
-    }
-
-    if(e.target.closest("#heroSiguiente")){
-
-        cambiarHero(peliculaActual+1);
-
-    }
+    mostrarHero();
 
 });
+/*=========================================================
+                    HERO
+=========================================================*/
 
-
-/*==========================================================
-                CAMBIO AUTOMÁTICO HERO
-==========================================================*/
-
-setInterval(()=>{
-
-    if(peliculas.length===0) return;
-
-    cambiarHero(
-
-        peliculaActual+1
-
-    );
-
-},9000);
-/*==========================================================
-                    HERO PRINCIPAL
-==========================================================*/
-
-function cargarHero(){
-
-    const pelicula = obtenerPeliculaActual();
-
-    if(!pelicula) return;
-
-    /*==============================
-        FONDO
-    ==============================*/
-
-    if(heroBackground){
-
-        heroBackground.style.backgroundImage =
-
-        `linear-gradient(
-            rgba(6,8,15,.35),
-            rgba(6,8,15,.92)
-        ),
-        url('${pelicula.banner}')`;
-
-    }
-
-    /*==============================
-        INFORMACIÓN
-    ==============================*/
+function mostrarHero(){
 
     heroTitulo.textContent =
-    pelicula.titulo;
+    peliculaActual.titulo;
 
     heroDescripcion.textContent =
-    pelicula.descripcion;
+    peliculaActual.descripcion;
 
     heroRating.textContent =
-    pelicula.rating;
+    peliculaActual.rating;
 
-    heroYear.textContent =
-    pelicula.anio;
+    heroAno.textContent =
+    peliculaActual.anio;
 
     heroDuracion.textContent =
-    pelicula.duracion;
+    peliculaActual.duracion;
 
-    /*==============================
-        ANIMACIÓN
-    ==============================*/
+    heroPoster.src =
+    peliculaActual.poster;
 
-    heroTitulo.classList.remove("fade");
-
-    heroDescripcion.classList.remove("fade");
-
-    void heroTitulo.offsetWidth;
-
-    heroTitulo.classList.add("fade");
-
-    heroDescripcion.classList.add("fade");
-
-    actualizarIndicadores();
-
-    actualizarBotonesHero(pelicula);
-
-}
-/*==========================================================
-            BOTONES HERO
-==========================================================*/
-
-function actualizarBotonesHero(pelicula){
-
-    btnVerPelicula.onclick=()=>{
-
-        localStorage.setItem(
-
-            "peliculaSeleccionada",
-
-            pelicula.id
-
-        );
-
-        window.location.href=
-
-        "reproductor.html";
-
-    };
-
-
-    btnTrailer.onclick=()=>{
-
-        if(!pelicula.trailer) return;
-
-        window.open(
-
-            pelicula.trailer,
-
-            "_blank"
-
-        );
-
-    };
-
-
-    btnDetalles.onclick=()=>{
-
-        localStorage.setItem(
-
-            "peliculaSeleccionada",
-
-            pelicula.id
-
-        );
-
-        window.location.href=
-
-        "detalles.html";
-
-    };
-
-}
-/*==========================================================
-        INDICADORES HERO
-==========================================================*/
-
-function crearIndicadoresHero(){
-
-    const contenedor =
-
-    document.getElementById(
-
-        "heroIndicadores"
-
-    );
-
-    if(!contenedor) return;
-
-    contenedor.innerHTML="";
-
-    peliculas.forEach((pelicula,index)=>{
-
-        const punto=
-
-        document.createElement("button");
-
-        punto.className="heroDot";
-
-        if(index===peliculaActual){
-
-            punto.classList.add("activo");
-
-        }
-
-        punto.onclick=()=>{
-
-            peliculaActual=index;
-
-            cargarHero();
-
-        };
-
-        contenedor.appendChild(punto);
-
-    });
-
-}
-/*==========================================================
-        ACTUALIZAR INDICADORES
-==========================================================*/
-
-function actualizarIndicadores(){
-
-    const dots=
-
-    document.querySelectorAll(
-
-        ".heroDot"
-
-    );
-
-    dots.forEach((dot,index)=>{
-
-        dot.classList.toggle(
-
-            "activo",
-
-            index===peliculaActual
-
-        );
-
-    });
-
-}
-/*==========================================================
-                CREAR CARRUSELES
-==========================================================*/
-
-function crearCarruseles(){
-
-    if(tendenciasContainer){
-
-        tendenciasContainer.innerHTML="";
-
-    }
-
-    if(estrenosContainer){
-
-        estrenosContainer.innerHTML="";
-
-    }
-
-    if(miListaContainer){
-
-        miListaContainer.innerHTML="";
-
-    }
-
-    peliculas.forEach(pelicula=>{
-
-        const tarjeta = crearTarjeta(pelicula);
-
-        if(tendenciasContainer){
-
-            tendenciasContainer.appendChild(
-
-                tarjeta.cloneNode(true)
-
-            );
-
-        }
-
-        if(pelicula.estreno){
-
-            estrenosContainer.appendChild(
-
-                tarjeta.cloneNode(true)
-
-            );
-
-        }
-
-        if(pelicula.miLista){
-
-            miListaContainer.appendChild(
-
-                tarjeta.cloneNode(true)
-
-            );
-
-        }
-
-    });
-
-    activarEventosTarjetas();
-
-}
-/*==========================================================
-                CREAR TARJETA
-==========================================================*/
-
-function crearTarjeta(pelicula){
-
-    const card=document.createElement("article");
-
-    card.className="movieCard";
-
-    card.dataset.id=pelicula.id;
-
-    card.innerHTML=`
-
-        <div class="moviePoster">
-
-            <img
-            src="${pelicula.poster}"
-            alt="${pelicula.titulo}">
-
-            <div class="movieOverlay">
-
-                <div class="playMovie">
-
-                    <i class="fa-solid fa-play"></i>
-
-                </div>
-
-            </div>
-
-            <div class="favoriteMovie">
-
-                <i class="fa-solid fa-heart"></i>
-
-            </div>
-
-        </div>
-
-        <div class="movieInfo">
-
-            <h3 class="movieTitle">
-
-                ${pelicula.titulo}
-
-            </h3>
-
-            <div class="movieMeta">
-
-                <span>
-
-                    ⭐ ${pelicula.rating}
-
-                </span>
-
-                <span>
-
-                    ${pelicula.anio}
-
-                </span>
-
-            </div>
-
-            <div class="movieGenres">
-
-                <span>
-
-                    ${pelicula.genero}
-
-                </span>
-
-            </div>
-
-        </div>
-
-    `;
-
-    return card;
-
-}
-/*==========================================================
-            EVENTOS TARJETAS
-==========================================================*/
-
-function activarEventosTarjetas(){
-
-    const cards=
-
-    document.querySelectorAll(
-
-        ".movieCard"
-
-    );
-
-    cards.forEach(card=>{
-
-        card.addEventListener(
-
-            "click",
-
-            ()=>{
-
-                const id=
-
-                Number(card.dataset.id);
-
-                abrirPelicula(id);
-
-            }
-
-        );
-
-    });
-
-}
-/*==========================================================
-            ABRIR PELÍCULA
-==========================================================*/
-
-function abrirPelicula(id){
-
-    localStorage.setItem(
-
-        "peliculaSeleccionada",
-
-        id
-
-    );
-
-    window.location.href=
-
-    "reproductor.html";
-
-}
-/*==========================================================
-                FLECHAS CARRUSELES
-==========================================================*/
-
-function iniciarSliders(){
-
-    document.querySelectorAll(".sliderWrapper").forEach(wrapper=>{
-
-        const slider=wrapper.querySelector(".movieSlider");
-
-        const left=wrapper.querySelector(".sliderArrow.left");
-
-        const right=wrapper.querySelector(".sliderArrow.right");
-
-        if(!slider) return;
-
-        const mover=320;
-
-        if(left){
-
-            left.onclick=()=>{
-
-                slider.scrollBy({
-
-                    left:-mover,
-
-                    behavior:"smooth"
-
-                });
-
-            };
-
-        }
-
-        if(right){
-
-            right.onclick=()=>{
-
-                slider.scrollBy({
-
-                    left:mover,
-
-                    behavior:"smooth"
-
-                });
-
-            };
-
-        }
-
-    });
-
-}
-/*==========================================================
-                FAVORITOS
-==========================================================*/
-
-let favoritos=
-
-JSON.parse(
-
-localStorage.getItem("favoritos")
-
-)||[];
-
-
-function guardarFavoritos(){
-
-    localStorage.setItem(
-
-        "favoritos",
-
-        JSON.stringify(favoritos)
-
-    );
-
-}
-
-
-function esFavorita(id){
-
-    return favoritos.includes(id);
-
-}
-
-
-function alternarFavorito(id){
-
-    if(esFavorita(id)){
-
-        favoritos=
-
-        favoritos.filter(
-
-            item=>item!==id
-
-        );
-
-    }else{
-
-        favoritos.push(id);
-
-    }
-
-    guardarFavoritos();
-
-    actualizarFavoritos();
-
-}
-/*==========================================================
-            ACTUALIZAR FAVORITOS
-==========================================================*/
-
-function actualizarFavoritos(){
-
-    document
-
-    .querySelectorAll(".movieCard")
-
-    .forEach(card=>{
-
-        const id=
-
-        Number(card.dataset.id);
-
-        const icono=
-
-        card.querySelector(
-
-            ".favoriteMovie"
-
-        );
-
-        if(!icono) return;
-
-        if(esFavorita(id)){
-
-            icono.classList.add(
-
-                "activo"
-
-            );
-
-        }else{
-
-            icono.classList.remove(
-
-                "activo"
-
-            );
-
-        }
-
-    });
-
-}
-/*==========================================================
-            EVENTOS FAVORITOS
-==========================================================*/
-
-document.addEventListener(
-
-"click",
-
-(event)=>{
-
-const favorito=
-
-event.target.closest(
-
-".favoriteMovie"
-
-);
-
-if(!favorito) return;
-
-event.preventDefault();
-
-event.stopPropagation();
-
-const card=
-
-favorito.closest(
-
-".movieCard"
-
-);
-
-if(!card) return;
-
-alternarFavorito(
-
-Number(card.dataset.id)
-
-);
-
-});
-/*==========================================================
-            EFECTO PLAY
-==========================================================*/
-
-document.addEventListener(
-
-"mouseover",
-
-(event)=>{
-
-const card=
-
-event.target.closest(
-
-".movieCard"
-
-);
-
-if(!card) return;
-
-card.classList.add(
-
-"hover"
-
-);
-
-});
-
-document.addEventListener(
-
-"mouseout",
-
-(event)=>{
-
-const card=
-
-event.target.closest(
-
-".movieCard"
-
-);
-
-if(!card) return;
-
-card.classList.remove(
-
-"hover"
-
-);
-
-});
-/*==========================================================
-                CREAR CARRUSELES
-==========================================================*/
-
-function crearCarruseles(){
-
-    /*==============================
-        LIMPIAR CONTENEDORES
-    ==============================*/
-
-    if(tendenciasContainer){
-
-        tendenciasContainer.innerHTML="";
-
-    }
-
-    if(estrenosContainer){
-
-        estrenosContainer.innerHTML="";
-
-    }
-
-    if(miListaContainer){
-
-        miListaContainer.innerHTML="";
-
-    }
-
-
-    /*==============================
-        GENERAR TARJETAS
-    ==============================*/
-
-    peliculas.forEach(pelicula=>{
-
-        const tarjeta=crearTarjeta(pelicula);
-
-        if(tendenciasContainer){
-
-            tendenciasContainer.appendChild(
-
-                tarjeta.cloneNode(true)
-
-            );
-
-        }
-
-        if(
-
-            pelicula.estreno===true &&
-
-            estrenosContainer
-
-        ){
-
-            estrenosContainer.appendChild(
-
-                tarjeta.cloneNode(true)
-
-            );
-
-        }
-
-        if(
-
-            pelicula.miLista===true &&
-
-            miListaContainer
-
-        ){
-
-            miListaContainer.appendChild(
-
-                tarjeta.cloneNode(true)
-
-            );
-
-        }
-
-    });
-
-
-    /*==============================
-        ACTIVAR FUNCIONES
-    ==============================*/
-
-    activarEventosTarjetas();
-
-    actualizarFavoritos();
-
-    iniciarSliders();
+    heroBackground.style.backgroundImage =
+    `url('${peliculaActual.banner}')`;
 
 }
