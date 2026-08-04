@@ -24,8 +24,7 @@ document.getElementById("heroTitulo");
 const heroDescripcion =
 document.getElementById("heroDescripcion");
 
-const heroPoster =
-document.getElementById("heroPoster");
+
 
 const heroBackground =
 document.getElementById("heroBackground");
@@ -135,8 +134,7 @@ function mostrarHero(){
     heroDuracion.textContent =
     peliculaActual.duracion;
 
-    heroPoster.src =
-    peliculaActual.poster;
+ 
 
     heroBackground.style.backgroundImage =
     `url('${peliculaActual.banner}')`;
