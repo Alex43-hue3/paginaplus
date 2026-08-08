@@ -116,27 +116,26 @@ async()=>{
 /*=========================================================
                     HERO
 =========================================================*/
+function mostrarHero() {
 
-function mostrarHero(){
+    console.log("================================");
+    console.log("ENTRÓ A mostrarHero()");
+    console.log("peliculaActual:", peliculaActual);
+    console.log("================================");
 
-    heroTitulo.textContent =
-    peliculaActual.titulo;
+    if (!peliculaActual) {
+        console.error("❌ peliculaActual está vacío");
+        return;
+    }
 
-    heroDescripcion.textContent =
-    peliculaActual.descripcion;
-
-    heroRating.textContent =
-    peliculaActual.rating;
-
-    heroAno.textContent =
-    peliculaActual.anio;
-
-    heroDuracion.textContent =
-    peliculaActual.duracion;
-
- 
+    heroTitulo.textContent = peliculaActual.titulo;
+    heroDescripcion.textContent = peliculaActual.descripcion;
+    heroRating.textContent = peliculaActual.rating;
+    heroAno.textContent = peliculaActual.anio;
+    heroDuracion.textContent = peliculaActual.duracion;
 
     heroBackground.style.backgroundImage =
-    `url('${peliculaActual.banner}')`;
+        `url("${peliculaActual.banner}")`;
 
+    console.log("✅ HERO ACTUALIZADO");
 }
