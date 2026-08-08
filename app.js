@@ -10,132 +10,235 @@ let indiceHero = 0;
 let intervaloHero = null;
 
 let miLista =
-JSON.parse(localStorage.getItem("miLista")) || [];
+    JSON.parse(localStorage.getItem("miLista")) || [];
 
 let continuarViendo =
-JSON.parse(localStorage.getItem("continuarViendo")) || [];
+    JSON.parse(localStorage.getItem("continuarViendo")) || [];
+
+
 /*=========================================================
-                        DOM
+                            DOM
 =========================================================*/
 
 const heroTitulo =
-document.getElementById("heroTitulo");
+    document.getElementById("heroTitulo");
 
 const heroDescripcion =
-document.getElementById("heroDescripcion");
-
-
+    document.getElementById("heroDescripcion");
 
 const heroBackground =
-document.getElementById("heroBackground");
+    document.getElementById("heroBackground");
 
 const heroRating =
-document.getElementById("heroRating");
+    document.getElementById("heroRating");
 
 const heroAno =
-document.getElementById("heroAno");
+    document.getElementById("heroAno");
 
 const heroDuracion =
-document.getElementById("heroDuracion");
+    document.getElementById("heroDuracion");
 
 const heroAnterior =
-document.getElementById("heroAnterior");
+    document.getElementById("heroAnterior");
 
 const heroSiguiente =
-document.getElementById("heroSiguiente");
+    document.getElementById("heroSiguiente");
 
 const heroIndicadores =
-document.getElementById("heroIndicadores");
+    document.getElementById("heroIndicadores");
 
 const btnVer =
-document.getElementById("btnVer");
+    document.getElementById("btnVer");
 
 const btnTrailer =
-document.getElementById("btnTrailer");
+    document.getElementById("btnTrailer");
 
 const btnDetalles =
-document.getElementById("btnDetalles");
+    document.getElementById("btnDetalles");
 
 const buscar =
-document.getElementById("buscar");
+    document.getElementById("buscar");
+
+
 /*=========================================================
-                CARGAR PELICULAS
+                    CARGAR PELÍCULAS
 =========================================================*/
 
-async function cargarPeliculas(){
+async function cargarPeliculas() {
 
-    try{
+    try {
 
         const respuesta =
-        await fetch("peliculas.json");
+            await fetch("peliculas.json");
+
+        if (!respuesta.ok) {
+            throw new Error(
+                "No se pudo cargar peliculas.json"
+            );
+        }
 
         peliculas =
-        await respuesta.json();
+            await respuesta.json();
 
         console.log(
             "Películas:",
             peliculas.length
         );
 
-    }catch(error){
+    } catch (error) {
 
-        console.error(error);
+        console.error(
+            "❌ Error cargando películas:",
+            error
+        );
 
     }
 
 }
+
+
 /*=========================================================
-                    INICIAR
+                        INICIAR
 =========================================================*/
 
 document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
 
-"DOMContentLoaded",
+        console.clear();
 
-async()=>{
+        console.log(
+            "Iniciando CINEVERSE..."
+        );
 
-    console.clear();
+        await cargarPeliculas();
 
-    console.log("Iniciando CINEVERSE...");
+        if (!peliculas.length) {
 
-    await cargarPeliculas();
+            console.error(
+                "❌ No hay películas"
+            );
 
-    if(!peliculas.length){
+            return;
+        }
 
-        console.error("No hay películas");
+        peliculaActual =
+            peliculas[0];
 
-        return;
+        mostrarHero();
 
     }
+);
 
-    peliculaActual = peliculas[0];
 
-    mostrarHero();
-
-});
 /*=========================================================
-                    HERO
+                            HERO
 =========================================================*/
+
 function mostrarHero() {
 
-    console.log("================================");
-    console.log("ENTRÓ A mostrarHero()");
-    console.log("peliculaActual:", peliculaActual);
-    console.log("================================");
+    console.log(
+        "================================"
+    );
+
+    console.log(
+        "ENTRÓ A mostrarHero()"
+    );
+
+    console.log(
+        "peliculaActual:",
+        peliculaActual
+    );
+
+    console.log(
+        "================================"
+    );
+
 
     if (!peliculaActual) {
-        console.error("❌ peliculaActual está vacío");
+
+        console.error(
+            "❌ peliculaActual está vacío"
+        );
+
         return;
     }
 
-    heroTitulo.textContent = peliculaActual.titulo;
-    heroDescripcion.textContent = peliculaActual.descripcion;
-    heroRating.textContent = peliculaActual.rating;
-    heroAno.textContent = peliculaActual.anio;
-    heroDuracion.textContent = peliculaActual.duracion;
 
-    heroBackground.style.backgroundImage =
-        `url("${peliculaActual.banner}")`;
+    /*-----------------------------------------------------
+                        TÍTULO
+    -----------------------------------------------------*/
 
-    console.log("✅ HERO ACTUALIZADO");
+    if (heroTitulo) {
+
+        heroTitulo.textContent =
+            peliculaActual.titulo;
+
+    }
+
+
+    /*-----------------------------------------------------
+                      DESCRIPCIÓN
+    -----------------------------------------------------*/
+
+    if (heroDescripcion) {
+
+        heroDescripcion.textContent =
+            peliculaActual.descripcion;
+
+    }
+
+
+    /*-----------------------------------------------------
+                         RATING
+    -----------------------------------------------------*/
+
+    if (heroRating) {
+
+        heroRating.textContent =
+            peliculaActual.rating;
+
+    }
+
+
+    /*-----------------------------------------------------
+                           AÑO
+    -----------------------------------------------------*/
+
+    if (heroAno) {
+
+        heroAno.textContent =
+            peliculaActual.anio;
+
+    }
+
+
+    /*-----------------------------------------------------
+                        DURACIÓN
+    -----------------------------------------------------*/
+
+    if (heroDuracion) {
+
+        heroDuracion.textContent =
+            peliculaActual.duracion;
+
+    }
+
+
+    /*-----------------------------------------------------
+                    IMAGEN DEL HERO
+    -----------------------------------------------------*/
+
+    if (heroBackground) {
+
+        heroBackground.style.backgroundImage =
+            `url("${peliculaActual.banner}")`;
+
+    }
+
+
+    console.log(
+        "✅ HERO ACTUALIZADO"
+    );
+
 }
