@@ -242,3 +242,4 @@ function mostrarHero() {
     );
 
 }
+console.log("🔥 ESTE ES EL APP.JS NUEVO");
