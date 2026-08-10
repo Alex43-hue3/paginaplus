@@ -129,10 +129,10 @@ document.addEventListener(
 
         mostrarHero();
 
-    }
-  ocultarPantallaCarga();
-);
+        ocultarPantallaCarga();
 
+    }
+);
 
 /*=========================================================
                             HERO
