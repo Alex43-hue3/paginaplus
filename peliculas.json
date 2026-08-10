@@ -2,11 +2,11 @@
 [
   {
     "id": 1,
-    "titulo": "un Ángel En Nuestras Vidas",
+    "titulo": "Big Buck Bunny",
     "tituloOriginal": "Big Buck Bunny",
     "descripcion": "Un enorme conejo decide vengarse de tres pequeños animales que lo molestan constantemente. Un cortometraje de animación creado por la Blender Foundation.",
-    "poster": "UN ÁNGEL EN NUESTRAS VIDAS.jpg",
-    "banner": "UN ÁNGEL EN NUESTRAS VIDAS.jpg",
+    "poster": "Big Buck Bunny.jpg",
+    "banner": "Big Buck Bunny.jpg",
     "trailer": "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
     "tipo": "youtube",
     "url": "https://www.youtube.com/watch?v=IwGbzEXdi3c&t=625s",
@@ -20,7 +20,7 @@
     "subtitulos": "No",
     "director": "Blender Foundation",
     "reparto": [
-      "un ángel en nuestras vidas"
+      "Big Buck Bunny"
     ],
     "pais": "Países Bajos",
     "rating": "8.8",
