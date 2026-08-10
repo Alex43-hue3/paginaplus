@@ -103,26 +103,44 @@ console.error(error);
 /*=========================================================
             OBTENER PELÍCULA
 =========================================================*/
-
 function obtenerPelicula(){
 
-const id = Number(
+    const parametros =
+        new URLSearchParams(
+            window.location.search
+        );
 
-localStorage.getItem(
+    const id =
+        Number(
+            parametros.get("id")
+        );
 
-"peliculaSeleccionada"
+    console.log(
+        "🎬 ID recibido:",
+        id
+    );
 
-)
+    peliculaActual =
+        peliculas.find(
+            pelicula =>
+                pelicula.id === id
+        );
 
-);
+    if(peliculaActual){
 
-peliculaActual =
+        console.log(
+            "✅ Película encontrada:",
+            peliculaActual.titulo
+        );
 
-peliculas.find(
+    }else{
 
-pelicula => pelicula.id===id
+        console.error(
+            "❌ No se encontró la película con ID:",
+            id
+        );
 
-);
+    }
 
 }
 /*=========================================================
