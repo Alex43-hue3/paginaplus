@@ -59,6 +59,8 @@ const btnDetalles =
 const buscar =
     document.getElementById("buscar");
 
+const loadingScreen =
+    document.getElementById("loadingScreen");
 
 /*=========================================================
                     CARGAR PELÍCULAS
@@ -128,6 +130,7 @@ document.addEventListener(
         mostrarHero();
 
     }
+  ocultarPantallaCarga();
 );
 
 
@@ -243,3 +246,22 @@ function mostrarHero() {
 
 }
 console.log("🔥 ESTE ES EL APP.JS NUEVO");
+/*=========================================================
+                OCULTAR PANTALLA DE CARGA
+=========================================================*/
+
+function ocultarPantallaCarga(){
+
+    if(!loadingScreen){
+        return;
+    }
+
+    loadingScreen.classList.add("hide");
+
+    setTimeout(() => {
+
+        loadingScreen.style.display = "none";
+
+    }, 800);
+
+}
