@@ -1,0 +1,707 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>CINEVERSE | Reproductor</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
+<link
+rel="stylesheet"
+href="player.css">
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body>
+
+
+
+<!--====================================
+                FONDO
+=====================================-->
+
+<div class="playerBackground"
+
+id="playerBackground">
+
+</div>
+
+
+
+<!--====================================
+                HEADER
+=====================================-->
+
+<header class="playerHeader">
+
+<div class="playerLogo">
+
+<a href="index.html">
+
+CINE<span>VERSE</span>
+
+</a>
+
+</div>
+
+
+
+<nav class="playerMenu">
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+Inicio
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-film"></i>
+
+Películas
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-tv"></i>
+
+Series
+
+</a>
+
+<a href="#">
+
+<i class="fa-solid fa-heart"></i>
+
+Mi Lista
+
+</a>
+
+</nav>
+
+
+
+<div class="playerActions">
+
+<button
+
+id="modoCine"
+
+class="btnGlass">
+
+<i class="fa-solid fa-clapperboard"></i>
+
+Modo Cine
+
+</button>
+
+</div>
+
+</header>
+
+
+
+<!--====================================
+        CONTENIDO PRINCIPAL
+=====================================-->
+
+<main class="playerMain">
+
+<section class="playerSection">
+
+<div class="videoArea">
+
+
+
+<div
+class="videoContainer"
+id="videoContainer">
+
+    <!-- ================================================
+         FUENTE YOUTUBE
+    ================================================= -->
+
+    <div
+        id="youtubeContainer"
+        class="playerSource">
+
+        <iframe
+            id="youtubePlayer"
+            title="Reproductor de CINEVERSE"
+            src=""
+            frameborder="0"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
+
+    <!-- ================================================
+         FUENTE MP4
+    ================================================= -->
+
+    <div
+        id="mp4Container"
+        class="playerSource"
+        style="display:none;">
+
+        <video
+            id="videoPlayer"
+            preload="metadata"
+            playsinline>
+
+            Tu navegador no puede reproducir este vídeo.
+
+        </video>
+
+        <div
+            id="cineverseControls"
+            class="cineverseControls">
+
+            <button id="btnPlay" type="button" aria-label="Reproducir o pausar">
+                <i class="fa-solid fa-play"></i>
+            </button>
+
+            <button id="btnBack10" type="button" aria-label="Retroceder 10 segundos">
+                <i class="fa-solid fa-rotate-left"></i> 10
+            </button>
+
+            <input id="progressBar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Progreso">
+
+            <span id="timeDisplay">0:00 / 0:00</span>
+
+            <button id="btnForward10" type="button" aria-label="Avanzar 10 segundos">
+                10 <i class="fa-solid fa-rotate-right"></i>
+            </button>
+
+            <button id="btnMute" type="button" aria-label="Silenciar">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+
+            <input id="volumeBar" type="range" min="0" max="1" value="1" step="0.05" aria-label="Volumen">
+
+            <button id="btnFullscreen" type="button" aria-label="Pantalla completa">
+                <i class="fa-solid fa-expand"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+<!--====================================
+        INFORMACIÓN PELÍCULA
+=====================================-->
+
+<div class="playerInfo">
+
+<div class="playerLeft">
+
+<div class="movieBadges">
+
+<span id="movieRating">
+
+⭐ 9.8
+
+</span>
+
+<span id="movieYear">
+
+2026
+
+</span>
+
+<span id="movieDuration">
+
+2h 15m
+
+</span>
+
+<span id="movieQuality">
+
+4K UHD
+
+</span>
+
+<span id="movieGenre">
+
+Acción
+
+</span>
+
+</div>
+
+
+
+<h1
+
+id="movieTitle"
+
+class="movieTitlePlayer">
+
+Cargando película...
+
+</h1>
+
+
+
+<p
+
+id="movieDescription"
+
+class="movieDescription">
+
+La información de la película aparecerá aquí automáticamente desde peliculas.json.
+
+</p>
+
+
+
+<div class="playerButtons">
+
+<button
+
+id="btnReproducir"
+
+class="btnPrincipal">
+
+<i class="fa-solid fa-play"></i>
+
+Reproducir
+
+</button>
+
+
+
+<button
+
+id="btnTrailer"
+
+class="btnSecundario">
+
+<i class="fa-solid fa-video"></i>
+
+Ver Tráiler
+
+</button>
+
+
+
+<button
+
+id="btnFavorito"
+
+class="btnGlass">
+
+<i class="fa-solid fa-heart"></i>
+
+Mi Lista
+
+</button>
+
+
+
+<button
+
+id="btnCompartir"
+
+class="btnGlass">
+
+<i class="fa-solid fa-share-nodes"></i>
+
+Compartir
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!--====================================
+            PANEL DERECHO
+=====================================-->
+
+<aside class="movieExtra">
+
+<div class="extraCard">
+
+<h3>
+
+<i class="fa-solid fa-circle-info"></i>
+
+Información
+
+</h3>
+
+
+
+<ul>
+
+<li>
+
+<strong>Idioma:</strong>
+
+<span id="movieIdioma">
+
+Español
+
+</span>
+
+</li>
+
+
+
+<li>
+
+<strong>Subtítulos:</strong>
+
+<span id="movieSubs">
+
+Español
+
+</span>
+
+</li>
+
+
+
+<li>
+
+<strong>Director:</strong>
+
+<span id="movieDirector">
+
+No disponible
+
+</span>
+
+</li>
+
+
+
+<li>
+
+<strong>Clasificación:</strong>
+
+<span id="movieClasificacion">
+
+B
+
+</span>
+
+</li>
+
+
+
+<li>
+
+<strong>Estreno:</strong>
+
+<span id="movieEstreno">
+
+2026
+
+</span>
+
+</li>
+
+</ul>
+
+</div>
+
+
+
+<div class="extraCard">
+
+<h3>
+
+<i class="fa-solid fa-chart-line"></i>
+
+Popularidad
+
+</h3>
+
+<div class="ratingCircle">
+
+<div>
+
+<span id="movieScore">
+
+9.5
+
+</span>
+
+<small>/10</small>
+
+</div>
+
+</div>
+
+<p>
+
+Basado en la calificación de los usuarios de CINEVERSE.
+
+</p>
+
+</div>
+
+</aside>
+
+</div>
+
+<!-- FIN playerInfo -->
+  <!--====================================
+        PELÍCULAS RELACIONADAS
+=====================================-->
+
+<section class="relatedSection">
+
+<div class="sectionTitle">
+
+<h2>
+
+También te puede gustar
+
+</h2>
+
+<p>
+
+Películas similares seleccionadas para ti
+
+</p>
+
+</div>
+
+
+
+<div
+
+class="relatedSlider"
+
+id="relatedSlider">
+
+<!--
+
+reproductor.js
+
+insertará aquí las películas
+
+automáticamente
+
+-->
+
+</div>
+
+</section>
+
+
+
+<!--====================================
+            VOLVER
+=====================================-->
+
+<section class="backHome">
+
+<a
+
+href="index.html"
+
+class="btnPrincipal">
+
+<i class="fa-solid fa-house"></i>
+
+Volver al Inicio
+
+</a>
+
+</section>
+
+
+
+</section>
+
+</main>
+
+
+
+<!--====================================
+                FOOTER
+=====================================-->
+
+<footer class="playerFooter">
+
+<div class="footerLogo">
+
+<h2>
+
+CINE<span>VERSE</span>
+
+</h2>
+
+<p>
+
+Tu universo del entretenimiento.
+
+</p>
+
+</div>
+
+
+
+<div class="footerLinks">
+
+<a href="#">Inicio</a>
+
+<a href="#">Películas</a>
+
+<a href="#">Series</a>
+
+<a href="#">Mi Lista</a>
+
+</div>
+
+
+
+<div class="footerLinks">
+
+<a href="#">
+
+Políticas
+
+</a>
+
+<a href="#">
+
+Privacidad
+
+</a>
+
+<a href="#">
+
+Contacto
+
+</a>
+
+<a href="#">
+
+Soporte
+
+</a>
+
+</div>
+
+
+
+<div class="footerSocial">
+
+<a href="#">
+
+<i class="fa-brands fa-facebook"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fa-brands fa-instagram"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fa-brands fa-x-twitter"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fa-brands fa-youtube"></i>
+
+</a>
+
+</div>
+
+</footer>
+
+
+
+<!--====================================
+        PANTALLA DE CARGA
+=====================================-->
+
+<div
+
+class="loadingScreen"
+
+id="loadingScreen">
+
+<div class="loader">
+
+<div class="loaderCircle">
+
+</div>
+
+<h2>
+
+Cargando...
+
+</h2>
+
+<p>
+
+Preparando tu película
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<!--====================================
+            JAVASCRIPT
+=====================================-->
+
+<script src="reproductor.js?v=2"></script>
+
+</body>
+</html>
+
+</body>
+
+</html>
