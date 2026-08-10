@@ -133,7 +133,37 @@ document.addEventListener(
 
     }
 );
+/*=========================================================
+                    BOTÓN VER PELÍCULA
+=========================================================*/
 
+if (btnVer) {
+
+    btnVer.addEventListener(
+        "click",
+        () => {
+
+            if (!peliculaActual) {
+
+                console.error(
+                    "❌ No hay película seleccionada"
+                );
+
+                return;
+            }
+
+            console.log(
+                "🎬 Abriendo:",
+                peliculaActual.titulo
+            );
+
+            window.location.href =
+                `reproductor.html?id=${peliculaActual.id}`;
+
+        }
+    );
+
+}
 /*=========================================================
                             HERO
 =========================================================*/
