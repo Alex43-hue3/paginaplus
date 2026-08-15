@@ -216,5 +216,43 @@
       "Bosque"
     ],
     "relacionadas": [2,5,7]
-  }
+  },
+  {
+    "id": 7,
+    "titulo": "El Mago de Oz",
+    "tituloOriginal": "The Wizard of Oz",
+    "descripcion": "Dorothy es transportada a un mundo fantástico donde deberá emprender un viaje para encontrar al Mago de Oz.",
+    "poster": "El Mago de Oz.jpg",
+    "banner": "El Mago de Oz.jpg",
+    "trailer": "",
+    "tipo": "mp4",
+    "url": "https://www.dropbox.com/scl/fi/qtwoe8cm7jhh9yzmfthdo/El-Mago-de-Oz.mp4?rlkey=n0gv7yq3013rmkxhcbl2cwzg8&st=wnnnjiim&dl=1",
+    "duracion": "Película",
+    "anio": "1939",
+    "genero": "Fantasía",
+    "subgenero": "Aventura",
+    "clasificacion": "A",
+    "calidad": "HD",
+    "idioma": "Español",
+    "subtitulos": "No",
+    "director": "Victor Fleming",
+    "reparto": [
+        "Judy Garland",
+        "Ray Bolger",
+        "Jack Haley",
+        "Bert Lahr"
+    ],
+    "pais": "Estados Unidos",
+    "rating": "8.0",
+    "destacada": false,
+    "nuevo": true,
+    "tendencia": true,
+    "universo": "El Mago de Oz",
+    "tags": [
+        "Fantasía",
+        "Aventura",
+        "Clásico"
+    ],
+    "relacionadas": [1, 2, 3]
+}
  ]  
