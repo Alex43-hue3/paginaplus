@@ -1761,3 +1761,454 @@ function ocultarPantallaCarga() {
 console.log(
     "🔥 CINEVERSE APP.JS cargado correctamente"
 );
+/* =========================================================
+        CINEVERSE — CONTINUAR VIENDO
+        MULTIPELÍCULA
+========================================================= */
+
+function cargarContinuarViendo(){
+
+    const lista =
+        document.getElementById(
+            "continuarLista"
+        );
+
+    const vacio =
+        document.getElementById(
+            "continuarVacio"
+        );
+
+
+    if(!lista){
+
+        return;
+
+    }
+
+
+    /* =====================================================
+                    LEER HISTORIAL
+    ===================================================== */
+
+    let historial = [];
+
+    try{
+
+        historial =
+            JSON.parse(
+                localStorage.getItem(
+                    "continuarViendo"
+                )
+            ) || [];
+
+    }catch(error){
+
+        console.error(
+            "❌ Error leyendo continuarViendo:",
+            error
+        );
+
+        historial = [];
+
+    }
+
+
+    /* =====================================================
+                CALCULAR PORCENTAJE
+    ===================================================== */
+
+    function obtenerPorcentaje(pelicula){
+
+        const valores = [
+
+            pelicula.porcentaje,
+
+            pelicula.progreso,
+
+            pelicula.progress,
+
+            pelicula.percent
+
+        ];
+
+
+        for(
+            const valor of valores
+        ){
+
+            if(
+                valor !== undefined &&
+                valor !== null &&
+                valor !== ""
+            ){
+
+                let numero =
+                    Number(valor);
+
+
+                if(
+                    numero > 1 &&
+                    numero <= 100
+                ){
+
+                    return Math.min(
+                        100,
+                        Math.max(
+                            0,
+                            numero
+                        )
+                    );
+
+                }
+
+
+                if(
+                    numero >= 0 &&
+                    numero <= 1
+                ){
+
+                    return Math.min(
+                        100,
+                        Math.max(
+                            0,
+                            numero * 100
+                        )
+                    );
+
+                }
+
+            }
+
+        }
+
+
+        return 0;
+
+    }
+
+
+    /* =====================================================
+                ELIMINAR TERMINADAS
+    ===================================================== */
+
+    historial =
+        historial.filter(
+            pelicula =>
+                obtenerPorcentaje(
+                    pelicula
+                ) < 100
+        );
+
+
+    localStorage.setItem(
+
+        "continuarViendo",
+
+        JSON.stringify(
+            historial
+        )
+
+    );
+
+
+    /* =====================================================
+                LIMPIAR TARJETAS
+    ===================================================== */
+
+    lista
+        .querySelectorAll(
+            ".continuarItem"
+        )
+        .forEach(
+            tarjeta =>
+                tarjeta.remove()
+        );
+
+
+    /* =====================================================
+                    SIN PELÍCULAS
+    ===================================================== */
+
+    if(
+        historial.length === 0
+    ){
+
+        if(vacio){
+
+            vacio.style.display =
+                "block";
+
+        }
+
+        return;
+
+    }
+
+
+    if(vacio){
+
+        vacio.style.display =
+            "none";
+
+    }
+
+
+    /* =====================================================
+                CREAR TARJETAS
+    ===================================================== */
+
+    historial.forEach(
+        pelicula => {
+
+            const porcentaje =
+                obtenerPorcentaje(
+                    pelicula
+                );
+
+
+            const titulo =
+                pelicula.titulo ||
+                "Película";
+
+
+            const poster =
+                pelicula.poster ||
+                pelicula.banner ||
+                "";
+
+
+            const descripcion =
+                pelicula.descripcion ||
+                "Continúa viendo esta película desde donde la dejaste.";
+
+
+            const tarjeta =
+                document.createElement(
+                    "article"
+                );
+
+
+            tarjeta.className =
+                "continuarItem";
+
+
+            tarjeta.innerHTML = `
+
+                <div
+                    class="continuarItemPoster">
+
+                    <img
+                        src="${poster}"
+                        alt="${titulo.replace(
+                            /"/g,
+                            "&quot;"
+                        )}"
+                        loading="lazy">
+
+                </div>
+
+
+                <div
+                    class="continuarItemContenido">
+
+
+                    <span
+                        class="continuarItemEtiqueta">
+
+                        <i
+                            class="fa-solid fa-play">
+                        </i>
+
+                        CONTINUAR
+
+                    </span>
+
+
+                    <h3
+                        class="continuarItemTitulo">
+
+                        ${titulo}
+
+                    </h3>
+
+
+                    <p
+                        class="continuarItemDescripcion">
+
+                        ${descripcion}
+
+                    </p>
+
+
+                    <div
+                        class="continuarItemProgress">
+
+
+                        <div
+                            class="continuarItemProgressBar">
+
+                            <div
+                                class="continuarItemProgressValue"
+                                style="
+                                    width:${porcentaje}%;
+                                ">
+
+                            </div>
+
+                        </div>
+
+
+                        <span
+                            class="continuarItemPorcentaje">
+
+                            ${Math.round(
+                                porcentaje
+                            )}%
+
+                        </span>
+
+
+                    </div>
+
+
+                    <div
+                        class="continuarItemBotones">
+
+
+                        <button
+                            class="btnPrincipal continuarItemBtn"
+                            type="button">
+
+                            <i
+                                class="fa-solid fa-play">
+                            </i>
+
+                            Continuar
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+
+            /* =========================================
+                        CONTINUAR
+            ========================================= */
+
+            const boton =
+                tarjeta.querySelector(
+                    ".continuarItemBtn"
+                );
+
+
+            if(boton){
+
+                boton.addEventListener(
+                    "click",
+                    () => {
+
+                        if(
+                            pelicula.id !==
+                            undefined
+                        ){
+
+                            window.location.href =
+                                `reproductor.html?id=${pelicula.id}`;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =========================================
+                    FALLBACK DE IMAGEN
+            ========================================= */
+
+            const imagen =
+                tarjeta.querySelector(
+                    "img"
+                );
+
+
+            if(imagen){
+
+                imagen.addEventListener(
+                    "error",
+                    () => {
+
+                        if(
+                            pelicula.banner &&
+                            imagen.src !==
+                            pelicula.banner
+                        ){
+
+                            imagen.src =
+                                pelicula.banner;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            lista.appendChild(
+                tarjeta
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+        ACTUALIZAR AUTOMÁTICAMENTE
+========================================================= */
+
+window.actualizarContinuarViendo =
+    cargarContinuarViendo;
+
+
+/* =========================================================
+        CARGAR AL INICIAR
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        cargarContinuarViendo();
+
+    }
+);
+
+
+/* =========================================================
+        SI OTRA PÁGINA MODIFICA LOCALSTORAGE
+========================================================= */
+
+window.addEventListener(
+    "storage",
+    event => {
+
+        if(
+            event.key ===
+            "continuarViendo"
+        ){
+
+            cargarContinuarViendo();
+
+        }
+
+    }
+);
