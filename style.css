@@ -3242,3 +3242,461 @@ margin-bottom:20px;
 margin-bottom:40px;
 
 }
+/* =========================================================
+        CINEVERSE — CONTINUAR VIENDO
+        SISTEMA MULTIPELÍCULA
+========================================================= */
+
+.continuarLista{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:24px;
+
+    width:100%;
+
+}
+
+
+/* =========================================================
+                    TARJETA
+========================================================= */
+
+.continuarItem{
+
+    position:relative;
+
+    display:flex;
+
+    min-height:190px;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,25,38,.97),
+            rgba(13,13,22,.98)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        0 18px 45px
+        rgba(0,0,0,.28);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease;
+
+}
+
+
+.continuarItem:hover{
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(124,58,237,.35);
+
+    box-shadow:
+        0 25px 55px
+        rgba(0,0,0,.38);
+
+}
+
+
+/* =========================================================
+                    POSTER
+========================================================= */
+
+.continuarItemPoster{
+
+    position:relative;
+
+    flex:
+        0 0 155px;
+
+    min-height:190px;
+
+    overflow:hidden;
+
+    background:#09090f;
+
+}
+
+
+.continuarItemPoster img{
+
+    width:100%;
+
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+}
+
+
+.continuarItemPoster::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 40%,
+            rgba(13,13,22,.85)
+        );
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================================
+                CONTENIDO
+========================================================= */
+
+.continuarItemContenido{
+
+    min-width:0;
+
+    flex:1;
+
+    padding:24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+
+.continuarItemEtiqueta{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    width:max-content;
+
+    margin-bottom:8px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:1.2px;
+
+    color:#bca7ff;
+
+}
+
+
+.continuarItemTitulo{
+
+    margin:
+        0 0 7px;
+
+    font-size:21px;
+
+    line-height:1.2;
+
+    color:#fff;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+.continuarItemDescripcion{
+
+    margin:
+        0 0 16px;
+
+    color:
+        rgba(255,255,255,.62);
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    display:
+        -webkit-box;
+
+    -webkit-line-clamp:2;
+
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
+
+}
+
+
+/* =========================================================
+                    PROGRESO
+========================================================= */
+
+.continuarItemProgress{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-bottom:17px;
+
+}
+
+
+.continuarItemProgressBar{
+
+    flex:1;
+
+    height:6px;
+
+    overflow:hidden;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.12);
+
+}
+
+
+.continuarItemProgressValue{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #a78bfa
+        );
+
+    transition:
+        width .3s ease;
+
+}
+
+
+.continuarItemPorcentaje{
+
+    min-width:40px;
+
+    text-align:right;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#fff;
+
+}
+
+
+/* =========================================================
+                    BOTÓN
+========================================================= */
+
+.continuarItemBotones{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+
+.continuarItemBtn{
+
+    min-height:38px;
+
+    padding:
+        9px 17px;
+
+}
+
+
+/* =========================================================
+                ESTADO VACÍO
+========================================================= */
+
+.continuarVacio{
+
+    grid-column:
+        1 / -1;
+
+    padding:
+        48px 24px;
+
+    text-align:center;
+
+    border:
+        1px dashed
+        rgba(255,255,255,.12);
+
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+
+.continuarVacioIcon{
+
+    width:58px;
+
+    height:58px;
+
+    margin:
+        0 auto 15px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:50%;
+
+    background:
+        rgba(124,58,237,.12);
+
+    color:#a78bfa;
+
+    font-size:22px;
+
+}
+
+
+.continuarVacio h3{
+
+    margin:
+        0 0 8px;
+
+    color:#fff;
+
+}
+
+
+.continuarVacio p{
+
+    max-width:520px;
+
+    margin:
+        0 auto;
+
+    color:
+        rgba(255,255,255,.55);
+
+    line-height:1.6;
+
+}
+
+
+/* =========================================================
+                    TABLET
+========================================================= */
+
+@media(max-width:900px){
+
+    .continuarLista{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+/* =========================================================
+                    CELULAR
+========================================================= */
+
+@media(max-width:600px){
+
+    .continuarItem{
+
+        min-height:155px;
+
+    }
+
+
+    .continuarItemPoster{
+
+        flex:
+            0 0 112px;
+
+        min-height:155px;
+
+    }
+
+
+    .continuarItemContenido{
+
+        padding:15px;
+
+    }
+
+
+    .continuarItemTitulo{
+
+        font-size:16px;
+
+    }
+
+
+    .continuarItemDescripcion{
+
+        font-size:11px;
+
+        -webkit-line-clamp:2;
+
+        margin-bottom:11px;
+
+    }
+
+
+    .continuarItemBotones .btnPrincipal{
+
+        width:100%;
+
+        justify-content:center;
+
+        font-size:12px;
+
+    }
+
+}
