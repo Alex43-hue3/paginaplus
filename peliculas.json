@@ -25,7 +25,7 @@
     "pais": "Países Bajos",
     "rating": "8.8",
     "destacada": true,
-    "nuevo": false,
+    "nuevo": true,
     "tendencia": true,
     "universo": "Blender",
     "tags": [
@@ -62,7 +62,7 @@
     "pais": "Países Bajos",
     "rating": "9.0",
     "destacada": true,
-    "nuevo": false,
+    "nuevo": true,
     "tendencia": true,
     "universo": "Blender",
     "tags": [
@@ -135,7 +135,7 @@
     "pais": "Países Bajos",
     "rating": "8.5",
     "destacada": false,
-    "nuevo": false,
+    "nuevo": true,
     "tendencia": true,
     "universo": "Blender",
     "tags": [
@@ -171,7 +171,7 @@
     "pais": "Países Bajos",
     "rating": "9.1",
     "destacada": true,
-    "nuevo": false,
+    "nuevo": true,
     "tendencia": true,
     "universo": "Blender",
     "tags": [
