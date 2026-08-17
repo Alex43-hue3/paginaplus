@@ -920,47 +920,53 @@ function crearTarjetaPelicula(
     /*-----------------------------------------------------
                             POSTER
     -----------------------------------------------------*/
+const poster =
+    tarjeta.querySelector(
+        ".moviePoster img, .poster"
+    );
 
-    const poster =
-        tarjeta.querySelector(
-            ".poster"
+if (poster) {
+
+    const imagen =
+        pelicula.poster ||
+        pelicula.banner ||
+        "";
+
+    console.log(
+        "🖼️ Imagen:",
+        pelicula.titulo,
+        "→",
+        imagen
+    );
+
+    poster.src = imagen;
+
+    poster.alt =
+        pelicula.titulo ||
+        "Película";
+
+    poster.onerror = () => {
+
+        console.error(
+            "❌ No se pudo cargar la imagen:",
+            imagen
         );
 
+        if (
+            pelicula.banner &&
+            pelicula.banner !== imagen
+        ) {
 
-    if (poster) {
+            poster.onerror = null;
 
-        const imagen =
-            pelicula.poster ||
-            pelicula.banner ||
-            "";
+            poster.src =
+                pelicula.banner;
 
+        }
 
-        poster.src =
-            imagen;
+    };
 
-
-        poster.alt =
-            pelicula.titulo ||
-            "Película";
-
-
-        poster.onerror = () => {
-
-            if (
-                pelicula.banner &&
-                poster.src !==
-                pelicula.banner
-            ) {
-
-                poster.src =
-                    pelicula.banner;
-
-            }
-
-        };
-
-    }
-
+}
 
     /*-----------------------------------------------------
                            TÍTULO
