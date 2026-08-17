@@ -921,9 +921,7 @@ function crearTarjetaPelicula(
                             POSTER
     -----------------------------------------------------*/
 const poster =
-    tarjeta.querySelector(
-        ".moviePoster img, .poster"
-    );
+    tarjeta.querySelector(".poster");
 
 if (poster) {
 
@@ -933,13 +931,25 @@ if (poster) {
         "";
 
     console.log(
-        "🖼️ Imagen:",
+        "🖼️ Cargando imagen:",
         pelicula.titulo,
         "→",
         imagen
     );
 
-    poster.src = imagen;
+    // Si es una imagen local, convertir correctamente
+    // espacios y caracteres especiales de la ruta
+    let rutaImagen = imagen;
+
+    if (
+        rutaImagen &&
+        !rutaImagen.startsWith("http://") &&
+        !rutaImagen.startsWith("https://")
+    ) {
+        rutaImagen = encodeURI(rutaImagen);
+    }
+
+    poster.src = rutaImagen;
 
     poster.alt =
         pelicula.titulo ||
@@ -948,26 +958,34 @@ if (poster) {
     poster.onerror = () => {
 
         console.error(
-            "❌ No se pudo cargar la imagen:",
-            imagen
+            "❌ No se pudo cargar:",
+            rutaImagen
         );
 
+        // Intentar el banner como respaldo
         if (
             pelicula.banner &&
-            pelicula.banner !== imagen
+            pelicula.banner !== pelicula.poster
         ) {
+
+            let rutaBanner =
+                pelicula.banner;
+
+            if (
+                !rutaBanner.startsWith("http://") &&
+                !rutaBanner.startsWith("https://")
+            ) {
+                rutaBanner =
+                    encodeURI(rutaBanner);
+            }
 
             poster.onerror = null;
 
             poster.src =
-                pelicula.banner;
-
+                rutaBanner;
         }
-
     };
-
 }
-
     /*-----------------------------------------------------
                            TÍTULO
     -----------------------------------------------------*/
