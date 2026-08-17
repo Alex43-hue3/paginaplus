@@ -2212,3 +2212,106 @@ window.addEventListener(
 
     }
 );
+/* =========================================================
+        CONTINUAR VIENDO — CONTROLES DEL CARRUSEL
+========================================================= */
+
+function configurarCarruselContinuar(){
+
+    const contenedor =
+        document.getElementById(
+            "continuarLista"
+        );
+
+    const anterior =
+        document.getElementById(
+            "continuarAnterior"
+        );
+
+    const siguiente =
+        document.getElementById(
+            "continuarSiguiente"
+        );
+
+
+    if(
+        !contenedor ||
+        !anterior ||
+        !siguiente
+    ){
+
+        return;
+
+    }
+
+
+    function moverCarrusel(direccion){
+
+        const tarjeta =
+            contenedor.querySelector(
+                ".continuarItem"
+            );
+
+
+        if(!tarjeta){
+
+            return;
+
+        }
+
+
+        const ancho =
+            tarjeta.offsetWidth;
+
+
+        const espacio =
+            24;
+
+
+        contenedor.scrollBy({
+
+            left:
+                direccion *
+                (ancho + espacio),
+
+            behavior:"smooth"
+
+        });
+
+    }
+
+
+    anterior.addEventListener(
+        "click",
+        () => {
+
+            moverCarrusel(-1);
+
+        }
+    );
+
+
+    siguiente.addEventListener(
+        "click",
+        () => {
+
+            moverCarrusel(1);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+            INICIAR CARRUSEL
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        configurarCarruselContinuar();
+
+    }
+);
