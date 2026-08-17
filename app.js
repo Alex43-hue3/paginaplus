@@ -186,43 +186,26 @@ document.addEventListener(
         peliculaActual =
             peliculas[0];
 
+indiceHero = 0;
 
+mostrarHero();
+
+iniciarHeroAutomatico();
+
+ocultarPantallaCarga();
         /*-------------------------------------------------
                             HERO
         -------------------------------------------------*/
 
-        mostrarHero();
+        mostrarHero()indiceHero = 0;
 
-/*=========================================================
-                CARRUSEL AUTOMÁTICO DEL HERO
-=========================================================*/
+mostrarHero();
 
-function iniciarHeroAutomatico() {
+iniciarHeroAutomatico();
 
-    // Detener cualquier intervalo anterior
-    if (intervaloHero) {
-        clearInterval(intervaloHero);
-    }
+ocultarPantallaCarga();;
 
-    intervaloHero = setInterval(() => {
 
-        if (!peliculas.length) {
-            return;
-        }
-
-        indiceHero++;
-
-        if (indiceHero >= peliculas.length) {
-            indiceHero = 0;
-        }
-
-        peliculaActual = peliculas[indiceHero];
-
-        mostrarHero();
-
-    }, 7000); // 7 segundos
-
-}
         /*-------------------------------------------------
                         CATÁLOGO
         -------------------------------------------------*/
