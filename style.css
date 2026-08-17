@@ -3764,3 +3764,190 @@ margin-bottom:40px;
     }
 
 }
+/* =========================================================
+        CONTINUAR VIENDO — CONTROLES LATERALES
+========================================================= */
+
+.continuarCarrusel{
+
+    position:relative;
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+/* =========================================================
+                    FLECHAS
+========================================================= */
+
+.continuarFlecha{
+
+    flex:
+        0 0 48px;
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    color:#fff;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:
+        .25s ease;
+
+    z-index:5;
+
+}
+
+
+.continuarFlecha:hover{
+
+    background:
+        rgba(124,58,237,.85);
+
+    border-color:
+        rgba(167,139,250,.7);
+
+    transform:
+        scale(1.08);
+
+    box-shadow:
+        0 8px 25px
+        rgba(124,58,237,.30);
+
+}
+
+
+.continuarFlecha:active{
+
+    transform:
+        scale(.95);
+
+}
+
+
+/* =========================================================
+                    LISTA
+========================================================= */
+
+.continuarLista{
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    gap:24px;
+
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    scroll-behavior:smooth;
+
+    scroll-snap-type:x mandatory;
+
+    padding:
+        5px 5px 20px;
+
+    scrollbar-width:none;
+
+}
+
+
+.continuarLista::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+/* =========================================================
+                    TARJETAS
+========================================================= */
+
+.continuarItem{
+
+    flex:
+        0 0 520px;
+
+    min-width:520px;
+
+    scroll-snap-align:start;
+
+}
+
+
+/* =========================================================
+                    CELULAR
+========================================================= */
+
+@media(max-width:700px){
+
+    .continuarCarrusel{
+
+        gap:6px;
+
+    }
+
+
+    .continuarFlecha{
+
+        flex:
+            0 0 38px;
+
+        width:38px;
+
+        height:38px;
+
+        font-size:14px;
+
+    }
+
+
+    .continuarLista{
+
+        gap:15px;
+
+    }
+
+
+    .continuarItem{
+
+        flex:
+            0 0 calc(100vw - 105px);
+
+        min-width:
+            calc(100vw - 105px);
+
+    }
+
+}
