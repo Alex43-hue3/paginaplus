@@ -193,7 +193,36 @@ document.addEventListener(
 
         mostrarHero();
 
+/*=========================================================
+                CARRUSEL AUTOMÁTICO DEL HERO
+=========================================================*/
 
+function iniciarHeroAutomatico() {
+
+    // Detener cualquier intervalo anterior
+    if (intervaloHero) {
+        clearInterval(intervaloHero);
+    }
+
+    intervaloHero = setInterval(() => {
+
+        if (!peliculas.length) {
+            return;
+        }
+
+        indiceHero++;
+
+        if (indiceHero >= peliculas.length) {
+            indiceHero = 0;
+        }
+
+        peliculaActual = peliculas[indiceHero];
+
+        mostrarHero();
+
+    }, 7000); // 7 segundos
+
+}
         /*-------------------------------------------------
                         CATÁLOGO
         -------------------------------------------------*/
