@@ -186,13 +186,6 @@ document.addEventListener(
         peliculaActual =
             peliculas[0];
 
-indiceHero = 0;
-
-mostrarHero();
-
-iniciarHeroAutomatico();
-
-ocultarPantallaCarga();
         /*-------------------------------------------------
                             HERO
         -------------------------------------------------*/
@@ -293,103 +286,6 @@ if (btnVer) {
 =========================================================*/
 
 function mostrarHero() {
-/*=========================================================
-                CARRUSEL AUTOMÁTICO DEL HERO
-=========================================================*/
-
-function iniciarHeroAutomatico() {
-
-    if (intervaloHero) {
-        clearInterval(intervaloHero);
-    }
-
-    intervaloHero = setInterval(() => {
-
-        if (!peliculas.length) {
-            return;
-        }
-
-        indiceHero++;
-
-        if (indiceHero >= peliculas.length) {
-            indiceHero = 0;
-        }
-
-        peliculaActual =
-            peliculas[indiceHero];
-
-        mostrarHero();
-
-    }, 7000);
-
-}
-
-
-/*=========================================================
-                    HERO ANTERIOR
-=========================================================*/
-
-if (heroAnterior) {
-
-    heroAnterior.addEventListener("click", () => {
-
-        if (!peliculas.length) {
-            return;
-        }
-
-        indiceHero--;
-
-        if (indiceHero < 0) {
-            indiceHero =
-                peliculas.length - 1;
-        }
-
-        peliculaActual =
-            peliculas[indiceHero];
-
-        mostrarHero();
-
-        iniciarHeroAutomatico();
-
-    });
-
-}
-
-
-/*=========================================================
-                    HERO SIGUIENTE
-=========================================================*/
-
-if (heroSiguiente) {
-
-    heroSiguiente.addEventListener("click", () => {
-
-        if (!peliculas.length) {
-            return;
-        }
-
-        indiceHero++;
-
-        if (indiceHero >= peliculas.length) {
-            indiceHero = 0;
-        }
-
-        peliculaActual =
-            peliculas[indiceHero];
-
-        mostrarHero();
-
-        iniciarHeroAutomatico();
-
-    });
-
-}
-    if (!peliculaActual) {
-
-        return;
-
-    }
-
 
     /*-----------------------------------------------------
                         TÍTULO
