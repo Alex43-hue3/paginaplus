@@ -3247,19 +3247,83 @@ margin-bottom:40px;
         SISTEMA MULTIPELÍCULA
 ========================================================= */
 
+/* =========================================================
+        CONTINUAR VIENDO — CARRUSEL
+========================================================= */
+
 .continuarLista{
 
-    display:grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+    display:flex;
 
     gap:24px;
 
     width:100%;
 
+    overflow-x:auto;
+
+    overflow-y:hidden;
+
+    scroll-behavior:smooth;
+
+    scroll-snap-type:x mandatory;
+
+    padding:
+        5px 5px 20px;
+
+    scrollbar-width:none;
+
 }
 
+.continuarLista::-webkit-scrollbar{
+    display:none;
+}
+
+
+/* =========================================================
+                    TARJETAS
+========================================================= */
+
+.continuarItem{
+
+    position:relative;
+
+    flex:
+        0 0 520px;
+
+    min-width:520px;
+
+    min-height:190px;
+
+    scroll-snap-align:start;
+
+}
+
+
+/* =========================================================
+                    CELULAR
+========================================================= */
+
+@media(max-width:600px){
+
+    .continuarLista{
+
+        gap:15px;
+
+    }
+
+    .continuarItem{
+
+        flex:
+            0 0 calc(100vw - 50px);
+
+        min-width:
+            calc(100vw - 50px);
+
+        min-height:155px;
+
+    }
+
+}
 
 /* =========================================================
                     TARJETA
