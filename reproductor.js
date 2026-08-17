@@ -7,6 +7,12 @@
 let peliculas = [];
 let peliculaActual = null;
 
+let youtubePlayer = null;
+let youtubeAPILista = false;
+let youtubeAPIEsperando = [];
+
+let guardadoProgresoIntervalo = null;
+
 
 /*=========================================================
                     ELEMENTOS
@@ -26,12 +32,72 @@ const relatedSlider =
 
 
 /*=========================================================
-                    INICIAR
+            INICIAR API DE YOUTUBE
+=========================================================*/
+
+function cargarYouTubeAPI() {
+
+    if (window.YT && window.YT.Player) {
+
+        youtubeAPILista = true;
+        ejecutarColaYouTube();
+
+        return;
+
+    }
+
+    if (
+        document.querySelector(
+            'script[src="https://www.youtube.com/iframe_api"]'
+        )
+    ) {
+
+        return;
+
+    }
+
+    window.onYouTubeIframeAPIReady = function () {
+
+        youtubeAPILista = true;
+
+        ejecutarColaYouTube();
+
+    };
+
+    const script =
+        document.createElement("script");
+
+    script.src =
+        "https://www.youtube.com/iframe_api";
+
+    document.head.appendChild(script);
+
+}
+
+
+function ejecutarColaYouTube() {
+
+    while (youtubeAPIEsperando.length) {
+
+        const funcion =
+            youtubeAPIEsperando.shift();
+
+        funcion();
+
+    }
+
+}
+
+
+/*=========================================================
+                    DOM READY
 =========================================================*/
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
+
+        cargarYouTubeAPI();
 
         iniciarPlayer();
 
@@ -61,16 +127,9 @@ async function iniciarPlayer() {
 
     }
 
-    cargarInformacion();
-
     crearReproductor();
 
-    /*
-        Registramos la película en Continuar viendo,
-        pero NO borramos su progreso existente.
-    */
-
-    registrarContinuarViendo();
+    cargarInformacion();
 
     inicializarMiLista();
 
@@ -81,6 +140,14 @@ async function iniciarPlayer() {
     compartirPelicula();
 
     abrirTrailer();
+
+    configurarBotonReproducir();
+
+    /*
+     * IMPORTANTE:
+     * Guardamos la película solamente cuando
+     * realmente empieza la reproducción.
+     */
 
     ocultarLoader();
 
@@ -97,8 +164,7 @@ async function cargarPeliculas() {
 
         const respuesta =
             await fetch(
-                "peliculas.json?v=" +
-                Date.now()
+                "peliculas.json?v=" + Date.now()
             );
 
         if (!respuesta.ok) {
@@ -118,15 +184,12 @@ async function cargarPeliculas() {
         );
 
     }
-
     catch (error) {
 
         console.error(
             "❌ Error cargando películas:",
             error
         );
-
-        peliculas = [];
 
     }
 
@@ -154,13 +217,11 @@ function obtenerPelicula() {
         id
     );
 
-
     peliculaActual =
         peliculas.find(
             pelicula =>
                 Number(pelicula.id) === id
         );
-
 
     if (peliculaActual) {
 
@@ -169,18 +230,7 @@ function obtenerPelicula() {
             peliculaActual.titulo
         );
 
-        console.log(
-            "📺 Tipo:",
-            peliculaActual.tipo
-        );
-
-        console.log(
-            "🔗 URL:",
-            peliculaActual.url
-        );
-
     }
-
     else {
 
         console.error(
@@ -194,15 +244,13 @@ function obtenerPelicula() {
 
 
 /*=========================================================
-                LOADER
+                    LOADER
 =========================================================*/
 
 function mostrarLoader() {
 
     if (!loadingScreen) {
-
         return;
-
     }
 
     loadingScreen.classList.remove(
@@ -215,35 +263,28 @@ function mostrarLoader() {
 function ocultarLoader() {
 
     if (!loadingScreen) {
-
         return;
-
     }
 
-    setTimeout(
-        () => {
+    setTimeout(() => {
 
-            loadingScreen.classList.add(
-                "oculto"
-            );
+        loadingScreen.classList.add(
+            "oculto"
+        );
 
-        },
-        400
-    );
+    }, 500);
 
 }
 
 
 /*=========================================================
-                ERROR
+                    ERROR
 =========================================================*/
 
 function mostrarError() {
 
     if (!videoContainer) {
-
         return;
-
     }
 
     videoContainer.innerHTML = `
@@ -257,7 +298,8 @@ function mostrarError() {
             </h2>
 
             <p>
-                Verifica peliculas.json
+                Verifica el ID de la película
+                y peliculas.json.
             </p>
 
         </div>
@@ -268,40 +310,22 @@ function mostrarError() {
 
 
 /*=========================================================
-            CREAR REPRODUCTOR
+                CREAR REPRODUCTOR
 =========================================================*/
 
 function crearReproductor() {
 
-    if (
-        !peliculaActual ||
-        !videoContainer
-    ) {
-
+    if (!peliculaActual || !videoContainer) {
         return;
-
     }
 
+    let html = "";
 
-    const tipo =
-        String(
-            peliculaActual.tipo || ""
-        )
-        .toLowerCase()
-        .trim();
-
-
-    console.log(
-        "🎥 Creando reproductor:",
-        tipo
-    );
-
-
-    switch (tipo) {
+    switch (peliculaActual.tipo) {
 
         case "youtube":
 
-            videoContainer.innerHTML =
+            html =
                 crearYoutube(
                     peliculaActual.url
                 );
@@ -311,7 +335,7 @@ function crearReproductor() {
 
         case "drive":
 
-            videoContainer.innerHTML =
+            html =
                 crearDrive(
                     peliculaActual.url
                 );
@@ -321,19 +345,17 @@ function crearReproductor() {
 
         case "mp4":
 
-            videoContainer.innerHTML =
+            html =
                 crearMP4(
                     peliculaActual.url
                 );
-
-            inicializarControlesMP4();
 
             break;
 
 
         default:
 
-            videoContainer.innerHTML = `
+            html = `
 
                 <div class="videoLoading">
 
@@ -344,14 +366,38 @@ function crearReproductor() {
                     </h2>
 
                     <p>
-                        El tipo de video
-                        "${escaparHTML(tipo)}"
-                        no es compatible.
+                        El tipo de video no existe.
                     </p>
 
                 </div>
 
             `;
+
+    }
+
+    videoContainer.innerHTML =
+        html;
+
+
+    /*
+     * Después de insertar el HTML
+     * inicializamos el reproductor.
+     */
+
+    if (
+        peliculaActual.tipo === "mp4"
+    ) {
+
+        inicializarControlesMP4();
+
+    }
+
+
+    if (
+        peliculaActual.tipo === "youtube"
+    ) {
+
+        inicializarYouTube();
 
     }
 
@@ -366,7 +412,6 @@ function crearYoutube(url) {
 
     const id =
         obtenerYoutubeID(url);
-
 
     if (!id) {
 
@@ -390,30 +435,318 @@ function crearYoutube(url) {
 
     }
 
-
     return `
 
-        <div class="playerSource youtubeSource">
+        <div
+            class="playerSource youtubeSource"
+            style="width:100%;height:100%;">
 
-            <iframe
-
+            <div
                 id="youtubePlayer"
+                style="width:100%;height:100%;">
 
-                src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
-
-                title="${escaparHTML(
-                    peliculaActual.titulo
-                )}"
-
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-
-                allowfullscreen>
-
-            </iframe>
+            </div>
 
         </div>
 
     `;
+
+}
+
+
+/*=========================================================
+            INICIALIZAR YOUTUBE API
+=========================================================*/
+
+function inicializarYouTube() {
+
+    if (!peliculaActual) {
+        return;
+    }
+
+    const id =
+        obtenerYoutubeID(
+            peliculaActual.url
+        );
+
+    if (!id) {
+        return;
+    }
+
+    const iniciar = () => {
+
+        if (
+            !window.YT ||
+            !window.YT.Player
+        ) {
+
+            return;
+
+        }
+
+        const elemento =
+            document.getElementById(
+                "youtubePlayer"
+            );
+
+        if (!elemento) {
+            return;
+        }
+
+        youtubePlayer =
+            new YT.Player(
+                "youtubePlayer",
+                {
+
+                    videoId: id,
+
+                    playerVars: {
+
+                        autoplay: 1,
+
+                        rel: 0,
+
+                        modestbranding: 1,
+
+                        playsinline: 1
+
+                    },
+
+                    events: {
+
+                        onReady:
+                            youtubeReady,
+
+                        onStateChange:
+                            youtubeStateChange
+
+                    }
+
+                }
+            );
+
+    };
+
+
+    if (youtubeAPILista) {
+
+        iniciar();
+
+    }
+    else {
+
+        youtubeAPIEsperando.push(
+            iniciar
+        );
+
+    }
+
+}
+
+
+/*=========================================================
+                YOUTUBE READY
+=========================================================*/
+
+function youtubeReady(event) {
+
+    console.log(
+        "▶️ YouTube listo"
+    );
+
+
+    /*
+     * Intentamos recuperar el progreso
+     * anterior.
+     */
+
+    const progreso =
+        obtenerProgreso();
+
+    if (
+        progreso &&
+        progreso.segundos > 5
+    ) {
+
+        try {
+
+            event.target.seekTo(
+                progreso.segundos,
+                true
+            );
+
+            console.log(
+                "⏩ Continuando YouTube desde:",
+                progreso.segundos
+            );
+
+        }
+        catch (error) {
+
+            console.warn(
+                "No se pudo recuperar progreso YouTube",
+                error
+            );
+
+        }
+
+    }
+
+
+    /*
+     * YouTube puede bloquear autoplay.
+     * No pasa nada: el usuario puede
+     * pulsar reproducir.
+     */
+
+    try {
+
+        event.target.playVideo();
+
+    }
+    catch (error) {
+
+        console.log(
+            "ℹ️ YouTube requiere interacción del usuario."
+        );
+
+    }
+
+}
+
+
+/*=========================================================
+            CAMBIO DE ESTADO YOUTUBE
+=========================================================*/
+
+function youtubeStateChange(event) {
+
+    if (
+        event.data ===
+        YT.PlayerState.PLAYING
+    ) {
+
+        console.log(
+            "▶️ Reproduciendo YouTube"
+        );
+
+        guardarContinuarViendo();
+
+        iniciarGuardadoYouTube();
+
+    }
+
+
+    if (
+        event.data ===
+        YT.PlayerState.PAUSED
+    ) {
+
+        guardarProgresoYouTube();
+
+    }
+
+
+    if (
+        event.data ===
+        YT.PlayerState.ENDED
+    ) {
+
+        console.log(
+            "✅ YouTube terminado"
+        );
+
+        eliminarContinuarViendo();
+
+        detenerGuardadoYouTube();
+
+    }
+
+}
+
+
+/*=========================================================
+            GUARDAR PROGRESO YOUTUBE
+=========================================================*/
+
+function iniciarGuardadoYouTube() {
+
+    detenerGuardadoYouTube();
+
+    guardadoProgresoIntervalo =
+        setInterval(
+            () => {
+
+                guardarProgresoYouTube();
+
+            },
+            5000
+        );
+
+}
+
+
+function detenerGuardadoYouTube() {
+
+    if (
+        guardadoProgresoIntervalo
+    ) {
+
+        clearInterval(
+            guardadoProgresoIntervalo
+        );
+
+        guardadoProgresoIntervalo =
+            null;
+
+    }
+
+}
+
+
+function guardarProgresoYouTube() {
+
+    if (
+        !youtubePlayer ||
+        !peliculaActual
+    ) {
+
+        return;
+
+    }
+
+    try {
+
+        const actual =
+            youtubePlayer.getCurrentTime();
+
+        const duracion =
+            youtubePlayer.getDuration();
+
+        if (
+            !Number.isFinite(actual) ||
+            !Number.isFinite(duracion) ||
+            duracion <= 0
+        ) {
+
+            return;
+
+        }
+
+        guardarProgreso(
+            actual,
+            duracion
+        );
+
+    }
+    catch (error) {
+
+        console.log(
+            "No se pudo guardar progreso YouTube",
+            error
+        );
+
+    }
 
 }
 
@@ -426,24 +759,6 @@ function crearDrive(url) {
 
     const id =
         obtenerDriveID(url);
-
-
-    if (!id) {
-
-        return `
-
-            <div class="videoLoading">
-
-                <h2>
-                    Google Drive no válido
-                </h2>
-
-            </div>
-
-        `;
-
-    }
-
 
     return `
 
@@ -468,69 +783,49 @@ function crearDrive(url) {
 
 function crearMP4(url) {
 
-    const videoURL =
-        convertirDropboxURL(url);
-
-
-    console.log(
-        "🎞️ URL MP4 final:",
-        videoURL
-    );
-
-
     return `
 
-        <div class="playerSource mp4Source">
+        <div
+            class="playerSource mp4Source"
+            style="width:100%;height:100%;">
 
             <video
-
                 id="videoPlayer"
-
                 preload="metadata"
-
                 playsinline>
 
                 <source
-
-                    src="${escaparAtributo(videoURL)}"
-
+                    src="${url}"
                     type="video/mp4">
 
-                Tu navegador no soporta
-                video HTML5.
+                Tu navegador no soporta video HTML5.
 
             </video>
 
 
             <div
-
                 id="cineverseControls"
-
                 class="cineverseControls">
 
 
                 <button
-
                     id="btnPlay"
+                    type="button">
 
-                    type="button"
-
-                    aria-label="Reproducir o pausar">
-
-                    <i class="fa-solid fa-play"></i>
+                    <i
+                        class="fa-solid fa-play">
+                    </i>
 
                 </button>
 
 
                 <button
-
                     id="btnBack10"
+                    type="button">
 
-                    type="button"
-
-                    aria-label="Retroceder 10 segundos">
-
-                    <i class="fa-solid fa-rotate-left"></i>
+                    <i
+                        class="fa-solid fa-rotate-left">
+                    </i>
 
                     10
 
@@ -538,23 +833,16 @@ function crearMP4(url) {
 
 
                 <input
-
                     id="progressBar"
-
                     type="range"
-
                     min="0"
-
                     max="100"
-
                     value="0"
-
-                    step="0.1"
-
-                    aria-label="Progreso">
+                    step="0.1">
 
 
-                <span id="timeDisplay">
+                <span
+                    id="timeDisplay">
 
                     0:00 / 0:00
 
@@ -562,59 +850,45 @@ function crearMP4(url) {
 
 
                 <button
-
                     id="btnForward10"
-
-                    type="button"
-
-                    aria-label="Avanzar 10 segundos">
+                    type="button">
 
                     10
 
-                    <i class="fa-solid fa-rotate-right"></i>
+                    <i
+                        class="fa-solid fa-rotate-right">
+                    </i>
 
                 </button>
 
 
                 <button
-
                     id="btnMute"
+                    type="button">
 
-                    type="button"
-
-                    aria-label="Silenciar">
-
-                    <i class="fa-solid fa-volume-high"></i>
+                    <i
+                        class="fa-solid fa-volume-high">
+                    </i>
 
                 </button>
 
 
                 <input
-
                     id="volumeBar"
-
                     type="range"
-
                     min="0"
-
                     max="1"
-
                     value="1"
-
-                    step="0.05"
-
-                    aria-label="Volumen">
+                    step="0.05">
 
 
                 <button
-
                     id="btnFullscreen"
+                    type="button">
 
-                    type="button"
-
-                    aria-label="Pantalla completa">
-
-                    <i class="fa-solid fa-expand"></i>
+                    <i
+                        class="fa-solid fa-expand">
+                    </i>
 
                 </button>
 
@@ -629,82 +903,7 @@ function crearMP4(url) {
 
 
 /*=========================================================
-            CONVERTIR DROPBOX A ENLACE DIRECTO
-=========================================================*/
-
-function convertirDropboxURL(url) {
-
-    if (!url) {
-
-        return "";
-
-    }
-
-
-    let nuevaURL =
-        String(url).trim();
-
-
-    if (
-        nuevaURL.includes(
-            "dropbox.com"
-        )
-    ) {
-
-        nuevaURL =
-            nuevaURL.replace(
-                "www.dropbox.com",
-                "dl.dropboxusercontent.com"
-            );
-
-
-        nuevaURL =
-            nuevaURL.replace(
-                "dropbox.com",
-                "dl.dropboxusercontent.com"
-            );
-
-
-        nuevaURL =
-            nuevaURL.replace(
-                /[?&]dl=0/g,
-                ""
-            );
-
-
-        nuevaURL =
-            nuevaURL.replace(
-                /[?&]dl=1/g,
-                ""
-            );
-
-
-        if (
-            nuevaURL.includes("?")
-        ) {
-
-            nuevaURL +=
-                "&raw=1";
-
-        }
-
-        else {
-
-            nuevaURL +=
-                "?raw=1";
-
-        }
-
-    }
-
-
-    return nuevaURL;
-
-}
-
-
-/*=========================================================
-            CONTROLES MP4 CINEVERSE
+            CONTROLES MP4
 =========================================================*/
 
 function inicializarControlesMP4() {
@@ -714,54 +913,45 @@ function inicializarControlesMP4() {
             "videoPlayer"
         );
 
-
     const play =
         document.getElementById(
             "btnPlay"
         );
-
 
     const back10 =
         document.getElementById(
             "btnBack10"
         );
 
-
     const forward10 =
         document.getElementById(
             "btnForward10"
         );
-
 
     const progress =
         document.getElementById(
             "progressBar"
         );
 
-
     const time =
         document.getElementById(
             "timeDisplay"
         );
-
 
     const mute =
         document.getElementById(
             "btnMute"
         );
 
-
     const volume =
         document.getElementById(
             "volumeBar"
         );
 
-
     const fullscreen =
         document.getElementById(
             "btnFullscreen"
         );
-
 
     const container =
         document.getElementById(
@@ -780,9 +970,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                    FORMATEAR TIEMPO
-    =====================================================*/
+    /*---------------------------------------------
+                    TIEMPO
+    ---------------------------------------------*/
 
     function formatearTiempo(
         segundos
@@ -804,16 +994,15 @@ function inicializarControlesMP4() {
                 segundos / 60
             );
 
-
         const segundosRestantes =
             Math.floor(
                 segundos % 60
             )
-            .toString()
-            .padStart(
-                2,
-                "0"
-            );
+                .toString()
+                .padStart(
+                    2,
+                    "0"
+                );
 
 
         const horas =
@@ -828,12 +1017,11 @@ function inicializarControlesMP4() {
                 (
                     minutos % 60
                 )
-                .toString()
-                .padStart(
-                    2,
-                    "0"
-                );
-
+                    .toString()
+                    .padStart(
+                        2,
+                        "0"
+                    );
 
             return `${horas}:${minutosRestantes}:${segundosRestantes}`;
 
@@ -845,18 +1033,15 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                    ACTUALIZAR PLAY
-    =====================================================*/
+    /*---------------------------------------------
+                    PLAY
+    ---------------------------------------------*/
 
     function actualizarPlay() {
 
         if (!play) {
-
             return;
-
         }
-
 
         if (video.paused) {
 
@@ -864,7 +1049,6 @@ function inicializarControlesMP4() {
                 '<i class="fa-solid fa-play"></i>';
 
         }
-
         else {
 
             play.innerHTML =
@@ -875,21 +1059,15 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                    ACTUALIZAR TIEMPO
-    =====================================================*/
+    /*---------------------------------------------
+                    TIEMPO
+    ---------------------------------------------*/
 
     function actualizarTiempo() {
 
-        if (
-            !progress ||
-            !time
-        ) {
-
+        if (!progress || !time) {
             return;
-
         }
-
 
         const porcentaje =
             video.duration
@@ -905,27 +1083,20 @@ function inicializarControlesMP4() {
 
 
         time.textContent =
-            `${formatearTiempo(
-                video.currentTime
-            )} / ${formatearTiempo(
-                video.duration
-            )}`;
+            `${formatearTiempo(video.currentTime)} / ${formatearTiempo(video.duration)}`;
 
     }
 
 
-    /*=====================================================
-                    ACTUALIZAR MUTE
-    =====================================================*/
+    /*---------------------------------------------
+                    MUTE
+    ---------------------------------------------*/
 
     function actualizarMute() {
 
         if (!mute) {
-
             return;
-
         }
-
 
         if (
             video.muted ||
@@ -936,7 +1107,6 @@ function inicializarControlesMP4() {
                 '<i class="fa-solid fa-volume-xmark"></i>';
 
         }
-
         else {
 
             mute.innerHTML =
@@ -947,9 +1117,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                        PLAY
-    =====================================================*/
+    /*---------------------------------------------
+                PLAY / PAUSE
+    ---------------------------------------------*/
 
     if (play) {
 
@@ -957,24 +1127,12 @@ function inicializarControlesMP4() {
             "click",
             () => {
 
-                if (
-                    video.paused
-                ) {
+                if (video.paused) {
 
                     video.play()
-                        .catch(
-                            error => {
-
-                                console.error(
-                                    "Error reproduciendo:",
-                                    error
-                                );
-
-                            }
-                        );
+                        .catch(() => {});
 
                 }
-
                 else {
 
                     video.pause();
@@ -987,9 +1145,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                    RETROCEDER
-    =====================================================*/
+    /*---------------------------------------------
+                    ATRÁS 10
+    ---------------------------------------------*/
 
     if (back10) {
 
@@ -1009,9 +1167,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                        AVANZAR
-    =====================================================*/
+    /*---------------------------------------------
+                    ADELANTE 10
+    ---------------------------------------------*/
 
     if (forward10) {
 
@@ -1031,9 +1189,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                    BARRA PROGRESO
-    =====================================================*/
+    /*---------------------------------------------
+                    BARRA
+    ---------------------------------------------*/
 
     if (progress) {
 
@@ -1061,9 +1219,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                        SILENCIO
-    =====================================================*/
+    /*---------------------------------------------
+                    MUTE
+    ---------------------------------------------*/
 
     if (mute) {
 
@@ -1082,9 +1240,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                        VOLUMEN
-    =====================================================*/
+    /*---------------------------------------------
+                    VOLUMEN
+    ---------------------------------------------*/
 
     if (volume) {
 
@@ -1097,10 +1255,8 @@ function inicializarControlesMP4() {
                         volume.value
                     );
 
-
                 video.muted =
                     video.volume === 0;
-
 
                 actualizarMute();
 
@@ -1110,9 +1266,9 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                    PANTALLA COMPLETA
-    =====================================================*/
+    /*---------------------------------------------
+                PANTALLA COMPLETA
+    ---------------------------------------------*/
 
     if (fullscreen) {
 
@@ -1146,70 +1302,32 @@ function inicializarControlesMP4() {
     }
 
 
-    /*=====================================================
-                RECUPERAR PROGRESO
-    =====================================================*/
+    /*---------------------------------------------
+                    EVENTOS VIDEO
+    ---------------------------------------------*/
 
     video.addEventListener(
-        "loadedmetadata",
+        "play",
         () => {
 
-            console.log(
-                "✅ MP4 cargado correctamente"
-            );
+            actualizarPlay();
 
-
-            actualizarTiempo();
-
-
-            const progresoGuardado =
-                obtenerProgresoContinuar();
-
-
-            if (
-                progresoGuardado &&
-                Number.isFinite(
-                    Number(
-                        progresoGuardado.tiempo
-                    )
-                )
-            ) {
-
-                const posicion =
-                    Number(
-                        progresoGuardado.tiempo
-                    );
-
-
-                if (
-                    posicion > 0 &&
-                    posicion < video.duration
-                ) {
-
-                    video.currentTime =
-                        posicion;
-
-
-                    console.log(
-                        "⏩ Continuando desde:",
-                        formatearTiempo(
-                            posicion
-                        )
-                    );
-
-                }
-
-            }
+            guardarContinuarViendo();
 
         }
     );
 
 
-    /*=====================================================
-                GUARDAR PROGRESO
-    =====================================================*/
+    video.addEventListener(
+        "pause",
+        () => {
 
-    let ultimoGuardado = 0;
+            actualizarPlay();
+
+            guardarProgresoMP4();
+
+        }
+    );
 
 
     video.addEventListener(
@@ -1218,89 +1336,36 @@ function inicializarControlesMP4() {
 
             actualizarTiempo();
 
-
-            const ahora =
-                Date.now();
-
-
             /*
-                Guardamos cada 3 segundos.
-            */
+             * Guardamos cada cierto avance.
+             * No usamos localStorage en cada frame.
+             */
 
             if (
-                ahora -
-                ultimoGuardado >=
-                3000
+                Math.floor(
+                    video.currentTime
+                ) % 5 === 0
             ) {
 
-                guardarProgresoContinuar(
-                    video.currentTime,
-                    video.duration
-                );
-
-
-                ultimoGuardado =
-                    ahora;
+                guardarProgresoMP4();
 
             }
 
         }
     );
 
-
-    /*=====================================================
-                GUARDAR AL PAUSAR
-    =====================================================*/
 
     video.addEventListener(
-        "pause",
+        "loadedmetadata",
         () => {
 
-            if (
-                !video.ended
-            ) {
+            actualizarTiempo();
 
-                guardarProgresoContinuar(
-                    video.currentTime,
-                    video.duration
-                );
-
-            }
+            recuperarProgresoMP4();
 
         }
     );
 
-
-    /*=====================================================
-                GUARDAR AL SALIR
-    =====================================================*/
-
-    const guardarAntesDeSalir =
-        () => {
-
-            guardarProgresoContinuar(
-                video.currentTime,
-                video.duration
-            );
-
-        };
-
-
-    window.addEventListener(
-        "pagehide",
-        guardarAntesDeSalir
-    );
-
-
-    window.addEventListener(
-        "beforeunload",
-        guardarAntesDeSalir
-    );
-
-
-    /*=====================================================
-                    VOLUMEN VIDEO
-    =====================================================*/
 
     video.addEventListener(
         "volumechange",
@@ -1308,44 +1373,25 @@ function inicializarControlesMP4() {
     );
 
 
-    /*=====================================================
-                    ERROR VIDEO
-    =====================================================*/
-
-    video.addEventListener(
-        "error",
-        () => {
-
-            console.error(
-                "❌ Error al cargar el MP4"
-            );
-
-            console.error(
-                video.error
-            );
-
-        }
-    );
-
-
-    /*=====================================================
-                    FINAL DE PELÍCULA
-    =====================================================*/
+    /*---------------------------------------------
+                    TERMINÓ
+    ---------------------------------------------*/
 
     video.addEventListener(
         "ended",
         () => {
 
-            actualizarPlay();
-
-
-            /*
-                La película terminó realmente.
-                La quitamos automáticamente de
-                Continuar viendo.
-            */
+            console.log(
+                "✅ Película MP4 terminada"
+            );
 
             eliminarContinuarViendo();
+
+            video.currentTime = 0;
+
+            actualizarPlay();
+
+            actualizarTiempo();
 
         }
     );
@@ -1357,16 +1403,404 @@ function inicializarControlesMP4() {
 
     actualizarTiempo();
 
+}
 
-    console.log(
-        "🎮 Controles MP4 CINEVERSE listos"
+
+/*=========================================================
+            RECUPERAR PROGRESO MP4
+=========================================================*/
+
+function recuperarProgresoMP4() {
+
+    const video =
+        document.getElementById(
+            "videoPlayer"
+        );
+
+    if (!video) {
+        return;
+    }
+
+    const progreso =
+        obtenerProgreso();
+
+    if (
+        !progreso ||
+        !progreso.segundos
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * Evitamos recuperar una posición
+     * prácticamente terminada.
+     */
+
+    if (
+        progreso.duracion &&
+        progreso.segundos >=
+        progreso.duracion - 10
+    ) {
+
+        eliminarContinuarViendo();
+
+        return;
+
+    }
+
+
+    try {
+
+        video.currentTime =
+            progreso.segundos;
+
+        console.log(
+            "⏩ Continuando desde:",
+            progreso.segundos
+        );
+
+    }
+    catch (error) {
+
+        console.log(
+            "No se pudo recuperar progreso",
+            error
+        );
+
+    }
+
+}
+
+
+/*=========================================================
+            GUARDAR PROGRESO MP4
+=========================================================*/
+
+function guardarProgresoMP4() {
+
+    const video =
+        document.getElementById(
+            "videoPlayer"
+        );
+
+    if (
+        !video ||
+        !peliculaActual
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !Number.isFinite(
+            video.currentTime
+        ) ||
+        !Number.isFinite(
+            video.duration
+        ) ||
+        video.duration <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    guardarProgreso(
+        video.currentTime,
+        video.duration
     );
 
 }
 
 
 /*=========================================================
-            OBTENER ID YOUTUBE
+                GUARDAR PROGRESO
+=========================================================*/
+
+function guardarProgreso(
+    segundos,
+    duracion
+) {
+
+    if (!peliculaActual) {
+        return;
+    }
+
+
+    let historial =
+        JSON.parse(
+            localStorage.getItem(
+                "continuarViendo"
+            )
+        ) || [];
+
+
+    const porcentaje =
+        duracion > 0
+            ? (
+                segundos /
+                duracion
+            ) * 100
+            : 0;
+
+
+    /*
+     * Si ya está prácticamente terminada,
+     * la eliminamos.
+     */
+
+    if (
+        porcentaje >= 95
+    ) {
+
+        eliminarContinuarViendo();
+
+        return;
+
+    }
+
+
+    historial =
+        historial.filter(
+            pelicula =>
+                Number(pelicula.id) !==
+                Number(peliculaActual.id)
+        );
+
+
+    historial.unshift({
+
+        id:
+            peliculaActual.id,
+
+        titulo:
+            peliculaActual.titulo,
+
+        poster:
+            peliculaActual.poster,
+
+        banner:
+            peliculaActual.banner,
+
+        segundos:
+            segundos,
+
+        duracion:
+            duracion,
+
+        porcentaje:
+            porcentaje,
+
+        fecha:
+            Date.now()
+
+    });
+
+
+    /*
+     * Permitimos varias películas.
+     */
+
+    if (
+        historial.length > 20
+    ) {
+
+        historial =
+            historial.slice(
+                0,
+                20
+            );
+
+    }
+
+
+    localStorage.setItem(
+        "continuarViendo",
+        JSON.stringify(
+            historial
+        )
+    );
+
+
+    console.log(
+        "💾 Progreso guardado:",
+        peliculaActual.titulo,
+        Math.round(porcentaje) + "%"
+    );
+
+}
+
+
+/*=========================================================
+            GUARDAR EN CONTINUAR VIENDO
+=========================================================*/
+
+function guardarContinuarViendo() {
+
+    if (!peliculaActual) {
+        return;
+    }
+
+
+    let historial =
+        JSON.parse(
+            localStorage.getItem(
+                "continuarViendo"
+            )
+        ) || [];
+
+
+    const existente =
+        historial.find(
+            pelicula =>
+                Number(pelicula.id) ===
+                Number(peliculaActual.id)
+        );
+
+
+    /*
+     * Si ya existe con progreso,
+     * NO lo reemplazamos.
+     */
+
+    if (existente) {
+        return;
+    }
+
+
+    historial.unshift({
+
+        id:
+            peliculaActual.id,
+
+        titulo:
+            peliculaActual.titulo,
+
+        poster:
+            peliculaActual.poster,
+
+        banner:
+            peliculaActual.banner,
+
+        segundos:
+            0,
+
+        duracion:
+            0,
+
+        porcentaje:
+            0,
+
+        fecha:
+            Date.now()
+
+    });
+
+
+    if (
+        historial.length > 20
+    ) {
+
+        historial =
+            historial.slice(
+                0,
+                20
+            );
+
+    }
+
+
+    localStorage.setItem(
+        "continuarViendo",
+        JSON.stringify(
+            historial
+        )
+    );
+
+}
+
+
+/*=========================================================
+            OBTENER PROGRESO
+=========================================================*/
+
+function obtenerProgreso() {
+
+    if (!peliculaActual) {
+        return null;
+    }
+
+
+    const historial =
+        JSON.parse(
+            localStorage.getItem(
+                "continuarViendo"
+            )
+        ) || [];
+
+
+    return (
+        historial.find(
+            pelicula =>
+                Number(pelicula.id) ===
+                Number(peliculaActual.id)
+        ) || null
+    );
+
+}
+
+
+/*=========================================================
+            ELIMINAR AUTOMÁTICAMENTE
+=========================================================*/
+
+function eliminarContinuarViendo() {
+
+    if (!peliculaActual) {
+        return;
+    }
+
+
+    let historial =
+        JSON.parse(
+            localStorage.getItem(
+                "continuarViendo"
+            )
+        ) || [];
+
+
+    historial =
+        historial.filter(
+            pelicula =>
+                Number(pelicula.id) !==
+                Number(peliculaActual.id)
+        );
+
+
+    localStorage.setItem(
+        "continuarViendo",
+        JSON.stringify(
+            historial
+        )
+    );
+
+
+    console.log(
+        "🗑️ Eliminada de Continuar viendo:",
+        peliculaActual.titulo
+    );
+
+}
+
+
+/*=========================================================
+                OBTENER ID YOUTUBE
 =========================================================*/
 
 function obtenerYoutubeID(url) {
@@ -1377,6 +1811,10 @@ function obtenerYoutubeID(url) {
             new URL(url);
 
 
+        /*
+         * youtu.be
+         */
+
         if (
             objeto.hostname.includes(
                 "youtu.be"
@@ -1384,20 +1822,51 @@ function obtenerYoutubeID(url) {
         ) {
 
             return objeto.pathname
-                .substring(1);
+                .substring(1)
+                .split("?")[0];
 
         }
 
 
-        return objeto.searchParams.get(
-            "v"
-        );
+        /*
+         * youtube.com/watch?v=
+         */
+
+        const videoID =
+            objeto.searchParams.get(
+                "v"
+            );
+
+        if (videoID) {
+
+            return videoID;
+
+        }
+
+
+        /*
+         * youtube.com/embed/ID
+         */
+
+        if (
+            objeto.pathname.includes(
+                "/embed/"
+            )
+        ) {
+
+            return objeto.pathname
+                .split("/embed/")[1]
+                .split("/")[0];
+
+        }
+
+
+        return null;
 
     }
-
     catch {
 
-        return url;
+        return null;
 
     }
 
@@ -1405,7 +1874,7 @@ function obtenerYoutubeID(url) {
 
 
 /*=========================================================
-            OBTENER ID DRIVE
+                OBTENER ID DRIVE
 =========================================================*/
 
 function obtenerDriveID(url) {
@@ -1413,11 +1882,11 @@ function obtenerDriveID(url) {
     const expresion =
         /\/d\/([^/]+)/;
 
-
     const resultado =
-        String(url).match(
-            expresion
-        );
+        String(url)
+            .match(
+                expresion
+            );
 
 
     return resultado
@@ -1428,15 +1897,13 @@ function obtenerDriveID(url) {
 
 
 /*=========================================================
-            LLENAR INFORMACIÓN
+                INFORMACIÓN
 =========================================================*/
 
 function cargarInformacion() {
 
     if (!peliculaActual) {
-
         return;
-
     }
 
 
@@ -1530,7 +1997,7 @@ function cargarInformacion() {
 
 
 /*=========================================================
-            ASIGNAR TEXTO
+                ASIGNAR TEXTO
 =========================================================*/
 
 function asignarTexto(
@@ -1559,6 +2026,66 @@ function asignarTexto(
 
 
 /*=========================================================
+            BOTÓN REPRODUCIR
+=========================================================*/
+
+function configurarBotonReproducir() {
+
+    const boton =
+        document.getElementById(
+            "btnReproducir"
+        );
+
+
+    if (!boton) {
+        return;
+    }
+
+
+    boton.addEventListener(
+        "click",
+        () => {
+
+            const video =
+                document.getElementById(
+                    "videoPlayer"
+                );
+
+
+            /*
+             * MP4
+             */
+
+            if (video) {
+
+                video.play()
+                    .catch(() => {});
+
+                return;
+
+            }
+
+
+            /*
+             * YouTube
+             */
+
+            if (
+                youtubePlayer &&
+                youtubePlayer.playVideo
+            ) {
+
+                youtubePlayer.playVideo();
+
+            }
+
+        }
+    );
+
+}
+
+
+/*=========================================================
                     MI LISTA
 =========================================================*/
 
@@ -1571,9 +2098,7 @@ function inicializarMiLista() {
 
 
     if (!boton) {
-
         return;
-
     }
 
 
@@ -1595,9 +2120,7 @@ function inicializarMiLista() {
 function toggleFavorito() {
 
     if (!peliculaActual) {
-
         return;
-
     }
 
 
@@ -1610,14 +2133,15 @@ function toggleFavorito() {
 
 
     const id =
-        peliculaActual.id;
+        Number(
+            peliculaActual.id
+        );
 
 
     const existe =
         favoritos.some(
             favorito =>
-                Number(favorito) ===
-                Number(id)
+                Number(favorito) === id
         );
 
 
@@ -1626,17 +2150,13 @@ function toggleFavorito() {
         favoritos =
             favoritos.filter(
                 favorito =>
-                    Number(favorito) !==
-                    Number(id)
+                    Number(favorito) !== id
             );
 
     }
-
     else {
 
-        favoritos.push(
-            id
-        );
+        favoritos.push(id);
 
     }
 
@@ -1655,7 +2175,7 @@ function toggleFavorito() {
 
 
 /*=========================================================
-            ACTUALIZAR BOTÓN FAVORITO
+            ACTUALIZAR FAVORITO
 =========================================================*/
 
 function actualizarBotonFavorito() {
@@ -1700,7 +2220,6 @@ function actualizarBotonFavorito() {
             '<i class="fa-solid fa-heart"></i> En Mi Lista';
 
     }
-
     else {
 
         boton.innerHTML =
@@ -1712,379 +2231,7 @@ function actualizarBotonFavorito() {
 
 
 /*=========================================================
-                CONTINUAR VIENDO
-=========================================================*/
-
-function obtenerHistorialContinuar() {
-
-    try {
-
-        const datos =
-            JSON.parse(
-                localStorage.getItem(
-                    "continuarViendo"
-                )
-            );
-
-
-        return Array.isArray(datos)
-            ? datos
-            : [];
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "❌ Error leyendo continuarViendo:",
-            error
-        );
-
-
-        return [];
-
-    }
-
-}
-
-
-/*=========================================================
-        REGISTRAR PELÍCULA
-=========================================================*/
-
-function registrarContinuarViendo() {
-
-    if (!peliculaActual) {
-
-        return;
-
-    }
-
-
-    let historial =
-        obtenerHistorialContinuar();
-
-
-    const id =
-        Number(
-            peliculaActual.id
-        );
-
-
-    const existente =
-        historial.find(
-            item =>
-                Number(item.id) ===
-                id
-        );
-
-
-    /*
-        Si ya existe:
-        NO borramos su progreso.
-    */
-
-    if (existente) {
-
-        existente.titulo =
-            peliculaActual.titulo;
-
-
-        existente.poster =
-            peliculaActual.poster;
-
-
-        existente.banner =
-            peliculaActual.banner;
-
-
-        existente.fecha =
-            Date.now();
-
-    }
-
-    else {
-
-        historial.unshift({
-
-            id:
-                peliculaActual.id,
-
-            titulo:
-                peliculaActual.titulo,
-
-            poster:
-                peliculaActual.poster,
-
-            banner:
-                peliculaActual.banner,
-
-            tiempo:
-                0,
-
-            duracion:
-                0,
-
-            progreso:
-                0,
-
-            fecha:
-                Date.now()
-
-        });
-
-    }
-
-
-    guardarHistorialContinuar(
-        historial
-    );
-
-}
-
-
-/*=========================================================
-                GUARDAR HISTORIAL
-=========================================================*/
-
-function guardarHistorialContinuar(
-    historial
-) {
-
-    if (
-        historial.length > 20
-    ) {
-
-        historial =
-            historial.slice(
-                0,
-                20
-            );
-
-    }
-
-
-    localStorage.setItem(
-        "continuarViendo",
-        JSON.stringify(
-            historial
-        )
-    );
-
-}
-
-
-/*=========================================================
-                GUARDAR PROGRESO
-=========================================================*/
-
-function guardarProgresoContinuar(
-    tiempo,
-    duracion
-) {
-
-    if (
-        !peliculaActual
-    ) {
-
-        return;
-
-    }
-
-
-    if (
-        !Number.isFinite(tiempo) ||
-        !Number.isFinite(duracion) ||
-        duracion <= 0
-    ) {
-
-        return;
-
-    }
-
-
-    let historial =
-        obtenerHistorialContinuar();
-
-
-    const id =
-        Number(
-            peliculaActual.id
-        );
-
-
-    let pelicula =
-        historial.find(
-            item =>
-                Number(item.id) ===
-                id
-        );
-
-
-    if (!pelicula) {
-
-        pelicula = {
-
-            id:
-                peliculaActual.id,
-
-            titulo:
-                peliculaActual.titulo,
-
-            poster:
-                peliculaActual.poster,
-
-            banner:
-                peliculaActual.banner,
-
-            tiempo:
-                0,
-
-            duracion:
-                0,
-
-            progreso:
-                0,
-
-            fecha:
-                Date.now()
-
-        };
-
-
-        historial.unshift(
-            pelicula
-        );
-
-    }
-
-
-    const porcentaje =
-        Math.max(
-            0,
-            Math.min(
-                100,
-                (
-                    tiempo /
-                    duracion
-                ) * 100
-            )
-        );
-
-
-    pelicula.tiempo =
-        tiempo;
-
-
-    pelicula.duracion =
-        duracion;
-
-
-    pelicula.progreso =
-        porcentaje;
-
-
-    pelicula.fecha =
-        Date.now();
-
-
-    /*
-        La última película vista
-        queda primero.
-    */
-
-    historial.sort(
-        (a, b) =>
-            Number(b.fecha || 0) -
-            Number(a.fecha || 0)
-    );
-
-
-    guardarHistorialContinuar(
-        historial
-    );
-
-
-}
-
-
-/*=========================================================
-            OBTENER PROGRESO
-=========================================================*/
-
-function obtenerProgresoContinuar() {
-
-    if (!peliculaActual) {
-
-        return null;
-
-    }
-
-
-    const historial =
-        obtenerHistorialContinuar();
-
-
-    return (
-        historial.find(
-            item =>
-                Number(item.id) ===
-                Number(
-                    peliculaActual.id
-                )
-        ) || null
-    );
-
-}
-
-
-/*=========================================================
-        ELIMINAR AL TERMINAR
-=========================================================*/
-
-function eliminarContinuarViendo() {
-
-    if (!peliculaActual) {
-
-        return;
-
-    }
-
-
-    let historial =
-        obtenerHistorialContinuar();
-
-
-    historial =
-        historial.filter(
-            item =>
-                Number(item.id) !==
-                Number(
-                    peliculaActual.id
-                )
-        );
-
-
-    guardarHistorialContinuar(
-        historial
-    );
-
-
-    console.log(
-        "✅ Película terminada:",
-        peliculaActual.titulo
-    );
-
-
-    console.log(
-        "🗑️ Eliminada de Continuar viendo"
-    );
-
-}
-
-
-/*=========================================================
-                PELÍCULAS RELACIONADAS
+                RELACIONADAS
 =========================================================*/
 
 function cargarRelacionadas() {
@@ -2095,7 +2242,10 @@ function cargarRelacionadas() {
         );
 
 
-    if (!contenedor) {
+    if (
+        !contenedor ||
+        !peliculaActual
+    ) {
 
         return;
 
@@ -2109,9 +2259,10 @@ function cargarRelacionadas() {
     let relacionadas = [];
 
 
-    /*-----------------------------------------------------
-                USAR IDs RELACIONADOS DEL JSON
-    -----------------------------------------------------*/
+    /*
+     * Primero usamos el campo
+     * "relacionadas" del JSON.
+     */
 
     if (
         Array.isArray(
@@ -2136,9 +2287,10 @@ function cargarRelacionadas() {
     }
 
 
-    /*-----------------------------------------------------
-                    RESPALDO POR GÉNERO
-    -----------------------------------------------------*/
+    /*
+     * Si no existen relacionadas,
+     * buscamos por género.
+     */
 
     if (
         !relacionadas.length
@@ -2147,23 +2299,24 @@ function cargarRelacionadas() {
         relacionadas =
             peliculas.filter(
                 pelicula =>
-
                     Number(
                         pelicula.id
                     ) !==
                     Number(
                         peliculaActual.id
                     ) &&
-
                     pelicula.genero ===
                     peliculaActual.genero
-            )
-            .slice(
-                0,
-                4
             );
 
     }
+
+
+    relacionadas =
+        relacionadas.slice(
+            0,
+            4
+        );
 
 
     relacionadas.forEach(
@@ -2184,20 +2337,16 @@ function cargarRelacionadas() {
                 <div class="relatedPoster">
 
                     <img
-
-                        src="${escaparAtributo(
-                            pelicula.poster
-                        )}"
-
-                        alt="${escaparAtributo(
-                            pelicula.titulo
-                        )}">
+                        src="${pelicula.poster || pelicula.banner || ""}"
+                        alt="${pelicula.titulo || "Película"}">
 
                     <div class="relatedOverlay">
 
                         <div class="relatedPlay">
 
-                            <i class="fa-solid fa-play"></i>
+                            <i
+                                class="fa-solid fa-play">
+                            </i>
 
                         </div>
 
@@ -2209,44 +2358,24 @@ function cargarRelacionadas() {
                 <div class="relatedInfo">
 
                     <h3>
-
-                        ${escaparHTML(
-                            pelicula.titulo
-                        )}
-
+                        ${pelicula.titulo}
                     </h3>
-
 
                     <div class="relatedMeta">
 
                         <span>
-
-                            ${escaparHTML(
-                                pelicula.anio ||
-                                ""
-                            )}
-
+                            ${pelicula.anio || ""}
                         </span>
 
-
                         <span>
-
-                            ${escaparHTML(
-                                pelicula.duracion ||
-                                ""
-                            )}
-
+                            ${pelicula.duracion || ""}
                         </span>
 
                     </div>
 
-
                     <span class="relatedGenre">
 
-                        ${escaparHTML(
-                            pelicula.genero ||
-                            ""
-                        )}
+                        ${pelicula.genero || ""}
 
                     </span>
 
@@ -2260,11 +2389,7 @@ function cargarRelacionadas() {
                 () => {
 
                     window.location.href =
-                        `reproductor.html?id=${
-                            encodeURIComponent(
-                                pelicula.id
-                            )
-                        }`;
+                        `reproductor.html?id=${pelicula.id}`;
 
                 }
             );
@@ -2277,12 +2402,6 @@ function cargarRelacionadas() {
         }
     );
 
-
-    console.log(
-        "🎬 Relacionadas:",
-        relacionadas.length
-    );
-
 }
 
 
@@ -2292,6 +2411,11 @@ function cargarRelacionadas() {
 
 function iniciarModoCine() {
 
+    /*
+     * Tu HTML utiliza modoCine,
+     * no btnCinema.
+     */
+
     const boton =
         document.getElementById(
             "modoCine"
@@ -2299,9 +2423,7 @@ function iniciarModoCine() {
 
 
     if (!boton) {
-
         return;
-
     }
 
 
@@ -2332,9 +2454,7 @@ function compartirPelicula() {
 
 
     if (!boton) {
-
         return;
-
     }
 
 
@@ -2343,9 +2463,7 @@ function compartirPelicula() {
         async () => {
 
             if (!peliculaActual) {
-
                 return;
-
             }
 
 
@@ -2373,13 +2491,13 @@ function compartirPelicula() {
                     });
 
                 }
-
-                else {
+                else if (
+                    navigator.clipboard
+                ) {
 
                     await navigator.clipboard.writeText(
                         enlace
                     );
-
 
                     alert(
                         "Enlace copiado."
@@ -2388,10 +2506,10 @@ function compartirPelicula() {
                 }
 
             }
-
             catch (error) {
 
                 console.log(
+                    "Compartir cancelado:",
                     error
                 );
 
@@ -2416,9 +2534,7 @@ function abrirTrailer() {
 
 
     if (!boton) {
-
         return;
-
     }
 
 
@@ -2439,8 +2555,9 @@ function abrirTrailer() {
         "click",
         () => {
 
-            abrirEnlace(
-                peliculaActual.trailer
+            window.open(
+                peliculaActual.trailer,
+                "_blank"
             );
 
         }
@@ -2450,93 +2567,77 @@ function abrirTrailer() {
 
 
 /*=========================================================
-                    ABRIR ENLACE
+                GUARDAR AL SALIR
 =========================================================*/
 
-function abrirEnlace(
-    enlace
-) {
+window.addEventListener(
+    "beforeunload",
+    () => {
 
-    let url =
-        String(
-            enlace
-        ).trim();
+        /*
+         * MP4
+         */
+
+        if (
+            peliculaActual &&
+            peliculaActual.tipo === "mp4"
+        ) {
+
+            guardarProgresoMP4();
+
+        }
 
 
-    const markdown =
-        url.match(
-            /\((https?:\/\/[^)]+)\)/
-        );
+        /*
+         * YouTube
+         */
 
+        if (
+            peliculaActual &&
+            peliculaActual.tipo === "youtube"
+        ) {
 
-    if (markdown) {
+            guardarProgresoYouTube();
 
-        url =
-            markdown[1];
+        }
 
     }
-
-
-    window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-    );
-
-}
-
-
-/*=========================================================
-                    SEGURIDAD HTML
-=========================================================*/
-
-function escaparHTML(
-    texto
-) {
-
-    return String(
-        texto ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
-}
-
-
-function escaparAtributo(
-    texto
-) {
-
-    return escaparHTML(
-        texto
-    );
-
-}
-
-
-/*=========================================================
-                        FIN
-=========================================================*/
-
-console.log(
-    "🔥 reproductor.js CINEVERSE V6 - Continuar viendo"
 );
 
+
+/*=========================================================
+                VISIBILIDAD DE PÁGINA
+=========================================================*/
+
+document.addEventListener(
+    "visibilitychange",
+    () => {
+
+        if (
+            document.visibilityState ===
+            "hidden"
+        ) {
+
+            if (
+                peliculaActual &&
+                peliculaActual.tipo === "mp4"
+            ) {
+
+                guardarProgresoMP4();
+
+            }
+
+
+            if (
+                peliculaActual &&
+                peliculaActual.tipo === "youtube"
+            ) {
+
+                guardarProgresoYouTube();
+
+            }
+
+        }
+
+    }
+);
