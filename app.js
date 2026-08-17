@@ -283,7 +283,7 @@ function iniciarHeroAutomatico() {
                     PANTALLA DE CARGA
         -------------------------------------------------*/
 
-        iniciarHeroAutomatico();
+       
         ocultarPantallaCarga();
 
 
