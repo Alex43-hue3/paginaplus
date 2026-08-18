@@ -7,147 +7,142 @@
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        content="width=device-width, initial-scale=1.0">
 
-    <title>CINEVERSE | Película</title>
+    <meta
+        name="theme-color"
+        content="#07070d">
 
-    <!-- ESTILOS PRINCIPALES -->
-    <link rel="stylesheet" href="style.css">
+    <title>CINEVERSE</title>
 
-    <!-- ESTILOS DEL REPRODUCTOR -->
-    <link rel="stylesheet" href="player.css">
 
-    <!-- FUENTES -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- =====================================================
+                        FUENTES
+    ====================================================== -->
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;500;600;700;800&display=swap"
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- FONT AWESOME -->
+
+    <!-- =====================================================
+                        FONT AWESOME
+    ====================================================== -->
+
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+                        PLAYER CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="player.css?v=20">
+
 
 </head>
 
 
-<body class="cineversePlayerPage">
+<body>
 
 
-<!-- =====================================================
-                    FONDO
-===================================================== -->
+    <!-- =====================================================
+                        FONDO
+    ====================================================== -->
 
-<div
-    id="playerBackground"
-    class="playerBackground">
-</div>
-
-<div class="playerBackgroundOverlay"></div>
+    <div
+        id="playerBackground"
+        class="playerBackground">
+    </div>
 
 
-<!-- =====================================================
-                    CONTENIDO
-===================================================== -->
-
-<main class="moviePage">
-
-
-    <!-- =================================================
-                    BARRA SUPERIOR
-    ================================================== -->
-
-    <div class="movieTopBar">
-
-        <!-- REGRESAR -->
-
-        <button
-            id="btnRegresar"
-            class="movieTopButton"
-            type="button"
-            aria-label="Regresar">
-
-            <i class="fa-solid fa-arrow-left"></i>
-
-        </button>
-
-
-        <!-- DERECHA -->
-
-        <div class="movieTopActions">
-
-
-            <!-- COMPARTIR -->
-
-            <button
-                id="btnCompartir"
-                class="movieTopButton"
-                type="button"
-                aria-label="Compartir">
-
-                <i class="fa-solid fa-share-nodes"></i>
-
-                <span>Compartir</span>
-
-            </button>
-
-
-            <!-- VER EN TV -->
-
-            <button
-                id="btnTransmitir"
-                class="movieTopButton"
-                type="button"
-                aria-label="Ver en TV">
-
-                <i class="fa-solid fa-tv"></i>
-
-                <span>Ver en TV</span>
-
-            </button>
-
-        </div>
-
+    <div
+        class="playerBackgroundOverlay">
     </div>
 
 
 
-    <!-- =================================================
-                    PORTADA / HERO
-    ================================================== -->
+    <!-- =====================================================
+                        CONTENIDO
+    ====================================================== -->
 
-    <section class="movieHero">
-
-
-        <!-- PORTADA -->
-
-        <div class="moviePosterArea">
-
-            <div class="moviePosterFrame">
-
-                <img
-                    id="moviePoster"
-                    class="moviePosterImage"
-                    src=""
-                    alt="Portada de la película">
-
-                <div class="moviePosterGradient"></div>
+    <main class="moviePage">
 
 
-                <!-- BOTÓN PLAY SOBRE PORTADA -->
+        <!-- =================================================
+                        BARRA SUPERIOR
+        ================================================== -->
+
+        <div class="movieTopBar">
+
+
+            <!-- REGRESAR -->
+
+            <button
+                id="btnBack"
+                class="movieTopButton"
+                type="button"
+                aria-label="Regresar">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                <span>
+                    Regresar
+                </span>
+
+            </button>
+
+
+            <!-- ACCIONES -->
+
+            <div class="movieTopActions">
+
+
+                <!-- COMPARTIR -->
 
                 <button
-                    id="posterPlayButton"
-                    class="posterPlayButton"
+                    id="btnCompartir"
+                    class="movieTopButton"
                     type="button"
-                    aria-label="Reproducir película">
+                    aria-label="Compartir">
 
-                    <i class="fa-solid fa-play"></i>
+                    <i class="fa-solid fa-share-nodes"></i>
+
+                    <span>
+                        Compartir
+                    </span>
 
                 </button>
+
+
+                <!-- TV -->
+
+                <button
+                    id="btnTV"
+                    class="movieTopButton"
+                    type="button"
+                    aria-label="Transmitir a TV">
+
+                    <i class="fa-solid fa-tv"></i>
+
+                    <span>
+                        TV
+                    </span>
+
+                </button>
+
 
             </div>
 
@@ -156,46 +151,585 @@
 
 
         <!-- =================================================
-                    INFORMACIÓN PRINCIPAL
+                        HERO
         ================================================== -->
 
-        <div class="movieMainInfo">
+        <section class="movieHero">
 
 
-            <!-- ETIQUETAS -->
+            <!-- =================================================
+                            PORTADA
+            ================================================== -->
+
+            <div class="moviePosterArea">
+
+
+                <div class="moviePosterFrame">
+
+
+                    <img
+                        id="moviePoster"
+                        class="moviePosterImage"
+                        src=""
+                        alt="Portada de película">
+
+
+                    <div
+                        class="moviePosterGradient">
+                    </div>
+
+
+                    <!-- PLAY SOBRE PORTADA -->
+
+                    <button
+                        id="posterPlayButton"
+                        class="posterPlayButton"
+                        type="button"
+                        aria-label="Ver película">
+
+                        <i class="fa-solid fa-play"></i>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                            INFORMACIÓN
+            ================================================== -->
+
+            <div class="movieMainInfo">
+
+
+                <!-- BADGES -->
+
+                <div class="movieBadges">
+
+
+                    <span
+                        id="movieClasificacion"
+                        class="movieBadge">
+                        A
+                    </span>
+
+
+                    <span
+                        id="movieQuality"
+                        class="movieBadge">
+                        HD
+                    </span>
+
+
+                    <span
+                        id="movieSubs"
+                        class="movieBadge">
+                        CC
+                    </span>
+
+
+                    <span
+                        class="movieBadge">
+                        AD
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- TÍTULO -->
+
+                <h1
+                    id="movieTitle"
+                    class="movieTitle">
+
+                    Cargando...
+
+                </h1>
+
+
+                <!-- TÍTULO ORIGINAL -->
+
+                <p
+                    id="movieOriginalTitle"
+                    class="movieOriginalTitle">
+                </p>
+
+
+
+                <!-- METADATA -->
+
+                <div class="movieMeta">
+
+
+                    <span
+                        id="movieYear">
+                        2026
+                    </span>
+
+
+                    <span
+                        id="movieDuration">
+                        Película
+                    </span>
+
+
+                    <span
+                        id="movieGenre">
+                        Género
+                    </span>
+
+
+                    <span
+                        id="movieRating"
+                        class="movieRating">
+                        ⭐ 8.0
+                    </span>
+
+
+                </div>
+
+
+
+                <!-- GÉNEROS -->
+
+                <div
+                    id="movieGenres"
+                    class="movieGenres">
+
+                </div>
+
+
+
+                <!-- ACCIONES -->
+
+                <div class="movieActions">
+
+
+                    <!-- VER AHORA -->
+
+                    <button
+                        id="btnVerAhora"
+                        class="movieActionButton movieActionPrimary"
+                        type="button">
+
+                        <i class="fa-solid fa-play"></i>
+
+                        Ver ahora
+
+                    </button>
+
+
+                    <!-- TRAILER -->
+
+                    <button
+                        id="btnTrailer"
+                        class="movieActionButton"
+                        type="button">
+
+                        <i class="fa-solid fa-film"></i>
+
+                        Ver tráiler
+
+                    </button>
+
+
+                    <!-- MI LISTA -->
+
+                    <button
+                        id="btnFavorito"
+                        class="movieActionButton"
+                        type="button">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                        Mi Lista
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- DESCRIPCIÓN -->
+
+                <p
+                    id="movieDescription"
+                    class="movieDescription">
+
+                    Cargando descripción...
+
+                </p>
+
+
+
+                <!-- =================================================
+                            INFORMACIÓN EN BLOQUES
+                ================================================== -->
+
+                <div
+                    class="movieInfoBlocks">
+
+
+                    <!-- AÑO -->
+
+                    <div class="movieInfoBlock">
+
+                        <div class="movieInfoIcon">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                        </div>
+
+                        <span
+                            class="movieInfoLabel">
+                            Año
+                        </span>
+
+                        <span
+                            id="movieEstreno"
+                            class="movieInfoValue">
+                            -
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- IDIOMA -->
+
+                    <div class="movieInfoBlock">
+
+                        <div class="movieInfoIcon">
+
+                            <i class="fa-solid fa-language"></i>
+
+                        </div>
+
+                        <span
+                            class="movieInfoLabel">
+                            Idioma
+                        </span>
+
+                        <span
+                            id="movieIdioma"
+                            class="movieInfoValue">
+                            -
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- SUBTÍTULOS -->
+
+                    <div class="movieInfoBlock">
+
+                        <div class="movieInfoIcon">
+
+                            <i class="fa-solid fa-closed-captioning"></i>
+
+                        </div>
+
+                        <span
+                            class="movieInfoLabel">
+                            Subtítulos
+                        </span>
+
+                        <span
+                            id="movieSubsInfo"
+                            class="movieInfoValue">
+                            -
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- DIRECTOR -->
+
+                    <div class="movieInfoBlock">
+
+                        <div class="movieInfoIcon">
+
+                            <i class="fa-solid fa-video"></i>
+
+                        </div>
+
+                        <span
+                            class="movieInfoLabel">
+                            Director
+                        </span>
+
+                        <span
+                            id="movieDirector"
+                            class="movieInfoValue">
+                            -
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- PAÍS -->
+
+                    <div class="movieInfoBlock">
+
+                        <div class="movieInfoIcon">
+
+                            <i class="fa-solid fa-earth-americas"></i>
+
+                        </div>
+
+                        <span
+                            class="movieInfoLabel">
+                            País
+                        </span>
+
+                        <span
+                            id="moviePais"
+                            class="movieInfoValue">
+                            -
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+                    INFORMACIÓN ADICIONAL
+        ====================================================== -->
+
+        <section
+            class="movieDetailsSection">
+
+
+            <h2
+                class="movieDetailsTitle">
+
+                Sobre esta película
+
+            </h2>
+
+
+            <p
+                id="movieDetailsText"
+                class="movieDetailsText">
+
+                Descubre todos los detalles de esta película
+                en CINEVERSE.
+
+            </p>
+
+
+        </section>
+
+
+
+        <!-- =====================================================
+                        RELACIONADAS
+        ====================================================== -->
+
+        <section
+            class="relatedSection">
+
+
+            <div class="sectionTitle">
+
+                <h2>
+                    También te puede gustar
+                </h2>
+
+                <p>
+                    Películas seleccionadas para ti
+                </p>
+
+            </div>
+
 
             <div
-                id="movieBadges"
-                class="movieBadges">
+                id="relatedSlider"
+                class="relatedSlider">
+
+            </div>
 
 
-                <span
-                    id="movieClasificacion"
-                    class="movieBadge">
-
-                    A
-
-                </span>
+        </section>
 
 
-                <span
-                    id="movieQuality"
-                    class="movieBadge">
 
-                    HD
-
-                </span>
+    </main>
 
 
-                <span
-                    id="movieSubBadge"
-                    class="movieBadge">
 
-                    CC
+    <!-- =====================================================
+                    BARRA MOBILE
+    ====================================================== -->
 
-                </span>
+    <div
+        class="mobileActionBar">
 
 
-                <span
-                    id="movieDuration"
-                    class="movieBadge
+        <button
+            class="mobileActionButton active"
+            type="button"
+            onclick="window.scrollTo({
+                top:0,
+                behavior:'smooth'
+            })">
+
+            <i class="fa-solid fa-house"></i>
+
+            Inicio
+
+        </button>
+
+
+        <button
+            class="mobileActionButton"
+            type="button"
+            onclick="document
+                .getElementById('btnVerAhora')
+                ?.click()">
+
+            <i class="fa-solid fa-play"></i>
+
+            Ver
+
+        </button>
+
+
+        <button
+            class="mobileActionButton"
+            type="button"
+            onclick="document
+                .getElementById('btnFavorito')
+                ?.click()">
+
+            <i class="fa-regular fa-heart"></i>
+
+            Mi lista
+
+        </button>
+
+
+        <button
+            class="mobileActionButton"
+            type="button"
+            onclick="document
+                .getElementById('btnCompartir')
+                ?.click()">
+
+            <i class="fa-solid fa-share-nodes"></i>
+
+            Compartir
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+                    REPRODUCTOR COMPLETO
+    ====================================================== -->
+
+    <div
+        id="videoPlayerOverlay"
+        class="videoPlayerOverlay">
+
+
+        <div
+            class="videoPlayerWrapper">
+
+
+            <!-- CERRAR -->
+
+            <button
+                id="btnClosePlayer"
+                class="closePlayerButton"
+                type="button"
+                aria-label="Cerrar reproductor">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <!-- CONTENEDOR -->
+
+            <div
+                id="videoPlayerContainer"
+                class="videoPlayerContainer">
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+                    LOADING
+    ====================================================== -->
+
+    <div
+        id="loadingScreen"
+        class="loadingScreen">
+
+
+        <div class="loadingContent">
+
+            <div class="loadingSpinner"></div>
+
+            <p>
+                Cargando película...
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+                    TOAST
+    ====================================================== -->
+
+    <div
+        id="cineverseToast"
+        class="cineverseToast">
+
+    </div>
+
+
+
+    <!-- =====================================================
+                    JAVASCRIPT
+    ====================================================== -->
+
+    <script
+        src="reproductor.js?v=20">
+    </script>
+
+
+</body>
+
+</html>
