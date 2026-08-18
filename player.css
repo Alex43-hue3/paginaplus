@@ -1953,3 +1953,77 @@ button:focus-visible{
 /* =========================================================
                     FIN PLAYER CSS
 ========================================================= */
+.movieCenterMenu{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    flex:1;
+
+}
+
+
+.movieCenterMenu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:9px 14px;
+
+    border-radius:12px;
+
+    color:rgba(255,255,255,.75);
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+
+.movieCenterMenu a:hover{
+
+    color:#fff;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+
+.movieCenterMenu a i{
+
+    font-size:13px;
+
+}
+
+
+.movieCenterMenu a:first-child{
+
+    color:#fff;
+
+    background:rgba(124,58,237,.18);
+
+}
+
+
+@media(max-width:768px){
+
+    .movieCenterMenu{
+
+        display:none;
+
+    }
+
+}
