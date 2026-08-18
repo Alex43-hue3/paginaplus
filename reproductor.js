@@ -340,8 +340,14 @@ function cargarInformacion(){
         "movieSubs",
         peliculaActual.subtitulos
     );
-
-
+asignarTexto(
+    "movieSubsInfo",
+    peliculaActual.subtitulos
+);
+asignarTexto(
+    "movieDetailsText",
+    peliculaActual.descripcion
+);
     /* CLASIFICACIÓN */
 
     asignarTexto(
