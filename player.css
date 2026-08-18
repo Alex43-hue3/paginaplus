@@ -1,1352 +1,1387 @@
-/* =========================================================
-   CINEVERSE - PLAYER.CSS
-   Diseño completo del reproductor
-========================================================= */
 
-* {
-    box-sizing: border-box;
+/* =====================================================
+                    VARIABLES
+===================================================== */
+
+:root{
+
+    --player-bg:#08080d;
+
+    --player-card:#12121b;
+
+    --player-card-2:#171722;
+
+    --player-text:#ffffff;
+
+    --player-muted:#a7a7b4;
+
+    --player-purple:#7c3aed;
+
+    --player-blue:#2563eb;
+
+    --player-border:rgba(255,255,255,.10);
+
+    --player-shadow:
+        0 25px 70px rgba(0,0,0,.45);
+
 }
 
-html {
-    scroll-behavior: smooth;
+
+/* =====================================================
+                    RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    min-height: 100vh;
+html{
+    scroll-behavior:smooth;
+}
+
+body.playerPage{
+
+    margin:0;
+
     background:
         radial-gradient(
-            circle at 15% 10%,
-            rgba(96, 48, 180, 0.20),
+            circle at 10% 10%,
+            rgba(124,58,237,.18),
             transparent 35%
         ),
         radial-gradient(
-            circle at 90% 75%,
-            rgba(35, 82, 190, 0.18),
-            transparent 35%
+            circle at 90% 80%,
+            rgba(37,99,235,.15),
+            transparent 40%
         ),
-        #08090f;
-    color: #fff;
-    font-family: "Poppins", sans-serif;
+        var(--player-bg);
+
+    color:var(--player-text);
+
+    font-family:"Poppins",sans-serif;
+
+    min-height:100vh;
+
 }
 
-/* =========================================================
-   FONDO DEL REPRODUCTOR
-========================================================= */
 
-.playerBackground {
-    position: fixed;
-    inset: 0;
-    z-index: -3;
+/* =====================================================
+                FONDO DE PELÍCULA
+===================================================== */
 
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+.playerBackground{
 
-    filter: blur(35px);
-    transform: scale(1.15);
+    position:fixed;
 
-    opacity: 0.20;
+    inset:0;
+
+    z-index:-3;
+
+    background-position:center;
+
+    background-size:cover;
+
+    background-repeat:no-repeat;
+
+    filter:blur(35px);
+
+    transform:scale(1.12);
+
+    opacity:.30;
+
 }
 
-.playerBackground::after {
-    content: "";
-    position: absolute;
-    inset: 0;
+
+.playerPageOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-2;
 
     background:
         linear-gradient(
             to bottom,
-            rgba(5, 6, 12, 0.85),
-            #08090f 70%
-        );
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.playerHeader {
-    position: relative;
-
-    width: 100%;
-    min-height: 70px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 15px 5%;
-
-    background: rgba(7, 8, 14, 0.78);
-
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-
-    z-index: 20;
-}
-
-.playerLogo a {
-    color: #fff;
-    text-decoration: none;
-
-    font-size: 24px;
-    font-weight: 800;
-}
-
-.playerLogo span {
-    background: linear-gradient(
-        90deg,
-        #7c3aed,
-        #2563eb
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.playerMenu {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.playerMenu a {
-    color: #b8b8c7;
-    text-decoration: none;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    transition: 0.25s;
-}
-
-.playerMenu a:hover {
-    color: #fff;
-}
-
-.playerActions {
-    display: flex;
-    align-items: center;
-}
-
-/* =========================================================
-   BOTONES GENERALES
-========================================================= */
-
-.btnGlass,
-.btnPrincipal,
-.btnSecundario {
-    border: none;
-    cursor: pointer;
-
-    font-family: inherit;
-    font-weight: 600;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.btnGlass {
-    padding: 11px 18px;
-
-    border-radius: 12px;
-
-    color: #fff;
-
-    background: rgba(255,255,255,0.07);
-
-    border: 1px solid rgba(255,255,255,0.12);
-}
-
-.btnGlass:hover {
-    background: rgba(255,255,255,0.13);
-    transform: translateY(-2px);
-}
-
-.btnPrincipal {
-    padding: 13px 22px;
-
-    border-radius: 12px;
-
-    color: #fff;
-
-    background: linear-gradient(
-        135deg,
-        #7c3aed,
-        #2563eb
-    );
-
-    box-shadow:
-        0 10px 30px rgba(88, 48, 220, 0.30);
-}
-
-.btnPrincipal:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 15px 40px rgba(88, 48, 220, 0.45);
-}
-
-.btnSecundario {
-    padding: 13px 22px;
-
-    border-radius: 12px;
-
-    color: #fff;
-
-    background: rgba(255,255,255,0.08);
-
-    border: 1px solid rgba(255,255,255,0.13);
-}
-
-.btnSecundario:hover {
-    background: rgba(255,255,255,0.14);
-
-    transform: translateY(-2px);
-}
-
-/* =========================================================
-   CONTENIDO PRINCIPAL
-========================================================= */
-
-.playerMain {
-    width: 100%;
-}
-
-.playerSection {
-    width: min(1180px, 92%);
-    margin: 0 auto;
-
-    padding: 30px 0 80px;
-}
-
-/* =========================================================
-   ÁREA SUPERIOR DEL VIDEO
-========================================================= */
-
-.videoArea {
-    position: relative;
-    width: 100%;
-}
-
-/* =========================================================
-   VIDEO
-========================================================= */
-
-.videoContainer {
-    position: relative;
-
-    width: 100%;
-    aspect-ratio: 16 / 9;
-
-    background: #000;
-
-    border-radius: 18px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 25px 80px rgba(0,0,0,0.50);
-
-    border: 1px solid rgba(255,255,255,0.08);
-}
-
-.playerSource {
-    position: absolute;
-
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-}
-
-.playerSource iframe,
-.playerSource video {
-    display: block;
-
-    width: 100%;
-    height: 100%;
-
-    border: none;
-
-    background: #000;
-}
-
-.youtubeSource iframe {
-    width: 100%;
-    height: 100%;
-}
-
-.mp4Source {
-    position: relative;
-}
-
-/* =========================================================
-   VIDEO HTML5
-========================================================= */
-
-#videoPlayer {
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-
-    background: #000;
-}
-
-/* =========================================================
-   CONTROLES PERSONALIZADOS MP4
-========================================================= */
-
-.cineverseControls {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    padding: 45px 18px 15px;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,0.90),
-            rgba(0,0,0,0)
+            rgba(8,8,13,.55),
+            #08080d 70%
         );
 
-    opacity: 1;
+    pointer-events:none;
 
-    z-index: 5;
 }
 
-.cineverseControls button {
-    min-width: 38px;
-    height: 38px;
 
-    border: none;
-    border-radius: 10px;
+/* =====================================================
+                PÁGINA
+===================================================== */
 
-    color: #fff;
+.moviePage{
 
-    background: rgba(255,255,255,0.10);
+    width:min(1100px, calc(100% - 40px));
 
-    cursor: pointer;
+    margin:0 auto;
 
-    font-family: inherit;
+    padding-bottom:80px;
 
-    transition: 0.2s;
 }
 
-.cineverseControls button:hover {
-    background: rgba(124,58,237,0.75);
+
+/* =====================================================
+                BARRA SUPERIOR
+===================================================== */
+
+.movieTopBar{
+
+    height:80px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
 }
 
-.cineverseControls input[type="range"] {
-    accent-color: #7c3aed;
-    cursor: pointer;
+
+.topRightButtons{
+
+    display:flex;
+
+    gap:12px;
+
 }
 
-#progressBar {
-    flex: 1;
-    min-width: 80px;
+
+.topIconButton{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    border:1px solid var(--player-border);
+
+    background:rgba(20,20,30,.70);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    backdrop-filter:blur(12px);
+
 }
 
-#volumeBar {
-    width: 80px;
+
+.topIconButton:hover{
+
+    background:var(--player-purple);
+
+    transform:translateY(-2px);
+
 }
 
-#timeDisplay {
-    color: #fff;
 
-    font-size: 12px;
+/* =====================================================
+                    PORTADA
+===================================================== */
 
-    white-space: nowrap;
+.movieHero{
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:5px 0 35px;
+
 }
 
-/* =========================================================
-   BOTONES SUPERIORES SOBRE VIDEO
-========================================================= */
 
-.videoContainer::before {
-    content: "";
-    position: absolute;
+.posterWrapper{
 
-    top: 0;
-    left: 0;
-    right: 0;
+    width:310px;
 
-    height: 90px;
+    aspect-ratio:2 / 3;
 
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.45),
-            transparent
-        );
+    border-radius:22px;
 
-    pointer-events: none;
+    overflow:hidden;
 
-    z-index: 2;
-}
-
-/* =========================================================
-   INFORMACIÓN DE LA PELÍCULA
-========================================================= */
-
-.playerInfo {
-    display: grid;
-
-    grid-template-columns:
-        minmax(0, 1fr)
-        300px;
-
-    gap: 55px;
-
-    max-width: 1050px;
-
-    margin: 35px auto 0;
-
-    padding: 0 15px;
-}
-
-.playerLeft {
-    min-width: 0;
-}
-
-/* =========================================================
-   BADGES
-========================================================= */
-
-.movieBadges {
-    display: flex;
-    flex-wrap: wrap;
-
-    align-items: center;
-
-    gap: 8px;
-
-    margin-bottom: 12px;
-}
-
-.movieBadges span {
-    display: inline-flex;
-
-    align-items: center;
-
-    padding: 6px 10px;
-
-    border-radius: 7px;
-
-    color: #dcdcf0;
-
-    background: rgba(255,255,255,0.07);
-
-    border: 1px solid rgba(255,255,255,0.09);
-
-    font-size: 11px;
-    font-weight: 600;
-}
-
-/* =========================================================
-   TÍTULO
-========================================================= */
-
-.movieTitlePlayer {
-    margin: 0 0 12px;
-
-    color: #fff;
-
-    font-size: clamp(
-        30px,
-        4vw,
-        48px
-    );
-
-    line-height: 1.05;
-
-    font-weight: 800;
-
-    letter-spacing: -1.2px;
-}
-
-/* =========================================================
-   DESCRIPCIÓN
-========================================================= */
-
-.movieDescription {
-    max-width: 760px;
-
-    margin: 22px 0 0;
-
-    color: #b8b8c7;
-
-    font-size: 14px;
-
-    line-height: 1.8;
-}
-
-/* =========================================================
-   BOTONES DE PELÍCULA
-========================================================= */
-
-.playerButtons {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    align-items: center;
-
-    gap: 10px;
-
-    margin-top: 20px;
-}
-
-.playerButtons button {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-}
-
-/* =========================================================
-   INFORMACIÓN LATERAL
-========================================================= */
-
-.movieExtra {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 18px;
-}
-
-.extraCard {
-    padding: 20px;
-
-    border-radius: 16px;
-
-    background: rgba(255,255,255,0.045);
-
-    border: 1px solid rgba(255,255,255,0.08);
+    background:#111118;
 
     box-shadow:
-        0 15px 40px rgba(0,0,0,0.15);
+        0 35px 80px rgba(0,0,0,.55);
+
+    position:relative;
+
 }
 
-.extraCard h3 {
-    display: flex;
 
-    align-items: center;
+.moviePosterMain{
 
-    gap: 9px;
+    width:100%;
 
-    margin: 0 0 18px;
+    height:100%;
 
-    font-size: 15px;
+    display:block;
+
+    object-fit:cover;
+
 }
 
-.extraCard h3 i {
-    color: #8b5cf6;
+
+/* =====================================================
+                INFORMACIÓN
+===================================================== */
+
+.movieDetails{
+
+    max-width:850px;
+
+    margin:0 auto;
+
+    text-align:left;
+
 }
 
-.extraCard ul {
-    padding: 0;
-    margin: 0;
 
-    list-style: none;
+.movieBadges{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-bottom:14px;
+
 }
 
-.extraCard li {
-    display: flex;
 
-    justify-content: space-between;
-    gap: 15px;
+.movieBadges span{
 
-    padding: 10px 0;
+    padding:6px 10px;
 
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-radius:7px;
 
-    font-size: 11px;
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    color:#eee;
+
+    font-size:12px;
+
+    font-weight:600;
+
 }
 
-.extraCard li:last-child {
-    border-bottom: none;
+
+.movieTitle{
+
+    margin:0;
+
+    font-size:clamp(32px,5vw,54px);
+
+    line-height:1.1;
+
+    font-weight:800;
+
+    letter-spacing:-1.5px;
+
 }
 
-.extraCard strong {
-    color: #8f8fa0;
+
+.movieMeta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:9px;
+
+    color:#c5c5cf;
+
+    margin-top:13px;
+
+    font-size:14px;
+
 }
 
-.extraCard span {
-    color: #fff;
 
-    text-align: right;
+.metaSeparator{
+
+    color:#777;
+
 }
 
-/* =========================================================
-   CÍRCULO DE POPULARIDAD
-========================================================= */
 
-.ratingCircle {
-    width: 95px;
-    height: 95px;
+/* =====================================================
+                BOTÓN VER AHORA
+===================================================== */
 
-    margin: 5px auto 15px;
+.mainAction{
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top:25px;
 
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #151522 58%,
-            transparent 60%
-        );
-
-    border: 5px solid #7c3aed;
-
-    box-shadow:
-        0 0 30px rgba(124,58,237,0.25);
 }
 
-.ratingCircle > div {
-    text-align: center;
-}
 
-.ratingCircle span {
-    font-size: 23px;
-    font-weight: 800;
-}
+.btnWatch{
 
-.ratingCircle small {
-    color: #888899;
-}
+    border:none;
 
-.extraCard p {
-    margin: 0;
-
-    color: #8d8d9c;
-
-    text-align: center;
-
-    font-size: 11px;
-
-    line-height: 1.6;
-}
-
-/* =========================================================
-   PELÍCULAS RELACIONADAS
-========================================================= */
-
-.relatedSection {
-    max-width: 1050px;
-
-    margin: 65px auto 0;
-
-    padding: 0 15px;
-}
-
-.sectionTitle {
-    margin-bottom: 20px;
-}
-
-.sectionTitle h2 {
-    margin: 0;
-
-    font-size: 23px;
-    font-weight: 700;
-}
-
-.sectionTitle p {
-    margin: 5px 0 0;
-
-    color: #888899;
-
-    font-size: 12px;
-}
-
-.relatedSlider {
-    display: flex;
-
-    gap: 18px;
-
-    overflow-x: auto;
-
-    overflow-y: hidden;
-
-    padding: 5px 2px 20px;
-
-    scroll-behavior: smooth;
-
-    scrollbar-width: none;
-}
-
-.relatedSlider::-webkit-scrollbar {
-    display: none;
-}
-
-.relatedCard {
-    flex: 0 0 190px;
-
-    overflow: hidden;
-
-    border-radius: 15px;
-
-    background: #12131d;
-
-    border: 1px solid rgba(255,255,255,0.07);
-
-    cursor: pointer;
-
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
-
-.relatedCard:hover {
-    transform: translateY(-6px);
-
-    box-shadow:
-        0 18px 40px rgba(0,0,0,0.35);
-}
-
-.relatedPoster {
-    position: relative;
-
-    width: 100%;
-    height: 265px;
-
-    overflow: hidden;
-
-    background: #08090f;
-}
-
-.relatedPoster img {
-    width: 100%;
-    height: 100%;
-
-    display: block;
-
-    object-fit: cover;
-
-    transition: transform 0.35s ease;
-}
-
-.relatedCard:hover .relatedPoster img {
-    transform: scale(1.06);
-}
-
-.relatedOverlay {
-    position: absolute;
-
-    inset: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(0,0,0,0.30);
-
-    opacity: 0;
-
-    transition: 0.25s;
-}
-
-.relatedCard:hover .relatedOverlay {
-    opacity: 1;
-}
-
-.relatedPlay {
-    width: 45px;
-    height: 45px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
+    color:white;
 
     background:
         linear-gradient(
             135deg,
-            #7c3aed,
-            #2563eb
+            var(--player-purple),
+            var(--player-blue)
         );
 
+    padding:14px 25px;
+
+    min-width:145px;
+
+    border-radius:10px;
+
+    font-family:inherit;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
     box-shadow:
-        0 10px 30px rgba(0,0,0,0.4);
+        0 12px 35px rgba(79,70,229,.30);
+
+    transition:.25s;
+
 }
 
-.relatedInfo {
-    padding: 12px;
+
+.btnWatch:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 18px 45px rgba(79,70,229,.40);
+
 }
 
-.relatedInfo h3 {
-    margin: 0 0 7px;
 
-    font-size: 13px;
+.btnWatch i{
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-right:7px;
+
 }
 
-.relatedMeta {
-    display: flex;
 
-    gap: 10px;
+/* =====================================================
+                BOTONES SECUNDARIOS
+===================================================== */
 
-    color: #8d8d9c;
+.secondaryActions{
 
-    font-size: 10px;
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-top:12px;
+
 }
 
-.relatedGenre {
-    display: inline-block;
 
-    margin-top: 7px;
+.secondaryButton{
 
-    color: #8b5cf6;
+    padding:10px 17px;
 
-    font-size: 10px;
+    border-radius:9px;
+
+    border:1px solid var(--player-border);
+
+    background:rgba(255,255,255,.06);
+
+    color:white;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
 }
 
-/* =========================================================
-   VOLVER AL INICIO
-========================================================= */
 
-.backHome {
-    display: flex;
+.secondaryButton:hover{
 
-    justify-content: center;
+    background:rgba(255,255,255,.13);
 
-    margin-top: 50px;
 }
 
-.backHome a {
-    text-decoration: none;
+
+.secondaryButton i{
+
+    margin-right:6px;
+
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
 
-.playerFooter {
-    display: grid;
+/* =====================================================
+                DESCRIPCIÓN
+===================================================== */
+
+.movieDescription{
+
+    max-width:850px;
+
+    margin:25px 0 0;
+
+    color:#c3c3cc;
+
+    font-size:14px;
+
+    line-height:1.8;
+
+}
+
+
+/* =====================================================
+                INFO EXTRA
+===================================================== */
+
+.movieExtraInfo{
+
+    margin-top:25px;
+
+    padding-top:20px;
+
+    border-top:1px solid var(--player-border);
+
+    display:grid;
 
     grid-template-columns:
-        1.5fr
-        1fr
-        1fr
-        auto;
+        repeat(4,1fr);
 
-    gap: 35px;
+    gap:20px;
 
-    margin-top: 40px;
-
-    padding: 45px 7%;
-
-    background: rgba(5,6,11,0.75);
-
-    border-top: 1px solid rgba(255,255,255,0.06);
 }
 
-.footerLogo h2 {
-    margin: 0;
 
-    font-size: 24px;
+.movieExtraInfo div{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+
 }
 
-.footerLogo span {
-    color: #7c3aed;
+
+.movieExtraInfo small{
+
+    color:#777783;
+
+    font-size:11px;
+
 }
 
-.footerLogo p {
-    margin-top: 8px;
 
-    color: #858595;
+.movieExtraInfo strong{
 
-    font-size: 12px;
+    color:#eee;
+
+    font-size:13px;
+
+    font-weight:500;
+
 }
 
-.footerLinks {
-    display: flex;
 
-    flex-direction: column;
+/* =====================================================
+                RELACIONADAS
+===================================================== */
 
-    gap: 9px;
+.relatedSection{
+
+    margin-top:65px;
+
 }
 
-.footerLinks a {
-    color: #858595;
 
-    text-decoration: none;
+.relatedHeader span{
 
-    font-size: 12px;
+    color:#a78bfa;
 
-    transition: 0.2s;
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
 }
 
-.footerLinks a:hover {
-    color: #fff;
+
+.relatedHeader h2{
+
+    margin:5px 0 20px;
+
+    font-size:25px;
+
 }
 
-.footerSocial {
-    display: flex;
 
-    align-items: flex-start;
+.relatedWrapper{
 
-    gap: 10px;
+    position:relative;
+
 }
 
-.footerSocial a {
-    width: 38px;
-    height: 38px;
 
-    display: flex;
+.relatedSlider{
 
-    align-items: center;
-    justify-content: center;
+    display:flex;
 
-    border-radius: 10px;
+    gap:18px;
 
-    color: #fff;
+    overflow-x:auto;
 
-    background: rgba(255,255,255,0.07);
+    scroll-behavior:smooth;
 
-    text-decoration: none;
+    scrollbar-width:none;
 
-    transition: 0.2s;
+    padding:5px 5px 20px;
+
 }
 
-.footerSocial a:hover {
-    background: #7c3aed;
 
-    transform: translateY(-3px);
+.relatedSlider::-webkit-scrollbar{
+
+    display:none;
+
 }
 
-/* =========================================================
-   LOADING
-========================================================= */
 
-.loadingScreen {
-    position: fixed;
+.relatedCard{
 
-    inset: 0;
+    flex:0 0 190px;
 
-    z-index: 9999;
+    border-radius:14px;
 
-    display: flex;
+    overflow:hidden;
 
-    align-items: center;
-    justify-content: center;
+    background:var(--player-card);
 
-    background: #08090f;
+    border:1px solid var(--player-border);
 
-    transition:
-        opacity 0.5s ease,
-        visibility 0.5s ease;
+    cursor:pointer;
+
+    transition:.3s;
+
 }
 
-.loadingScreen.oculto,
-.loadingScreen.hide {
-    opacity: 0;
 
-    visibility: hidden;
+.relatedCard:hover{
 
-    pointer-events: none;
+    transform:translateY(-7px);
+
+    border-color:rgba(124,58,237,.5);
+
 }
 
-.loader {
-    text-align: center;
+
+.relatedPoster{
+
+    width:100%;
+
+    aspect-ratio:2 / 3;
+
+    background:#0d0d13;
+
 }
 
-.loaderCircle {
-    width: 45px;
-    height: 45px;
 
-    margin: 0 auto 15px;
+.relatedPoster img{
 
-    border: 3px solid rgba(255,255,255,0.10);
+    width:100%;
 
-    border-top-color: #7c3aed;
+    height:100%;
 
-    border-radius: 50%;
+    display:block;
+
+    object-fit:cover;
+
+}
+
+
+.relatedInfo{
+
+    padding:12px;
+
+}
+
+
+.relatedInfo h3{
+
+    margin:0 0 7px;
+
+    font-size:14px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+
+.relatedMeta{
+
+    display:flex;
+
+    gap:8px;
+
+    color:#92929e;
+
+    font-size:11px;
+
+}
+
+
+.relatedArrow{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    z-index:4;
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.14);
+
+    background:rgba(10,10,15,.85);
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    backdrop-filter:blur(10px);
+
+    transition:.25s;
+
+}
+
+
+.relatedArrow:hover{
+
+    background:var(--player-purple);
+
+}
+
+
+.relatedArrowLeft{
+
+    left:-20px;
+
+}
+
+
+.relatedArrowRight{
+
+    right:-20px;
+
+}
+
+
+/* =====================================================
+                REPRODUCTOR OVERLAY
+===================================================== */
+
+.videoOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:9999;
+
+    background:#000;
+
+    display:none;
+
+    flex-direction:column;
+
+}
+
+
+.videoOverlay.active{
+
+    display:flex;
+
+}
+
+
+.videoTopControls{
+
+    position:absolute;
+
+    top:20px;
+
+    left:20px;
+
+    right:20px;
+
+    z-index:20;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    pointer-events:none;
+
+}
+
+
+.videoTopControls button{
+
+    pointer-events:auto;
+
+}
+
+
+.videoTopRight{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+
+.videoIconButton{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.20);
+
+    background:rgba(15,15,20,.70);
+
+    color:white;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(12px);
+
+}
+
+
+.videoIconButton:hover{
+
+    background:rgba(124,58,237,.85);
+
+}
+
+
+.videoContainer{
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+}
+
+
+.playerSource{
+
+    width:100%;
+
+    height:100%;
+
+    display:none;
+
+}
+
+
+.playerSource.active{
+
+    display:flex;
+
+}
+
+
+.youtubeSource{
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.youtubeSource iframe{
+
+    width:100%;
+
+    height:100%;
+
+    border:0;
+
+}
+
+
+.mp4Source{
+
+    position:relative;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.mp4Source video{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+    background:#000;
+
+}
+
+
+/* =====================================================
+                CONTROLES MP4
+===================================================== */
+
+.cineverseControls{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    padding:
+        30px
+        25px
+        18px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.92)
+        );
+
+    opacity:1;
+
+}
+
+
+.controlButton{
+
+    width:38px;
+
+    height:38px;
+
+    border:0;
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:3px;
+
+    font-family:inherit;
+
+}
+
+
+.controlButton:hover{
+
+    color:#a78bfa;
+
+}
+
+
+.progressBar{
+
+    flex:1;
+
+    min-width:80px;
+
+    accent-color:var(--player-purple);
+
+    cursor:pointer;
+
+}
+
+
+.volumeBar{
+
+    width:85px;
+
+    accent-color:var(--player-purple);
+
+    cursor:pointer;
+
+}
+
+
+.timeDisplay{
+
+    color:#eee;
+
+    font-size:12px;
+
+    white-space:nowrap;
+
+}
+
+
+/* =====================================================
+                    LOADING
+===================================================== */
+
+.loadingScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:10000;
+
+    background:#08080d;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+.loadingScreen.hidden{
+
+    display:none;
+
+}
+
+
+.loadingContent{
+
+    text-align:center;
+
+}
+
+
+.loadingSpinner{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    border:4px solid rgba(255,255,255,.12);
+
+    border-top-color:#7c3aed;
 
     animation:
-        cineverseSpin 0.8s linear infinite;
+        playerSpin .8s linear infinite;
+
+    margin:0 auto 15px;
+
 }
 
-.loader h2 {
-    margin: 0;
 
-    font-size: 18px;
+.loadingContent h3{
+
+    margin:0;
+
 }
 
-.loader p {
-    margin: 5px 0 0;
 
-    color: #858595;
+.loadingContent p{
 
-    font-size: 12px;
+    margin:5px 0 0;
+
+    color:#888;
+
+    font-size:13px;
+
 }
 
-@keyframes cineverseSpin {
-    to {
-        transform: rotate(360deg);
-    }
-}
 
-/* =========================================================
-   ERROR / CARGA DEL VIDEO
-========================================================= */
+@keyframes playerSpin{
 
-.videoLoading {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    color: #fff;
-
-    background: #050509;
-}
-
-.videoLoading i {
-    margin-bottom: 15px;
-
-    color: #8b5cf6;
-
-    font-size: 40px;
-}
-
-.videoLoading h2 {
-    margin: 0 0 8px;
-
-    font-size: 20px;
-}
-
-.videoLoading p {
-    margin: 0;
-
-    color: #858595;
-
-    font-size: 12px;
-}
-
-/* =========================================================
-   PANTALLA COMPLETA
-========================================================= */
-
-.videoContainer:fullscreen {
-    width: 100vw;
-    height: 100vh;
-
-    border-radius: 0;
-}
-
-.videoContainer:fullscreen .playerSource,
-.videoContainer:fullscreen video,
-.videoContainer:fullscreen iframe {
-    width: 100%;
-    height: 100%;
-}
-
-/* =========================================================
-   MODO CINE
-========================================================= */
-
-body.cinemaMode .playerHeader,
-body.cinemaMode .playerInfo,
-body.cinemaMode .relatedSection,
-body.cinemaMode .backHome,
-body.cinemaMode .playerFooter {
-    display: none;
-}
-
-body.cinemaMode .playerSection {
-    width: 100%;
-    padding: 0;
-}
-
-body.cinemaMode .videoContainer {
-    width: 100vw;
-    height: 100vh;
-
-    aspect-ratio: auto;
-
-    border-radius: 0;
-}
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .playerInfo {
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-    }
-
-    .movieExtra {
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .playerFooter {
-        grid-template-columns: 1fr 1fr;
+    to{
+        transform:rotate(360deg);
     }
 
 }
 
-/* =========================================================
-   MÓVIL
-========================================================= */
 
-@media (max-width: 650px) {
+/* =====================================================
+                TABLET
+===================================================== */
 
-    .playerHeader {
-        min-height: 60px;
+@media(max-width:800px){
 
-        padding: 12px 4%;
+    .moviePage{
+
+        width:min(
+            100% - 28px,
+            650px
+        );
+
     }
 
-    .playerLogo a {
-        font-size: 19px;
+
+    .movieTopBar{
+
+        height:65px;
+
     }
 
-    .playerMenu {
-        display: none;
+
+    .posterWrapper{
+
+        width:270px;
+
     }
 
-    .playerActions .btnGlass {
-        padding: 8px 11px;
 
-        font-size: 11px;
+    .movieDetails{
+
+        text-align:left;
+
     }
 
-    .playerSection {
-        width: 94%;
 
-        padding-top: 18px;
+    .movieExtraInfo{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
     }
 
-    /* -------------------------------
-       VIDEO
-    -------------------------------- */
 
-    .videoContainer {
-        aspect-ratio: 16 / 9;
+    .relatedArrowLeft{
 
-        border-radius: 12px;
+        left:-8px;
+
     }
 
-    /* -------------------------------
-       CONTROLES
-    -------------------------------- */
 
-    .cineverseControls {
-        gap: 5px;
+    .relatedArrowRight{
+
+        right:-8px;
+
+    }
+
+}
+
+
+/* =====================================================
+                    MÓVIL
+===================================================== */
+
+@media(max-width:600px){
+
+    .moviePage{
+
+        width:calc(100% - 24px);
+
+        padding-bottom:50px;
+
+    }
+
+
+    .movieTopBar{
+
+        height:60px;
+
+    }
+
+
+    .topIconButton{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+
+    .movieHero{
+
+        padding-top:5px;
+
+        padding-bottom:25px;
+
+    }
+
+
+    .posterWrapper{
+
+        width:min(
+            72vw,
+            250px
+        );
+
+        border-radius:17px;
+
+    }
+
+
+    .movieTitle{
+
+        font-size:32px;
+
+        letter-spacing:-.7px;
+
+    }
+
+
+    .movieMeta{
+
+        font-size:12px;
+
+    }
+
+
+    .movieDescription{
+
+        font-size:13px;
+
+        line-height:1.7;
+
+    }
+
+
+    .movieExtraInfo{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:15px;
+
+    }
+
+
+    .relatedSection{
+
+        margin-top:45px;
+
+    }
+
+
+    .relatedCard{
+
+        flex-basis:155px;
+
+    }
+
+
+    .relatedArrow{
+
+        width:38px;
+
+        height:38px;
+
+    }
+
+
+    .relatedArrowLeft{
+
+        left:-5px;
+
+    }
+
+
+    .relatedArrowRight{
+
+        right:-5px;
+
+    }
+
+
+    .videoTopControls{
+
+        top:
+            max(12px, env(safe-area-inset-top));
+
+        left:12px;
+
+        right:12px;
+
+    }
+
+
+    .videoIconButton{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+
+    .cineverseControls{
 
         padding:
-            35px 8px 8px;
+            25px
+            10px
+            max(10px, env(safe-area-inset-bottom));
+
+        gap:5px;
+
+        flex-wrap:wrap;
+
     }
 
-    .cineverseControls button {
-        min-width: 31px;
 
-        height: 31px;
+    .progressBar{
 
-        padding: 0;
+        order:1;
 
-        font-size: 10px;
+        flex-basis:100%;
+
+        width:100%;
+
     }
 
-    #timeDisplay {
-        display: none;
+
+    .timeDisplay{
+
+        font-size:10px;
+
     }
 
-    #volumeBar {
-        display: none;
+
+    .volumeBar{
+
+        width:55px;
+
     }
 
-    #progressBar {
-        min-width: 50px;
-    }
 
-    /* -------------------------------
-       INFORMACIÓN
-    -------------------------------- */
+    .controlButton{
 
-    .playerInfo {
-        display: block;
+        width:34px;
 
-        margin-top: 22px;
+        height:34px;
 
-        padding: 0;
-    }
-
-    .movieTitlePlayer {
-        font-size: 30px;
-
-        letter-spacing: -0.7px;
-    }
-
-    .movieDescription {
-        margin-top: 16px;
-
-        font-size: 13px;
-
-        line-height: 1.7;
-    }
-
-    .playerButtons {
-        gap: 8px;
-
-        margin-top: 16px;
-    }
-
-    .playerButtons button {
-        padding: 10px 13px;
-
-        font-size: 11px;
-    }
-
-    /* -------------------------------
-       INFORMACIÓN EXTRA
-    -------------------------------- */
-
-    .movieExtra {
-        display: grid;
-
-        grid-template-columns: 1fr;
-
-        margin-top: 25px;
-    }
-
-    .extraCard {
-        padding: 16px;
-    }
-
-    /* -------------------------------
-       RELACIONADAS
-    -------------------------------- */
-
-    .relatedSection {
-        margin-top: 45px;
-
-        padding: 0;
-    }
-
-    .relatedSlider {
-        gap: 12px;
-    }
-
-    .relatedCard {
-        flex-basis: 145px;
-    }
-
-    .relatedPoster {
-        height: 205px;
-    }
-
-    /* -------------------------------
-       FOOTER
-    -------------------------------- */
-
-    .playerFooter {
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-
-        padding: 35px 6%;
-    }
-
-    .footerSocial {
-        align-items: center;
     }
 
 }
 
-/* =========================================================
-   MÓVIL HORIZONTAL
-========================================================= */
 
-@media (max-width: 900px) and (orientation: landscape) {
+/* =====================================================
+                MÓVIL HORIZONTAL
+===================================================== */
 
-    .playerHeader {
-        display: none;
+@media(
+    max-height:600px
+) and (
+    orientation:landscape
+){
+
+    .videoTopControls{
+
+        top:8px;
+
     }
 
-    .playerSection {
-        width: 100%;
 
-        padding: 0;
+    .videoIconButton{
+
+        width:36px;
+
+        height:36px;
+
     }
 
-    .videoContainer {
-        width: 100vw;
-        height: 100vh;
 
-        aspect-ratio: auto;
+    .cineverseControls{
 
-        border-radius: 0;
+        padding:
+            15px
+            15px
+            8px;
+
     }
 
-    .playerInfo,
-    .relatedSection,
-    .backHome,
-    .playerFooter {
-        display: none;
-    }
 
-}
+    .moviePage{
 
-/* =========================================================
-   PANTALLAS MUY PEQUEÑAS
-========================================================= */
+        padding-bottom:30px;
 
-@media (max-width: 380px) {
-
-    .movieTitlePlayer {
-        font-size: 26px;
-    }
-
-    .movieBadges span {
-        padding: 5px 8px;
-
-        font-size: 9px;
-    }
-
-    .playerButtons button {
-        padding: 9px 10px;
-
-        font-size: 10px;
     }
 
 }
