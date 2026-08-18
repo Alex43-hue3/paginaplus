@@ -1,73 +1,63 @@
 "use strict";
 
-/* =========================================================
-                    CINEVERSE
-              REPRODUCTOR PRINCIPAL
-========================================================= */
-
-
-/* =========================================================
+/* =====================================================
                     VARIABLES
-========================================================= */
+===================================================== */
 
 let peliculas = [];
+
 let peliculaActual = null;
 
-let videoActual = null;
 
-let tipoReproductorActual = null;
-
-let guardadoProgreso = null;
-
-
-/* =========================================================
-                    ELEMENTOS
-========================================================= */
+/* =====================================================
+                    DOM
+===================================================== */
 
 const loadingScreen =
     document.getElementById("loadingScreen");
 
-const playerBackground =
+const background =
     document.getElementById("playerBackground");
 
 const moviePoster =
     document.getElementById("moviePoster");
 
-const posterLoading =
-    document.getElementById("posterLoading");
+const movieTitle =
+    document.getElementById("movieTitle");
 
-const videoPlayerSection =
-    document.getElementById("videoPlayerSection");
+const movieDescription =
+    document.getElementById("movieDescription");
 
-const videoContainer =
-    document.getElementById("videoContainer");
+const videoOverlay =
+    document.getElementById("videoOverlay");
 
-const fullscreenPlayer =
-    document.getElementById("fullscreenPlayer");
+const youtubeContainer =
+    document.getElementById("youtubeContainer");
 
-const fullscreenVideoContainer =
-    document.getElementById("fullscreenVideoContainer");
+const youtubePlayer =
+    document.getElementById("youtubePlayer");
+
+const mp4Container =
+    document.getElementById("mp4Container");
+
+const videoPlayer =
+    document.getElementById("videoPlayer");
 
 const relatedSlider =
     document.getElementById("relatedSlider");
 
-const playerToast =
-    document.getElementById("playerToast");
 
-
-/* =========================================================
-                    INICIO
-========================================================= */
+/* =====================================================
+                    INICIAR
+===================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    iniciarPlayer
+    iniciar
 );
 
 
-async function iniciarPlayer() {
-
-    console.log("🎬 Iniciando reproductor CINEVERSE...");
+async function iniciar(){
 
     mostrarLoader();
 
@@ -75,46 +65,38 @@ async function iniciarPlayer() {
 
     obtenerPelicula();
 
-    if (!peliculaActual) {
+    if(!peliculaActual){
 
         ocultarLoader();
 
-        mostrarError(
-            "No se encontró la película."
-        );
+        mostrarError();
 
         return;
-    }
 
-    console.log(
-        "✅ Película:",
-        peliculaActual.titulo
-    );
+    }
 
     cargarInformacion();
 
-    cargarPortada();
+    cargarRelacionadas();
 
     inicializarBotones();
 
-    cargarRelacionadas();
+    inicializarMiLista();
 
-    actualizarMiLista();
-
-    guardarEnContinuarViendo();
+    inicializarFlechas();
 
     ocultarLoader();
 
 }
 
 
-/* =========================================================
+/* =====================================================
                     CARGAR JSON
-========================================================= */
+===================================================== */
 
-async function cargarPeliculas() {
+async function cargarPeliculas(){
 
-    try {
+    try{
 
         const respuesta =
             await fetch(
@@ -122,7 +104,7 @@ async function cargarPeliculas() {
                 Date.now()
             );
 
-        if (!respuesta.ok) {
+        if(!respuesta.ok){
 
             throw new Error(
                 "No se pudo cargar peliculas.json"
@@ -134,15 +116,15 @@ async function cargarPeliculas() {
             await respuesta.json();
 
         console.log(
-            "📚 Películas cargadas:",
+            "🎬 Películas cargadas:",
             peliculas.length
         );
 
     }
-    catch (error) {
+    catch(error){
 
         console.error(
-            "❌ Error cargando peliculas.json:",
+            "❌ Error cargando películas:",
             error
         );
 
@@ -153,27 +135,27 @@ async function cargarPeliculas() {
 }
 
 
-/* =========================================================
-                    OBTENER PELÍCULA
-========================================================= */
+/* =====================================================
+                OBTENER PELÍCULA
+===================================================== */
 
-function obtenerPelicula() {
+function obtenerPelicula(){
 
     const parametros =
         new URLSearchParams(
             window.location.search
         );
 
-    const idTexto =
-        parametros.get("id");
-
     const id =
-        Number(idTexto);
+        Number(
+            parametros.get("id")
+        );
 
     console.log(
         "🎬 ID recibido:",
         id
     );
+
 
     peliculaActual =
         peliculas.find(
@@ -181,7 +163,8 @@ function obtenerPelicula() {
                 Number(pelicula.id) === id
         );
 
-    if (peliculaActual) {
+
+    if(peliculaActual){
 
         console.log(
             "✅ Película encontrada:",
@@ -189,7 +172,7 @@ function obtenerPelicula() {
         );
 
     }
-    else {
+    else{
 
         console.error(
             "❌ Película no encontrada:",
@@ -201,204 +184,181 @@ function obtenerPelicula() {
 }
 
 
-/* =========================================================
-                    PORTADA
-========================================================= */
+/* =====================================================
+                    LOADER
+===================================================== */
 
-function cargarPortada() {
+function mostrarLoader(){
 
-    if (!peliculaActual) {
+    if(!loadingScreen){
         return;
     }
 
-    const imagen =
-        peliculaActual.poster ||
-        peliculaActual.banner ||
-        "";
-
-    if (!moviePoster) {
-        return;
-    }
-
-    if (!imagen) {
-
-        moviePoster.style.display =
-            "none";
-
-        if (posterLoading) {
-
-            posterLoading.innerHTML = `
-                <i class="fa-solid fa-film"></i>
-                <span>Sin portada</span>
-            `;
-
-        }
-
-        return;
-    }
-
-    moviePoster.onload = () => {
-
-        moviePoster.classList.add(
-            "loaded"
-        );
-
-        if (posterLoading) {
-
-            posterLoading.style.display =
-                "none";
-
-        }
-
-    };
-
-    moviePoster.onerror = () => {
-
-        console.warn(
-            "⚠️ No se pudo cargar el poster:",
-            imagen
-        );
-
-        if (
-            peliculaActual.banner &&
-            peliculaActual.banner !== imagen
-        ) {
-
-            moviePoster.src =
-                peliculaActual.banner;
-
-            return;
-
-        }
-
-        if (posterLoading) {
-
-            posterLoading.innerHTML = `
-                <i class="fa-solid fa-image"></i>
-                <span>Imagen no disponible</span>
-            `;
-
-        }
-
-    };
-
-    moviePoster.src = imagen;
+    loadingScreen.classList.remove(
+        "hidden"
+    );
 
 }
 
 
-/* =========================================================
-                    INFORMACIÓN
-========================================================= */
+function ocultarLoader(){
 
-function cargarInformacion() {
+    if(!loadingScreen){
+        return;
+    }
 
-    if (!peliculaActual) {
+    setTimeout(
+        ()=>{
+            loadingScreen.classList.add(
+                "hidden"
+            );
+        },
+        300
+    );
+
+}
+
+
+/* =====================================================
+                INFORMACIÓN
+===================================================== */
+
+function cargarInformacion(){
+
+    if(!peliculaActual){
         return;
     }
 
 
-    /* FONDO */
+    /* ---------------------------------------------
+                    FONDO
+    --------------------------------------------- */
 
-    if (playerBackground) {
+    if(background){
 
-        const fondo =
-            peliculaActual.banner ||
-            peliculaActual.poster ||
-            "";
-
-        if (fondo) {
-
-            playerBackground.style.backgroundImage =
-                `url("${fondo}")`;
-
-        }
+        background.style.backgroundImage =
+            `url("${peliculaActual.banner || peliculaActual.poster}")`;
 
     }
 
 
-    /* TÍTULO */
+    /* ---------------------------------------------
+                    POSTER
+    --------------------------------------------- */
+
+    if(moviePoster){
+
+        moviePoster.src =
+            peliculaActual.poster ||
+            peliculaActual.banner ||
+            "";
+
+        moviePoster.alt =
+            peliculaActual.titulo ||
+            "Película";
+
+    }
+
+
+    /* ---------------------------------------------
+                    TÍTULO
+    --------------------------------------------- */
 
     asignarTexto(
         "movieTitle",
-        peliculaActual.titulo ||
-        "Película"
+        peliculaActual.titulo
     );
 
 
-    /* AÑO */
+    /* ---------------------------------------------
+                DESCRIPCIÓN
+    --------------------------------------------- */
+
+    asignarTexto(
+        "movieDescription",
+        peliculaActual.descripcion
+    );
+
+
+    /* ---------------------------------------------
+                    AÑO
+    --------------------------------------------- */
 
     asignarTexto(
         "movieYear",
-        peliculaActual.anio ||
-        ""
+        peliculaActual.anio
     );
 
 
-    /* DURACIÓN */
+    /* ---------------------------------------------
+                DURACIÓN
+    --------------------------------------------- */
 
     asignarTexto(
         "movieDuration",
-        peliculaActual.duracion ||
-        "Película"
+        peliculaActual.duracion
     );
 
 
-    /* GÉNERO */
+    /* ---------------------------------------------
+                    GÉNERO
+    --------------------------------------------- */
 
     asignarTexto(
         "movieGenre",
-        peliculaActual.genero ||
-        ""
+        peliculaActual.genero
     );
 
 
-    /* CALIDAD */
-
-    asignarTexto(
-        "movieQuality",
-        peliculaActual.calidad ||
-        "HD"
-    );
-
-
-    /* CLASIFICACIÓN */
+    /* ---------------------------------------------
+                CLASIFICACIÓN
+    --------------------------------------------- */
 
     asignarTexto(
         "movieClasificacion",
-        peliculaActual.clasificacion ||
-        "A"
+        peliculaActual.clasificacion || "A"
     );
 
 
-    /* SUBTÍTULOS */
+    /* ---------------------------------------------
+                    CALIDAD
+    --------------------------------------------- */
+
+    asignarTexto(
+        "movieQuality",
+        peliculaActual.calidad || "HD"
+    );
+
+
+    /* ---------------------------------------------
+                SUBTÍTULOS
+    --------------------------------------------- */
 
     asignarTexto(
         "movieSubs",
-        peliculaActual.subtitulos ||
-        "No"
+        peliculaActual.subtitulos || "CC"
     );
 
-
-    /* IDIOMA */
-
-    asignarTexto(
-        "movieIdioma",
-        peliculaActual.idioma ||
-        "No disponible"
-    );
-
-
-    /* SUBTÍTULOS INFORMACIÓN */
 
     asignarTexto(
         "movieSubsInfo",
-        peliculaActual.subtitulos ||
-        "No disponible"
+        peliculaActual.subtitulos || "No disponible"
     );
 
 
-    /* DIRECTOR */
+    /* ---------------------------------------------
+                    AUDIO
+    --------------------------------------------- */
+
+    asignarTexto(
+        "movieAudio",
+        "AD"
+    );
+
+
+    /* ---------------------------------------------
+                    DIRECTOR
+    --------------------------------------------- */
 
     asignarTexto(
         "movieDirector",
@@ -407,7 +367,20 @@ function cargarInformacion() {
     );
 
 
-    /* PAÍS */
+    /* ---------------------------------------------
+                    IDIOMA
+    --------------------------------------------- */
+
+    asignarTexto(
+        "movieIdioma",
+        peliculaActual.idioma ||
+        "No disponible"
+    );
+
+
+    /* ---------------------------------------------
+                    PAÍS
+    --------------------------------------------- */
 
     asignarTexto(
         "moviePais",
@@ -416,51 +389,55 @@ function cargarInformacion() {
     );
 
 
-    /* DESCRIPCIÓN */
-
-    asignarTexto(
-        "movieDescription",
-        peliculaActual.descripcion ||
-        "No hay descripción disponible."
-    );
+    document.title =
+        "CINEVERSE | " +
+        peliculaActual.titulo;
 
 }
 
 
-/* =========================================================
-                    ASIGNAR TEXTO
-========================================================= */
+/* =====================================================
+                ASIGNAR TEXTO
+===================================================== */
 
-function asignarTexto(id, texto) {
+function asignarTexto(
+    id,
+    texto
+){
 
     const elemento =
         document.getElementById(id);
 
-    if (!elemento) {
-        return;
-    }
+    if(
+        elemento &&
+        texto !== undefined &&
+        texto !== null
+    ){
 
-    elemento.textContent =
-        texto ?? "";
+        elemento.textContent =
+            texto;
+
+    }
 
 }
 
 
-/* =========================================================
-                    BOTONES
-========================================================= */
+/* =====================================================
+                BOTONES
+===================================================== */
 
-function inicializarBotones() {
+function inicializarBotones(){
 
-
-    /* VER AHORA */
+    /* ---------------------------------------------
+                VER AHORA
+    --------------------------------------------- */
 
     const btnReproducir =
         document.getElementById(
             "btnReproducir"
         );
 
-    if (btnReproducir) {
+    if(btnReproducir){
 
         btnReproducir.addEventListener(
             "click",
@@ -470,48 +447,39 @@ function inicializarBotones() {
     }
 
 
-    /* REGRESAR */
+    /* ---------------------------------------------
+                    REGRESAR
+    --------------------------------------------- */
 
-    const btnRegresar =
+    const btnBack =
         document.getElementById(
-            "btnRegresar"
+            "btnBack"
         );
 
-    if (btnRegresar) {
+    if(btnBack){
 
-        btnRegresar.addEventListener(
+        btnBack.addEventListener(
             "click",
-            regresar
+            ()=>{
+                history.back();
+            }
         );
 
     }
 
 
-    const btnRegresarFinal =
+    /* ---------------------------------------------
+                CERRAR REPRODUCTOR
+    --------------------------------------------- */
+
+    const btnClosePlayer =
         document.getElementById(
-            "btnRegresarFinal"
+            "btnClosePlayer"
         );
 
-    if (btnRegresarFinal) {
+    if(btnClosePlayer){
 
-        btnRegresarFinal.addEventListener(
-            "click",
-            regresar
-        );
-
-    }
-
-
-    /* CERRAR REPRODUCTOR */
-
-    const btnCerrar =
-        document.getElementById(
-            "btnCerrarPlayer"
-        );
-
-    if (btnCerrar) {
-
-        btnCerrar.addEventListener(
+        btnClosePlayer.addEventListener(
             "click",
             cerrarReproductor
         );
@@ -519,66 +487,54 @@ function inicializarBotones() {
     }
 
 
-    /* TRAILER */
+    /* ---------------------------------------------
+                    TRAILER
+    --------------------------------------------- */
 
     const btnTrailer =
         document.getElementById(
             "btnTrailer"
         );
 
-    if (btnTrailer) {
+    if(btnTrailer){
 
-        if (
-            peliculaActual &&
-            peliculaActual.trailer
-        ) {
-
-            btnTrailer.style.display =
-                "inline-flex";
-
-            btnTrailer.addEventListener(
-                "click",
-                abrirTrailer
-            );
-
-        }
-        else {
+        if(
+            !peliculaActual.trailer
+        ){
 
             btnTrailer.style.display =
                 "none";
 
         }
+        else{
+
+            btnTrailer.addEventListener(
+                "click",
+                ()=>{
+                    window.open(
+                        peliculaActual.trailer,
+                        "_blank"
+                    );
+                }
+            );
+
+        }
 
     }
 
 
-    /* MI LISTA */
+    /* ---------------------------------------------
+                    COMPARTIR
+    --------------------------------------------- */
 
-    const btnFavorito =
+    const btnShareTop =
         document.getElementById(
-            "btnFavorito"
+            "btnShareTop"
         );
 
-    if (btnFavorito) {
+    if(btnShareTop){
 
-        btnFavorito.addEventListener(
-            "click",
-            toggleFavorito
-        );
-
-    }
-
-
-    /* COMPARTIR ARRIBA */
-
-    const btnCompartirTop =
-        document.getElementById(
-            "btnCompartirTop"
-        );
-
-    if (btnCompartirTop) {
-
-        btnCompartirTop.addEventListener(
+        btnShareTop.addEventListener(
             "click",
             compartirPelicula
         );
@@ -586,16 +542,14 @@ function inicializarBotones() {
     }
 
 
-    /* COMPARTIR EN REPRODUCTOR */
-
-    const btnFullscreenShare =
+    const btnVideoShare =
         document.getElementById(
-            "btnFullscreenShare"
+            "btnVideoShare"
         );
 
-    if (btnFullscreenShare) {
+    if(btnVideoShare){
 
-        btnFullscreenShare.addEventListener(
+        btnVideoShare.addEventListener(
             "click",
             compartirPelicula
         );
@@ -603,33 +557,35 @@ function inicializarBotones() {
     }
 
 
-    /* TV */
+    /* ---------------------------------------------
+                    CAST
+    --------------------------------------------- */
 
-    const btnTV =
+    const btnCast =
         document.getElementById(
-            "btnTV"
+            "btnCast"
         );
 
-    if (btnTV) {
+    if(btnCast){
 
-        btnTV.addEventListener(
+        btnCast.addEventListener(
             "click",
-            transmitir
+            mostrarCast
         );
 
     }
 
 
-    const btnFullscreenTV =
+    const btnVideoCast =
         document.getElementById(
-            "btnFullscreenTV"
+            "btnVideoCast"
         );
 
-    if (btnFullscreenTV) {
+    if(btnVideoCast){
 
-        btnFullscreenTV.addEventListener(
+        btnVideoCast.addEventListener(
             "click",
-            transmitir
+            mostrarCast
         );
 
     }
@@ -637,140 +593,138 @@ function inicializarBotones() {
 }
 
 
-/* =========================================================
+/* =====================================================
                 ABRIR REPRODUCTOR
-========================================================= */
+===================================================== */
 
-function abrirReproductor() {
+function abrirReproductor(){
 
-    if (!peliculaActual) {
-
-        mostrarToast(
-            "No se encontró la película."
-        );
-
-        return;
-
-    }
-
-    console.log(
-        "▶️ Reproduciendo:",
-        peliculaActual.titulo
-    );
-
-
-    if (!fullscreenPlayer) {
-
-        console.error(
-            "❌ No existe fullscreenPlayer"
-        );
+    if(!peliculaActual){
 
         return;
 
     }
 
 
-    fullscreenPlayer.style.display =
-        "flex";
-
-    document.body.classList.add(
-        "playerOpen"
+    videoOverlay.classList.add(
+        "active"
     );
 
 
-    tipoReproductorActual =
-        obtenerTipoVideo();
+    document.body.style.overflow =
+        "hidden";
 
 
-    crearReproductor();
+    prepararFuente();
 
 
-    guardarEnContinuarViendo();
+    guardarContinuarViendo();
 
 }
 
 
-/* =========================================================
-                OBTENER TIPO
-========================================================= */
+/* =====================================================
+            PREPARAR FUENTE
+===================================================== */
 
-function obtenerTipoVideo() {
+function prepararFuente(){
 
-    if (!peliculaActual) {
-        return null;
-    }
+    ocultarFuente(
+        youtubeContainer
+    );
 
-    if (
-        peliculaActual.tipo &&
-        peliculaActual.tipo.toLowerCase() ===
+    ocultarFuente(
+        mp4Container
+    );
+
+
+    /* =============================================
+                    YOUTUBE
+    ============================================= */
+
+    if(
+        peliculaActual.tipo ===
         "youtube"
-    ) {
+    ){
 
-        return "youtube";
+        const id =
+            obtenerYoutubeID(
+                peliculaActual.url
+            );
+
+
+        if(!id){
+
+            mostrarErrorVideo(
+                "No se pudo obtener el ID de YouTube."
+            );
+
+            return;
+
+        }
+
+
+        youtubeContainer.classList.add(
+            "active"
+        );
+
+
+        youtubePlayer.src =
+            `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+
+        return;
 
     }
 
-    if (
-        peliculaActual.tipo &&
-        peliculaActual.tipo.toLowerCase() ===
+
+    /* =============================================
+                    MP4
+    ============================================= */
+
+    if(
+        peliculaActual.tipo ===
         "mp4"
-    ) {
+    ){
 
-        return "mp4";
+        mp4Container.classList.add(
+            "active"
+        );
+
+
+        if(videoPlayer){
+
+            videoPlayer.src =
+                convertirUrlVideo(
+                    peliculaActual.url
+                );
+
+            videoPlayer.load();
+
+            inicializarControlesMP4();
+
+        }
+
+        return;
 
     }
 
-    if (
-        peliculaActual.tipo &&
-        peliculaActual.tipo.toLowerCase() ===
+
+    /* =============================================
+                    DRIVE
+    ============================================= */
+
+    if(
+        peliculaActual.tipo ===
         "drive"
-    ) {
+    ){
 
-        return "drive";
+        mostrarErrorVideo(
+            "Google Drive se abrirá desde su reproductor externo."
+        );
 
-    }
-
-
-    /* DETECTAR AUTOMÁTICAMENTE */
-
-    const url =
-        peliculaActual.url ||
-        "";
-
-    if (
-        url.includes("youtube.com") ||
-        url.includes("youtu.be")
-    ) {
-
-        return "youtube";
-
-    }
-
-
-    if (
-        url.includes("drive.google.com")
-    ) {
-
-        return "drive";
-
-    }
-
-
-    return "mp4";
-
-}
-
-
-/* =========================================================
-                CREAR REPRODUCTOR
-========================================================= */
-
-function crearReproductor() {
-
-    if (!fullscreenVideoContainer) {
-
-        console.error(
-            "❌ No existe fullscreenVideoContainer"
+        window.open(
+            peliculaActual.url,
+            "_blank"
         );
 
         return;
@@ -778,474 +732,51 @@ function crearReproductor() {
     }
 
 
-    destruirReproductorAnterior();
-
-
-    if (
-        tipoReproductorActual ===
-        "youtube"
-    ) {
-
-        crearYoutube();
-
-        return;
-
-    }
-
-
-    if (
-        tipoReproductorActual ===
-        "drive"
-    ) {
-
-        crearDrive();
-
-        return;
-
-    }
-
-
-    if (
-        tipoReproductorActual ===
-        "mp4"
-    ) {
-
-        crearMP4();
-
-        return;
-
-    }
-
-
-    mostrarError(
+    mostrarErrorVideo(
         "Formato de video no compatible."
     );
 
 }
 
 
-/* =========================================================
-                YOUTUBE
-========================================================= */
+/* =====================================================
+            CONVERTIR URL DROPBOX
+===================================================== */
 
-function crearYoutube() {
+function convertirUrlVideo(url){
 
-    const id =
-        obtenerYoutubeID(
-            peliculaActual.url
-        );
-
-
-    if (!id) {
-
-        mostrarError(
-            "No se pudo obtener el ID de YouTube."
-        );
-
-        return;
-
+    if(!url){
+        return "";
     }
 
 
-    console.log(
-        "▶️ YouTube ID:",
-        id
-    );
-
-
-    const iframe =
-        document.createElement(
-            "iframe"
-        );
-
-
-    iframe.id =
-        "youtubePlayer";
-
-
-    iframe.className =
-        "youtubePlayerFullscreen";
-
-
-    iframe.src =
-        `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
-
-
-    iframe.title =
-        peliculaActual.titulo ||
-        "CINEVERSE";
-
-
-    iframe.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-
-
-    iframe.allowFullscreen =
-        true;
-
-
-    iframe.setAttribute(
-        "referrerpolicy",
-        "strict-origin-when-cross-origin"
-    );
-
-
-    fullscreenVideoContainer.appendChild(
-        iframe
-    );
-
-
-    tipoReproductorActual =
-        "youtube";
-
-}
-
-
-/* =========================================================
-                OBTENER ID YOUTUBE
-========================================================= */
-
-function obtenerYoutubeID(url) {
-
-    if (!url) {
-        return null;
-    }
-
-
-    try {
+    try{
 
         const objeto =
             new URL(url);
 
 
-        /* youtu.be */
-
-        if (
+        if(
             objeto.hostname.includes(
-                "youtu.be"
+                "dropbox.com"
             )
-        ) {
+        ){
 
-            return objeto.pathname
-                .replace("/", "")
-                .split("/")[0];
-
-        }
-
-
-        /* youtube.com/watch */
-
-        const videoID =
-            objeto.searchParams.get(
-                "v"
+            objeto.searchParams.set(
+                "dl",
+                "1"
             );
 
-        if (videoID) {
 
-            return videoID;
-
-        }
-
-
-        /* youtube.com/embed */
-
-        if (
-            objeto.pathname.includes(
-                "/embed/"
-            )
-        ) {
-
-            return objeto.pathname
-                .split("/embed/")[1]
-                .split("/")[0];
+            return objeto.toString();
 
         }
 
 
-        /* youtube.com/shorts */
-
-        if (
-            objeto.pathname.includes(
-                "/shorts/"
-            )
-        ) {
-
-            return objeto.pathname
-                .split("/shorts/")[1]
-                .split("/")[0];
-
-        }
+        return url;
 
     }
-    catch (error) {
-
-        console.error(
-            "❌ URL YouTube inválida:",
-            error
-        );
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =========================================================
-                GOOGLE DRIVE
-========================================================= */
-
-function crearDrive() {
-
-    const id =
-        obtenerDriveID(
-            peliculaActual.url
-        );
-
-
-    if (!id) {
-
-        mostrarError(
-            "No se pudo obtener el ID de Google Drive."
-        );
-
-        return;
-
-    }
-
-
-    const iframe =
-        document.createElement(
-            "iframe"
-        );
-
-
-    iframe.className =
-        "drivePlayerFullscreen";
-
-
-    iframe.src =
-        `https://drive.google.com/file/d/${id}/preview`;
-
-
-    iframe.allow =
-        "autoplay";
-
-
-    iframe.allowFullscreen =
-        true;
-
-
-    fullscreenVideoContainer.appendChild(
-        iframe
-    );
-
-}
-
-
-/* =========================================================
-                OBTENER ID DRIVE
-========================================================= */
-
-function obtenerDriveID(url) {
-
-    if (!url) {
-        return null;
-    }
-
-
-    const resultado =
-        url.match(
-            /\/d\/([^/]+)/
-        );
-
-
-    if (resultado) {
-
-        return resultado[1];
-
-    }
-
-
-    return null;
-
-}
-
-
-/* =========================================================
-                    MP4
-========================================================= */
-
-function crearMP4() {
-
-    if (!peliculaActual.url) {
-
-        mostrarError(
-            "Esta película no tiene un enlace MP4."
-        );
-
-        return;
-
-    }
-
-
-    let url =
-        peliculaActual.url.trim();
-
-
-    /*
-        Dropbox:
-
-        dl=0
-        cambia a
-        dl=1
-
-        para intentar obtener
-        el archivo directamente.
-    */
-
-    if (
-        url.includes(
-            "dropbox.com"
-        )
-    ) {
-
-        url =
-            convertirDropboxURL(
-                url
-            );
-
-    }
-
-
-    console.log(
-        "🎞️ URL MP4:",
-        url
-    );
-
-
-    const wrapper =
-        document.createElement(
-            "div"
-        );
-
-
-    wrapper.className =
-        "mp4PlayerWrapper";
-
-
-    const video =
-        document.createElement(
-            "video"
-        );
-
-
-    video.id =
-        "videoPlayer";
-
-
-    video.className =
-        "cineverseVideo";
-
-
-    video.controls =
-        false;
-
-
-    video.preload =
-        "metadata";
-
-
-    video.playsInline =
-        true;
-
-
-    video.setAttribute(
-        "webkit-playsinline",
-        "true"
-    );
-
-
-    video.setAttribute(
-        "crossorigin",
-        "anonymous"
-    );
-
-
-    const source =
-        document.createElement(
-            "source"
-        );
-
-
-    source.src =
-        url;
-
-
-    source.type =
-        "video/mp4";
-
-
-    video.appendChild(
-        source
-    );
-
-
-    wrapper.appendChild(
-        video
-    );
-
-
-    crearControlesMP4(
-        wrapper,
-        video
-    );
-
-
-    fullscreenVideoContainer.appendChild(
-        wrapper
-    );
-
-
-    videoActual =
-        video;
-
-
-    configurarMP4(
-        video
-    );
-
-}
-
-
-/* =========================================================
-            CONVERTIR DROPBOX
-========================================================= */
-
-function convertirDropboxURL(url) {
-
-    try {
-
-        const objeto =
-            new URL(url);
-
-
-        /*
-            Dropbox funciona mejor
-            con dl=1 para descarga directa.
-        */
-
-        objeto.searchParams.set(
-            "dl",
-            "1"
-        );
-
-
-        return objeto.toString();
-
-    }
-    catch {
+    catch{
 
         return url;
 
@@ -1254,587 +785,466 @@ function convertirDropboxURL(url) {
 }
 
 
-/* =========================================================
-            CONTROLES MP4
-========================================================= */
+/* =====================================================
+                CERRAR REPRODUCTOR
+===================================================== */
 
-function crearControlesMP4(
-    wrapper,
-    video
-) {
+function cerrarReproductor(){
 
-    const controls =
-        document.createElement(
-            "div"
+    videoOverlay.classList.remove(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+
+    /* ---------------------------------------------
+                    MP4
+    --------------------------------------------- */
+
+    if(videoPlayer){
+
+        videoPlayer.pause();
+
+        videoPlayer.removeAttribute(
+            "src"
         );
 
+        videoPlayer.load();
 
-    controls.className =
-        "cineverseControls";
-
-
-    controls.innerHTML = `
-
-        <button
-            id="mp4Play"
-            class="cineControlButton"
-            type="button"
-            aria-label="Reproducir">
-
-            <i class="fa-solid fa-play"></i>
-
-        </button>
+    }
 
 
-        <button
-            id="mp4Back"
-            class="cineControlButton"
-            type="button"
-            aria-label="Retroceder 10 segundos">
+    /* ---------------------------------------------
+                    YOUTUBE
+    --------------------------------------------- */
 
-            <i class="fa-solid fa-rotate-left"></i>
+    if(youtubePlayer){
 
-            <small>10</small>
+        youtubePlayer.src = "";
 
-        </button>
-
-
-        <div class="mp4ProgressContainer">
-
-            <input
-                id="mp4Progress"
-                class="mp4Progress"
-                type="range"
-                min="0"
-                max="100"
-                value="0"
-                step="0.1">
-
-        </div>
-
-
-        <span
-            id="mp4Time"
-            class="mp4Time">
-
-            0:00 / 0:00
-
-        </span>
-
-
-        <button
-            id="mp4Forward"
-            class="cineControlButton"
-            type="button"
-            aria-label="Avanzar 10 segundos">
-
-            <small>10</small>
-
-            <i class="fa-solid fa-rotate-right"></i>
-
-        </button>
-
-
-        <button
-            id="mp4Mute"
-            class="cineControlButton"
-            type="button"
-            aria-label="Silenciar">
-
-            <i class="fa-solid fa-volume-high"></i>
-
-        </button>
-
-
-        <input
-            id="mp4Volume"
-            class="mp4Volume"
-            type="range"
-            min="0"
-            max="1"
-            value="1"
-            step="0.05">
-
-
-        <button
-            id="mp4Fullscreen"
-            class="cineControlButton"
-            type="button"
-            aria-label="Pantalla completa">
-
-            <i class="fa-solid fa-expand"></i>
-
-        </button>
-
-    `;
-
-
-    wrapper.appendChild(
-        controls
-    );
+    }
 
 }
 
 
-/* =========================================================
-            CONFIGURAR MP4
-========================================================= */
+/* =====================================================
+                YOUTUBE ID
+===================================================== */
 
-function configurarMP4(video) {
+function obtenerYoutubeID(url){
+
+    if(!url){
+        return null;
+    }
+
+
+    try{
+
+        const objeto =
+            new URL(url);
+
+
+        if(
+            objeto.hostname.includes(
+                "youtu.be"
+            )
+        ){
+
+            return objeto.pathname
+                .replace(
+                    "/",
+                    ""
+                );
+
+        }
+
+
+        if(
+            objeto.hostname.includes(
+                "youtube.com"
+            )
+        ){
+
+            if(
+                objeto.pathname ===
+                "/watch"
+            ){
+
+                return objeto.searchParams.get(
+                    "v"
+                );
+
+            }
+
+
+            if(
+                objeto.pathname.includes(
+                    "/shorts/"
+                )
+            ){
+
+                return objeto.pathname
+                    .split("/shorts/")[1]
+                    .split("/")[0];
+
+            }
+
+
+            if(
+                objeto.pathname.includes(
+                    "/embed/"
+                )
+            ){
+
+                return objeto.pathname
+                    .split("/embed/")[1]
+                    .split("/")[0];
+
+            }
+
+        }
+
+    }
+    catch{
+
+        return null;
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+                CONTROLES MP4
+===================================================== */
+
+let controlesInicializados = false;
+
+
+function inicializarControlesMP4(){
+
+    if(
+        !videoPlayer ||
+        controlesInicializados
+    ){
+
+        return;
+
+    }
+
+
+    controlesInicializados = true;
+
 
     const play =
         document.getElementById(
-            "mp4Play"
+            "btnPlay"
         );
 
-    const back =
+    const back10 =
         document.getElementById(
-            "mp4Back"
+            "btnBack10"
         );
 
-    const forward =
+    const forward10 =
         document.getElementById(
-            "mp4Forward"
+            "btnForward10"
         );
 
     const progress =
         document.getElementById(
-            "mp4Progress"
+            "progressBar"
         );
 
     const time =
         document.getElementById(
-            "mp4Time"
+            "timeDisplay"
         );
 
     const mute =
         document.getElementById(
-            "mp4Mute"
+            "btnMute"
         );
 
     const volume =
         document.getElementById(
-            "mp4Volume"
+            "volumeBar"
         );
 
     const fullscreen =
         document.getElementById(
-            "mp4Fullscreen"
+            "btnFullscreen"
         );
 
 
-    if (!video) {
+    /* ---------------------------------------------
+                    PLAY
+    --------------------------------------------- */
 
-        console.error(
-            "❌ No se encontró video."
-        );
+    play.addEventListener(
+        "click",
+        ()=>{
 
-        return;
+            if(
+                videoPlayer.paused
+            ){
 
-    }
-
-
-    /* PLAY */
-
-    if (play) {
-
-        play.addEventListener(
-            "click",
-            () => {
-
-                if (video.paused) {
-
-                    video.play()
-                        .catch(
-                            error => {
-
-                                console.warn(
-                                    "No se pudo iniciar automáticamente:",
-                                    error
-                                );
-
-                                mostrarToast(
-                                    "Presiona reproducir para comenzar."
-                                );
-
-                            }
-                        );
-
-                }
-                else {
-
-                    video.pause();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* RETROCEDER */
-
-    if (back) {
-
-        back.addEventListener(
-            "click",
-            () => {
-
-                video.currentTime =
-                    Math.max(
-                        0,
-                        video.currentTime - 10
+                videoPlayer.play()
+                    .catch(
+                        error =>
+                            console.log(
+                                error
+                            )
                     );
 
             }
-        );
+            else{
 
-    }
-
-
-    /* AVANZAR */
-
-    if (forward) {
-
-        forward.addEventListener(
-            "click",
-            () => {
-
-                video.currentTime =
-                    Math.min(
-                        video.duration || 0,
-                        video.currentTime + 10
-                    );
+                videoPlayer.pause();
 
             }
-        );
 
-    }
-
-
-    /* PROGRESO */
-
-    if (progress) {
-
-        progress.addEventListener(
-            "input",
-            () => {
-
-                if (
-                    Number.isFinite(
-                        video.duration
-                    )
-                ) {
-
-                    video.currentTime =
-                        video.duration *
-                        (
-                            Number(
-                                progress.value
-                            ) / 100
-                        );
-
-                }
-
-            }
-        );
-
-    }
+        }
+    );
 
 
-    /* SILENCIO */
+    /* ---------------------------------------------
+                RETROCEDER
+    --------------------------------------------- */
 
-    if (mute) {
+    back10.addEventListener(
+        "click",
+        ()=>{
 
-        mute.addEventListener(
-            "click",
-            () => {
-
-                video.muted =
-                    !video.muted;
-
-                actualizarIconoMute(
-                    video,
-                    mute
+            videoPlayer.currentTime =
+                Math.max(
+                    0,
+                    videoPlayer.currentTime - 10
                 );
 
-            }
-        );
-
-    }
+        }
+    );
 
 
-    /* VOLUMEN */
+    /* ---------------------------------------------
+                    ADELANTAR
+    --------------------------------------------- */
 
-    if (volume) {
+    forward10.addEventListener(
+        "click",
+        ()=>{
 
-        volume.addEventListener(
-            "input",
-            () => {
-
-                video.volume =
-                    Number(
-                        volume.value
-                    );
-
-                video.muted =
-                    video.volume === 0;
-
-                actualizarIconoMute(
-                    video,
-                    mute
+            videoPlayer.currentTime =
+                Math.min(
+                    videoPlayer.duration || 0,
+                    videoPlayer.currentTime + 10
                 );
 
-            }
-        );
-
-    }
+        }
+    );
 
 
-    /* PANTALLA COMPLETA */
+    /* ---------------------------------------------
+                    PROGRESO
+    --------------------------------------------- */
 
-    if (fullscreen) {
+    progress.addEventListener(
+        "input",
+        ()=>{
 
-        fullscreen.addEventListener(
-            "click",
-            () => {
+            if(
+                videoPlayer.duration
+            ){
 
-                const wrapper =
-                    video.parentElement;
-
-                if (
-                    document.fullscreenElement
-                ) {
-
-                    document.exitFullscreen();
-
-                    return;
-
-                }
-
-
-                if (
-                    wrapper &&
-                    wrapper.requestFullscreen
-                ) {
-
-                    wrapper.requestFullscreen();
-
-                }
+                videoPlayer.currentTime =
+                    (
+                        videoPlayer.duration *
+                        Number(progress.value)
+                    ) / 100;
 
             }
-        );
 
-    }
+        }
+    );
 
 
-    /* PLAY */
+    /* ---------------------------------------------
+                    MUTE
+    --------------------------------------------- */
 
-    video.addEventListener(
+    mute.addEventListener(
+        "click",
+        ()=>{
+
+            videoPlayer.muted =
+                !videoPlayer.muted;
+
+            actualizarIconoMute();
+
+        }
+    );
+
+
+    /* ---------------------------------------------
+                    VOLUMEN
+    --------------------------------------------- */
+
+    volume.addEventListener(
+        "input",
+        ()=>{
+
+            videoPlayer.volume =
+                Number(volume.value);
+
+            videoPlayer.muted =
+                videoPlayer.volume === 0;
+
+            actualizarIconoMute();
+
+        }
+    );
+
+
+    /* ---------------------------------------------
+                PANTALLA COMPLETA
+    --------------------------------------------- */
+
+    fullscreen.addEventListener(
+        "click",
+        ()=>{
+
+            if(
+                document.fullscreenElement
+            ){
+
+                document.exitFullscreen();
+
+                return;
+
+            }
+
+
+            if(
+                videoOverlay.requestFullscreen
+            ){
+
+                videoOverlay.requestFullscreen();
+
+            }
+
+        }
+    );
+
+
+    /* ---------------------------------------------
+                    EVENTOS
+    --------------------------------------------- */
+
+    videoPlayer.addEventListener(
         "play",
-        () => {
-
-            actualizarIconoPlay(
-                video,
-                play
-            );
-
-        }
+        actualizarIconoPlay
     );
 
 
-    /* PAUSE */
-
-    video.addEventListener(
+    videoPlayer.addEventListener(
         "pause",
-        () => {
-
-            actualizarIconoPlay(
-                video,
-                play
-            );
-
-        }
+        actualizarIconoPlay
     );
 
 
-    /* TIEMPO */
-
-    video.addEventListener(
+    videoPlayer.addEventListener(
         "timeupdate",
-        () => {
-
-            actualizarProgreso(
-                video,
-                progress,
-                time
-            );
-
-            guardarProgresoVideo();
-
-        }
+        actualizarProgreso
     );
 
 
-    /* METADATA */
-
-    video.addEventListener(
+    videoPlayer.addEventListener(
         "loadedmetadata",
-        () => {
-
-            actualizarProgreso(
-                video,
-                progress,
-                time
-            );
-
-
-            /* CONTINUAR DESDE DONDE SE QUEDÓ */
-
-            const progresoGuardado =
-                obtenerProgresoGuardado();
-
-            if (
-                progresoGuardado > 10 &&
-                progresoGuardado <
-                video.duration - 10
-            ) {
-
-                video.currentTime =
-                    progresoGuardado;
-
-            }
-
-
-            /* INTENTAR REPRODUCIR */
-
-            video.play()
-                .catch(
-                    () => {
-
-                        console.log(
-                            "ℹ️ El navegador espera interacción del usuario."
-                        );
-
-                    }
-                );
-
-        }
+        actualizarProgreso
     );
 
 
-    /* ERROR */
-
-    video.addEventListener(
-        "error",
-        () => {
-
-            console.error(
-                "❌ Error reproduciendo MP4:",
-                video.error
-            );
-
-
-            mostrarErrorVideo();
-
-        }
+    videoPlayer.addEventListener(
+        "volumechange",
+        actualizarIconoMute
     );
 
 
-    /* ENDED */
-
-    video.addEventListener(
+    videoPlayer.addEventListener(
         "ended",
-        () => {
-
-            eliminarDeContinuarViendo();
-
-            limpiarProgreso();
-
-            actualizarIconoPlay(
-                video,
-                play
-            );
-
-            mostrarToast(
-                "Película terminada."
-            );
-
-        }
+        peliculaTerminada
     );
 
 
-    actualizarIconoPlay(
-        video,
-        play
-    );
+    actualizarIconoPlay();
 
-
-    actualizarIconoMute(
-        video,
-        mute
-    );
+    actualizarIconoMute();
 
 }
 
 
-/* =========================================================
-            ICONO PLAY
-========================================================= */
+/* =====================================================
+                ICONO PLAY
+===================================================== */
 
-function actualizarIconoPlay(
-    video,
-    boton
-) {
+function actualizarIconoPlay(){
 
-    if (!boton) {
+    const play =
+        document.getElementById(
+            "btnPlay"
+        );
+
+
+    if(!play){
         return;
     }
 
 
-    if (video.paused) {
+    play.innerHTML =
+        videoPlayer.paused
 
-        boton.innerHTML =
-            '<i class="fa-solid fa-play"></i>';
+            ? '<i class="fa-solid fa-play"></i>'
 
-    }
-    else {
-
-        boton.innerHTML =
-            '<i class="fa-solid fa-pause"></i>';
-
-    }
+            : '<i class="fa-solid fa-pause"></i>';
 
 }
 
 
-/* =========================================================
-            ICONO VOLUMEN
-========================================================= */
+/* =====================================================
+                ICONO MUTE
+===================================================== */
 
-function actualizarIconoMute(
-    video,
-    boton
-) {
+function actualizarIconoMute(){
 
-    if (!boton) {
+    const mute =
+        document.getElementById(
+            "btnMute"
+        );
+
+
+    if(!mute){
         return;
     }
 
 
-    if (
-        video.muted ||
-        video.volume === 0
-    ) {
+    if(
+        videoPlayer.muted ||
+        videoPlayer.volume === 0
+    ){
 
-        boton.innerHTML =
+        mute.innerHTML =
             '<i class="fa-solid fa-volume-xmark"></i>';
 
     }
-    else {
+    else{
 
-        boton.innerHTML =
+        mute.innerHTML =
             '<i class="fa-solid fa-volume-high"></i>';
 
     }
@@ -1842,59 +1252,62 @@ function actualizarIconoMute(
 }
 
 
-/* =========================================================
-            ACTUALIZAR PROGRESO
-========================================================= */
+/* =====================================================
+                PROGRESO
+===================================================== */
 
-function actualizarProgreso(
-    video,
-    progress,
-    time
-) {
+function actualizarProgreso(){
 
-    if (!video) {
+    const progress =
+        document.getElementById(
+            "progressBar"
+        );
+
+    const time =
+        document.getElementById(
+            "timeDisplay"
+        );
+
+
+    if(!progress || !time){
         return;
     }
 
 
-    if (
-        progress &&
-        Number.isFinite(
-            video.duration
-        ) &&
-        video.duration > 0
-    ) {
+    const porcentaje =
+        videoPlayer.duration
 
-        progress.value =
-            (
-                video.currentTime /
-                video.duration
-            ) * 100;
+            ? (
+                videoPlayer.currentTime /
+                videoPlayer.duration
+            ) * 100
 
-    }
+            : 0;
 
 
-    if (time) {
+    progress.value =
+        porcentaje;
 
-        time.textContent =
-            `${formatearTiempo(video.currentTime)} / ${formatearTiempo(video.duration)}`;
 
-    }
+    time.textContent =
+        `${formatearTiempo(
+            videoPlayer.currentTime
+        )} / ${formatearTiempo(
+            videoPlayer.duration
+        )}`;
 
 }
 
 
-/* =========================================================
-            FORMATEAR TIEMPO
-========================================================= */
+/* =====================================================
+                FORMATEAR TIEMPO
+===================================================== */
 
-function formatearTiempo(segundos) {
+function formatearTiempo(segundos){
 
-    if (
-        !Number.isFinite(
-            segundos
-        )
-    ) {
+    if(
+        !Number.isFinite(segundos)
+    ){
 
         return "0:00";
 
@@ -1924,11 +1337,12 @@ function formatearTiempo(segundos) {
         );
 
 
-    if (horas > 0) {
+    if(horas > 0){
 
         return `${horas}:${minutos
             .toString()
-            .padStart(2, "0")}:${segundosRestantes}`;
+            .padStart(2,"0")
+        }:${segundosRestantes}`;
 
     }
 
@@ -1938,285 +1352,22 @@ function formatearTiempo(segundos) {
 }
 
 
-/* =========================================================
-            ERROR VIDEO
-========================================================= */
+/* =====================================================
+                PELÍCULA TERMINADA
+===================================================== */
 
-function mostrarErrorVideo() {
+function peliculaTerminada(){
 
-    if (!fullscreenVideoContainer) {
-        return;
-    }
-
-
-    const mensaje =
-        document.createElement(
-            "div"
-        );
-
-
-    mensaje.className =
-        "videoError";
-
-
-    mensaje.innerHTML = `
-
-        <i class="fa-solid fa-circle-exclamation"></i>
-
-        <h2>
-            No se pudo reproducir el video
-        </h2>
-
-        <p>
-            El archivo MP4 no pudo cargarse correctamente.
-        </p>
-
-        <button
-            type="button"
-            onclick="cerrarReproductor()">
-
-            Cerrar
-
-        </button>
-
-    `;
-
-
-    fullscreenVideoContainer.appendChild(
-        mensaje
-    );
+    guardarContinuarViendo();
 
 }
 
 
-/* =========================================================
-            ERROR GENERAL
-========================================================= */
-
-function mostrarError(mensaje) {
-
-    if (!videoContainer) {
-        return;
-    }
-
-
-    videoContainer.innerHTML = `
-
-        <div class="videoError">
-
-            <i class="fa-solid fa-circle-exclamation"></i>
-
-            <h2>
-                ${mensaje}
-            </h2>
-
-        </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-                CERRAR REPRODUCTOR
-========================================================= */
-
-function cerrarReproductor() {
-
-    guardarProgresoVideo();
-
-    destruirReproductorAnterior();
-
-
-    if (fullscreenPlayer) {
-
-        fullscreenPlayer.style.display =
-            "none";
-
-    }
-
-
-    document.body.classList.remove(
-        "playerOpen"
-    );
-
-
-    videoActual = null;
-
-
-    tipoReproductorActual = null;
-
-}
-
-
-/* =========================================================
-            DESTRUIR REPRODUCTOR
-========================================================= */
-
-function destruirReproductorAnterior() {
-
-    if (videoActual) {
-
-        try {
-
-            videoActual.pause();
-
-        }
-        catch {}
-
-        videoActual.src = "";
-
-        videoActual.load();
-
-        videoActual = null;
-
-    }
-
-
-    if (fullscreenVideoContainer) {
-
-        fullscreenVideoContainer.innerHTML =
-            "";
-
-    }
-
-}
-
-
-/* =========================================================
-                REGRESAR
-========================================================= */
-
-function regresar() {
-
-    guardarProgresoVideo();
-
-    window.history.back();
-
-}
-
-
-/* =========================================================
-                TRAILER
-========================================================= */
-
-function abrirTrailer() {
-
-    if (
-        !peliculaActual ||
-        !peliculaActual.trailer
-    ) {
-
-        mostrarToast(
-            "Esta película no tiene tráiler."
-        );
-
-        return;
-
-    }
-
-
-    window.open(
-        peliculaActual.trailer,
-        "_blank",
-        "noopener,noreferrer"
-    );
-
-}
-
-
-/* =========================================================
+/* =====================================================
                 MI LISTA
-========================================================= */
+===================================================== */
 
-function obtenerMiLista() {
-
-    try {
-
-        return JSON.parse(
-            localStorage.getItem(
-                "miLista"
-            )
-        ) || [];
-
-    }
-    catch {
-
-        return [];
-
-    }
-
-}
-
-
-/* =========================================================
-                TOGGLE FAVORITO
-========================================================= */
-
-function toggleFavorito() {
-
-    if (!peliculaActual) {
-        return;
-    }
-
-
-    let lista =
-        obtenerMiLista();
-
-
-    const id =
-        Number(
-            peliculaActual.id
-        );
-
-
-    const existe =
-        lista.some(
-            item =>
-                Number(item) === id
-        );
-
-
-    if (existe) {
-
-        lista =
-            lista.filter(
-                item =>
-                    Number(item) !== id
-            );
-
-        mostrarToast(
-            "Eliminada de Mi Lista."
-        );
-
-    }
-    else {
-
-        lista.push(id);
-
-        mostrarToast(
-            "Agregada a Mi Lista."
-        );
-
-    }
-
-
-    localStorage.setItem(
-        "miLista",
-        JSON.stringify(lista)
-    );
-
-
-    actualizarMiLista();
-
-}
-
-
-/* =========================================================
-                ACTUALIZAR MI LISTA
-========================================================= */
-
-function actualizarMiLista() {
+function inicializarMiLista(){
 
     const boton =
         document.getElementById(
@@ -2224,82 +1375,30 @@ function actualizarMiLista() {
         );
 
 
-    if (!boton || !peliculaActual) {
+    if(!boton){
         return;
     }
 
 
-    const lista =
-        obtenerMiLista();
+    actualizarBotonFavorito();
 
 
-    const existe =
-        lista.some(
-            item =>
-                Number(item) ===
-                Number(peliculaActual.id)
-        );
-
-
-    if (existe) {
-
-        boton.innerHTML = `
-
-            <i class="fa-solid fa-heart"></i>
-
-            <span>
-                En Mi Lista
-            </span>
-
-        `;
-
-    }
-    else {
-
-        boton.innerHTML = `
-
-            <i class="fa-regular fa-heart"></i>
-
-            <span>
-                Mi lista
-            </span>
-
-        `;
-
-    }
+    boton.addEventListener(
+        "click",
+        toggleFavorito
+    );
 
 }
 
 
-/* =========================================================
-            CONTINUAR VIENDO
-========================================================= */
+function toggleFavorito(){
 
-function guardarEnContinuarViendo() {
-
-    if (!peliculaActual) {
-        return;
-    }
-
-
-    let lista;
-
-
-    try {
-
-        lista =
-            JSON.parse(
-                localStorage.getItem(
-                    "continuarViendo"
-                )
-            ) || [];
-
-    }
-    catch {
-
-        lista = [];
-
-    }
+    let favoritos =
+        JSON.parse(
+            localStorage.getItem(
+                "miLista"
+            )
+        ) || [];
 
 
     const id =
@@ -2308,438 +1407,150 @@ function guardarEnContinuarViendo() {
         );
 
 
-    lista =
-        lista.filter(
-            item =>
-                Number(item.id) !== id
+    if(
+        favoritos.includes(id)
+    ){
+
+        favoritos =
+            favoritos.filter(
+                item =>
+                    Number(item) !== id
+            );
+
+    }
+    else{
+
+        favoritos.push(id);
+
+    }
+
+
+    localStorage.setItem(
+        "miLista",
+        JSON.stringify(
+            favoritos
+        )
+    );
+
+
+    actualizarBotonFavorito();
+
+}
+
+
+function actualizarBotonFavorito(){
+
+    const boton =
+        document.getElementById(
+            "btnFavorito"
         );
 
 
-    lista.unshift({
+    if(!boton){
+        return;
+    }
 
-        id:
-            peliculaActual.id,
 
-        titulo:
-            peliculaActual.titulo,
+    const favoritos =
+        JSON.parse(
+            localStorage.getItem(
+                "miLista"
+            )
+        ) || [];
 
-        poster:
-            peliculaActual.poster,
 
-        banner:
-            peliculaActual.banner,
+    const existe =
+        favoritos.some(
+            id =>
+                Number(id) ===
+                Number(peliculaActual.id)
+        );
 
-        porcentaje:
-            0,
 
-        progreso:
-            0,
+    if(existe){
 
-        fecha:
-            Date.now()
+        boton.innerHTML =
+            '<i class="fa-solid fa-heart"></i> En mi lista';
+
+    }
+    else{
+
+        boton.innerHTML =
+            '<i class="fa-regular fa-heart"></i> Mi lista';
+
+    }
+
+}
+
+
+/* =====================================================
+            CONTINUAR VIENDO
+===================================================== */
+
+function guardarContinuarViendo(){
+
+    if(!peliculaActual){
+        return;
+    }
+
+
+    let historial =
+        JSON.parse(
+            localStorage.getItem(
+                "continuarViendo"
+            )
+        ) || [];
+
+
+    historial =
+        historial.filter(
+            pelicula =>
+                Number(pelicula.id) !==
+                Number(peliculaActual.id)
+        );
+
+
+    historial.unshift({
+
+        id:peliculaActual.id,
+
+        titulo:peliculaActual.titulo,
+
+        poster:peliculaActual.poster,
+
+        banner:peliculaActual.banner,
+
+        fecha:Date.now()
 
     });
 
 
-    if (lista.length > 20) {
+    if(
+        historial.length > 20
+    ){
 
-        lista =
-            lista.slice(
-                0,
-                20
-            );
+        historial.pop();
 
     }
 
 
     localStorage.setItem(
         "continuarViendo",
-        JSON.stringify(lista)
-    );
-
-}
-
-
-/* =========================================================
-            GUARDAR PROGRESO VIDEO
-========================================================= */
-
-function guardarProgresoVideo() {
-
-    if (
-        !peliculaActual ||
-        !videoActual ||
-        !Number.isFinite(
-            videoActual.duration
+        JSON.stringify(
+            historial
         )
-    ) {
-
-        return;
-
-    }
-
-
-    const id =
-        Number(
-            peliculaActual.id
-        );
-
-
-    let lista;
-
-
-    try {
-
-        lista =
-            JSON.parse(
-                localStorage.getItem(
-                    "continuarViendo"
-                )
-            ) || [];
-
-    }
-    catch {
-
-        lista = [];
-
-    }
-
-
-    const porcentaje =
-        videoActual.duration > 0
-            ? (
-                videoActual.currentTime /
-                videoActual.duration
-            ) * 100
-            : 0;
-
-
-    const existente =
-        lista.find(
-            item =>
-                Number(item.id) === id
-        );
-
-
-    if (existente) {
-
-        existente.progreso =
-            videoActual.currentTime;
-
-        existente.porcentaje =
-            porcentaje;
-
-        existente.fecha =
-            Date.now();
-
-    }
-    else {
-
-        lista.unshift({
-
-            id:
-                peliculaActual.id,
-
-            titulo:
-                peliculaActual.titulo,
-
-            poster:
-                peliculaActual.poster,
-
-            banner:
-                peliculaActual.banner,
-
-            progreso:
-                videoActual.currentTime,
-
-            porcentaje:
-                porcentaje,
-
-            fecha:
-                Date.now()
-
-        });
-
-    }
-
-
-    /*
-        Si llegó prácticamente al final,
-        se elimina automáticamente.
-    */
-
-    if (
-        porcentaje >= 95
-    ) {
-
-        lista =
-            lista.filter(
-                item =>
-                    Number(item.id) !== id
-            );
-
-    }
-
-
-    localStorage.setItem(
-        "continuarViendo",
-        JSON.stringify(lista)
     );
 
 }
 
 
-/* =========================================================
-            OBTENER PROGRESO GUARDADO
-========================================================= */
+/* =====================================================
+                RELACIONADAS
+===================================================== */
 
-function obtenerProgresoGuardado() {
+function cargarRelacionadas(){
 
-    if (!peliculaActual) {
-        return 0;
-    }
-
-
-    let lista;
-
-
-    try {
-
-        lista =
-            JSON.parse(
-                localStorage.getItem(
-                    "continuarViendo"
-                )
-            ) || [];
-
-    }
-    catch {
-
-        return 0;
-
-    }
-
-
-    const pelicula =
-        lista.find(
-            item =>
-                Number(item.id) ===
-                Number(peliculaActual.id)
-        );
-
-
-    if (!pelicula) {
-        return 0;
-    }
-
-
-    return Number(
-        pelicula.progreso || 0
-    );
-
-}
-
-
-/* =========================================================
-            ELIMINAR AL TERMINAR
-========================================================= */
-
-function eliminarDeContinuarViendo() {
-
-    if (!peliculaActual) {
-        return;
-    }
-
-
-    let lista;
-
-
-    try {
-
-        lista =
-            JSON.parse(
-                localStorage.getItem(
-                    "continuarViendo"
-                )
-            ) || [];
-
-    }
-    catch {
-
-        lista = [];
-
-    }
-
-
-    lista =
-        lista.filter(
-            item =>
-                Number(item.id) !==
-                Number(peliculaActual.id)
-        );
-
-
-    localStorage.setItem(
-        "continuarViendo",
-        JSON.stringify(lista)
-    );
-
-}
-
-
-/* =========================================================
-            LIMPIAR PROGRESO
-========================================================= */
-
-function limpiarProgreso() {
-
-    if (!peliculaActual) {
-        return;
-    }
-
-
-    localStorage.removeItem(
-        `progreso_${peliculaActual.id}`
-    );
-
-}
-
-
-/* =========================================================
-                    COMPARTIR
-========================================================= */
-
-async function compartirPelicula() {
-
-    if (!peliculaActual) {
-        return;
-    }
-
-
-    const url =
-        window.location.href;
-
-
-    try {
-
-        if (
-            navigator.share
-        ) {
-
-            await navigator.share({
-
-                title:
-                    peliculaActual.titulo,
-
-                text:
-                    peliculaActual.descripcion ||
-                    "Mira esta película en CINEVERSE.",
-
-                url:
-                    url
-
-            });
-
-        }
-        else if (
-            navigator.clipboard
-        ) {
-
-            await navigator.clipboard.writeText(
-                url
-            );
-
-            mostrarToast(
-                "Enlace copiado."
-            );
-
-        }
-        else {
-
-            mostrarToast(
-                "No se puede compartir desde este navegador."
-            );
-
-        }
-
-    }
-    catch (error) {
-
-        console.log(
-            "Compartir cancelado:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-                TRANSMITIR A TV
-========================================================= */
-
-async function transmitir() {
-
-    /*
-        La API de Cast de Google no está
-        disponible directamente en todos
-        los navegadores.
-
-        Primero intentamos Remote Playback.
-    */
-
-
-    if (
-        videoActual &&
-        typeof videoActual.remote !==
-        "undefined"
-    ) {
-
-        try {
-
-            if (
-                videoActual.remote.state ===
-                "disconnected"
-            ) {
-
-                await videoActual.remote.prompt();
-
-                mostrarToast(
-                    "Conectando con el dispositivo..."
-                );
-
-                return;
-
-            }
-
-        }
-        catch (error) {
-
-            console.log(
-                "Remote Playback:",
-                error
-            );
-
-        }
-
-    }
-
-
-    mostrarToast(
-        "La transmisión depende del dispositivo y navegador."
-    );
-
-}
-
-
-/* =========================================================
-            PELÍCULAS RELACIONADAS
-========================================================= */
-
-function cargarRelacionadas() {
-
-    if (!relatedSlider) {
+    if(!relatedSlider){
         return;
     }
 
@@ -2748,27 +1559,22 @@ function cargarRelacionadas() {
         "";
 
 
-    if (!peliculaActual) {
-        return;
-    }
-
-
     let relacionadas = [];
 
 
-    /*
-        Primero intenta utilizar
-        el arreglo relacionadas del JSON.
-    */
+    /* ---------------------------------------------
+        PRIMERO: RELACIONADAS DEL JSON
+    --------------------------------------------- */
 
-    if (
+    if(
         Array.isArray(
             peliculaActual.relacionadas
         )
-    ) {
+    ){
 
         relacionadas =
             peliculaActual.relacionadas
+
                 .map(
                     id =>
                         peliculas.find(
@@ -2779,68 +1585,37 @@ function cargarRelacionadas() {
                                 Number(id)
                         )
                 )
+
                 .filter(Boolean);
 
     }
 
 
-    /*
-        Si no existen suficientes,
-        busca por género.
-    */
+    /* ---------------------------------------------
+        SI NO HAY SUFICIENTES
+    --------------------------------------------- */
 
-    if (
+    if(
         relacionadas.length < 4
-    ) {
+    ){
 
-        const extras =
+        const adicionales =
             peliculas.filter(
-                pelicula => {
-
-                    if (
-                        Number(
-                            pelicula.id
-                        ) ===
-                        Number(
-                            peliculaActual.id
-                        )
-                    ) {
-
-                        return false;
-
-                    }
-
-
-                    if (
-                        relacionadas.some(
-                            item =>
-                                Number(
-                                    item.id
-                                ) ===
-                                Number(
-                                    pelicula.id
-                                )
-                        )
-                    ) {
-
-                        return false;
-
-                    }
-
-
-                    return (
-                        pelicula.genero ===
-                        peliculaActual.genero
-                    );
-
-                }
+                pelicula =>
+                    Number(pelicula.id) !==
+                    Number(peliculaActual.id) &&
+                    !relacionadas.some(
+                        item =>
+                            Number(item.id) ===
+                            Number(pelicula.id)
+                    )
             );
 
 
         relacionadas =
             [
                 ...relacionadas,
-                ...extras
+                ...adicionales
             ];
 
     }
@@ -2854,22 +1629,18 @@ function cargarRelacionadas() {
 
 
     relacionadas.forEach(
-        crearTarjetaRelacionada
+        pelicula =>
+            crearTarjetaRelacionada(
+                pelicula
+            )
     );
-
-
-    configurarFlechasRelacionadas();
 
 }
 
 
-/* =========================================================
-            TARJETA RELACIONADA
-========================================================= */
-
 function crearTarjetaRelacionada(
     pelicula
-) {
+){
 
     const tarjeta =
         document.createElement(
@@ -2881,69 +1652,37 @@ function crearTarjetaRelacionada(
         "relatedCard";
 
 
-    tarjeta.dataset.id =
-        pelicula.id;
-
-
     tarjeta.innerHTML = `
 
         <div class="relatedPoster">
 
             <img
                 src="${pelicula.poster || pelicula.banner || ""}"
-                alt="${escaparHTML(pelicula.titulo || "Película")}"
-                loading="lazy">
-
-            <div class="relatedOverlay">
-
-                <div class="relatedPlay">
-
-                    <i class="fa-solid fa-play"></i>
-
-                </div>
-
-            </div>
+                alt="${escaparHTML(
+                    pelicula.titulo
+                )}">
 
         </div>
-
 
         <div class="relatedInfo">
 
             <h3>
                 ${escaparHTML(
-                    pelicula.titulo ||
-                    "Película"
+                    pelicula.titulo
                 )}
             </h3>
-
 
             <div class="relatedMeta">
 
                 <span>
-                    ${escaparHTML(
-                        pelicula.anio ||
-                        ""
-                    )}
+                    ${pelicula.anio || ""}
                 </span>
 
                 <span>
-                    ${escaparHTML(
-                        pelicula.duracion ||
-                        ""
-                    )}
+                    ${pelicula.duracion || ""}
                 </span>
 
             </div>
-
-
-            <span class="relatedGenre">
-
-                ${escaparHTML(
-                    pelicula.genero ||
-                    ""
-                )}
-
-            </span>
 
         </div>
 
@@ -2952,11 +1691,9 @@ function crearTarjetaRelacionada(
 
     tarjeta.addEventListener(
         "click",
-        () => {
-
+        ()=>{
             window.location.href =
                 `reproductor.html?id=${pelicula.id}`;
-
         }
     );
 
@@ -2968,261 +1705,425 @@ function crearTarjetaRelacionada(
 }
 
 
-/* =========================================================
-        FLECHAS RELACIONADAS
-========================================================= */
+/* =====================================================
+            FLECHAS RELACIONADAS
+===================================================== */
 
-function configurarFlechasRelacionadas() {
+function inicializarFlechas(){
 
-    const anterior =
+    const prev =
         document.getElementById(
             "relatedPrev"
         );
 
 
-    const siguiente =
+    const next =
         document.getElementById(
             "relatedNext"
         );
 
 
-    if (anterior) {
+    if(prev){
 
-        anterior.onclick =
-            () => {
-
+        prev.addEventListener(
+            "click",
+            ()=>{
                 relatedSlider.scrollBy({
 
-                    left:
-                        -360,
+                    left:-450,
 
-                    behavior:
-                        "smooth"
+                    behavior:"smooth"
 
                 });
-
-            };
-
-    }
-
-
-    if (siguiente) {
-
-        siguiente.onclick =
-            () => {
-
-                relatedSlider.scrollBy({
-
-                    left:
-                        360,
-
-                    behavior:
-                        "smooth"
-
-                });
-
-            };
-
-    }
-
-}
-
-
-/* =========================================================
-                ESCAPAR HTML
-========================================================= */
-
-function escaparHTML(texto) {
-
-    const div =
-        document.createElement(
-            "div"
+            }
         );
 
-    div.textContent =
-        texto;
+    }
 
-    return div.innerHTML;
+
+    if(next){
+
+        next.addEventListener(
+            "click",
+            ()=>{
+                relatedSlider.scrollBy({
+
+                    left:450,
+
+                    behavior:"smooth"
+
+                });
+            }
+        );
+
+    }
 
 }
 
 
-/* =========================================================
-                TOAST
-========================================================= */
+/* =====================================================
+                    COMPARTIR
+===================================================== */
 
-function mostrarToast(
-    mensaje
-) {
+async function compartirPelicula(){
 
-    if (!playerToast) {
+    if(!peliculaActual){
         return;
     }
 
 
-    const texto =
-        playerToast.querySelector(
-            "span"
+    const enlace =
+        window.location.href;
+
+
+    try{
+
+        if(
+            navigator.share
+        ){
+
+            await navigator.share({
+
+                title:
+                    peliculaActual.titulo,
+
+                text:
+                    peliculaActual.descripcion,
+
+                url:
+                    enlace
+
+            });
+
+        }
+        else if(
+            navigator.clipboard
+        ){
+
+            await navigator.clipboard.writeText(
+                enlace
+            );
+
+            mostrarAviso(
+                "Enlace copiado"
+            );
+
+        }
+        else{
+
+            prompt(
+                "Copia este enlace:",
+                enlace
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.log(
+            "Compartir cancelado",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+                CAST / TV
+===================================================== */
+
+function mostrarCast(){
+
+    mostrarAviso(
+        "La función de transmisión a TV estará disponible próximamente."
+    );
+
+}
+
+
+/* =====================================================
+                    ERROR
+===================================================== */
+
+function mostrarError(){
+
+    document.body.innerHTML = `
+
+        <div style="
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#08080d;
+            color:white;
+            font-family:Poppins,sans-serif;
+            text-align:center;
+            padding:30px;
+        ">
+
+            <div>
+
+                <h1>
+                    Película no encontrada
+                </h1>
+
+                <p style="
+                    color:#999;
+                ">
+                    Verifica el ID de la película.
+                </p>
+
+                <button
+                    onclick="history.back()"
+                    style="
+                        padding:12px 20px;
+                        border:0;
+                        border-radius:8px;
+                        background:#7c3aed;
+                        color:white;
+                        cursor:pointer;
+                    ">
+
+                    Regresar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+                ERROR VIDEO
+===================================================== */
+
+function mostrarErrorVideo(
+    mensaje
+){
+
+    youtubeContainer.classList.remove(
+        "active"
+    );
+
+    mp4Container.classList.remove(
+        "active"
+    );
+
+
+    videoOverlay.classList.add(
+        "active"
+    );
+
+
+    const contenedor =
+        document.getElementById(
+            "videoContainer"
         );
 
 
-    if (texto) {
+    contenedor.innerHTML = `
 
-        texto.textContent =
-            mensaje;
+        <div style="
+            color:white;
+            text-align:center;
+            padding:30px;
+            font-family:Poppins,sans-serif;
+        ">
+
+            <i
+                class="fa-solid fa-circle-exclamation"
+                style="
+                    font-size:40px;
+                    margin-bottom:15px;
+                ">
+            </i>
+
+            <h2>
+                No se pudo reproducir
+            </h2>
+
+            <p style="
+                color:#aaa;
+            ">
+                ${escaparHTML(mensaje)}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+                OCULTAR FUENTE
+===================================================== */
+
+function ocultarFuente(
+    elemento
+){
+
+    if(elemento){
+
+        elemento.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+                AVISO
+===================================================== */
+
+function mostrarAviso(
+    mensaje
+){
+
+    const aviso =
+        document.createElement(
+            "div"
+        );
+
+
+    aviso.textContent =
+        mensaje;
+
+
+    aviso.style.position =
+        "fixed";
+
+
+    aviso.style.bottom =
+        "25px";
+
+
+    aviso.style.left =
+        "50%";
+
+
+    aviso.style.transform =
+        "translateX(-50%)";
+
+
+    aviso.style.zIndex =
+        "20000";
+
+
+    aviso.style.padding =
+        "12px 20px";
+
+
+    aviso.style.borderRadius =
+        "10px";
+
+
+    aviso.style.background =
+        "rgba(20,20,30,.95)";
+
+
+    aviso.style.border =
+        "1px solid rgba(255,255,255,.12)";
+
+
+    aviso.style.color =
+        "white";
+
+
+    aviso.style.fontFamily =
+        "Poppins,sans-serif";
+
+
+    aviso.style.fontSize =
+        "13px";
+
+
+    document.body.appendChild(
+        aviso
+    );
+
+
+    setTimeout(
+        ()=>{
+            aviso.remove();
+        },
+        2500
+    );
+
+}
+
+
+/* =====================================================
+                ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(
+    texto
+){
+
+    if(
+        texto === undefined ||
+        texto === null
+    ){
+
+        return "";
 
     }
 
 
-    playerToast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        playerToast._timeout
-    );
-
-
-    playerToast._timeout =
-        setTimeout(
-            () => {
-
-                playerToast.classList.remove(
-                    "show"
-                );
-
-            },
-            2500
+    return String(texto)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
         );
 
 }
 
 
-/* =========================================================
-                TECLA ESC
-========================================================= */
+/* =====================================================
+            TECLA ESCAPE
+===================================================== */
 
 document.addEventListener(
     "keydown",
     event => {
 
-        if (
-            event.key ===
-            "Escape"
-        ) {
+        if(
+            event.key === "Escape" &&
+            videoOverlay &&
+            videoOverlay.classList.contains(
+                "active"
+            )
+        ){
 
-            if (
-                fullscreenPlayer &&
-                fullscreenPlayer.style.display !==
-                "none"
-            ) {
-
-                cerrarReproductor();
-
-            }
+            cerrarReproductor();
 
         }
 
     }
 );
-
-
-/* =========================================================
-                VISIBILIDAD
-========================================================= */
-
-document.addEventListener(
-    "visibilitychange",
-    () => {
-
-        if (
-            document.hidden &&
-            videoActual
-        ) {
-
-            guardarProgresoVideo();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-                ANTES DE SALIR
-========================================================= */
-
-window.addEventListener(
-    "beforeunload",
-    () => {
-
-        guardarProgresoVideo();
-
-    }
-);
-
-
-/* =========================================================
-                LOADER
-========================================================= */
-
-function mostrarLoader() {
-
-    if (!loadingScreen) {
-        return;
-    }
-
-    loadingScreen.classList.remove(
-        "oculto"
-    );
-
-    loadingScreen.classList.remove(
-        "hide"
-    );
-
-}
-
-
-function ocultarLoader() {
-
-    if (!loadingScreen) {
-        return;
-    }
-
-
-    loadingScreen.classList.add(
-        "oculto"
-    );
-
-
-    loadingScreen.classList.add(
-        "hide"
-    );
-
-
-    setTimeout(
-        () => {
-
-            loadingScreen.style.display =
-                "none";
-
-        },
-        500
-    );
-
-}
-
-
-/* =========================================================
-            EXPONER FUNCIONES
-========================================================= */
-
-window.cerrarReproductor =
-    cerrarReproductor;
-
-window.abrirReproductor =
-    abrirReproductor;
-
-window.toggleFavorito =
-    toggleFavorito;
