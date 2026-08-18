@@ -1,1352 +1,588 @@
-/* =========================================================
-   CINEVERSE - PLAYER.CSS
-   Diseño completo del reproductor
-========================================================= */
-
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(96, 48, 180, 0.20),
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 90% 75%,
-            rgba(35, 82, 190, 0.18),
-            transparent 35%
-        ),
-        #08090f;
-    color: #fff;
-    font-family: "Poppins", sans-serif;
-}
-
-/* =========================================================
-   FONDO DEL REPRODUCTOR
-========================================================= */
-
-.playerBackground {
-    position: fixed;
-    inset: 0;
-    z-index: -3;
-
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    filter: blur(35px);
-    transform: scale(1.15);
-
-    opacity: 0.20;
-}
-
-.playerBackground::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(5, 6, 12, 0.85),
-            #08090f 70%
-        );
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.playerHeader {
-    position: relative;
-
-    width: 100%;
-    min-height: 70px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 15px 5%;
-
-    background: rgba(7, 8, 14, 0.78);
-
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-
-    z-index: 20;
-}
-
-.playerLogo a {
-    color: #fff;
-    text-decoration: none;
-
-    font-size: 24px;
-    font-weight: 800;
-}
-
-.playerLogo span {
-    background: linear-gradient(
-        90deg,
-        #7c3aed,
-        #2563eb
-    );
+<!DOCTYPE html>
+<html lang="es">
 
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
+<head>
 
-.playerMenu {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
+    <meta charset="UTF-8">
 
-.playerMenu a {
-    color: #b8b8c7;
-    text-decoration: none;
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-    font-size: 14px;
-    font-weight: 500;
+    <title>CINEVERSE | Película</title>
 
-    transition: 0.25s;
-}
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="player.css">
 
-.playerMenu a:hover {
-    color: #fff;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-.playerActions {
-    display: flex;
-    align-items: center;
-}
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-/* =========================================================
-   BOTONES GENERALES
-========================================================= */
+</head>
 
-.btnGlass,
-.btnPrincipal,
-.btnSecundario {
-    border: none;
-    cursor: pointer;
 
-    font-family: inherit;
-    font-weight: 600;
+<body class="playerPage">
 
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease;
-}
 
-.btnGlass {
-    padding: 11px 18px;
+<!-- =====================================================
+                    FONDO
+===================================================== -->
 
-    border-radius: 12px;
+<div
+    class="playerBackground"
+    id="playerBackground">
+</div>
 
-    color: #fff;
 
-    background: rgba(255,255,255,0.07);
+<div class="playerPageOverlay"></div>
 
-    border: 1px solid rgba(255,255,255,0.12);
-}
 
-.btnGlass:hover {
-    background: rgba(255,255,255,0.13);
-    transform: translateY(-2px);
-}
+<!-- =====================================================
+                CONTENIDO PRINCIPAL
+===================================================== -->
 
-.btnPrincipal {
-    padding: 13px 22px;
+<main class="moviePage">
 
-    border-radius: 12px;
 
-    color: #fff;
+    <!-- =================================================
+                    PARTE SUPERIOR
+    ================================================== -->
 
-    background: linear-gradient(
-        135deg,
-        #7c3aed,
-        #2563eb
-    );
+    <div class="movieTopBar">
 
-    box-shadow:
-        0 10px 30px rgba(88, 48, 220, 0.30);
-}
+        <button
+            class="topIconButton"
+            id="btnBack"
+            type="button"
+            aria-label="Regresar">
 
-.btnPrincipal:hover {
-    transform: translateY(-2px);
+            <i class="fa-solid fa-arrow-left"></i>
 
-    box-shadow:
-        0 15px 40px rgba(88, 48, 220, 0.45);
-}
+        </button>
 
-.btnSecundario {
-    padding: 13px 22px;
 
-    border-radius: 12px;
+        <div class="topRightButtons">
 
-    color: #fff;
+            <button
+                class="topIconButton"
+                id="btnShareTop"
+                type="button"
+                aria-label="Compartir">
 
-    background: rgba(255,255,255,0.08);
+                <i class="fa-solid fa-share-nodes"></i>
 
-    border: 1px solid rgba(255,255,255,0.13);
-}
+            </button>
 
-.btnSecundario:hover {
-    background: rgba(255,255,255,0.14);
 
-    transform: translateY(-2px);
-}
+            <button
+                class="topIconButton"
+                id="btnCast"
+                type="button"
+                aria-label="Transmitir">
 
-/* =========================================================
-   CONTENIDO PRINCIPAL
-========================================================= */
+                <i class="fa-solid fa-tv"></i>
 
-.playerMain {
-    width: 100%;
-}
+            </button>
 
-.playerSection {
-    width: min(1180px, 92%);
-    margin: 0 auto;
+        </div>
 
-    padding: 30px 0 80px;
-}
+    </div>
 
-/* =========================================================
-   ÁREA SUPERIOR DEL VIDEO
-========================================================= */
 
-.videoArea {
-    position: relative;
-    width: 100%;
-}
 
-/* =========================================================
-   VIDEO
-========================================================= */
+    <!-- =================================================
+                    PORTADA
+    ================================================== -->
 
-.videoContainer {
-    position: relative;
+    <section class="movieHero">
 
-    width: 100%;
-    aspect-ratio: 16 / 9;
+        <div class="posterWrapper">
 
-    background: #000;
+            <img
+                id="moviePoster"
+                class="moviePosterMain"
+                src=""
+                alt="">
 
-    border-radius: 18px;
+        </div>
 
-    overflow: hidden;
+    </section>
 
-    box-shadow:
-        0 25px 80px rgba(0,0,0,0.50);
 
-    border: 1px solid rgba(255,255,255,0.08);
-}
 
-.playerSource {
-    position: absolute;
+    <!-- =================================================
+                INFORMACIÓN DE LA PELÍCULA
+    ================================================== -->
 
-    inset: 0;
+    <section class="movieDetails">
 
-    width: 100%;
-    height: 100%;
-}
 
-.playerSource iframe,
-.playerSource video {
-    display: block;
+        <!-- BADGES -->
 
-    width: 100%;
-    height: 100%;
+        <div class="movieBadges">
 
-    border: none;
+            <span id="movieClasificacion">
+                A
+            </span>
 
-    background: #000;
-}
+            <span id="movieQuality">
+                HD
+            </span>
 
-.youtubeSource iframe {
-    width: 100%;
-    height: 100%;
-}
+            <span id="movieSubs">
+                CC
+            </span>
 
-.mp4Source {
-    position: relative;
-}
+            <span id="movieAudio">
+                AD
+            </span>
 
-/* =========================================================
-   VIDEO HTML5
-========================================================= */
+        </div>
 
-#videoPlayer {
-    width: 100%;
-    height: 100%;
 
-    object-fit: contain;
+        <!-- TÍTULO -->
 
-    background: #000;
-}
+        <h1
+            id="movieTitle"
+            class="movieTitle">
 
-/* =========================================================
-   CONTROLES PERSONALIZADOS MP4
-========================================================= */
+            Cargando película...
 
-.cineverseControls {
-    position: absolute;
+        </h1>
 
-    left: 0;
-    right: 0;
-    bottom: 0;
 
-    display: flex;
-    align-items: center;
-    gap: 10px;
+        <!-- INFORMACIÓN CORTA -->
 
-    padding: 45px 18px 15px;
+        <div class="movieMeta">
 
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,0.90),
-            rgba(0,0,0,0)
-        );
+            <span id="movieYear">
+                2026
+            </span>
 
-    opacity: 1;
+            <span class="metaSeparator">
+                •
+            </span>
 
-    z-index: 5;
-}
+            <span id="movieDuration">
+                Película
+            </span>
 
-.cineverseControls button {
-    min-width: 38px;
-    height: 38px;
+            <span class="metaSeparator">
+                •
+            </span>
 
-    border: none;
-    border-radius: 10px;
+            <span id="movieGenre">
+                Género
+            </span>
 
-    color: #fff;
+        </div>
 
-    background: rgba(255,255,255,0.10);
 
-    cursor: pointer;
+        <!-- BOTÓN PRINCIPAL -->
 
-    font-family: inherit;
+        <div class="mainAction">
 
-    transition: 0.2s;
-}
+            <button
+                id="btnReproducir"
+                class="btnWatch"
+                type="button">
 
-.cineverseControls button:hover {
-    background: rgba(124,58,237,0.75);
-}
+                <i class="fa-solid fa-play"></i>
 
-.cineverseControls input[type="range"] {
-    accent-color: #7c3aed;
-    cursor: pointer;
-}
+                Ver ahora
 
-#progressBar {
-    flex: 1;
-    min-width: 80px;
-}
+            </button>
 
-#volumeBar {
-    width: 80px;
-}
+        </div>
 
-#timeDisplay {
-    color: #fff;
 
-    font-size: 12px;
+        <!-- BOTONES SECUNDARIOS -->
 
-    white-space: nowrap;
-}
+        <div class="secondaryActions">
 
-/* =========================================================
-   BOTONES SUPERIORES SOBRE VIDEO
-========================================================= */
+            <button
+                id="btnTrailer"
+                class="secondaryButton"
+                type="button">
 
-.videoContainer::before {
-    content: "";
-    position: absolute;
+                <i class="fa-solid fa-film"></i>
 
-    top: 0;
-    left: 0;
-    right: 0;
+                Ver tráiler
 
-    height: 90px;
+            </button>
 
-    background:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,0.45),
-            transparent
-        );
 
-    pointer-events: none;
+            <button
+                id="btnFavorito"
+                class="secondaryButton"
+                type="button">
 
-    z-index: 2;
-}
+                <i class="fa-regular fa-heart"></i>
 
-/* =========================================================
-   INFORMACIÓN DE LA PELÍCULA
-========================================================= */
+                Mi lista
 
-.playerInfo {
-    display: grid;
+            </button>
 
-    grid-template-columns:
-        minmax(0, 1fr)
-        300px;
+        </div>
 
-    gap: 55px;
 
-    max-width: 1050px;
+        <!-- DESCRIPCIÓN -->
 
-    margin: 35px auto 0;
+        <p
+            id="movieDescription"
+            class="movieDescription">
 
-    padding: 0 15px;
-}
+            La información de la película aparecerá aquí.
 
-.playerLeft {
-    min-width: 0;
-}
+        </p>
 
-/* =========================================================
-   BADGES
-========================================================= */
 
-.movieBadges {
-    display: flex;
-    flex-wrap: wrap;
+        <!-- INFORMACIÓN EXTRA -->
 
-    align-items: center;
+        <div class="movieExtraInfo">
 
-    gap: 8px;
+            <div>
 
-    margin-bottom: 12px;
-}
+                <small>
+                    Director
+                </small>
 
-.movieBadges span {
-    display: inline-flex;
+                <strong id="movieDirector">
+                    No disponible
+                </strong>
 
-    align-items: center;
+            </div>
 
-    padding: 6px 10px;
 
-    border-radius: 7px;
+            <div>
 
-    color: #dcdcf0;
+                <small>
+                    Idioma
+                </small>
 
-    background: rgba(255,255,255,0.07);
+                <strong id="movieIdioma">
+                    Español
+                </strong>
 
-    border: 1px solid rgba(255,255,255,0.09);
+            </div>
 
-    font-size: 11px;
-    font-weight: 600;
-}
 
-/* =========================================================
-   TÍTULO
-========================================================= */
+            <div>
 
-.movieTitlePlayer {
-    margin: 0 0 12px;
+                <small>
+                    Subtítulos
+                </small>
 
-    color: #fff;
+                <strong id="movieSubsInfo">
+                    No disponible
+                </strong>
 
-    font-size: clamp(
-        30px,
-        4vw,
-        48px
-    );
+            </div>
 
-    line-height: 1.05;
 
-    font-weight: 800;
+            <div>
 
-    letter-spacing: -1.2px;
-}
+                <small>
+                    País
+                </small>
 
-/* =========================================================
-   DESCRIPCIÓN
-========================================================= */
+                <strong id="moviePais">
+                    No disponible
+                </strong>
 
-.movieDescription {
-    max-width: 760px;
+            </div>
 
-    margin: 22px 0 0;
+        </div>
 
-    color: #b8b8c7;
+    </section>
 
-    font-size: 14px;
 
-    line-height: 1.8;
-}
 
-/* =========================================================
-   BOTONES DE PELÍCULA
-========================================================= */
+    <!-- =================================================
+                PELÍCULAS RELACIONADAS
+    ================================================== -->
 
-.playerButtons {
-    display: flex;
+    <section class="relatedSection">
 
-    flex-wrap: wrap;
+        <div class="relatedHeader">
 
-    align-items: center;
+            <div>
 
-    gap: 10px;
+                <span>
+                    RECOMENDACIONES
+                </span>
 
-    margin-top: 20px;
-}
+                <h2>
+                    También te puede gustar
+                </h2>
 
-.playerButtons button {
-    display: inline-flex;
+            </div>
 
-    align-items: center;
-    justify-content: center;
+        </div>
 
-    gap: 8px;
-}
 
-/* =========================================================
-   INFORMACIÓN LATERAL
-========================================================= */
+        <div
+            class="relatedWrapper">
 
-.movieExtra {
-    display: flex;
+            <button
+                id="relatedPrev"
+                class="relatedArrow relatedArrowLeft"
+                type="button">
 
-    flex-direction: column;
+                <i class="fa-solid fa-chevron-left"></i>
 
-    gap: 18px;
-}
+            </button>
 
-.extraCard {
-    padding: 20px;
 
-    border-radius: 16px;
+            <div
+                id="relatedSlider"
+                class="relatedSlider">
 
-    background: rgba(255,255,255,0.045);
+            </div>
 
-    border: 1px solid rgba(255,255,255,0.08);
 
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.15);
-}
+            <button
+                id="relatedNext"
+                class="relatedArrow relatedArrowRight"
+                type="button">
 
-.extraCard h3 {
-    display: flex;
+                <i class="fa-solid fa-chevron-right"></i>
 
-    align-items: center;
+            </button>
 
-    gap: 9px;
+        </div>
 
-    margin: 0 0 18px;
+    </section>
 
-    font-size: 15px;
-}
+</main>
 
-.extraCard h3 i {
-    color: #8b5cf6;
-}
 
-.extraCard ul {
-    padding: 0;
-    margin: 0;
 
-    list-style: none;
-}
+<!-- =====================================================
+            REPRODUCTOR A PANTALLA COMPLETA
+===================================================== -->
 
-.extraCard li {
-    display: flex;
+<div
+    id="videoOverlay"
+    class="videoOverlay">
 
-    justify-content: space-between;
-    gap: 15px;
 
-    padding: 10px 0;
+    <div class="videoTopControls">
 
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+        <button
+            id="btnClosePlayer"
+            class="videoIconButton"
+            type="button"
+            aria-label="Cerrar reproductor">
 
-    font-size: 11px;
-}
+            <i class="fa-solid fa-xmark"></i>
 
-.extraCard li:last-child {
-    border-bottom: none;
-}
+        </button>
 
-.extraCard strong {
-    color: #8f8fa0;
-}
 
-.extraCard span {
-    color: #fff;
+        <div class="videoTopRight">
 
-    text-align: right;
-}
+            <button
+                id="btnVideoShare"
+                class="videoIconButton"
+                type="button">
 
-/* =========================================================
-   CÍRCULO DE POPULARIDAD
-========================================================= */
+                <i class="fa-solid fa-share-nodes"></i>
 
-.ratingCircle {
-    width: 95px;
-    height: 95px;
+            </button>
 
-    margin: 5px auto 15px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            <button
+                id="btnVideoCast"
+                class="videoIconButton"
+                type="button">
 
-    border-radius: 50%;
+                <i class="fa-solid fa-tv"></i>
 
-    background:
-        radial-gradient(
-            circle,
-            #151522 58%,
-            transparent 60%
-        );
+            </button>
 
-    border: 5px solid #7c3aed;
+        </div>
 
-    box-shadow:
-        0 0 30px rgba(124,58,237,0.25);
-}
+    </div>
 
-.ratingCircle > div {
-    text-align: center;
-}
 
-.ratingCircle span {
-    font-size: 23px;
-    font-weight: 800;
-}
+    <!-- =================================================
+                    VIDEO
+    ================================================== -->
 
-.ratingCircle small {
-    color: #888899;
-}
+    <div
+        id="videoContainer"
+        class="videoContainer">
 
-.extraCard p {
-    margin: 0;
 
-    color: #8d8d9c;
+        <!-- YOUTUBE -->
 
-    text-align: center;
+        <div
+            id="youtubeContainer"
+            class="playerSource youtubeSource">
 
-    font-size: 11px;
+            <iframe
+                id="youtubePlayer"
+                src=""
+                title="CINEVERSE"
+                frameborder="0"
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowfullscreen>
+            </iframe>
 
-    line-height: 1.6;
-}
+        </div>
 
-/* =========================================================
-   PELÍCULAS RELACIONADAS
-========================================================= */
 
-.relatedSection {
-    max-width: 1050px;
+        <!-- MP4 -->
 
-    margin: 65px auto 0;
+        <div
+            id="mp4Container"
+            class="playerSource mp4Source">
 
-    padding: 0 15px;
-}
+            <video
+                id="videoPlayer"
+                playsinline
+                preload="metadata">
 
-.sectionTitle {
-    margin-bottom: 20px;
-}
+                Tu navegador no puede reproducir este vídeo.
 
-.sectionTitle h2 {
-    margin: 0;
+            </video>
 
-    font-size: 23px;
-    font-weight: 700;
-}
 
-.sectionTitle p {
-    margin: 5px 0 0;
+            <div
+                id="cineverseControls"
+                class="cineverseControls">
 
-    color: #888899;
 
-    font-size: 12px;
-}
+                <button
+                    id="btnPlay"
+                    class="controlButton"
+                    type="button">
 
-.relatedSlider {
-    display: flex;
+                    <i class="fa-solid fa-play"></i>
 
-    gap: 18px;
+                </button>
 
-    overflow-x: auto;
 
-    overflow-y: hidden;
+                <button
+                    id="btnBack10"
+                    class="controlButton"
+                    type="button">
 
-    padding: 5px 2px 20px;
+                    <i class="fa-solid fa-rotate-left"></i>
 
-    scroll-behavior: smooth;
+                    <span>
+                        10
+                    </span>
 
-    scrollbar-width: none;
-}
+                </button>
 
-.relatedSlider::-webkit-scrollbar {
-    display: none;
-}
 
-.relatedCard {
-    flex: 0 0 190px;
+                <input
+                    id="progressBar"
+                    class="progressBar"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value="0"
+                    step="0.1">
 
-    overflow: hidden;
 
-    border-radius: 15px;
+                <span
+                    id="timeDisplay"
+                    class="timeDisplay">
 
-    background: #12131d;
+                    0:00 / 0:00
 
-    border: 1px solid rgba(255,255,255,0.07);
+                </span>
 
-    cursor: pointer;
 
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-}
+                <button
+                    id="btnForward10"
+                    class="controlButton"
+                    type="button">
 
-.relatedCard:hover {
-    transform: translateY(-6px);
+                    <span>
+                        10
+                    </span>
 
-    box-shadow:
-        0 18px 40px rgba(0,0,0,0.35);
-}
+                    <i class="fa-solid fa-rotate-right"></i>
 
-.relatedPoster {
-    position: relative;
+                </button>
 
-    width: 100%;
-    height: 265px;
 
-    overflow: hidden;
+                <button
+                    id="btnMute"
+                    class="controlButton"
+                    type="button">
 
-    background: #08090f;
-}
+                    <i class="fa-solid fa-volume-high"></i>
 
-.relatedPoster img {
-    width: 100%;
-    height: 100%;
+                </button>
 
-    display: block;
 
-    object-fit: cover;
+                <input
+                    id="volumeBar"
+                    class="volumeBar"
+                    type="range"
+                    min="0"
+                    max="1"
+                    value="1"
+                    step="0.05">
 
-    transition: transform 0.35s ease;
-}
 
-.relatedCard:hover .relatedPoster img {
-    transform: scale(1.06);
-}
+                <button
+                    id="btnFullscreen"
+                    class="controlButton"
+                    type="button">
 
-.relatedOverlay {
-    position: absolute;
+                    <i class="fa-solid fa-expand"></i>
 
-    inset: 0;
+                </button>
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+            </div>
 
-    background: rgba(0,0,0,0.30);
+        </div>
 
-    opacity: 0;
+    </div>
 
-    transition: 0.25s;
-}
+</div>
 
-.relatedCard:hover .relatedOverlay {
-    opacity: 1;
-}
 
-.relatedPlay {
-    width: 45px;
-    height: 45px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+<!-- =====================================================
+                    CARGANDO
+===================================================== -->
 
-    border-radius: 50%;
+<div
+    id="loadingScreen"
+    class="loadingScreen">
 
-    background:
-        linear-gradient(
-            135deg,
-            #7c3aed,
-            #2563eb
-        );
+    <div class="loadingContent">
 
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.4);
-}
+        <div class="loadingSpinner"></div>
 
-.relatedInfo {
-    padding: 12px;
-}
+        <h3>
+            Cargando...
+        </h3>
 
-.relatedInfo h3 {
-    margin: 0 0 7px;
+        <p>
+            Preparando la película
+        </p>
 
-    font-size: 13px;
+    </div>
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+</div>
 
-.relatedMeta {
-    display: flex;
 
-    gap: 10px;
 
-    color: #8d8d9c;
+<script src="reproductor.js?v=20"></script>
 
-    font-size: 10px;
-}
+</body>
 
-.relatedGenre {
-    display: inline-block;
-
-    margin-top: 7px;
-
-    color: #8b5cf6;
-
-    font-size: 10px;
-}
-
-/* =========================================================
-   VOLVER AL INICIO
-========================================================= */
-
-.backHome {
-    display: flex;
-
-    justify-content: center;
-
-    margin-top: 50px;
-}
-
-.backHome a {
-    text-decoration: none;
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.playerFooter {
-    display: grid;
-
-    grid-template-columns:
-        1.5fr
-        1fr
-        1fr
-        auto;
-
-    gap: 35px;
-
-    margin-top: 40px;
-
-    padding: 45px 7%;
-
-    background: rgba(5,6,11,0.75);
-
-    border-top: 1px solid rgba(255,255,255,0.06);
-}
-
-.footerLogo h2 {
-    margin: 0;
-
-    font-size: 24px;
-}
-
-.footerLogo span {
-    color: #7c3aed;
-}
-
-.footerLogo p {
-    margin-top: 8px;
-
-    color: #858595;
-
-    font-size: 12px;
-}
-
-.footerLinks {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
-}
-
-.footerLinks a {
-    color: #858595;
-
-    text-decoration: none;
-
-    font-size: 12px;
-
-    transition: 0.2s;
-}
-
-.footerLinks a:hover {
-    color: #fff;
-}
-
-.footerSocial {
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 10px;
-}
-
-.footerSocial a {
-    width: 38px;
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-
-    color: #fff;
-
-    background: rgba(255,255,255,0.07);
-
-    text-decoration: none;
-
-    transition: 0.2s;
-}
-
-.footerSocial a:hover {
-    background: #7c3aed;
-
-    transform: translateY(-3px);
-}
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loadingScreen {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 9999;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    background: #08090f;
-
-    transition:
-        opacity 0.5s ease,
-        visibility 0.5s ease;
-}
-
-.loadingScreen.oculto,
-.loadingScreen.hide {
-    opacity: 0;
-
-    visibility: hidden;
-
-    pointer-events: none;
-}
-
-.loader {
-    text-align: center;
-}
-
-.loaderCircle {
-    width: 45px;
-    height: 45px;
-
-    margin: 0 auto 15px;
-
-    border: 3px solid rgba(255,255,255,0.10);
-
-    border-top-color: #7c3aed;
-
-    border-radius: 50%;
-
-    animation:
-        cineverseSpin 0.8s linear infinite;
-}
-
-.loader h2 {
-    margin: 0;
-
-    font-size: 18px;
-}
-
-.loader p {
-    margin: 5px 0 0;
-
-    color: #858595;
-
-    font-size: 12px;
-}
-
-@keyframes cineverseSpin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* =========================================================
-   ERROR / CARGA DEL VIDEO
-========================================================= */
-
-.videoLoading {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    color: #fff;
-
-    background: #050509;
-}
-
-.videoLoading i {
-    margin-bottom: 15px;
-
-    color: #8b5cf6;
-
-    font-size: 40px;
-}
-
-.videoLoading h2 {
-    margin: 0 0 8px;
-
-    font-size: 20px;
-}
-
-.videoLoading p {
-    margin: 0;
-
-    color: #858595;
-
-    font-size: 12px;
-}
-
-/* =========================================================
-   PANTALLA COMPLETA
-========================================================= */
-
-.videoContainer:fullscreen {
-    width: 100vw;
-    height: 100vh;
-
-    border-radius: 0;
-}
-
-.videoContainer:fullscreen .playerSource,
-.videoContainer:fullscreen video,
-.videoContainer:fullscreen iframe {
-    width: 100%;
-    height: 100%;
-}
-
-/* =========================================================
-   MODO CINE
-========================================================= */
-
-body.cinemaMode .playerHeader,
-body.cinemaMode .playerInfo,
-body.cinemaMode .relatedSection,
-body.cinemaMode .backHome,
-body.cinemaMode .playerFooter {
-    display: none;
-}
-
-body.cinemaMode .playerSection {
-    width: 100%;
-    padding: 0;
-}
-
-body.cinemaMode .videoContainer {
-    width: 100vw;
-    height: 100vh;
-
-    aspect-ratio: auto;
-
-    border-radius: 0;
-}
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .playerInfo {
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-    }
-
-    .movieExtra {
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .playerFooter {
-        grid-template-columns: 1fr 1fr;
-    }
-
-}
-
-/* =========================================================
-   MÓVIL
-========================================================= */
-
-@media (max-width: 650px) {
-
-    .playerHeader {
-        min-height: 60px;
-
-        padding: 12px 4%;
-    }
-
-    .playerLogo a {
-        font-size: 19px;
-    }
-
-    .playerMenu {
-        display: none;
-    }
-
-    .playerActions .btnGlass {
-        padding: 8px 11px;
-
-        font-size: 11px;
-    }
-
-    .playerSection {
-        width: 94%;
-
-        padding-top: 18px;
-    }
-
-    /* -------------------------------
-       VIDEO
-    -------------------------------- */
-
-    .videoContainer {
-        aspect-ratio: 16 / 9;
-
-        border-radius: 12px;
-    }
-
-    /* -------------------------------
-       CONTROLES
-    -------------------------------- */
-
-    .cineverseControls {
-        gap: 5px;
-
-        padding:
-            35px 8px 8px;
-    }
-
-    .cineverseControls button {
-        min-width: 31px;
-
-        height: 31px;
-
-        padding: 0;
-
-        font-size: 10px;
-    }
-
-    #timeDisplay {
-        display: none;
-    }
-
-    #volumeBar {
-        display: none;
-    }
-
-    #progressBar {
-        min-width: 50px;
-    }
-
-    /* -------------------------------
-       INFORMACIÓN
-    -------------------------------- */
-
-    .playerInfo {
-        display: block;
-
-        margin-top: 22px;
-
-        padding: 0;
-    }
-
-    .movieTitlePlayer {
-        font-size: 30px;
-
-        letter-spacing: -0.7px;
-    }
-
-    .movieDescription {
-        margin-top: 16px;
-
-        font-size: 13px;
-
-        line-height: 1.7;
-    }
-
-    .playerButtons {
-        gap: 8px;
-
-        margin-top: 16px;
-    }
-
-    .playerButtons button {
-        padding: 10px 13px;
-
-        font-size: 11px;
-    }
-
-    /* -------------------------------
-       INFORMACIÓN EXTRA
-    -------------------------------- */
-
-    .movieExtra {
-        display: grid;
-
-        grid-template-columns: 1fr;
-
-        margin-top: 25px;
-    }
-
-    .extraCard {
-        padding: 16px;
-    }
-
-    /* -------------------------------
-       RELACIONADAS
-    -------------------------------- */
-
-    .relatedSection {
-        margin-top: 45px;
-
-        padding: 0;
-    }
-
-    .relatedSlider {
-        gap: 12px;
-    }
-
-    .relatedCard {
-        flex-basis: 145px;
-    }
-
-    .relatedPoster {
-        height: 205px;
-    }
-
-    /* -------------------------------
-       FOOTER
-    -------------------------------- */
-
-    .playerFooter {
-        grid-template-columns: 1fr;
-
-        gap: 25px;
-
-        padding: 35px 6%;
-    }
-
-    .footerSocial {
-        align-items: center;
-    }
-
-}
-
-/* =========================================================
-   MÓVIL HORIZONTAL
-========================================================= */
-
-@media (max-width: 900px) and (orientation: landscape) {
-
-    .playerHeader {
-        display: none;
-    }
-
-    .playerSection {
-        width: 100%;
-
-        padding: 0;
-    }
-
-    .videoContainer {
-        width: 100vw;
-        height: 100vh;
-
-        aspect-ratio: auto;
-
-        border-radius: 0;
-    }
-
-    .playerInfo,
-    .relatedSection,
-    .backHome,
-    .playerFooter {
-        display: none;
-    }
-
-}
-
-/* =========================================================
-   PANTALLAS MUY PEQUEÑAS
-========================================================= */
-
-@media (max-width: 380px) {
-
-    .movieTitlePlayer {
-        font-size: 26px;
-    }
-
-    .movieBadges span {
-        padding: 5px 8px;
-
-        font-size: 9px;
-    }
-
-    .playerButtons button {
-        padding: 9px 10px;
-
-        font-size: 10px;
-    }
-
-}
+</html>
