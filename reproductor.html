@@ -9,18 +9,28 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0">
 
+    <meta
+        name="theme-color"
+        content="#08080d">
+
     <title>CINEVERSE | Reproductor</title>
 
-    <!-- ESTILOS PRINCIPALES -->
+    <!-- ==============================
+            ESTILOS
+    =============================== -->
+
     <link
         rel="stylesheet"
         href="style.css">
 
     <link
         rel="stylesheet"
-        href="player.css">
+        href="player.css?v=10">
 
-    <!-- GOOGLE FONTS -->
+    <!-- ==============================
+            FUENTES
+    =============================== -->
+
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com">
@@ -34,7 +44,10 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- FONT AWESOME -->
+    <!-- ==============================
+            ICONOS
+    =============================== -->
+
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -42,92 +55,63 @@
 </head>
 
 
-<body>
+<body class="cineversePlayerPage">
 
 
 <!-- =====================================================
                     FONDO
-===================================================== -->
+====================================================== -->
 
 <div
-    class="playerBackground"
-    id="playerBackground">
+    id="playerBackground"
+    class="playerBackground">
 </div>
 
 
+<div class="playerBackgroundOverlay"></div>
+
+
 <!-- =====================================================
-                    HEADER
-===================================================== -->
+                BARRA SUPERIOR
+====================================================== -->
 
-<header class="playerHeader">
+<header class="movieTopBar">
 
-    <!-- LOGO -->
+    <!-- REGRESAR -->
 
-    <div class="playerLogo">
+    <button
+        id="btnRegresar"
+        class="topIconButton"
+        type="button"
+        aria-label="Regresar">
 
-        <a href="index.html">
+        <i class="fa-solid fa-arrow-left"></i>
 
-            CINE<span>VERSE</span>
-
-        </a>
-
-    </div>
-
-
-    <!-- MENÚ PRINCIPAL -->
-
-    <nav class="playerMenu">
-
-        <a href="index.html">
-
-            <i class="fa-solid fa-house"></i>
-
-            <span>Inicio</span>
-
-        </a>
-
-
-        <a href="#">
-
-            <i class="fa-solid fa-film"></i>
-
-            <span>Películas</span>
-
-        </a>
-
-
-        <a href="#">
-
-            <i class="fa-solid fa-tv"></i>
-
-            <span>Series</span>
-
-        </a>
-
-
-        <a href="#">
-
-            <i class="fa-solid fa-heart"></i>
-
-            <span>Mi Lista</span>
-
-        </a>
-
-    </nav>
+    </button>
 
 
     <!-- ACCIONES -->
 
-    <div class="playerActions">
+    <div class="topActions">
 
         <button
-            id="modoCine"
-            class="btnGlass"
-            type="button">
+            id="btnCompartirTop"
+            class="topIconButton"
+            type="button"
+            aria-label="Compartir">
 
-            <i class="fa-solid fa-clapperboard"></i>
+            <i class="fa-solid fa-share-nodes"></i>
 
-            <span>Modo Cine</span>
+        </button>
+
+
+        <button
+            id="btnTV"
+            class="topIconButton"
+            type="button"
+            aria-label="Transmitir">
+
+            <i class="fa-solid fa-tv"></i>
 
         </button>
 
@@ -139,96 +123,70 @@
 
 <!-- =====================================================
                 CONTENIDO PRINCIPAL
-===================================================== -->
+====================================================== -->
 
-<main class="playerMain">
-
+<main class="moviePage">
 
     <!-- =================================================
-                    FICHA DE PELÍCULA
+                    PORTADA
     ================================================== -->
 
-    <section class="moviePage">
+    <section class="movieHero">
 
+        <div class="moviePosterLarge">
 
-        <!-- =============================================
-                    PARTE SUPERIOR
-        ============================================== -->
+            <img
+                id="moviePoster"
+                src=""
+                alt="Portada de película">
 
-        <div class="movieTopActions">
+            <div class="moviePosterShade"></div>
 
+            <div
+                id="posterLoading"
+                class="posterLoading">
 
-            <!-- VOLVER -->
-
-            <button
-                type="button"
-                class="movieBack"
-                onclick="history.back()"
-                aria-label="Volver">
-
-                <i class="fa-solid fa-arrow-left"></i>
-
-            </button>
-
-
-            <!-- ACCIONES DERECHA -->
-
-            <div class="movieTopRight">
-
-
-                <button
-                    type="button"
-                    class="movieTopButton"
-                    id="btnCompartirTop"
-                    aria-label="Compartir">
-
-                    <i class="fa-solid fa-share-nodes"></i>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="movieTopButton"
-                    id="btnTransmitir"
-                    aria-label="Transmitir a TV">
-
-                    <i class="fa-solid fa-tv"></i>
-
-                </button>
+                <i class="fa-solid fa-film"></i>
 
             </div>
 
         </div>
 
+    </section>
 
 
-        <!-- =============================================
-                    PORTADA / HERO
-        ============================================== -->
 
-        <section class="movieHero">
+    <!-- =================================================
+                    INFORMACIÓN
+    ================================================== -->
+
+    <section class="movieDetails">
+
+        <div class="movieDetailsMain">
 
 
-            <div
-                class="movieHeroImage"
-                id="movieHeroImage">
+            <!-- BADGES -->
+
+            <div class="movieBadges">
+
+                <span id="movieClasificacion">
+                    A
+                </span>
+
+                <span id="movieQuality">
+                    HD
+                </span>
+
+                <span id="movieSubs">
+                    CC
+                </span>
+
+                <span id="movieAudio">
+                    AD
+                </span>
 
             </div>
 
-
-            <div class="movieHeroGradient"></div>
-
-
-        </section>
-
-
-
-        <!-- =============================================
-                    INFORMACIÓN
-        ============================================== -->
-
-        <section class="movieDetails">
 
 
             <!-- TÍTULO -->
@@ -243,100 +201,48 @@
 
 
 
-            <!-- BADGES -->
+            <!-- INFORMACIÓN CORTA -->
 
-            <div class="movieBadges">
-
-
-                <span id="movieClasificacion">
-
-                    A
-
-                </span>
-
-
-                <span id="movieQuality">
-
-                    HD
-
-                </span>
-
-
-                <span id="movieSubs">
-
-                    CC
-
-                </span>
-
-
-                <span id="movieRating">
-
-                    ⭐ 8.0
-
-                </span>
-
-            </div>
-
-
-
-            <!-- DATOS -->
-
-            <div class="movieMetaPlayer">
-
+            <div class="movieQuickInfo">
 
                 <span id="movieYear">
-
                     2026
-
                 </span>
-
 
                 <span>
-
-                    •
-
+                    ·
                 </span>
-
 
                 <span id="movieDuration">
-
-                    2h 15m
-
+                    Película
                 </span>
-
 
                 <span>
-
-                    •
-
+                    ·
                 </span>
 
-
                 <span id="movieGenre">
-
-                    Acción
-
+                    Fantasía
                 </span>
 
             </div>
 
 
 
-            <!-- =========================================
-                        BOTÓN VER AHORA
-            ========================================== -->
+            <!-- BOTÓN PRINCIPAL -->
 
-            <div class="movieWatchArea">
-
+            <div class="movieMainAction">
 
                 <button
                     id="btnReproducir"
-                    class="btnPrincipal movieWatchButton"
+                    class="btnWatch"
                     type="button">
 
                     <i class="fa-solid fa-play"></i>
 
-                    Ver ahora
+                    <span>
+                        Ver ahora
+                    </span>
 
                 </button>
 
@@ -344,48 +250,34 @@
 
 
 
-            <!-- =========================================
-                    ACCIONES SECUNDARIAS
-            ========================================== -->
+            <!-- ACCIONES SECUNDARIAS -->
 
-            <div class="movieSecondaryButtons">
-
+            <div class="movieSecondaryActions">
 
                 <button
                     id="btnTrailer"
-                    class="movieSecondaryButton"
+                    class="secondaryAction"
                     type="button">
 
-                    <i class="fa-solid fa-video"></i>
+                    <i class="fa-solid fa-play"></i>
 
-                    <span>Ver tráiler</span>
+                    <span>
+                        Ver tráiler
+                    </span>
 
                 </button>
 
 
                 <button
                     id="btnFavorito"
-                    class="movieSecondaryButton"
+                    class="secondaryAction"
                     type="button">
 
                     <i class="fa-regular fa-heart"></i>
 
-                    <span>Mi lista</span>
-
-                </button>
-
-
-                <!-- Este botón conserva el ID
-                     que utiliza el reproductor actual -->
-
-                <button
-                    id="btnCompartir"
-                    class="movieSecondaryButton movieShareHidden"
-                    type="button">
-
-                    <i class="fa-solid fa-share-nodes"></i>
-
-                    <span>Compartir</span>
+                    <span>
+                        Mi lista
+                    </span>
 
                 </button>
 
@@ -393,20 +285,15 @@
 
 
 
-            <!-- =========================================
-                        DESCRIPCIÓN
-            ========================================== -->
+            <!-- DESCRIPCIÓN -->
 
-            <div class="movieDescriptionArea">
-
+            <div class="movieDescriptionBox">
 
                 <p
-                    id="movieDescription"
-                    class="movieDescription">
+                    id="movieDescription">
 
-                    La información de la película
-                    aparecerá aquí automáticamente
-                    desde peliculas.json.
+                    La información de la película aparecerá
+                    aquí automáticamente.
 
                 </p>
 
@@ -414,160 +301,171 @@
 
 
 
-            <!-- =========================================
-                        INFORMACIÓN EXTRA
-            ========================================== -->
+            <!-- INFORMACIÓN EXTRA -->
 
-            <div class="movieTechnicalInfo">
+            <div class="movieInformationGrid">
 
 
-                <div>
+                <div class="movieInformationItem">
 
-                    <span class="technicalLabel">
-
+                    <span>
                         Idioma
-
                     </span>
 
                     <strong id="movieIdioma">
-
                         Español
-
                     </strong>
 
                 </div>
 
 
-                <div>
+                <div class="movieInformationItem">
 
-                    <span class="technicalLabel">
-
+                    <span>
                         Subtítulos
-
                     </span>
 
                     <strong id="movieSubsInfo">
-
                         Español
-
                     </strong>
 
                 </div>
 
 
-                <div>
+                <div class="movieInformationItem">
 
-                    <span class="technicalLabel">
-
+                    <span>
                         Director
-
                     </span>
 
                     <strong id="movieDirector">
-
                         No disponible
-
                     </strong>
 
                 </div>
 
 
-                <div>
+                <div class="movieInformationItem">
 
-                    <span class="technicalLabel">
-
+                    <span>
                         País
-
                     </span>
 
                     <strong id="moviePais">
-
                         No disponible
-
                     </strong>
 
                 </div>
 
-
             </div>
 
+        </div>
 
-        </section>
-
-
-
-        <!-- =================================================
-                    PELÍCULAS RELACIONADAS
-        ================================================== -->
-
-        <section class="relatedSection">
+    </section>
 
 
-            <div class="sectionTitle">
 
+    <!-- =================================================
+                PELÍCULA / VIDEO
+    ================================================== -->
+
+    <section
+        id="videoPlayerSection"
+        class="videoPlayerSection"
+        style="display:none;">
+
+        <div
+            id="videoContainer"
+            class="videoContainer">
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+                PELÍCULAS RELACIONADAS
+    ================================================== -->
+
+    <section class="relatedSection">
+
+        <div class="relatedHeader">
+
+            <div>
+
+                <span class="sectionEyebrow">
+                    PARA TI
+                </span>
 
                 <h2>
-
                     También te puede gustar
-
                 </h2>
 
-
                 <p>
-
-                    Películas similares seleccionadas
-                    para ti
-
+                    Películas similares seleccionadas para ti
                 </p>
-
 
             </div>
 
+        </div>
+
+
+        <div
+            id="relatedWrapper"
+            class="relatedWrapper">
+
+
+            <button
+                id="relatedPrev"
+                class="relatedArrow relatedArrowLeft"
+                type="button"
+                aria-label="Películas anteriores">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+            </button>
 
 
             <div
-                class="relatedWrapper">
-
-
-                <button
-                    id="relatedAnterior"
-                    class="relatedArrow"
-                    type="button"
-                    aria-label="Anterior">
-
-                    <i class="fa-solid fa-chevron-left"></i>
-
-                </button>
-
-
-                <div
-                    class="relatedSlider"
-                    id="relatedSlider">
-
-                    <!--
-                        reproductor.js
-                        insertará las películas
-                        automáticamente
-                    -->
-
-                </div>
-
-
-                <button
-                    id="relatedSiguiente"
-                    class="relatedArrow"
-                    type="button"
-                    aria-label="Siguiente">
-
-                    <i class="fa-solid fa-chevron-right"></i>
-
-                </button>
+                id="relatedSlider"
+                class="relatedSlider">
 
             </div>
 
-        </section>
+
+            <button
+                id="relatedNext"
+                class="relatedArrow relatedArrowRight"
+                type="button"
+                aria-label="Siguientes películas">
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+    </section>
 
 
+
+    <!-- =================================================
+                    VOLVER
+    ================================================== -->
+
+    <section class="backHome">
+
+        <button
+            id="btnRegresarFinal"
+            class="backHomeButton"
+            type="button">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Volver
+
+        </button>
 
     </section>
 
@@ -576,21 +474,20 @@
 
 
 <!-- =====================================================
-                REPRODUCTOR / MODO CINE
-===================================================== -->
+                REPRODUCTOR PANTALLA COMPLETA
+====================================================== -->
 
 <div
-    class="cineversePlayer"
-    id="cineversePlayer">
+    id="fullscreenPlayer"
+    class="fullscreenPlayer"
+    style="display:none;">
 
 
-    <!-- =============================================
-                    BOTÓN CERRAR
-    ============================================== -->
+    <!-- BOTÓN X -->
 
     <button
         id="btnCerrarPlayer"
-        class="closePlayer"
+        class="closePlayerButton"
         type="button"
         aria-label="Cerrar reproductor">
 
@@ -600,267 +497,66 @@
 
 
 
-    <!-- =============================================
-                    BOTÓN COMPARTIR
-    ============================================== -->
+    <!-- COMPARTIR / TV -->
 
-    <button
-        id="playerShare"
-        class="playerFloatingButton playerShare"
-        type="button"
-        aria-label="Compartir">
+    <div class="fullscreenActions">
 
-        <i class="fa-solid fa-share-nodes"></i>
+        <button
+            id="btnFullscreenShare"
+            class="fullscreenIcon"
+            type="button"
+            aria-label="Compartir">
 
-    </button>
+            <i class="fa-solid fa-share-nodes"></i>
+
+        </button>
 
 
+        <button
+            id="btnFullscreenTV"
+            class="fullscreenIcon"
+            type="button"
+            aria-label="Transmitir">
 
-    <!-- =============================================
-                    TRANSMITIR
-    ============================================== -->
+            <i class="fa-solid fa-tv"></i>
 
-    <button
-        id="playerCast"
-        class="playerFloatingButton playerCast"
-        type="button"
-        aria-label="Transmitir">
+        </button>
 
-        <i class="fa-solid fa-tv"></i>
-
-    </button>
+    </div>
 
 
 
-    <!-- =============================================
-                    ÁREA DEL VIDEO
-    ============================================== -->
+    <!-- VIDEO -->
 
     <div
-        class="videoArea">
-
-
-        <div
-            class="videoContainer"
-            id="videoContainer">
-
-
-            <!-- =====================================
-                    YOUTUBE
-            ====================================== -->
-
-            <div
-                id="youtubeContainer"
-                class="playerSource youtubeSource">
-
-                <iframe
-                    id="youtubePlayer"
-                    title="Reproductor de CINEVERSE"
-                    src=""
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-
-                </iframe>
-
-            </div>
-
-
-
-            <!-- =====================================
-                    MP4
-            ====================================== -->
-
-            <div
-                id="mp4Container"
-                class="playerSource mp4Source"
-                style="display:none;">
-
-
-                <video
-                    id="videoPlayer"
-                    preload="metadata"
-                    playsinline>
-
-                    Tu navegador no puede reproducir
-                    este vídeo.
-
-                </video>
-
-
-
-                <!-- =================================
-                        CONTROLES
-                ================================== -->
-
-                <div
-                    id="cineverseControls"
-                    class="cineverseControls">
-
-
-                    <!-- PLAY -->
-
-                    <button
-                        id="btnPlay"
-                        type="button"
-                        aria-label="Reproducir o pausar">
-
-                        <i class="fa-solid fa-play"></i>
-
-                    </button>
-
-
-
-                    <!-- RETROCEDER -->
-
-                    <button
-                        id="btnBack10"
-                        type="button"
-                        aria-label="Retroceder 10 segundos">
-
-                        <i class="fa-solid fa-rotate-left"></i>
-
-                        <span>10</span>
-
-                    </button>
-
-
-
-                    <!-- PROGRESO -->
-
-                    <input
-                        id="progressBar"
-                        type="range"
-                        min="0"
-                        max="100"
-                        value="0"
-                        step="0.1"
-                        aria-label="Progreso">
-
-
-
-                    <!-- TIEMPO -->
-
-                    <span
-                        id="timeDisplay">
-
-                        0:00 / 0:00
-
-                    </span>
-
-
-
-                    <!-- AVANZAR -->
-
-                    <button
-                        id="btnForward10"
-                        type="button"
-                        aria-label="Avanzar 10 segundos">
-
-                        <span>10</span>
-
-                        <i class="fa-solid fa-rotate-right"></i>
-
-                    </button>
-
-
-
-                    <!-- SILENCIO -->
-
-                    <button
-                        id="btnMute"
-                        type="button"
-                        aria-label="Silenciar">
-
-                        <i class="fa-solid fa-volume-high"></i>
-
-                    </button>
-
-
-
-                    <!-- VOLUMEN -->
-
-                    <input
-                        id="volumeBar"
-                        type="range"
-                        min="0"
-                        max="1"
-                        value="1"
-                        step="0.05"
-                        aria-label="Volumen">
-
-
-
-                    <!-- PANTALLA COMPLETA -->
-
-                    <button
-                        id="btnFullscreen"
-                        type="button"
-                        aria-label="Pantalla completa">
-
-                        <i class="fa-solid fa-expand"></i>
-
-                    </button>
-
-
-                </div>
-
-            </div>
-
-
-        </div>
+        id="fullscreenVideoContainer"
+        class="fullscreenVideoContainer">
 
     </div>
-
-
-
-    <!-- =============================================
-                    CONTROLES SUPERIORES
-    ============================================== -->
-
-    <div class="playerTopInfo">
-
-        <span id="playerMovieTitle">
-
-            CINEVERSE
-
-        </span>
-
-    </div>
-
 
 </div>
 
 
 
 <!-- =====================================================
-                PANTALLA DE CARGA
-===================================================== -->
+                    LOADING
+====================================================== -->
 
 <div
-    class="loadingScreen"
-    id="loadingScreen">
-
+    id="loadingScreen"
+    class="loadingScreen">
 
     <div class="loader">
 
-
         <div class="loaderCircle"></div>
 
-
         <h2>
-
             Cargando...
-
         </h2>
 
-
         <p>
-
             Preparando tu película
-
         </p>
-
 
     </div>
 
@@ -869,150 +565,32 @@
 
 
 <!-- =====================================================
-                    FOOTER
-===================================================== -->
+                    TOAST
+====================================================== -->
 
-<footer class="playerFooter">
+<div
+    id="playerToast"
+    class="playerToast">
 
+    <i class="fa-solid fa-circle-check"></i>
 
-    <div class="footerLogo">
+    <span>
+        Listo
+    </span>
 
-
-        <h2>
-
-            CINE<span>VERSE</span>
-
-        </h2>
-
-
-        <p>
-
-            Tu universo del entretenimiento.
-
-        </p>
-
-
-    </div>
-
-
-
-    <div class="footerLinks">
-
-
-        <a href="index.html">
-
-            Inicio
-
-        </a>
-
-
-        <a href="#">
-
-            Películas
-
-        </a>
-
-
-        <a href="#">
-
-            Series
-
-        </a>
-
-
-        <a href="#">
-
-            Mi Lista
-
-        </a>
-
-
-    </div>
-
-
-
-    <div class="footerLinks">
-
-
-        <a href="#">
-
-            Políticas
-
-        </a>
-
-
-        <a href="#">
-
-            Privacidad
-
-        </a>
-
-
-        <a href="#">
-
-            Contacto
-
-        </a>
-
-
-        <a href="#">
-
-            Soporte
-
-        </a>
-
-
-    </div>
-
-
-
-    <div class="footerSocial">
-
-
-        <a href="#">
-
-            <i class="fa-brands fa-facebook"></i>
-
-        </a>
-
-
-        <a href="#">
-
-            <i class="fa-brands fa-instagram"></i>
-
-        </a>
-
-
-        <a href="#">
-
-            <i class="fa-brands fa-x-twitter"></i>
-
-        </a>
-
-
-        <a href="#">
-
-            <i class="fa-brands fa-youtube"></i>
-
-        </a>
-
-
-    </div>
-
-</footer>
+</div>
 
 
 
 <!-- =====================================================
                     JAVASCRIPT
-===================================================== -->
+====================================================== -->
 
 <script
-    src="reproductor.js?v=6">
+    src="reproductor.js?v=11">
 </script>
 
 
 </body>
 
 </html>
-
