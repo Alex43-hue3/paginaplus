@@ -583,19 +583,88 @@
         class="mobileActionBar">
 
 
-        <button
-            class="mobileActionButton active"
-            type="button"
-            onclick="window.scrollTo({
-                top:0,
-                behavior:'smooth'
-            })">
+        <div class="movieTopBar">
 
+    <!-- REGRESAR -->
+
+    <button
+        id="btnBack"
+        class="movieTopButton"
+        type="button"
+        aria-label="Regresar">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        <span>
+            Regresar
+        </span>
+
+    </button>
+
+
+    <!-- MENÚ CENTRAL -->
+
+    <nav class="movieCenterMenu">
+
+        <a href="index.html">
             <i class="fa-solid fa-house"></i>
+            <span>Inicio</span>
+        </a>
 
-            Inicio
+        <a href="peliculas.html">
+            <i class="fa-solid fa-film"></i>
+            <span>Películas</span>
+        </a>
+
+        <a href="series.html">
+            <i class="fa-solid fa-tv"></i>
+            <span>Series</span>
+        </a>
+
+        <a href="mi-lista.html">
+            <i class="fa-solid fa-heart"></i>
+            <span>Mi Lista</span>
+        </a>
+
+    </nav>
+
+
+    <!-- ACCIONES -->
+
+    <div class="movieTopActions">
+
+        <button
+            id="btnCompartir"
+            class="movieTopButton"
+            type="button"
+            aria-label="Compartir">
+
+            <i class="fa-solid fa-share-nodes"></i>
+
+            <span>
+                Compartir
+            </span>
 
         </button>
+
+
+        <button
+            id="btnTV"
+            class="movieTopButton"
+            type="button"
+            aria-label="Transmitir a TV">
+
+            <i class="fa-solid fa-tv"></i>
+
+            <span>
+                TV
+            </span>
+
+        </button>
+
+    </div>
+
+</div>
 
 
         <button
