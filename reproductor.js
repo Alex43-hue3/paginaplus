@@ -931,16 +931,21 @@ function crearDrive(url){
     const id =
         obtenerDriveID(url);
 
-
     if(!id){
 
         return `
 
             <div class="videoLoading">
 
+                <i class="fa-solid fa-circle-exclamation"></i>
+
                 <h2>
                     Google Drive no válido
                 </h2>
+
+                <p>
+                    No se pudo obtener el archivo de Drive.
+                </p>
 
             </div>
 
@@ -948,16 +953,24 @@ function crearDrive(url){
 
     }
 
-
     return `
 
         <div class="playerSource driveSource">
 
             <iframe
 
-                src="https://drive.google.com/file/d/${id}/preview"
+                id="drivePlayer"
 
-                allow="autoplay"
+                src="https://drive.google.com/file/${id}/preview"
+
+                title="${escapeHTML(
+                    peliculaActual.titulo
+                )}"
+
+                allow="
+                    autoplay;
+                    fullscreen
+                "
 
                 allowfullscreen>
 
@@ -968,7 +981,6 @@ function crearDrive(url){
     `;
 
 }
-
 
 /* =========================================================
                     MP4
