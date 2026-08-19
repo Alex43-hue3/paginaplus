@@ -35,7 +35,7 @@
 
 
     <!-- =====================================================
-                        FONT AWESOME
+                    FONT AWESOME
     ====================================================== -->
 
     <link
@@ -49,8 +49,7 @@
 
     <link
         rel="stylesheet"
-        href="player.css?v=20">
-
+        href="player.css?v=21">
 
 </head>
 
@@ -82,83 +81,115 @@
 
 
         <!-- =================================================
-                        BARRA SUPERIOR
+                    BARRA SUPERIOR
         ================================================== -->
 
         <div class="movieTopBar">
 
-    <!-- REGRESAR -->
 
-    <button
-        id="btnBack"
-        class="movieTopButton"
-        type="button"
-        aria-label="Regresar">
+            <!-- REGRESAR -->
 
-        <i class="fa-solid fa-arrow-left"></i>
+            <button
+                id="btnBack"
+                class="movieTopButton"
+                type="button"
+                aria-label="Regresar">
 
-    </button>
+                <i class="fa-solid fa-arrow-left"></i>
 
-
-    <!-- MENÚ CENTRAL -->
-
-    <nav class="movieCenterMenu">
-
-        <a href="index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Inicio</span>
-        </a>
-
-        <a href="peliculas.html">
-            <i class="fa-solid fa-film"></i>
-            <span>Películas</span>
-        </a>
-
-        <a href="series.html">
-            <i class="fa-solid fa-tv"></i>
-            <span>Series</span>
-        </a>
-
-        <a href="mi-lista.html">
-            <i class="fa-solid fa-heart"></i>
-            <span>Mi Lista</span>
-        </a>
-
-    </nav>
+            </button>
 
 
-    <!-- ACCIONES DERECHA -->
 
-    <div class="movieTopActions">
+            <!-- MENÚ CENTRAL -->
 
-        <button
-            id="btnCompartir"
-            class="movieTopButton"
-            type="button"
-            aria-label="Compartir">
-
-            <i class="fa-solid fa-share-nodes"></i>
-
-        </button>
+            <nav class="movieCenterMenu">
 
 
-        <button
-            id="btnTV"
-            class="movieTopButton"
-            type="button"
-            aria-label="Transmitir a TV">
+                <a href="index.html">
 
-            <i class="fa-solid fa-tv"></i>
+                    <i class="fa-solid fa-house"></i>
 
-        </button>
+                    <span>
+                        Inicio
+                    </span>
 
-    </div>
+                </a>
 
-</div>
+
+                <a href="peliculas.html">
+
+                    <i class="fa-solid fa-film"></i>
+
+                    <span>
+                        Películas
+                    </span>
+
+                </a>
+
+
+                <a href="series.html">
+
+                    <i class="fa-solid fa-tv"></i>
+
+                    <span>
+                        Series
+                    </span>
+
+                </a>
+
+
+                <a href="mi-lista.html">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                    <span>
+                        Mi Lista
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- ACCIONES DERECHA -->
+
+            <div class="movieTopActions">
+
+
+                <button
+                    id="btnCompartir"
+                    class="movieTopButton"
+                    type="button"
+                    aria-label="Compartir">
+
+                    <i class="fa-solid fa-share-nodes"></i>
+
+                </button>
+
+
+                <button
+                    id="btnTV"
+                    class="movieTopButton"
+                    type="button"
+                    aria-label="Transmitir a TV">
+
+                    <i class="fa-solid fa-tv"></i>
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
 
 
         <!-- =================================================
-                        HERO
+                            HERO
         ================================================== -->
 
         <section class="movieHero">
@@ -186,7 +217,7 @@
                     </div>
 
 
-                    <!-- PLAY SOBRE PORTADA -->
+                    <!-- PLAY -->
 
                     <button
                         id="posterPlayButton"
@@ -201,12 +232,13 @@
 
                 </div>
 
+
             </div>
 
 
 
             <!-- =================================================
-                            INFORMACIÓN
+                        INFORMACIÓN
             ================================================== -->
 
             <div class="movieMainInfo">
@@ -220,27 +252,34 @@
                     <span
                         id="movieClasificacion"
                         class="movieBadge">
+
                         A
+
                     </span>
 
 
                     <span
                         id="movieQuality"
                         class="movieBadge">
+
                         HD
+
                     </span>
 
 
                     <span
                         id="movieSubs"
                         class="movieBadge">
+
                         CC
+
                     </span>
 
 
-                    <span
-                        class="movieBadge">
+                    <span class="movieBadge">
+
                         AD
+
                     </span>
 
 
@@ -259,6 +298,7 @@
                 </h1>
 
 
+
                 <!-- TÍTULO ORIGINAL -->
 
                 <p
@@ -273,28 +313,33 @@
                 <div class="movieMeta">
 
 
-                    <span
-                        id="movieYear">
+                    <span id="movieYear">
+
                         2026
+
                     </span>
 
 
-                    <span
-                        id="movieDuration">
+                    <span id="movieDuration">
+
                         Película
+
                     </span>
 
 
-                    <span
-                        id="movieGenre">
+                    <span id="movieGenre">
+
                         Género
+
                     </span>
 
 
                     <span
                         id="movieRating"
                         class="movieRating">
+
                         ⭐ 8.0
+
                     </span>
 
 
@@ -307,17 +352,16 @@
                 <div
                     id="movieGenres"
                     class="movieGenres">
-
                 </div>
 
 
 
-                <!-- ACCIONES -->
+                <!-- =================================================
+                            ACCIONES
+                ================================================== -->
 
                 <div class="movieActions">
 
-
-                    <!-- VER AHORA -->
 
                     <button
                         id="btnVerAhora"
@@ -331,8 +375,6 @@
                     </button>
 
 
-                    <!-- TRAILER -->
-
                     <button
                         id="btnTrailer"
                         class="movieActionButton"
@@ -344,8 +386,6 @@
 
                     </button>
 
-
-                    <!-- MI LISTA -->
 
                     <button
                         id="btnFavorito"
@@ -376,7 +416,7 @@
 
 
                 <!-- =================================================
-                            INFORMACIÓN EN BLOQUES
+                        INFORMACIÓN EN BLOQUES
                 ================================================== -->
 
                 <div
@@ -393,15 +433,18 @@
 
                         </div>
 
-                        <span
-                            class="movieInfoLabel">
+                        <span class="movieInfoLabel">
+
                             Año
+
                         </span>
 
                         <span
                             id="movieEstreno"
                             class="movieInfoValue">
+
                             -
+
                         </span>
 
                     </div>
@@ -418,15 +461,18 @@
 
                         </div>
 
-                        <span
-                            class="movieInfoLabel">
+                        <span class="movieInfoLabel">
+
                             Idioma
+
                         </span>
 
                         <span
                             id="movieIdioma"
                             class="movieInfoValue">
+
                             -
+
                         </span>
 
                     </div>
@@ -443,15 +489,18 @@
 
                         </div>
 
-                        <span
-                            class="movieInfoLabel">
+                        <span class="movieInfoLabel">
+
                             Subtítulos
+
                         </span>
 
                         <span
                             id="movieSubsInfo"
                             class="movieInfoValue">
+
                             -
+
                         </span>
 
                     </div>
@@ -468,15 +517,18 @@
 
                         </div>
 
-                        <span
-                            class="movieInfoLabel">
+                        <span class="movieInfoLabel">
+
                             Director
+
                         </span>
 
                         <span
                             id="movieDirector"
                             class="movieInfoValue">
+
                             -
+
                         </span>
 
                     </div>
@@ -493,15 +545,18 @@
 
                         </div>
 
-                        <span
-                            class="movieInfoLabel">
+                        <span class="movieInfoLabel">
+
                             País
+
                         </span>
 
                         <span
                             id="moviePais"
                             class="movieInfoValue">
+
                             -
+
                         </span>
 
                     </div>
@@ -511,6 +566,7 @@
 
 
             </div>
+
 
         </section>
 
@@ -524,8 +580,7 @@
             class="movieDetailsSection">
 
 
-            <h2
-                class="movieDetailsTitle">
+            <h2 class="movieDetailsTitle">
 
                 Sobre esta película
 
@@ -556,13 +611,20 @@
 
             <div class="sectionTitle">
 
+
                 <h2>
+
                     También te puede gustar
+
                 </h2>
 
+
                 <p>
+
                     Películas seleccionadas para ti
+
                 </p>
+
 
             </div>
 
@@ -570,12 +632,10 @@
             <div
                 id="relatedSlider"
                 class="relatedSlider">
-
             </div>
 
 
         </section>
-
 
 
     </main>
@@ -583,68 +643,75 @@
 
 
     <!-- =====================================================
-                    BARRA MOBILE
+                BARRA INFERIOR EXCLUSIVA MOBILE
     ====================================================== -->
 
-    <div
-        class="mobileActionBar">
+    <nav
+        class="mobileActionBar"
+        aria-label="Navegación móvil">
 
 
-        <div class="movieTopBar">
-
-    <!-- REGRESAR -->
-
-    <button
-        id="btnBack"
-        class="movieTopButton"
-        type="button"
-        aria-label="Regresar">
-
-        <i class="fa-solid fa-arrow-left"></i>
-
-        <span>
-            Regresar
-        </span>
-
-    </button>
-
-
-    <!-- MENÚ CENTRAL -->
-
-    <nav class="movieCenterMenu">
-
-        <a href="index.html">
-            <i class="fa-solid fa-house"></i>
-            <span>Inicio</span>
-        </a>
-
-        <a href="peliculas.html">
-            <i class="fa-solid fa-film"></i>
-            <span>Películas</span>
-        </a>
-
-        <a href="series.html">
-            <i class="fa-solid fa-tv"></i>
-            <span>Series</span>
-        </a>
-
-        <a href="mi-lista.html">
-            <i class="fa-solid fa-heart"></i>
-            <span>Mi Lista</span>
-        </a>
-
-    </nav>
-
-
-    <!-- ACCIONES -->
-
-    <div class="movieTopActions">
+        <!-- INICIO -->
 
         <button
-            id="btnCompartir"
-            class="movieTopButton"
+            id="mobileHomeButton"
+            class="mobileActionButton active"
             type="button"
-            aria-label="Compartir">
+            onclick="window.location.href='index.html'">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Inicio
+            </span>
+
+        </button>
+
+
+
+        <!-- VER -->
+
+        <button
+            id="mobileWatchButton"
+            class="mobileActionButton"
+            type="button"
+            onclick="document.getElementById('btnVerAhora')?.click()">
+
+            <i class="fa-solid fa-play"></i>
+
+            <span>
+                Ver
+            </span>
+
+        </button>
+
+
+
+        <!-- MI LISTA -->
+
+        <button
+            id="mobileFavoriteButton"
+            class="mobileActionButton"
+            type="button"
+            onclick="document.getElementById('btnFavorito')?.click()">
+
+            <i class="fa-regular fa-heart"></i>
+
+            <span>
+                Mi lista
+            </span>
+
+        </button>
+
+
+
+        <!-- COMPARTIR -->
+
+        <button
+            id="mobileShareButton"
+            class="mobileActionButton"
+            type="button"
+            onclick="document.getElementById('btnCompartir')?.click()">
 
             <i class="fa-solid fa-share-nodes"></i>
 
@@ -655,68 +722,7 @@
         </button>
 
 
-        <button
-            id="btnTV"
-            class="movieTopButton"
-            type="button"
-            aria-label="Transmitir a TV">
-
-            <i class="fa-solid fa-tv"></i>
-
-            <span>
-                TV
-            </span>
-
-        </button>
-
-    </div>
-
-</div>
-
-
-        <button
-            class="mobileActionButton"
-            type="button"
-            onclick="document
-                .getElementById('btnVerAhora')
-                ?.click()">
-
-            <i class="fa-solid fa-play"></i>
-
-            Ver
-
-        </button>
-
-
-        <button
-            class="mobileActionButton"
-            type="button"
-            onclick="document
-                .getElementById('btnFavorito')
-                ?.click()">
-
-            <i class="fa-regular fa-heart"></i>
-
-            Mi lista
-
-        </button>
-
-
-        <button
-            class="mobileActionButton"
-            type="button"
-            onclick="document
-                .getElementById('btnCompartir')
-                ?.click()">
-
-            <i class="fa-solid fa-share-nodes"></i>
-
-            Compartir
-
-        </button>
-
-
-    </div>
+    </nav>
 
 
 
@@ -746,16 +752,17 @@
             </button>
 
 
+
             <!-- CONTENEDOR -->
 
             <div
                 id="videoPlayerContainer"
                 class="videoPlayerContainer">
-
             </div>
 
 
         </div>
+
 
     </div>
 
@@ -775,7 +782,9 @@
             <div class="loadingSpinner"></div>
 
             <p>
+
                 Cargando película...
+
             </p>
 
         </div>
@@ -792,7 +801,6 @@
     <div
         id="cineverseToast"
         class="cineverseToast">
-
     </div>
 
 
@@ -802,7 +810,7 @@
     ====================================================== -->
 
     <script
-        src="reproductor.js?v=20">
+        src="reproductor.js?v=21">
     </script>
 
 
