@@ -2102,3 +2102,238 @@ button:focus-visible{
     }
 
 }
+/* =========================================================
+            CONTENEDOR REAL DEL REPRODUCTOR
+========================================================= */
+
+#videoPlayerContainer{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:0;
+
+    min-height:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+    overflow:hidden;
+
+}
+
+
+/* =========================================================
+                FUENTES DEL PLAYER
+========================================================= */
+
+#videoPlayerContainer .playerSource{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:0;
+
+    min-height:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                    GOOGLE DRIVE
+========================================================= */
+
+#videoPlayerContainer .driveSource{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:100%;
+
+    min-height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+}
+
+
+/* IFRAME DRIVE */
+
+#videoPlayerContainer .driveSource iframe{
+
+    position:absolute;
+
+    inset:0;
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:100%;
+
+    min-height:100%;
+
+    margin:0;
+
+    padding:0;
+
+    border:0;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                    MP4
+========================================================= */
+
+#videoPlayerContainer video{
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    max-width:100%;
+
+    max-height:100%;
+
+    object-fit:contain;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                    YOUTUBE
+========================================================= */
+
+#videoPlayerContainer iframe:not(#drivePlayer){
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    max-width:100%;
+
+    max-height:100%;
+
+    border:0;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                MOBILE DRIVE
+========================================================= */
+
+@media(max-width:768px){
+
+    #videoPlayerOverlay{
+
+        width:100vw;
+
+        height:100dvh;
+
+    }
+
+
+    #videoPlayerOverlay .videoPlayerWrapper{
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+
+    #videoPlayerContainer{
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+
+    #videoPlayerContainer .driveSource{
+
+        position:absolute;
+
+        inset:0;
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+
+    #videoPlayerContainer .driveSource iframe{
+
+        position:absolute;
+
+        inset:0;
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+}
