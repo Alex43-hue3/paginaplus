@@ -2344,3 +2344,159 @@ button:focus-visible{
     }
 
 }
+/* =========================================================
+        CINEVERSE - NAVEGACIÓN MÓVIL FINAL
+========================================================= */
+
+@media screen and (max-width: 600px) {
+
+    /* Barra superior */
+    .movieTopBar {
+        position: relative;
+        width: 100%;
+        height: 46px;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        margin-bottom: 10px;
+    }
+
+
+    /* Ocultar menú central */
+    .movieTopBar .movieCenterMenu {
+        display: none !important;
+    }
+
+
+    /* Ocultar TODOS los botones de acciones */
+    .movieTopBar .movieTopActions {
+        display: none !important;
+    }
+
+
+    /* Mostrar únicamente regresar */
+    .movieTopBar #btnBack {
+        display: flex !important;
+
+        width: 42px;
+        min-width: 42px;
+        height: 42px;
+
+        padding: 0;
+        margin: 0;
+
+        border-radius: 50%;
+    }
+
+
+    .movieTopBar #btnBack span {
+        display: none !important;
+    }
+
+
+    /* =====================================================
+                    BARRA INFERIOR
+    ===================================================== */
+
+    .mobileActionBar {
+        display: grid !important;
+
+        position: fixed;
+
+        left: 10px;
+        right: 10px;
+
+        bottom:
+            calc(
+                10px +
+                env(safe-area-inset-bottom)
+            );
+
+        z-index: 5000;
+
+        height: 66px;
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+        gap: 4px;
+
+        padding: 7px;
+
+        border:
+            1px solid
+            rgba(255,255,255,.12);
+
+        border-radius: 18px;
+
+        background:
+            rgba(13,13,22,.94);
+
+        backdrop-filter:
+            blur(20px);
+
+        -webkit-backdrop-filter:
+            blur(20px);
+
+        box-shadow:
+            0 20px 50px
+            rgba(0,0,0,.55);
+    }
+
+
+    /* Botones inferiores */
+
+    .mobileActionBar .mobileActionButton {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 3px;
+
+        width: 100%;
+        height: 100%;
+
+        padding: 0;
+
+        border: none;
+
+        background: transparent;
+
+        color: #aaaaba;
+
+        font-family: inherit;
+
+        font-size: 9px;
+
+        cursor: pointer;
+    }
+
+
+    .mobileActionBar
+    .mobileActionButton i {
+
+        font-size: 15px;
+    }
+
+
+    .mobileActionBar
+    .mobileActionButton.active {
+
+        color: #ffffff;
+    }
+
+
+    .mobileActionBar
+    .mobileActionButton.active i {
+
+        color: #8b5cf6;
+    }
+
+}
