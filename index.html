@@ -290,6 +290,10 @@ class="heroIndicadores">
                     EXPLORA UNIVERSOS
 ======================================================= -->
 
+<!-- ======================================================
+                EXPLORA UNIVERSOS
+======================================================= -->
+
 <section class="universos">
 
     <div class="sectionHeader">
@@ -297,20 +301,18 @@ class="heroIndicadores">
         <div>
 
             <span class="sectionMini">
-
                 Descubre
-
             </span>
 
             <h2>
-
                 Explora Universos
-
             </h2>
 
         </div>
 
-        <button class="verTodo">
+        <button
+            class="verTodo"
+            type="button">
 
             Ver todo
 
@@ -319,103 +321,229 @@ class="heroIndicadores">
     </div>
 
 
-    <div class="universosGrid">
+    <div class="universosCarrusel">
 
-        <div class="universoCard accion">
 
-            <div class="universoOverlay"></div>
+        <!-- FLECHA IZQUIERDA -->
 
-            <div class="universoInfo">
+        <button
+            id="universosAnterior"
+            class="universosFlecha universosFlechaIzquierda"
+            type="button"
+            aria-label="Categoría anterior">
 
-                <h3>
+            <i class="fa-solid fa-chevron-left"></i>
 
-                    Acción
+        </button>
 
-                </h3>
 
-                <p>
 
-                    Explosiones, persecuciones y adrenalina.
+        <!-- CATEGORÍAS -->
 
-                </p>
+        <div
+            id="universosLista"
+            class="universosLista">
 
-            </div>
+
+            <!-- ACCIÓN -->
+
+            <article
+                class="universoCard accion"
+                data-genero="Acción">
+
+                <div class="universoGlow"></div>
+
+                <div class="universoIcon">
+
+                    <i class="fa-solid fa-bolt"></i>
+
+                </div>
+
+                <div class="universoOverlay"></div>
+
+                <div class="universoInfo">
+
+                    <span class="universoNumero">
+                        01
+                    </span>
+
+                    <h3>
+                        Acción
+                    </h3>
+
+                    <p>
+                        Explosiones, persecuciones
+                        y adrenalina.
+                    </p>
+
+                    <span class="universoExplorar">
+
+                        Explorar
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- CIENCIA FICCIÓN -->
+
+            <article
+                class="universoCard ciencia"
+                data-genero="Ciencia ficción">
+
+                <div class="universoGlow"></div>
+
+                <div class="universoIcon">
+
+                    <i class="fa-solid fa-rocket"></i>
+
+                </div>
+
+                <div class="universoOverlay"></div>
+
+                <div class="universoInfo">
+
+                    <span class="universoNumero">
+                        02
+                    </span>
+
+                    <h3>
+                        Ciencia ficción
+                    </h3>
+
+                    <p>
+                        Viajes espaciales y
+                        mundos futuristas.
+                    </p>
+
+                    <span class="universoExplorar">
+
+                        Explorar
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- FANTASÍA -->
+
+            <article
+                class="universoCard fantasia"
+                data-genero="Fantasía">
+
+                <div class="universoGlow"></div>
+
+                <div class="universoIcon">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                </div>
+
+                <div class="universoOverlay"></div>
+
+                <div class="universoInfo">
+
+                    <span class="universoNumero">
+                        03
+                    </span>
+
+                    <h3>
+                        Fantasía
+                    </h3>
+
+                    <p>
+                        Dragones, magia y
+                        aventuras épicas.
+                    </p>
+
+                    <span class="universoExplorar">
+
+                        Explorar
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- TERROR -->
+
+            <article
+                class="universoCard terror"
+                data-genero="Terror">
+
+                <div class="universoGlow"></div>
+
+                <div class="universoIcon">
+
+                    <i class="fa-solid fa-ghost"></i>
+
+                </div>
+
+                <div class="universoOverlay"></div>
+
+                <div class="universoInfo">
+
+                    <span class="universoNumero">
+                        04
+                    </span>
+
+                    <h3>
+                        Terror
+                    </h3>
+
+                    <p>
+                        Suspenso y miedo hasta
+                        el último minuto.
+                    </p>
+
+                    <span class="universoExplorar">
+
+                        Explorar
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </span>
+
+                </div>
+
+            </article>
+
 
         </div>
 
 
-        <div class="universoCard ciencia">
 
-            <div class="universoOverlay"></div>
+        <!-- FLECHA DERECHA -->
 
-            <div class="universoInfo">
+        <button
+            id="universosSiguiente"
+            class="universosFlecha universosFlechaDerecha"
+            type="button"
+            aria-label="Siguiente categoría">
 
-                <h3>
+            <i class="fa-solid fa-chevron-right"></i>
 
-                    Ciencia ficción
+        </button>
 
-                </h3>
-
-                <p>
-
-                    Viajes espaciales y mundos futuristas.
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="universoCard fantasia">
-
-            <div class="universoOverlay"></div>
-
-            <div class="universoInfo">
-
-                <h3>
-
-                    Fantasía
-
-                </h3>
-
-                <p>
-
-                    Dragones, magia y aventuras épicas.
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="universoCard terror">
-
-            <div class="universoOverlay"></div>
-
-            <div class="universoInfo">
-
-                <h3>
-
-                    Terror
-
-                </h3>
-
-                <p>
-
-                    Suspenso y miedo hasta el último minuto.
-
-                </p>
-
-            </div>
-
-        </div>
 
     </div>
 
 </section>
-
 <!-- ======================================================
                     CONTINUAR VIENDO
 ======================================================= -->
