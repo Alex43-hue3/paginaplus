@@ -928,13 +928,11 @@ function crearYoutube(url){
 
 function crearDrive(url){
 
-    const id =
-        obtenerDriveID(url);
+    const id = obtenerDriveID(url);
 
     if(!id){
 
         return `
-
             <div class="videoLoading">
 
                 <i class="fa-solid fa-circle-exclamation"></i>
@@ -948,32 +946,25 @@ function crearDrive(url){
                 </p>
 
             </div>
-
         `;
 
     }
+
+    console.log(
+        "🎬 Drive ID:",
+        id
+    );
 
     return `
 
         <div class="playerSource driveSource">
 
             <iframe
-
                 id="drivePlayer"
-
-                src="https://drive.google.com/file/${id}/preview"
-
-                title="${escapeHTML(
-                    peliculaActual.titulo
-                )}"
-
-                allow="
-                    autoplay;
-                    fullscreen
-                "
-
-                allowfullscreen>
-
+                src="https://drive.google.com/file/d/${id}/preview"
+                allow="autoplay; fullscreen"
+                allowfullscreen
+                frameborder="0">
             </iframe>
 
         </div>
