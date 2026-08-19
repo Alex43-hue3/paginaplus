@@ -1,1 +1,1292 @@
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="theme-color"
+        content="#07070d">
+
+    <title>CINEVERSE - Categoría</title>
+
+
+    <!-- =====================================================
+                            FUENTES
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+                        FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+                        CSS CATEGORÍAS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="categorias.css?v=1">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+                            FONDO
+    ====================================================== -->
+
+    <div class="categoryBackground"></div>
+
+    <div class="categoryGlow glowOne"></div>
+
+    <div class="categoryGlow glowTwo"></div>
+
+
+    <!-- =====================================================
+                            HEADER
+    ====================================================== -->
+
+    <header class="categoryHeader">
+
+        <div class="categoryLogo">
+
+            <span class="logoYellow">
+                CINE
+            </span>
+
+            <span class="logoPurple">
+                VERSE
+            </span>
+
+        </div>
+
+
+        <nav class="categoryNav">
+
+            <a href="index.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                Inicio
+
+            </a>
+
+
+            <a href="peliculas.html">
+
+                <i class="fa-solid fa-film"></i>
+
+                Películas
+
+            </a>
+
+
+            <a href="series.html">
+
+                <i class="fa-solid fa-tv"></i>
+
+                Series
+
+            </a>
+
+
+            <a href="mi-lista.html">
+
+                <i class="fa-solid fa-heart"></i>
+
+                Mi Lista
+
+            </a>
+
+        </nav>
+
+
+        <a
+            href="index.html"
+            class="backHome">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+                        CONTENIDO
+    ====================================================== -->
+
+    <main class="categoryPage">
+
+
+        <!-- =================================================
+                        ENCABEZADO CATEGORÍA
+        ================================================== -->
+
+        <section class="categoryHero">
+
+            <div class="categoryHeroIcon">
+
+                <i
+                    id="categoryIcon"
+                    class="fa-solid fa-film">
+                </i>
+
+            </div>
+
+
+            <div class="categoryHeroText">
+
+                <span class="categoryMini">
+                    DESCUBRE
+                </span>
+
+                <h1 id="categoryTitle">
+                    Categoría
+                </h1>
+
+                <p id="categoryDescription">
+                    Descubre películas de esta categoría.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+                        MÁS VISTAS
+        ================================================== -->
+
+        <section class="categorySection">
+
+            <div class="categorySectionHeader">
+
+                <div>
+
+                    <span class="sectionMini">
+                        LO MÁS VISTO
+                    </span>
+
+                    <h2>
+                        Más vistas de
+                        <span id="popularCategoryName">
+                            esta categoría
+                        </span>
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="categoryCarousel">
+
+                <button
+                    id="popularPrev"
+                    class="categoryArrow categoryArrowLeft"
+                    type="button"
+                    aria-label="Películas anteriores">
+
+                    <i class="fa-solid fa-chevron-left"></i>
+
+                </button>
+
+
+                <div
+                    id="popularMovies"
+                    class="categoryMovieSlider">
+
+                </div>
+
+
+                <button
+                    id="popularNext"
+                    class="categoryArrow categoryArrowRight"
+                    type="button"
+                    aria-label="Películas siguientes">
+
+                    <i class="fa-solid fa-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+                        TODAS LAS PELÍCULAS
+        ================================================== -->
+
+        <section class="categorySection allMoviesSection">
+
+            <div class="categorySectionHeader">
+
+                <div>
+
+                    <span class="sectionMini">
+                        CATÁLOGO
+                    </span>
+
+                    <h2>
+                        Todas las películas
+                    </h2>
+
+                </div>
+
+
+                <span
+                    id="movieCounter"
+                    class="movieCounter">
+                    0 películas
+                </span>
+
+            </div>
+
+
+            <div
+                id="allMovies"
+                class="allMoviesGrid">
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+                        MENSAJE VACÍO
+    ====================================================== -->
+
+    <div
+        id="emptyCategory"
+        class="emptyCategory">
+
+        <div class="emptyIcon">
+
+            <i class="fa-solid fa-film"></i>
+
+        </div>
+
+        <h2>
+            Aún no hay películas
+        </h2>
+
+        <p id="emptyMessage">
+            Todavía no hay películas disponibles
+            para esta categoría.
+        </p>
+
+        <a
+            href="index.html"
+            class="emptyButton">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Volver al inicio
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+                            FOOTER
+    ====================================================== -->
+
+    <footer class="categoryFooter">
+
+        <div class="footerLogo">
+
+            <span class="logoYellow">
+                CINE
+            </span>
+
+            <span class="logoPurple">
+                VERSE
+            </span>
+
+        </div>
+
+        <p>
+            Una experiencia cinematográfica moderna.
+        </p>
+
+        <span>
+            © 2026 CINEVERSE
+        </span>
+
+    </footer>
+
+
+    <!-- =====================================================
+                        TEMPLATE PELÍCULA
+    ====================================================== -->
+
+    <template id="categoryMovieTemplate">
+
+        <article class="categoryMovieCard">
+
+            <div class="categoryPoster">
+
+                <img
+                    class="categoryPosterImage"
+                    src=""
+                    alt="">
+
+                <div class="categoryMovieOverlay">
+
+                    <button
+                        class="categoryPlay"
+                        type="button"
+                        aria-label="Ver película">
+
+                        <i class="fa-solid fa-play"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="categoryMovieInfo">
+
+                <h3 class="categoryMovieTitle">
+                    Película
+                </h3>
+
+
+                <div class="categoryMovieMeta">
+
+                    <span class="categoryMovieYear">
+                        2026
+                    </span>
+
+                    <span class="categoryMovieRating">
+                        ⭐ 0.0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </template>
+
+
+    <!-- =====================================================
+                        JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+    "use strict";
+
+
+    /* =====================================================
+                    VARIABLES
+    ====================================================== */
+
+    let peliculas = [];
+
+    let generoActual = "";
+
+
+    /* =====================================================
+                    CATEGORÍAS
+    ====================================================== */
+
+    const CATEGORIAS = {
+
+        accion: {
+
+            nombre: "Acción",
+
+            descripcion:
+                "Explosiones, persecuciones y adrenalina.",
+
+            icono:
+                "fa-solid fa-bolt"
+
+        },
+
+
+        "ciencia ficcion": {
+
+            nombre: "Ciencia ficción",
+
+            descripcion:
+                "Viajes espaciales, tecnología y mundos futuristas.",
+
+            icono:
+                "fa-solid fa-rocket"
+
+        },
+
+
+        fantasia: {
+
+            nombre: "Fantasía",
+
+            descripcion:
+                "Dragones, magia y aventuras épicas.",
+
+            icono:
+                "fa-solid fa-wand-magic-sparkles"
+
+        },
+
+
+        terror: {
+
+            nombre: "Terror",
+
+            descripcion:
+                "Suspenso, miedo y misterios hasta el último minuto.",
+
+            icono:
+                "fa-solid fa-ghost"
+
+        },
+
+
+        animacion: {
+
+            nombre: "Animación",
+
+            descripcion:
+                "Historias para disfrutar a cualquier edad.",
+
+            icono:
+                "fa-solid fa-clapperboard"
+
+        },
+
+
+        anime: {
+
+            nombre: "Anime",
+
+            descripcion:
+                "Aventuras, mundos y personajes inolvidables.",
+
+            icono:
+                "fa-solid fa-dragon"
+
+        }
+
+    };
+
+
+    /* =====================================================
+                    DOM
+    ===================================================== */
+
+    const categoryTitle =
+        document.getElementById(
+            "categoryTitle"
+        );
+
+
+    const categoryDescription =
+        document.getElementById(
+            "categoryDescription"
+        );
+
+
+    const categoryIcon =
+        document.getElementById(
+            "categoryIcon"
+        );
+
+
+    const popularCategoryName =
+        document.getElementById(
+            "popularCategoryName"
+        );
+
+
+    const popularMovies =
+        document.getElementById(
+            "popularMovies"
+        );
+
+
+    const allMovies =
+        document.getElementById(
+            "allMovies"
+        );
+
+
+    const movieCounter =
+        document.getElementById(
+            "movieCounter"
+        );
+
+
+    const emptyCategory =
+        document.getElementById(
+            "emptyCategory"
+        );
+
+
+    const emptyMessage =
+        document.getElementById(
+            "emptyMessage"
+        );
+
+
+    /* =====================================================
+                    NORMALIZAR
+    ===================================================== */
+
+    function normalizarTexto(texto) {
+
+        return String(
+            texto || ""
+        )
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+        .trim();
+
+    }
+
+
+    /* =====================================================
+                    OBTENER CATEGORÍA
+    ===================================================== */
+
+    function obtenerGeneroURL() {
+
+        const parametros =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        return normalizarTexto(
+            parametros.get("genero")
+        );
+
+    }
+
+
+    /* =====================================================
+                    COINCIDE GÉNERO
+    ===================================================== */
+
+    function peliculaCoincideGenero(
+        pelicula,
+        genero
+    ) {
+
+        if (!pelicula) {
+
+            return false;
+
+        }
+
+
+        const objetivo =
+            normalizarTexto(
+                genero
+            );
+
+
+        const campos = [];
+
+
+        if (pelicula.genero) {
+
+            campos.push(
+                pelicula.genero
+            );
+
+        }
+
+
+        if (pelicula.subgenero) {
+
+            campos.push(
+                pelicula.subgenero
+            );
+
+        }
+
+
+        if (
+            Array.isArray(
+                pelicula.generos
+            )
+        ) {
+
+            campos.push(
+                ...pelicula.generos
+            );
+
+        }
+
+
+        if (
+            Array.isArray(
+                pelicula.tags
+            )
+        ) {
+
+            campos.push(
+                ...pelicula.tags
+            );
+
+        }
+
+
+        return campos.some(
+            valor =>
+                normalizarTexto(
+                    valor
+                ).includes(
+                    objetivo
+                )
+        );
+
+    }
+
+
+    /* =====================================================
+                    PREPARAR PÁGINA
+    ===================================================== */
+
+    function prepararPagina() {
+
+        generoActual =
+            obtenerGeneroURL();
+
+
+        const categoria =
+            CATEGORIAS[
+                generoActual
+            ];
+
+
+        if (!categoria) {
+
+            mostrarCategoriaNoEncontrada();
+
+            return;
+
+        }
+
+
+        document.title =
+            `CINEVERSE - ${categoria.nombre}`;
+
+
+        categoryTitle.textContent =
+            categoria.nombre;
+
+
+        categoryDescription.textContent =
+            categoria.descripcion;
+
+
+        popularCategoryName.textContent =
+            categoria.nombre;
+
+
+        categoryIcon.className =
+            categoria.icono;
+
+
+        cargarPeliculas();
+
+    }
+
+
+    /* =====================================================
+                    CARGAR PELÍCULAS
+    ===================================================== */
+
+    async function cargarPeliculas() {
+
+        try {
+
+            const respuesta =
+                await fetch(
+                    "peliculas.json?v=" +
+                    Date.now()
+                );
+
+
+            if (!respuesta.ok) {
+
+                throw new Error(
+                    "No se pudo cargar peliculas.json"
+                );
+
+            }
+
+
+            const datos =
+                await respuesta.json();
+
+
+            if (!Array.isArray(datos)) {
+
+                throw new Error(
+                    "peliculas.json no contiene un arreglo"
+                );
+
+            }
+
+
+            peliculas =
+                datos;
+
+
+            const resultados =
+                peliculas.filter(
+                    pelicula =>
+                        peliculaCoincideGenero(
+                            pelicula,
+                            generoActual
+                        )
+                );
+
+
+            mostrarPeliculas(
+                resultados
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Error cargando películas:",
+                error
+            );
+
+
+            mostrarCategoriaVacia(
+                "No se pudieron cargar las películas."
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+                    MOSTRAR PELÍCULAS
+    ===================================================== */
+
+    function mostrarPeliculas(
+        resultados
+    ) {
+
+        if (!resultados.length) {
+
+            mostrarCategoriaVacia(
+                `Todavía no hay películas de ${CATEGORIAS[generoActual].nombre}.`
+            );
+
+            return;
+
+        }
+
+
+        emptyCategory.style.display =
+            "none";
+
+
+        movieCounter.textContent =
+            resultados.length === 1
+                ? "1 película"
+                : `${resultados.length} películas`;
+
+
+        /*
+         * MÁS VISTAS
+         *
+         * Primero intentamos utilizar:
+         *
+         * tendencia: true
+         *
+         * Después usamos las películas
+         * con mejor rating.
+         */
+
+        let populares =
+            resultados.filter(
+                pelicula =>
+                    pelicula.tendencia === true
+            );
+
+
+        if (!populares.length) {
+
+            populares =
+                [...resultados]
+                .sort(
+                    (
+                        a,
+                        b
+                    ) =>
+                        Number(
+                            b.rating || 0
+                        ) -
+                        Number(
+                            a.rating || 0
+                        )
+                )
+                .slice(
+                    0,
+                    10
+                );
+
+        }
+
+
+        /*
+         * TODAS LAS PELÍCULAS
+         */
+
+        renderizarPeliculas(
+            popularMovies,
+            populares
+        );
+
+
+        renderizarPeliculas(
+            allMovies,
+            resultados
+        );
+
+
+        configurarCarrusel();
+
+    }
+
+
+    /* =====================================================
+                    RENDERIZAR
+    ===================================================== */
+
+    function renderizarPeliculas(
+        contenedor,
+        lista
+    ) {
+
+        if (!contenedor) {
+
+            return;
+
+        }
+
+
+        contenedor.innerHTML =
+            "";
+
+
+        lista.forEach(
+            pelicula => {
+
+                const tarjeta =
+                    crearTarjeta(
+                        pelicula
+                    );
+
+
+                if (tarjeta) {
+
+                    contenedor.appendChild(
+                        tarjeta
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+                    CREAR TARJETA
+    ===================================================== */
+
+    function crearTarjeta(
+        pelicula
+    ) {
+
+        const tarjeta =
+            document
+                .getElementById(
+                    "categoryMovieTemplate"
+                )
+                .content
+                .cloneNode(true);
+
+
+        const card =
+            tarjeta.querySelector(
+                ".categoryMovieCard"
+            );
+
+
+        const imagen =
+            tarjeta.querySelector(
+                ".categoryPosterImage"
+            );
+
+
+        const titulo =
+            tarjeta.querySelector(
+                ".categoryMovieTitle"
+            );
+
+
+        const anio =
+            tarjeta.querySelector(
+                ".categoryMovieYear"
+            );
+
+
+        const rating =
+            tarjeta.querySelector(
+                ".categoryMovieRating"
+            );
+
+
+        const play =
+            tarjeta.querySelector(
+                ".categoryPlay"
+            );
+
+
+        const poster =
+            pelicula.poster ||
+            pelicula.banner ||
+            "";
+
+
+        imagen.src =
+            poster;
+
+
+        imagen.alt =
+            pelicula.titulo ||
+            "Película";
+
+
+        imagen.onerror =
+            () => {
+
+                if (
+                    pelicula.banner &&
+                    pelicula.banner !== pelicula.poster
+                ) {
+
+                    imagen.onerror =
+                        null;
+
+                    imagen.src =
+                        pelicula.banner;
+
+                }
+
+            };
+
+
+        titulo.textContent =
+            pelicula.titulo ||
+            "Sin título";
+
+
+        anio.textContent =
+            pelicula.anio ||
+            "";
+
+
+        rating.textContent =
+            `⭐ ${
+                pelicula.rating ||
+                "0.0"
+            }`;
+
+
+        function abrir() {
+
+            if (
+                pelicula.id === undefined ||
+                pelicula.id === null
+            ) {
+
+                return;
+
+            }
+
+
+            window.location.href =
+                `reproductor.html?id=${
+                    encodeURIComponent(
+                        pelicula.id
+                    )
+                }`;
+
+        }
+
+
+        play.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                abrir();
+
+            }
+        );
+
+
+        card.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target.closest(
+                        ".categoryPlay"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                abrir();
+
+            }
+        );
+
+
+        return card;
+
+    }
+
+
+    /* =====================================================
+                    CARRUSEL
+    ===================================================== */
+
+    function configurarCarrusel() {
+
+        const anterior =
+            document.getElementById(
+                "popularPrev"
+            );
+
+
+        const siguiente =
+            document.getElementById(
+                "popularNext"
+            );
+
+
+        if (anterior) {
+
+            anterior.onclick =
+                () => {
+
+                    popularMovies.scrollBy({
+
+                        left:
+                            -500,
+
+                        behavior:
+                            "smooth"
+
+                    });
+
+                };
+
+        }
+
+
+        if (siguiente) {
+
+            siguiente.onclick =
+                () => {
+
+                    popularMovies.scrollBy({
+
+                        left:
+                            500,
+
+                        behavior:
+                            "smooth"
+
+                    });
+
+                };
+
+        }
+
+    }
+
+
+    /* =====================================================
+                    CATEGORÍA VACÍA
+    ===================================================== */
+
+    function mostrarCategoriaVacia(
+        mensaje
+    ) {
+
+        if (popularMovies) {
+
+            popularMovies.innerHTML =
+                "";
+
+        }
+
+
+        if (allMovies) {
+
+            allMovies.innerHTML =
+                "";
+
+        }
+
+
+        if (movieCounter) {
+
+            movieCounter.textContent =
+                "0 películas";
+
+        }
+
+
+        if (emptyMessage) {
+
+            emptyMessage.textContent =
+                mensaje;
+
+        }
+
+
+        if (emptyCategory) {
+
+            emptyCategory.style.display =
+                "flex";
+
+        }
+
+    }
+
+
+    /* =====================================================
+                CATEGORÍA NO ENCONTRADA
+    ===================================================== */
+
+    function mostrarCategoriaNoEncontrada() {
+
+        document.title =
+            "CINEVERSE - Categoría";
+
+
+        if (categoryTitle) {
+
+            categoryTitle.textContent =
+                "Categoría no encontrada";
+
+        }
+
+
+        if (categoryDescription) {
+
+            categoryDescription.textContent =
+                "La categoría que buscas no existe.";
+
+        }
+
+
+        if (categoryIcon) {
+
+            categoryIcon.className =
+                "fa-solid fa-film";
+
+        }
+
+
+        mostrarCategoriaVacia(
+            "Regresa al inicio y selecciona una categoría disponible."
+        );
+
+    }
+
+
+    /* =====================================================
+                    INICIAR
+    ===================================================== */
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            prepararPagina
+        );
+
+    } else {
+
+        prepararPagina();
+
+    }
+
+    </script>
+
+</body>
+
+</html>
