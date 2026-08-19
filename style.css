@@ -1,6 +1,12 @@
 /* =========================================================
                     CINEVERSE
                     STYLE CSS
+        VERSION CORREGIDA — CATEGORÍAS + CARRUSELES
+========================================================= */
+
+
+/* =========================================================
+                    VARIABLES
 ========================================================= */
 
 :root{
@@ -9,10 +15,13 @@
     --bg2:#0d0d16;
 
     --card:#11111b;
+    --card2:#151522;
 
     --yellow:#facc15;
+
     --purple:#8b5cf6;
     --purple2:#7c3aed;
+
     --blue:#2563eb;
 
     --text:#ffffff;
@@ -20,6 +29,8 @@
     --muted:#858596;
 
     --border:rgba(255,255,255,.10);
+
+    --radius:17px;
 
 }
 
@@ -39,6 +50,8 @@ html{
 body{
 
     margin:0;
+
+    min-height:100vh;
 
     background:
 
@@ -75,6 +88,10 @@ button{
     cursor:pointer;
 }
 
+img{
+    max-width:100%;
+}
+
 
 /* =========================================================
                     FONDO
@@ -94,7 +111,13 @@ button{
 
         radial-gradient(
             circle at 50% 20%,
-            rgba(124,58,237,.07),
+            rgba(124,58,237,.08),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 10% 80%,
+            rgba(37,99,235,.05),
             transparent 30%
         );
 
@@ -126,21 +149,18 @@ button{
     gap:25px;
 
     padding:
-
         0
-
         clamp(20px,4vw,60px);
 
     background:
 
         linear-gradient(
             180deg,
-            rgba(7,7,13,.96),
+            rgba(7,7,13,.97),
             rgba(7,7,13,.82)
         );
 
     border-bottom:
-
         1px solid
         rgba(255,255,255,.06);
 
@@ -176,7 +196,7 @@ button{
 
 
 /* =========================================================
-                    MENÚ
+                    MENU
 ========================================================= */
 
 .menu{
@@ -198,13 +218,10 @@ button{
     position:relative;
 
     padding:
-
         9px
-
         13px;
 
     color:
-
         rgba(255,255,255,.68);
 
     text-decoration:none;
@@ -241,7 +258,6 @@ button{
     position:absolute;
 
     left:20%;
-
     right:20%;
 
     bottom:2px;
@@ -262,7 +278,7 @@ button{
 
 
 /* =========================================================
-                    HEADER DERECHA
+                HEADER DERECHA
 ========================================================= */
 
 .headerRight{
@@ -299,20 +315,16 @@ button{
     gap:9px;
 
     padding:
-
         0
-
         13px;
 
     border:
-
         1px solid
         var(--border);
 
     border-radius:12px;
 
     background:
-
         rgba(255,255,255,.045);
 
 }
@@ -362,23 +374,25 @@ button{
     border-radius:50%;
 
     border:
-
         1px solid
         rgba(255,255,255,.12);
 
     background:
-
         rgba(255,255,255,.06);
 
     color:#fff;
+
+    transition:.25s ease;
 
 }
 
 .perfil:hover{
 
     background:
-
         rgba(124,58,237,.25);
+
+    border-color:
+        rgba(139,92,246,.45);
 
 }
 
@@ -405,7 +419,6 @@ button{
 
 }
 
-
 .heroBackground{
 
     position:absolute;
@@ -419,7 +432,6 @@ button{
     background-repeat:no-repeat;
 
 }
-
 
 .heroGradient{
 
@@ -445,7 +457,6 @@ button{
 
 }
 
-
 .heroContenido{
 
     position:relative;
@@ -461,9 +472,7 @@ button{
     padding:
 
         100px
-
         clamp(25px,5vw,70px)
-
         100px;
 
     display:flex;
@@ -472,18 +481,15 @@ button{
 
 }
 
-
 .heroTexto{
 
     width:
-
         min(
             650px,
             100%
         );
 
 }
-
 
 .destacado{
 
@@ -492,9 +498,7 @@ button{
     align-items:center;
 
     padding:
-
         6px
-
         12px;
 
     margin-bottom:15px;
@@ -502,11 +506,9 @@ button{
     border-radius:20px;
 
     background:
-
         rgba(124,58,237,.20);
 
     border:
-
         1px solid
         rgba(139,92,246,.35);
 
@@ -520,10 +522,10 @@ button{
 
 }
 
-
 .heroTexto h1{
 
-    margin:0 0 15px;
+    margin:
+        0 0 15px;
 
     font-size:
 
@@ -541,7 +543,6 @@ button{
 
 }
 
-
 .heroInfo{
 
     display:flex;
@@ -558,21 +559,16 @@ button{
 
 }
 
-
 .heroDescripcion{
 
     max-width:620px;
 
     margin:
-
         0
-
         0
-
         27px;
 
     color:
-
         rgba(255,255,255,.72);
 
     font-size:14px;
@@ -596,7 +592,6 @@ button{
 
 }
 
-
 .btnPrincipal,
 .btnSecundario,
 .btnGlass{
@@ -604,9 +599,7 @@ button{
     min-height:45px;
 
     padding:
-
         0
-
         20px;
 
     border-radius:11px;
@@ -628,7 +621,6 @@ button{
     transition:.25s ease;
 
 }
-
 
 .btnPrincipal{
 
@@ -660,34 +652,28 @@ button{
 
 }
 
-
 .btnSecundario{
 
     color:#fff;
 
     background:
-
         rgba(255,255,255,.10);
 
     border-color:
-
         rgba(255,255,255,.12);
 
     backdrop-filter:blur(10px);
 
 }
 
-
 .btnGlass{
 
     color:#dddde5;
 
     background:
-
         rgba(0,0,0,.25);
 
     border-color:
-
         rgba(255,255,255,.10);
 
 }
@@ -720,19 +706,18 @@ button{
     border-radius:50%;
 
     border:
-
         1px solid
         rgba(255,255,255,.12);
 
     background:
-
         rgba(10,10,18,.65);
 
     color:#fff;
 
     backdrop-filter:blur(12px);
 
-    transform:translateY(-50%);
+    transform:
+        translateY(-50%);
 
     transition:.25s ease;
 
@@ -776,7 +761,8 @@ button{
 
     gap:6px;
 
-    transform:translateX(-50%);
+    transform:
+        translateX(-50%);
 
 }
 
@@ -811,7 +797,6 @@ button{
 
 }
 
-
 .scrollDown{
 
     position:absolute;
@@ -822,7 +807,8 @@ button{
 
     color:#aaaaba;
 
-    transform:translateX(50%);
+    transform:
+        translateX(50%);
 
     opacity:.5;
 
@@ -845,15 +831,14 @@ button{
         );
 
     margin-left:auto;
+
     margin-right:auto;
 
 }
 
-
-/* IMPORTANTE:
-   Espaciado más compacto */
-
 .universos{
+
+    position:relative;
 
     margin-top:28px;
 
@@ -872,6 +857,30 @@ button{
 }
 
 
+/* =========================================================
+                OCULTAR CONTINUAR VIENDO
+========================================================= */
+
+/*
+   Por ahora CINEVERSE no muestra porcentaje
+   ni progreso de reproducción.
+
+   Se mantiene el HTML por compatibilidad,
+   pero la sección no aparece visualmente.
+*/
+
+#continuarSection,
+.continuar{
+
+    display:none !important;
+
+}
+
+
+/* =========================================================
+                ENCABEZADOS
+========================================================= */
+
 .sectionHeader{
 
     display:flex;
@@ -886,7 +895,6 @@ button{
 
 }
 
-
 .sectionHeading{
 
     display:flex;
@@ -897,13 +905,13 @@ button{
 
 }
 
-
 .sectionMini{
+
+    display:block;
 
     margin-bottom:2px;
 
     color:
-
         var(--purple);
 
     font-size:10px;
@@ -915,7 +923,6 @@ button{
     letter-spacing:1.5px;
 
 }
-
 
 .sectionHeader h2{
 
@@ -930,7 +937,6 @@ button{
     letter-spacing:-.5px;
 
 }
-
 
 .verTodo{
 
@@ -950,6 +956,8 @@ button{
 
     font-weight:600;
 
+    transition:.25s ease;
+
 }
 
 .verTodo:hover{
@@ -960,18 +968,21 @@ button{
 
 .verTodo i{
 
-    color:var(--purple);
+    color:
+        var(--purple);
 
 }
 
 
 /* =========================================================
-                UNIVERSOS
+                CARRUSEL UNIVERSOS
 ========================================================= */
 
 .universosCarousel{
 
     position:relative;
+
+    width:100%;
 
     display:flex;
 
@@ -980,7 +991,15 @@ button{
 }
 
 
+/*
+   También funciona si el HTML tiene
+   directamente .universosGrid dentro
+   de .universos.
+*/
+
 .universosGrid{
+
+    position:relative;
 
     width:100%;
 
@@ -989,7 +1008,7 @@ button{
     grid-template-columns:
 
         repeat(
-            7,
+            6,
             minmax(0,1fr)
         );
 
@@ -997,6 +1016,10 @@ button{
 
 }
 
+
+/* =========================================================
+                    TARJETA UNIVERSO
+========================================================= */
 
 .universoCard{
 
@@ -1009,7 +1032,6 @@ button{
     border-radius:17px;
 
     border:
-
         1px solid
         rgba(255,255,255,.09);
 
@@ -1024,11 +1046,17 @@ button{
     transition:
 
         transform .3s ease,
+
         border-color .3s ease,
+
         box-shadow .3s ease;
 
 }
 
+
+/* =========================================================
+                FONDO DE CATEGORÍA
+========================================================= */
 
 .universoCard::before{
 
@@ -1042,20 +1070,22 @@ button{
 
     background-size:cover;
 
-    opacity:.70;
+    opacity:.72;
 
     transition:
-        transform .5s ease;
+
+        transform .5s ease,
+
+        opacity .3s ease;
 
 }
 
-
 .universoCard:hover{
 
-    transform:translateY(-5px);
+    transform:
+        translateY(-5px);
 
     border-color:
-
         rgba(139,92,246,.45);
 
     box-shadow:
@@ -1067,12 +1097,17 @@ button{
 
 .universoCard:hover::before{
 
-    transform:scale(1.08);
+    transform:
+        scale(1.08);
+
+    opacity:.9;
 
 }
 
 
-/* FONDOS */
+/* =========================================================
+                    COLORES
+========================================================= */
 
 .universoCard.accion::before{
 
@@ -1122,6 +1157,30 @@ button{
 
 }
 
+.universoCard.animacion::before{
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #092f2a,
+            #0d9488
+        );
+
+}
+
+.universoCard.anime::before{
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #32194e,
+            #db2777
+        );
+
+}
+
 .universoCard.comedia::before{
 
     background:
@@ -1146,18 +1205,10 @@ button{
 
 }
 
-.universoCard.anime::before{
 
-    background:
-
-        linear-gradient(
-            135deg,
-            #32194e,
-            #db2777
-        );
-
-}
-
+/* =========================================================
+                    OVERLAY
+========================================================= */
 
 .universoOverlay{
 
@@ -1171,12 +1222,16 @@ button{
 
         linear-gradient(
             180deg,
-            rgba(0,0,0,.05),
-            rgba(0,0,0,.86)
+            rgba(0,0,0,.03),
+            rgba(0,0,0,.88)
         );
 
 }
 
+
+/* =========================================================
+                    ICONO
+========================================================= */
 
 .universoIcon{
 
@@ -1188,9 +1243,9 @@ button{
 
     z-index:3;
 
-    width:35px;
+    width:38px;
 
-    height:35px;
+    height:38px;
 
     display:flex;
 
@@ -1202,19 +1257,35 @@ button{
 
     background:
 
-        rgba(0,0,0,.35);
+        rgba(0,0,0,.38);
 
     border:
 
         1px solid
-        rgba(255,255,255,.13);
+        rgba(255,255,255,.15);
 
-    backdrop-filter:blur(8px);
+    backdrop-filter:
+        blur(10px);
 
     color:#fff;
 
+    box-shadow:
+
+        0 8px 20px
+        rgba(0,0,0,.20);
+
 }
 
+.universoIcon i{
+
+    font-size:15px;
+
+}
+
+
+/* =========================================================
+                    INFO UNIVERSO
+========================================================= */
 
 .universoInfo{
 
@@ -1222,15 +1293,15 @@ button{
 
     z-index:3;
 
+    width:100%;
+
     padding:15px;
 
 }
 
-
 .universoInfo span{
 
     color:
-
         rgba(255,255,255,.55);
 
     font-size:8px;
@@ -1241,28 +1312,26 @@ button{
 
 }
 
-
 .universoInfo h3{
 
     margin:
-
         3px
-
         0
-
         5px;
 
     font-size:17px;
 
-}
+    font-weight:700;
 
+}
 
 .universoInfo p{
 
     margin:0;
 
-    color:
+    max-width:220px;
 
+    color:
         rgba(255,255,255,.68);
 
     font-size:9px;
@@ -1272,15 +1341,104 @@ button{
 }
 
 
+/* =========================================================
+                    FLECHAS UNIVERSOS
+========================================================= */
+
 .universosArrow{
 
-    display:none;
+    position:absolute;
+
+    top:50%;
+
+    z-index:20;
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    background:
+
+        rgba(8,8,15,.88);
+
+    color:#fff;
+
+    backdrop-filter:
+        blur(12px);
+
+    box-shadow:
+
+        0 10px 25px
+        rgba(0,0,0,.35);
+
+    transform:
+        translateY(-50%);
+
+    transition:.25s ease;
+
+}
+
+.universosArrow:hover{
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(124,58,237,.85),
+            rgba(37,99,235,.75)
+        );
+
+    border-color:
+        rgba(255,255,255,.25);
+
+    transform:
+        translateY(-50%)
+        scale(1.06);
+
+}
+
+.universosPrev{
+
+    left:-21px;
+
+}
+
+.universosNext{
+
+    right:-21px;
 
 }
 
 
+/*
+   Si las flechas están dentro de
+   .universosCarousel, también quedan
+   perfectamente centradas.
+*/
+
+.universosCarousel .universosPrev{
+    left:-20px;
+}
+
+.universosCarousel .universosNext{
+    right:-20px;
+}
+
+
 /* =========================================================
-                CONTINUAR VIENDO
+                CONTINUAR — COMPATIBILIDAD
 ========================================================= */
 
 .continuarCarrusel{
@@ -1293,7 +1451,6 @@ button{
 
 }
 
-
 .continuarLista{
 
     width:100%;
@@ -1304,17 +1461,7 @@ button{
 
     overflow-x:auto;
 
-    scroll-behavior:smooth;
-
     scrollbar-width:none;
-
-    padding:
-
-        4px
-
-        2px
-
-        10px;
 
 }
 
@@ -1324,9 +1471,7 @@ button{
 
 }
 
-
-.continuarFlecha,
-.sliderArrow{
+.continuarFlecha{
 
     flex-shrink:0;
 
@@ -1337,52 +1482,19 @@ button{
     border-radius:50%;
 
     border:
-
         1px solid
         rgba(255,255,255,.10);
 
     background:
-
         rgba(15,15,25,.88);
 
     color:#fff;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    z-index:5;
-
-    transition:.25s ease;
-
-}
-
-
-.continuarFlecha:hover,
-.sliderArrow:hover{
-
-    background:
-
-        rgba(124,58,237,.35);
-
-    border-color:
-
-        rgba(139,92,246,.40);
-
-}
-
-
-.continuarFlecha{
-
-    margin:0 8px;
 
 }
 
 
 /* =========================================================
-                    PELÍCULAS
+                    CARRUSELES
 ========================================================= */
 
 .sliderWrapper{
@@ -1393,8 +1505,9 @@ button{
 
     align-items:center;
 
-}
+    width:100%;
 
+}
 
 .movieSlider{
 
@@ -1413,9 +1526,7 @@ button{
     padding:
 
         5px
-
-        2px
-
+        3px
         15px;
 
 }
@@ -1427,19 +1538,77 @@ button{
 }
 
 
+/* =========================================================
+                    FLECHAS PELÍCULAS
+========================================================= */
+
 .sliderArrow{
 
-    margin:0 8px;
+    flex-shrink:0;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    background:
+        rgba(15,15,25,.88);
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:10;
+
+    transition:.25s ease;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.25);
+
+}
+
+.sliderArrow:hover{
+
+    background:
+        rgba(124,58,237,.35);
+
+    border-color:
+        rgba(139,92,246,.40);
+
+    transform:scale(1.05);
+
+}
+
+.sliderWrapper .sliderArrow.left{
+
+    margin-right:8px;
+
+}
+
+.sliderWrapper .sliderArrow.right{
+
+    margin-left:8px;
 
 }
 
 
-/* TARJETA */
+/* =========================================================
+                    TARJETA PELÍCULA
+========================================================= */
 
 .movieCard{
 
     flex:
-
         0 0 190px;
 
     overflow:hidden;
@@ -1447,32 +1616,41 @@ button{
     border-radius:14px;
 
     background:
-
         #11111b;
 
     border:
-
         1px solid
         rgba(255,255,255,.07);
 
     transition:
 
         transform .3s ease,
-        border-color .3s ease;
+
+        border-color .3s ease,
+
+        box-shadow .3s ease;
 
 }
-
 
 .movieCard:hover{
 
-    transform:translateY(-6px);
+    transform:
+        translateY(-6px);
 
     border-color:
-
         rgba(139,92,246,.40);
+
+    box-shadow:
+
+        0 18px 35px
+        rgba(0,0,0,.30);
 
 }
 
+
+/* =========================================================
+                    POSTER
+========================================================= */
 
 .moviePoster{
 
@@ -1481,13 +1659,11 @@ button{
     overflow:hidden;
 
     aspect-ratio:
-
         2 / 3;
 
     background:#171722;
 
 }
-
 
 .moviePoster img{
 
@@ -1499,8 +1675,22 @@ button{
 
     object-fit:cover;
 
+    transition:
+        transform .4s ease;
+
 }
 
+.movieCard:hover
+.moviePoster img{
+
+    transform:scale(1.04);
+
+}
+
+
+/* =========================================================
+                    OVERLAY PELÍCULA
+========================================================= */
 
 .movieOverlay{
 
@@ -1515,8 +1705,7 @@ button{
     justify-content:center;
 
     background:
-
-        rgba(0,0,0,.45);
+        rgba(0,0,0,.48);
 
     opacity:0;
 
@@ -1524,13 +1713,12 @@ button{
 
 }
 
-
-.movieCard:hover .movieOverlay{
+.movieCard:hover
+.movieOverlay{
 
     opacity:1;
 
 }
-
 
 .playMovie{
 
@@ -1552,15 +1740,23 @@ button{
             var(--blue)
         );
 
+    box-shadow:
+
+        0 12px 30px
+        rgba(124,58,237,.40);
+
 }
 
+
+/* =========================================================
+                    INFO PELÍCULA
+========================================================= */
 
 .movieInfo{
 
     padding:11px;
 
 }
-
 
 .movieInfo .movieTitle{
 
@@ -1575,7 +1771,6 @@ button{
     text-overflow:ellipsis;
 
 }
-
 
 .movieMeta{
 
@@ -1593,10 +1788,10 @@ button{
 
 }
 
-
 .movieRating{
 
-    color:#facc15;
+    color:
+        var(--yellow);
 
 }
 
@@ -1612,11 +1807,8 @@ button{
     min-height:330px;
 
     margin:
-
         55px
-
         0
-
         0;
 
     display:flex;
@@ -1639,7 +1831,6 @@ button{
 
 }
 
-
 .comingOverlay{
 
     position:absolute;
@@ -1656,7 +1847,6 @@ button{
 
 }
 
-
 .comingContent{
 
     position:relative;
@@ -1665,10 +1855,11 @@ button{
 
     max-width:650px;
 
-    padding:40px 20px;
+    padding:
+        40px
+        20px;
 
 }
-
 
 .comingContent span{
 
@@ -1682,13 +1873,10 @@ button{
 
 }
 
-
 .comingContent h2{
 
     margin:
-
         10px
-
         0;
 
     font-size:
@@ -1701,15 +1889,11 @@ button{
 
 }
 
-
 .comingContent p{
 
     margin:
-
         0
-
         auto
-
         22px;
 
     color:#aaaaba;
@@ -1730,22 +1914,17 @@ button{
     margin-top:0;
 
     padding:
-
         55px
-
         clamp(25px,6vw,80px)
-
         25px;
 
     background:#050509;
 
     border-top:
-
         1px solid
         rgba(255,255,255,.07);
 
 }
-
 
 .footerTop{
 
@@ -1765,13 +1944,14 @@ button{
 
 }
 
-
 .footerLogo h2{
 
-    margin:0 0 10px;
+    margin:
+        0
+        0
+        10px;
 
 }
-
 
 .footerLogo p{
 
@@ -1787,7 +1967,6 @@ button{
 
 }
 
-
 .footerLinks{
 
     display:flex;
@@ -1798,21 +1977,16 @@ button{
 
 }
 
-
 .footerLinks h3{
 
     margin:
-
         0
-
         0
-
         7px;
 
     font-size:13px;
 
 }
-
 
 .footerLinks a{
 
@@ -1822,15 +1996,15 @@ button{
 
     font-size:11px;
 
-}
+    transition:.2s ease;
 
+}
 
 .footerLinks a:hover{
 
     color:#fff;
 
 }
-
 
 .social{
 
@@ -1839,7 +2013,6 @@ button{
     gap:8px;
 
 }
-
 
 .social a{
 
@@ -1856,28 +2029,33 @@ button{
     border-radius:50%;
 
     background:
-
         rgba(255,255,255,.06);
+
+    transition:.25s ease;
 
 }
 
+.social a:hover{
+
+    background:
+        rgba(124,58,237,.30);
+
+    color:#fff;
+
+}
 
 .footerBottom{
 
     max-width:1400px;
 
     margin:
-
         40px
-
         auto
-
         0;
 
     padding-top:20px;
 
     border-top:
-
         1px solid
         rgba(255,255,255,.06);
 
@@ -1895,7 +2073,7 @@ button{
 
 
 /* =========================================================
-                LOADING
+                    LOADING
 ========================================================= */
 
 .loadingScreen{
@@ -1916,13 +2094,11 @@ button{
 
 }
 
-
 .loader{
 
     text-align:center;
 
 }
-
 
 .loaderCircle{
 
@@ -1933,37 +2109,32 @@ button{
     margin:auto;
 
     border:
-
         3px solid
         rgba(255,255,255,.10);
 
     border-top-color:
-
         var(--purple);
 
     border-radius:50%;
 
     animation:
-
-        spin .8s linear infinite;
+        spin
+        .8s
+        linear
+        infinite;
 
 }
-
 
 .loader h2{
 
     margin:
-
         15px
-
         0
-
         5px;
 
     font-size:18px;
 
 }
-
 
 .loader p{
 
@@ -1975,11 +2146,13 @@ button{
 
 }
 
-
 @keyframes spin{
 
     to{
-        transform:rotate(360deg);
+
+        transform:
+            rotate(360deg);
+
     }
 
 }
@@ -2006,12 +2179,10 @@ button{
     border-radius:50%;
 
     border:
-
         1px solid
         rgba(255,255,255,.10);
 
     background:
-
         rgba(17,17,27,.90);
 
     color:#fff;
@@ -2023,7 +2194,6 @@ button{
     transition:.25s ease;
 
 }
-
 
 .btnTop.visible{
 
@@ -2055,13 +2225,12 @@ button{
     padding:20px;
 
     background:
-
         rgba(0,0,0,.75);
 
-    backdrop-filter:blur(8px);
+    backdrop-filter:
+        blur(8px);
 
 }
-
 
 .modal.active{
 
@@ -2069,13 +2238,11 @@ button{
 
 }
 
-
 .modalContent{
 
     position:relative;
 
     width:
-
         min(
             700px,
             100%
@@ -2088,7 +2255,6 @@ button{
     padding:30px;
 
     border:
-
         1px solid
         rgba(255,255,255,.10);
 
@@ -2097,7 +2263,6 @@ button{
     background:#11111b;
 
 }
-
 
 .cerrarModal{
 
@@ -2116,7 +2281,6 @@ button{
     border:0;
 
     background:
-
         rgba(255,255,255,.08);
 
     color:#fff;
@@ -2125,15 +2289,14 @@ button{
 
 
 /* =========================================================
-                    RESPONSIVE
+                RESPONSIVE DESKTOP
 ========================================================= */
 
-@media(max-width:1200px){
+@media(max-width:1250px){
 
     .universosGrid{
 
         grid-template-columns:
-
             repeat(
                 4,
                 minmax(0,1fr)
@@ -2143,6 +2306,10 @@ button{
 
 }
 
+
+/* =========================================================
+                    TABLET
+========================================================= */
 
 @media(max-width:900px){
 
@@ -2160,8 +2327,7 @@ button{
 
     .menu a{
 
-        padding:
-            8px;
+        padding:8px;
 
         font-size:11px;
 
@@ -2176,7 +2342,6 @@ button{
     .universosGrid{
 
         grid-template-columns:
-
             repeat(
                 3,
                 minmax(0,1fr)
@@ -2187,7 +2352,30 @@ button{
     .footerTop{
 
         grid-template-columns:
-            repeat(2,1fr);
+            repeat(
+                2,
+                1fr
+            );
+
+    }
+
+    .heroArrow{
+
+        width:40px;
+
+        height:40px;
+
+    }
+
+    .heroArrow.left{
+
+        left:12px;
+
+    }
+
+    .heroArrow.right{
+
+        right:12px;
 
     }
 
@@ -2195,7 +2383,7 @@ button{
 
 
 /* =========================================================
-                    TABLET / MÓVIL
+                TABLET / MÓVIL
 ========================================================= */
 
 @media(max-width:700px){
@@ -2211,9 +2399,7 @@ button{
         flex-wrap:wrap;
 
         padding:
-
             12px
-
             15px;
 
     }
@@ -2277,11 +2463,8 @@ button{
     .heroContenido{
 
         padding:
-
             70px
-
             20px
-
             80px;
 
         align-items:flex-end;
@@ -2300,43 +2483,23 @@ button{
 
     }
 
-    .heroArrow{
 
-        width:38px;
-
-        height:38px;
-
-    }
-
-    .heroArrow.left{
-        left:12px;
-    }
-
-    .heroArrow.right{
-        right:12px;
-    }
-
+    /* =====================================================
+                    SECCIONES
+    ===================================================== */
 
     .universos,
     .continuar,
     .moviesSection{
 
         width:
-
             calc(100% - 30px);
 
     }
 
-
     .universos{
 
         margin-top:24px;
-
-    }
-
-    .continuar{
-
-        margin-top:25px;
 
     }
 
@@ -2360,14 +2523,14 @@ button{
     }
 
 
-    /* CARRUSEL UNIVERSOS */
+    /* =====================================================
+                UNIVERSOS MOBILE
+    ===================================================== */
 
     .universosCarousel{
 
         margin:
-
             0
-
             -5px;
 
     }
@@ -2385,12 +2548,9 @@ button{
         gap:10px;
 
         padding:
-
             3px
-
-            5px
-
-            10px;
+            25px
+            12px;
 
     }
 
@@ -2403,66 +2563,45 @@ button{
     .universoCard{
 
         flex:
+            0 0 185px;
 
-            0 0 180px;
-
-        min-height:190px;
+        min-height:195px;
 
     }
+
+
+    /* =====================================================
+                FLECHAS UNIVERSOS MOBILE
+    ===================================================== */
 
     .universosArrow{
 
         display:flex;
 
-        position:absolute;
+        width:36px;
 
-        z-index:10;
+        height:36px;
 
         top:50%;
-
-        transform:translateY(-50%);
-
-        width:35px;
-
-        height:35px;
-
-        border-radius:50%;
-
-        border:
-
-            1px solid
-            rgba(255,255,255,.12);
-
-        background:
-
-            rgba(8,8,15,.85);
-
-        color:#fff;
-
-        align-items:center;
-
-        justify-content:center;
 
     }
 
     .universosPrev{
 
-        left:2px;
+        left:-2px;
 
     }
 
     .universosNext{
 
-        right:2px;
+        right:-2px;
 
     }
 
 
-    .movieCard{
-
-        flex-basis:145px;
-
-    }
+    /* =====================================================
+                FLECHAS PELÍCULAS
+    ===================================================== */
 
     .sliderArrow,
     .continuarFlecha{
@@ -2471,10 +2610,27 @@ button{
 
         height:35px;
 
-        margin:0 5px;
+        margin:
+            0
+            5px;
 
     }
 
+
+    /* =====================================================
+                    PELÍCULAS
+    ===================================================== */
+
+    .movieCard{
+
+        flex-basis:145px;
+
+    }
+
+
+    /* =====================================================
+                    FOOTER
+    ===================================================== */
 
     .footer{
 
@@ -2549,6 +2705,10 @@ button{
     }
 
 
+    /* =====================================================
+                    HERO
+    ===================================================== */
+
     .hero{
 
         min-height:590px;
@@ -2558,11 +2718,8 @@ button{
     .heroContenido{
 
         padding:
-
             45px
-
             18px
-
             70px;
 
     }
@@ -2609,16 +2766,18 @@ button{
     }
 
 
+    /* =====================================================
+                    SECCIONES
+    ===================================================== */
+
     .universos,
     .continuar,
     .moviesSection{
 
         width:
-
             calc(100% - 20px);
 
     }
-
 
     .sectionHeader{
 
@@ -2645,11 +2804,33 @@ button{
     }
 
 
+    /* =====================================================
+                UNIVERSOS
+    ===================================================== */
+
     .universoCard{
 
-        flex-basis:165px;
+        flex-basis:170px;
 
-        min-height:180px;
+        min-height:185px;
+
+    }
+
+    .universoIcon{
+
+        width:35px;
+
+        height:35px;
+
+        top:12px;
+
+        left:12px;
+
+    }
+
+    .universoInfo{
+
+        padding:13px;
 
     }
 
@@ -2665,6 +2846,18 @@ button{
 
     }
 
+    .universosArrow{
+
+        width:34px;
+
+        height:34px;
+
+    }
+
+
+    /* =====================================================
+                    PELÍCULAS
+    ===================================================== */
 
     .movieCard{
 
@@ -2672,6 +2865,10 @@ button{
 
     }
 
+
+    /* =====================================================
+                    PRÓXIMAMENTE
+    ===================================================== */
 
     .comingSoon{
 
@@ -2681,6 +2878,10 @@ button{
 
     }
 
+
+    /* =====================================================
+                    FOOTER
+    ===================================================== */
 
     .footerTop{
 
@@ -2708,7 +2909,6 @@ button{
 
 }
 
-
 @keyframes cineverseAppear{
 
     from{
@@ -2730,3 +2930,79 @@ button{
     }
 
 }
+
+
+/* =========================================================
+                AJUSTES EXTRA CINEVERSE
+========================================================= */
+
+/*
+   Evita que elementos duplicados del HTML
+   provoquen espacios inesperados.
+*/
+
+.continuarVacio{
+
+    display:none !important;
+
+}
+
+
+/*
+   Si por algún motivo app.js genera
+   una segunda lista de continuar,
+   tampoco se mostrará.
+*/
+
+#continuarLista{
+
+    display:none !important;
+
+}
+
+
+/*
+   El contenido de categorías permanece
+   centrado y no pegado a las orillas.
+*/
+
+.universos .sectionHeader{
+
+    max-width:100%;
+
+    margin-left:auto;
+
+    margin-right:auto;
+
+}
+
+
+/*
+   Evita que las flechas de categorías
+   aparezcan arriba o debajo.
+*/
+
+.universosArrow{
+
+    top:50% !important;
+
+    bottom:auto !important;
+
+}
+
+
+/*
+   Las flechas nunca deben formar parte
+   del flujo normal de la cuadrícula.
+*/
+
+.universosArrow{
+
+    position:absolute !important;
+
+}
+
+
+/* =========================================================
+                        FIN CSS
+========================================================= */
