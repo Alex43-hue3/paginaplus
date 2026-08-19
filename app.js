@@ -2315,3 +2315,187 @@ document.addEventListener(
 
     }
 );
+/* =========================================================
+            CINEVERSE - CARRUSEL UNIVERSOS
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const lista =
+        document.getElementById("universosLista");
+
+    const anterior =
+        document.getElementById("universosAnterior");
+
+    const siguiente =
+        document.getElementById("universosSiguiente");
+
+
+    if (!lista) {
+
+        return;
+
+    }
+
+
+    /* =====================================================
+                    DESPLAZAMIENTO
+    ===================================================== */
+
+    function moverUniversos(direccion) {
+
+        const distancia =
+            Math.min(
+                320,
+                lista.clientWidth * 0.75
+            );
+
+
+        lista.scrollBy({
+
+            left:
+                direccion * distancia,
+
+            behavior:
+                "smooth"
+
+        });
+
+    }
+
+
+
+    /* =====================================================
+                    FLECHA IZQUIERDA
+    ===================================================== */
+
+    if (anterior) {
+
+        anterior.addEventListener(
+            "click",
+            () => {
+
+                moverUniversos(-1);
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+                    FLECHA DERECHA
+    ===================================================== */
+
+    if (siguiente) {
+
+        siguiente.addEventListener(
+            "click",
+            () => {
+
+                moverUniversos(1);
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+                MOSTRAR / OCULTAR FLECHAS
+    ===================================================== */
+
+    function actualizarFlechas() {
+
+        if (!anterior || !siguiente) {
+
+            return;
+
+        }
+
+
+        const maxScroll =
+            lista.scrollWidth -
+            lista.clientWidth;
+
+
+        anterior.style.opacity =
+            lista.scrollLeft <= 5
+                ? "0.35"
+                : "1";
+
+
+        siguiente.style.opacity =
+            lista.scrollLeft >= maxScroll - 5
+                ? "0.35"
+                : "1";
+
+    }
+
+
+    lista.addEventListener(
+        "scroll",
+        actualizarFlechas
+    );
+
+
+    window.addEventListener(
+        "resize",
+        actualizarFlechas
+    );
+
+
+    actualizarFlechas();
+
+
+
+    /* =====================================================
+                    CATEGORÍAS
+    ===================================================== */
+
+    const categorias =
+        lista.querySelectorAll(
+            ".universoCard"
+        );
+
+
+    categorias.forEach(card => {
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                const genero =
+                    card.dataset.genero;
+
+
+                if (!genero) {
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "🎬 Género seleccionado:",
+                    genero
+                );
+
+
+                /*
+                 * Por ahora dejamos preparado
+                 * el evento.
+                 *
+                 * Después podemos conectar
+                 * cada categoría con las
+                 * películas correspondientes.
+                 */
+
+            }
+        );
+
+    });
+
+});
