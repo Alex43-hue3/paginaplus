@@ -3,312 +3,354 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>CINEVERSE</title>
+    <meta
+        name="theme-color"
+        content="#07070d">
 
-<link
-rel="preconnect"
-href="https://fonts.googleapis.com">
+    <title>CINEVERSE</title>
 
-<link
-rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+    <!-- ================= FUENTES ================= -->
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
 
-<link
-rel="stylesheet"
-href="style.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <!-- ================= FONT AWESOME ================= -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- ================= CSS ================= -->
+
+    <link
+        rel="stylesheet"
+        href="style.css?v=30">
 
 </head>
 
+
 <body>
+
+
+<!-- ======================================================
+                    FONDO
+======================================================= -->
 
 <div class="backgroundGlow"></div>
 
-<!-- ================= HEADER ================= -->
+
+<!-- ======================================================
+                    HEADER
+======================================================= -->
 
 <header class="header">
 
-<div class="logo">
+    <div class="logo">
 
-<span class="logoYellow">CINE</span><span class="logoPurple">VERSE</span>
+        <span class="logoYellow">
+            CINE
+        </span>
 
-</div>
+        <span class="logoPurple">
+            VERSE
+        </span>
 
-<nav class="menu">
+    </div>
 
-<a
-href="#"
-class="activo">
 
-Inicio
+    <nav class="menu">
 
-</a>
+        <a
+            href="#"
+            class="activo">
 
-<a href="#">
+            Inicio
 
-Películas
+        </a>
 
-</a>
+        <a href="#">
 
-<a href="#">
+            Películas
 
-Series
+        </a>
 
-</a>
+        <a href="#">
 
-<a href="#">
+            Series
 
-Universos
+        </a>
 
-</a>
+        <a href="#universos">
 
-<a href="#">
+            Universos
 
-Mi Lista
+        </a>
 
-</a>
+        <a href="#miLista">
 
-</nav>
+            Mi Lista
 
-<div class="headerRight">
+        </a>
 
-<div class="searchBox">
+    </nav>
 
-<i class="fa-solid fa-magnifying-glass"></i>
 
-<input
+    <div class="headerRight">
 
-id="buscar"
 
-type="text"
+        <div class="searchBox">
 
-placeholder="Buscar película...">
+            <i class="fa-solid fa-magnifying-glass"></i>
 
-</div>
+            <input
+                id="buscar"
+                type="text"
+                placeholder="Buscar película...">
 
-<button
-class="perfil">
+        </div>
 
-<i class="fa-solid fa-user"></i>
 
-</button>
+        <button
+            class="perfil"
+            type="button">
 
-</div>
+            <i class="fa-solid fa-user"></i>
+
+        </button>
+
+
+    </div>
 
 </header>
 
-<!-- ================= HERO ================= -->
+
+
+<!-- ======================================================
+                    HERO
+======================================================= -->
 
 <section
-class="hero"
-id="hero">
+    class="hero"
+    id="hero">
 
-<div
 
-class="heroBackground"
+    <div
+        class="heroBackground"
+        id="heroBackground">
 
-id="heroBackground">
+        <div class="heroGradient"></div>
 
-<div class="heroGradient"></div>
+    </div>
 
-</div>
 
-<div class="heroContenido">
+    <div class="heroContenido">
 
-<div class="heroTexto">
+        <div class="heroTexto">
 
-<span class="destacado">
 
-DESTACADO
+            <span class="destacado">
 
-</span>
+                DESTACADO
 
-<h1
+            </span>
 
-id="heroTitulo">
 
-Cargando...
+            <h1 id="heroTitulo">
 
-</h1>
+                Cargando...
 
-<div class="heroInfo">
+            </h1>
 
-<span>
 
-⭐
+            <div class="heroInfo">
 
-<span id="heroRating">
+                <span>
 
-0.0
+                    ⭐
 
-</span>
+                    <span id="heroRating">
+                        0.0
+                    </span>
 
-</span>
+                </span>
 
-<span>
 
-📅
+                <span>
 
-<span id="heroAno">
+                    📅
 
-2026
+                    <span id="heroAno">
+                        2026
+                    </span>
 
-</span>
+                </span>
 
-</span>
 
-<span>
+                <span>
 
-🕒
+                    🕒
 
-<span id="heroDuracion">
+                    <span id="heroDuracion">
+                        0 min
+                    </span>
 
-0 min
+                </span>
 
-</span>
+            </div>
 
-</span>
 
-</div>
+            <p id="heroDescripcion">
 
-<p
+                Cargando información...
 
-id="heroDescripcion">
+            </p>
 
-Cargando información...
 
-</p>
+            <div class="heroBotones">
 
-<div class="heroBotones">
 
-<button
+                <button
+                    id="btnVer"
+                    class="btnPrincipal"
+                    type="button">
 
-id="btnVer"
+                    <i class="fa-solid fa-play"></i>
 
-class="btnPrincipal">
+                    Ver película
 
-<i class="fa-solid fa-play"></i>
+                </button>
 
-Ver película
 
-</button>
+                <button
+                    id="btnTrailer"
+                    class="btnSecundario"
+                    type="button">
 
-<button
+                    <i class="fa-solid fa-film"></i>
 
-id="btnTrailer"
+                    Trailer
 
-class="btnSecundario">
+                </button>
 
-<i class="fa-solid fa-film"></i>
 
-Trailer
+                <button
+                    id="btnDetalles"
+                    class="btnGlass"
+                    type="button">
 
-</button>
+                    <i class="fa-solid fa-circle-info"></i>
 
-<button
+                    Detalles
 
-id="btnDetalles"
+                </button>
 
-class="btnGlass">
 
-<i class="fa-solid fa-circle-info"></i>
+            </div>
 
-Detalles
 
-</button>
+        </div>
 
-</div>
+    </div>
 
-</div>
 
-</div>
+    <!-- FLECHA ANTERIOR -->
 
-<!-- Flechas -->
+    <button
+        id="heroAnterior"
+        class="heroArrow left"
+        type="button"
+        aria-label="Película anterior">
 
-<button
+        <i class="fa-solid fa-chevron-left"></i>
 
-id="heroAnterior"
+    </button>
 
-class="heroArrow left">
 
-<i class="fa-solid fa-chevron-left"></i>
+    <!-- FLECHA SIGUIENTE -->
 
-</button>
+    <button
+        id="heroSiguiente"
+        class="heroArrow right"
+        type="button"
+        aria-label="Película siguiente">
 
-<button
+        <i class="fa-solid fa-chevron-right"></i>
 
-id="heroSiguiente"
+    </button>
 
-class="heroArrow right">
 
-<i class="fa-solid fa-chevron-right"></i>
+    <!-- INDICADORES -->
 
-</button>
+    <div
+        id="heroIndicadores"
+        class="heroIndicadores">
 
-<!-- Indicadores -->
+        <span class="activo"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
 
-<div
+    </div>
 
-id="heroIndicadores"
 
-class="heroIndicadores">
+    <div class="scrollDown">
 
-<span class="activo"></span>
+        <i class="fa-solid fa-angle-down"></i>
 
-<span></span>
+    </div>
 
-<span></span>
-
-<span></span>
-
-<span></span>
-
-</div>
-
-<div class="scrollDown">
-
-<i class="fa-solid fa-angle-down"></i>
-
-</div>
 
 </section>
-  <!-- ======================================================
-                    EXPLORA UNIVERSOS
-======================================================= -->
+
+
 
 <!-- ======================================================
                 EXPLORA UNIVERSOS
 ======================================================= -->
 
-<section class="universos">
+<section
+    class="universos"
+    id="universos">
+
 
     <div class="sectionHeader">
 
-        <div>
+        <div class="sectionHeading">
 
             <span class="sectionMini">
+
                 Descubre
+
             </span>
 
             <h2>
+
                 Explora Universos
+
             </h2>
 
         </div>
+
 
         <button
             class="verTodo"
@@ -316,42 +358,37 @@ class="heroIndicadores">
 
             Ver todo
 
+            <i class="fa-solid fa-arrow-right"></i>
+
         </button>
 
     </div>
 
 
-    <div class="universosCarrusel">
+    <!-- CARRUSEL -->
 
+    <div class="universosCarousel">
 
-        <!-- FLECHA IZQUIERDA -->
 
         <button
-            id="universosAnterior"
-            class="universosFlecha universosFlechaIzquierda"
+            class="universosArrow universosPrev"
             type="button"
-            aria-label="Categoría anterior">
+            aria-label="Universo anterior">
 
             <i class="fa-solid fa-chevron-left"></i>
 
         </button>
 
 
-
-        <!-- CATEGORÍAS -->
-
-        <div
-            id="universosLista"
-            class="universosLista">
+        <div class="universosGrid">
 
 
             <!-- ACCIÓN -->
 
             <article
-                class="universoCard accion"
-                data-genero="Acción">
+                class="universoCard accion">
 
-                <div class="universoGlow"></div>
+                <div class="universoOverlay"></div>
 
                 <div class="universoIcon">
 
@@ -359,12 +396,10 @@ class="heroIndicadores">
 
                 </div>
 
-                <div class="universoOverlay"></div>
-
                 <div class="universoInfo">
 
-                    <span class="universoNumero">
-                        01
+                    <span>
+                        UNIVERSO
                     </span>
 
                     <h3>
@@ -372,31 +407,20 @@ class="heroIndicadores">
                     </h3>
 
                     <p>
-                        Explosiones, persecuciones
-                        y adrenalina.
+                        Explosiones, persecuciones y adrenalina.
                     </p>
-
-                    <span class="universoExplorar">
-
-                        Explorar
-
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </span>
 
                 </div>
 
             </article>
 
 
-
             <!-- CIENCIA FICCIÓN -->
 
             <article
-                class="universoCard ciencia"
-                data-genero="Ciencia ficción">
+                class="universoCard ciencia">
 
-                <div class="universoGlow"></div>
+                <div class="universoOverlay"></div>
 
                 <div class="universoIcon">
 
@@ -404,12 +428,10 @@ class="heroIndicadores">
 
                 </div>
 
-                <div class="universoOverlay"></div>
-
                 <div class="universoInfo">
 
-                    <span class="universoNumero">
-                        02
+                    <span>
+                        UNIVERSO
                     </span>
 
                     <h3>
@@ -417,31 +439,20 @@ class="heroIndicadores">
                     </h3>
 
                     <p>
-                        Viajes espaciales y
-                        mundos futuristas.
+                        Viajes espaciales y mundos futuristas.
                     </p>
-
-                    <span class="universoExplorar">
-
-                        Explorar
-
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </span>
 
                 </div>
 
             </article>
 
 
-
             <!-- FANTASÍA -->
 
             <article
-                class="universoCard fantasia"
-                data-genero="Fantasía">
+                class="universoCard fantasia">
 
-                <div class="universoGlow"></div>
+                <div class="universoOverlay"></div>
 
                 <div class="universoIcon">
 
@@ -449,12 +460,10 @@ class="heroIndicadores">
 
                 </div>
 
-                <div class="universoOverlay"></div>
-
                 <div class="universoInfo">
 
-                    <span class="universoNumero">
-                        03
+                    <span>
+                        UNIVERSO
                     </span>
 
                     <h3>
@@ -462,31 +471,20 @@ class="heroIndicadores">
                     </h3>
 
                     <p>
-                        Dragones, magia y
-                        aventuras épicas.
+                        Dragones, magia y aventuras épicas.
                     </p>
-
-                    <span class="universoExplorar">
-
-                        Explorar
-
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </span>
 
                 </div>
 
             </article>
 
 
-
             <!-- TERROR -->
 
             <article
-                class="universoCard terror"
-                data-genero="Terror">
+                class="universoCard terror">
 
-                <div class="universoGlow"></div>
+                <div class="universoOverlay"></div>
 
                 <div class="universoIcon">
 
@@ -494,12 +492,10 @@ class="heroIndicadores">
 
                 </div>
 
-                <div class="universoOverlay"></div>
-
                 <div class="universoInfo">
 
-                    <span class="universoNumero">
-                        04
+                    <span>
+                        UNIVERSO
                     </span>
 
                     <h3>
@@ -507,17 +503,104 @@ class="heroIndicadores">
                     </h3>
 
                     <p>
-                        Suspenso y miedo hasta
-                        el último minuto.
+                        Suspenso y miedo hasta el último minuto.
                     </p>
 
-                    <span class="universoExplorar">
+                </div>
 
-                        Explorar
+            </article>
 
-                        <i class="fa-solid fa-arrow-right"></i>
 
+            <!-- COMEDIA -->
+
+            <article
+                class="universoCard comedia">
+
+                <div class="universoOverlay"></div>
+
+                <div class="universoIcon">
+
+                    <i class="fa-solid fa-face-laugh-beam"></i>
+
+                </div>
+
+                <div class="universoInfo">
+
+                    <span>
+                        UNIVERSO
                     </span>
+
+                    <h3>
+                        Comedia
+                    </h3>
+
+                    <p>
+                        Risas, situaciones inesperadas y diversión.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- DRAMA -->
+
+            <article
+                class="universoCard drama">
+
+                <div class="universoOverlay"></div>
+
+                <div class="universoIcon">
+
+                    <i class="fa-solid fa-masks-theater"></i>
+
+                </div>
+
+                <div class="universoInfo">
+
+                    <span>
+                        UNIVERSO
+                    </span>
+
+                    <h3>
+                        Drama
+                    </h3>
+
+                    <p>
+                        Historias intensas que conectan contigo.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- ANIME -->
+
+            <article
+                class="universoCard anime">
+
+                <div class="universoOverlay"></div>
+
+                <div class="universoIcon">
+
+                    <i class="fa-solid fa-dragon"></i>
+
+                </div>
+
+                <div class="universoInfo">
+
+                    <span>
+                        UNIVERSO
+                    </span>
+
+                    <h3>
+                        Anime
+                    </h3>
+
+                    <p>
+                        Aventuras, héroes y mundos extraordinarios.
+                    </p>
 
                 </div>
 
@@ -527,14 +610,10 @@ class="heroIndicadores">
         </div>
 
 
-
-        <!-- FLECHA DERECHA -->
-
         <button
-            id="universosSiguiente"
-            class="universosFlecha universosFlechaDerecha"
+            class="universosArrow universosNext"
             type="button"
-            aria-label="Siguiente categoría">
+            aria-label="Siguiente universo">
 
             <i class="fa-solid fa-chevron-right"></i>
 
@@ -543,29 +622,43 @@ class="heroIndicadores">
 
     </div>
 
+
 </section>
+
+
+
 <!-- ======================================================
-                    CONTINUAR VIENDO
+                CONTINUAR VIENDO
 ======================================================= -->
 
-<section class="continuar" id="continuarSection">
+<section
+    class="continuar"
+    id="continuarSection">
+
 
     <div class="sectionHeader">
 
-        <div>
+        <div class="sectionHeading">
+
             <span class="sectionMini">
+
                 Sigue disfrutando
+
             </span>
 
             <h2>
+
                 Continuar viendo
+
             </h2>
+
         </div>
 
     </div>
 
 
     <div class="continuarCarrusel">
+
 
         <button
             id="continuarAnterior"
@@ -581,6 +674,7 @@ class="heroIndicadores">
         <div
             id="continuarLista"
             class="continuarLista">
+
         </div>
 
 
@@ -594,50 +688,13 @@ class="heroIndicadores">
 
         </button>
 
-    </div>
-
-</section>
-
-      
-    <!-- ==============================================
-                LISTA DE PELÍCULAS
-    =============================================== -->
-
-    <div
-        id="continuarLista"
-        class="continuarLista">
-
-
-        <!-- ==========================================
-                    MENSAJE VACÍO
-        =========================================== -->
-
-        <div
-            id="continuarVacio"
-            class="continuarVacio">
-
-            <div class="continuarVacioIcon">
-
-                <i class="fa-solid fa-film"></i>
-
-            </div>
-
-            <h3>
-                No hay películas pendientes
-            </h3>
-
-            <p>
-                Cuando empieces a ver una película
-                aparecerá aquí para continuar
-                exactamente donde la dejaste.
-            </p>
-
-        </div>
-
 
     </div>
 
+
 </section>
+
+
 
 <!-- ======================================================
                     TENDENCIAS
@@ -645,9 +702,10 @@ class="heroIndicadores">
 
 <section class="moviesSection">
 
+
     <div class="sectionHeader">
 
-        <div>
+        <div class="sectionHeading">
 
             <span class="sectionMini">
 
@@ -663,10 +721,14 @@ class="heroIndicadores">
 
         </div>
 
+
         <button
-            class="verTodo">
+            class="verTodo"
+            type="button">
 
             Ver todo
+
+            <i class="fa-solid fa-arrow-right"></i>
 
         </button>
 
@@ -675,9 +737,12 @@ class="heroIndicadores">
 
     <div class="sliderWrapper">
 
+
         <button
             id="tendenciasPrev"
-            class="sliderArrow left">
+            class="sliderArrow left"
+            type="button"
+            aria-label="Anterior">
 
             <i class="fa-solid fa-chevron-left"></i>
 
@@ -688,31 +753,37 @@ class="heroIndicadores">
             id="tendencias"
             class="movieSlider">
 
-            <!-- app.js llenará este carrusel -->
-
         </div>
 
 
         <button
             id="tendenciasNext"
-            class="sliderArrow right">
+            class="sliderArrow right"
+            type="button"
+            aria-label="Siguiente">
 
             <i class="fa-solid fa-chevron-right"></i>
 
         </button>
 
+
     </div>
 
+
 </section>
-  <!-- ======================================================
+
+
+
+<!-- ======================================================
                     ESTRENOS
 ======================================================= -->
 
 <section class="moviesSection">
 
+
     <div class="sectionHeader">
 
-        <div>
+        <div class="sectionHeading">
 
             <span class="sectionMini">
 
@@ -728,54 +799,71 @@ class="heroIndicadores">
 
         </div>
 
-        <button class="verTodo">
+
+        <button
+            class="verTodo"
+            type="button">
 
             Ver todo
+
+            <i class="fa-solid fa-arrow-right"></i>
 
         </button>
 
     </div>
 
+
     <div class="sliderWrapper">
+
 
         <button
             id="estrenosPrev"
-            class="sliderArrow left">
+            class="sliderArrow left"
+            type="button"
+            aria-label="Anterior">
 
             <i class="fa-solid fa-chevron-left"></i>
 
         </button>
 
+
         <div
             id="estrenos"
             class="movieSlider">
 
-            <!-- app.js -->
-
         </div>
+
 
         <button
             id="estrenosNext"
-            class="sliderArrow right">
+            class="sliderArrow right"
+            type="button"
+            aria-label="Siguiente">
 
             <i class="fa-solid fa-chevron-right"></i>
 
         </button>
 
+
     </div>
 
+
 </section>
+
 
 
 <!-- ======================================================
                     MI LISTA
 ======================================================= -->
 
-<section class="moviesSection">
+<section
+    class="moviesSection"
+    id="miListaSection">
+
 
     <div class="sectionHeader">
 
-        <div>
+        <div class="sectionHeading">
 
             <span class="sectionMini">
 
@@ -793,24 +881,27 @@ class="heroIndicadores">
 
     </div>
 
+
     <div
         id="miLista"
         class="movieSlider">
 
-        <!-- app.js -->
-
     </div>
+
 
 </section>
 
 
+
 <!-- ======================================================
-                    PROXIMAMENTE
+                    PRÓXIMAMENTE
 ======================================================= -->
 
 <section class="comingSoon">
 
+
     <div class="comingOverlay"></div>
+
 
     <div class="comingContent">
 
@@ -820,11 +911,13 @@ class="heroIndicadores">
 
         </span>
 
+
         <h2>
 
             Próximamente mucho más contenido
 
         </h2>
+
 
         <p>
 
@@ -834,15 +927,21 @@ class="heroIndicadores">
 
         </p>
 
-        <button class="btnPrincipal">
+
+        <button
+            class="btnPrincipal"
+            type="button">
 
             Explorar catálogo
 
         </button>
 
+
     </div>
 
+
 </section>
+
 
 
 <!-- ======================================================
@@ -851,197 +950,182 @@ class="heroIndicadores">
 
 <footer class="footer">
 
-<div class="footerTop">
 
-<div class="footerLogo">
+    <div class="footerTop">
 
-<h2>
 
-<span class="logoYellow">
+        <div class="footerLogo">
 
-CINE
+            <h2>
 
-</span>
+                <span class="logoYellow">
+                    CINE
+                </span>
 
-<span class="logoPurple">
+                <span class="logoPurple">
+                    VERSE
+                </span>
 
-VERSE
+            </h2>
 
-</span>
 
-</h2>
+            <p>
 
-<p>
+                Una experiencia moderna para disfrutar
+                películas y series desde un solo lugar.
 
-Una experiencia moderna para disfrutar
-películas y series desde un solo lugar.
+            </p>
 
-</p>
+        </div>
 
-</div>
 
 
+        <div class="footerLinks">
 
-<div class="footerLinks">
+            <h3>
+                Explorar
+            </h3>
 
-<h3>
+            <a href="#">
+                Inicio
+            </a>
 
-Explorar
+            <a href="#">
+                Películas
+            </a>
 
-</h3>
+            <a href="#">
+                Series
+            </a>
 
-<a href="#">
+            <a href="#">
+                Mi Lista
+            </a>
 
-Inicio
+        </div>
 
-</a>
 
-<a href="#">
 
-Películas
+        <div class="footerLinks">
 
-</a>
+            <h3>
+                Categorías
+            </h3>
 
-<a href="#">
+            <a href="#">
+                Acción
+            </a>
 
-Series
+            <a href="#">
+                Ciencia ficción
+            </a>
 
-</a>
+            <a href="#">
+                Fantasía
+            </a>
 
-<a href="#">
+            <a href="#">
+                Anime
+            </a>
 
-Mi Lista
+            <a href="#">
+                Terror
+            </a>
 
-</a>
+        </div>
 
-</div>
 
 
+        <div class="footerLinks">
 
-<div class="footerLinks">
+            <h3>
+                Síguenos
+            </h3>
 
-<h3>
 
-Categorías
+            <div class="social">
 
-</h3>
+                <a href="#">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
 
-<a href="#">
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
 
-Acción
+                <a href="#">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
 
-</a>
+                <a href="#">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
 
-<a href="#">
+            </div>
 
-Ciencia ficción
+        </div>
 
-</a>
 
-<a href="#">
+    </div>
 
-Animación
 
-</a>
+    <div class="footerBottom">
 
-<a href="#">
+        <p>
+            © 2026 CINEVERSE
+        </p>
 
-Terror
+        <p>
+            Diseñado para ofrecer una experiencia
+            cinematográfica moderna.
+        </p>
 
-</a>
+    </div>
 
-</div>
-
-
-
-<div class="footerLinks">
-
-<h3>
-
-Síguenos
-
-</h3>
-
-<div class="social">
-
-<a href="#">
-
-<i class="fa-brands fa-facebook-f"></i>
-
-</a>
-
-<a href="#">
-
-<i class="fa-brands fa-instagram"></i>
-
-</a>
-
-<a href="#">
-
-<i class="fa-brands fa-x-twitter"></i>
-
-</a>
-
-<a href="#">
-
-<i class="fa-brands fa-youtube"></i>
-
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-
-
-<div class="footerBottom">
-
-<p>
-
-© 2026 CINEVERSE
-
-</p>
-
-<p>
-
-Diseñado para ofrecer una experiencia
-cinematográfica moderna.
-
-</p>
-
-</div>
 
 </footer>
-  <!-- ======================================================
-                    TEMPLATE TARJETA
+
+
+
+<!-- ======================================================
+                TEMPLATE TARJETA
 ======================================================= -->
 
 <template id="movieCardTemplate">
 
+
     <article class="movieCard">
 
+
         <div class="moviePoster">
+
 
             <img
                 class="poster"
                 src=""
                 alt="">
 
+
             <div class="movieOverlay">
 
-                <button class="playMovie">
+
+                <button
+                    class="playMovie"
+                    type="button">
 
                     <i class="fa-solid fa-play"></i>
 
                 </button>
 
+
             </div>
+
 
         </div>
 
+
         <div class="movieInfo">
+
 
             <h3 class="movieTitle">
 
@@ -1049,7 +1133,9 @@ cinematográfica moderna.
 
             </h3>
 
+
             <div class="movieMeta">
+
 
                 <span class="movieYear">
 
@@ -1057,48 +1143,59 @@ cinematográfica moderna.
 
                 </span>
 
+
                 <span class="movieRating">
 
                     ⭐ 8.5
 
                 </span>
 
+
             </div>
+
 
         </div>
 
+
     </article>
+
 
 </template>
 
 
+
 <!-- ======================================================
-                    PANTALLA DE CARGA
+                PANTALLA DE CARGA
 ======================================================= -->
 
 <div
-id="loadingScreen"
-class="loadingScreen">
+    id="loadingScreen"
+    class="loadingScreen">
 
-<div class="loader">
 
-<div class="loaderCircle"></div>
+    <div class="loader">
 
-<h2>
+        <div class="loaderCircle"></div>
 
-Cargando CINEVERSE
 
-</h2>
+        <h2>
 
-<p>
+            Cargando CINEVERSE
 
-Preparando la mejor experiencia...
+        </h2>
 
-</p>
+
+        <p>
+
+            Preparando la mejor experiencia...
+
+        </p>
+
+    </div>
+
 
 </div>
 
-</div>
 
 
 <!-- ======================================================
@@ -1106,49 +1203,58 @@ Preparando la mejor experiencia...
 ======================================================= -->
 
 <button
-id="btnTop"
-class="btnTop">
+    id="btnTop"
+    class="btnTop"
+    type="button"
+    aria-label="Subir">
 
-<i class="fa-solid fa-arrow-up"></i>
+    <i class="fa-solid fa-arrow-up"></i>
 
 </button>
 
 
+
 <!-- ======================================================
-                    MODAL FUTURO
+                    MODAL
 ======================================================= -->
 
 <div
-id="modal"
-class="modal">
+    id="modal"
+    class="modal">
 
-<div class="modalContent">
 
-<button
-id="cerrarModal"
-class="cerrarModal">
+    <div class="modalContent">
 
-<i class="fa-solid fa-xmark"></i>
 
-</button>
+        <button
+            id="cerrarModal"
+            class="cerrarModal"
+            type="button">
 
-<div
-id="modalBody">
+            <i class="fa-solid fa-xmark"></i>
+
+        </button>
+
+
+        <div id="modalBody">
+
+        </div>
+
+
+    </div>
+
 
 </div>
 
-</div>
-
-</div>
 
 
 <!-- ======================================================
-                    SCRIPTS
+                    JAVASCRIPT
 ======================================================= -->
 
 <script src="app.js?v=10"></script>
-</body>
-</html>
+
+
 </body>
 
 </html>
