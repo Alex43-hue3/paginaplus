@@ -2018,11 +2018,18 @@ button:focus-visible{
 }
 
 
-@media(max-width:768px){
+@media(max-width:600px){
 
-    .movieCenterMenu{
+    .movieTopBar{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:flex-start;
+    }
 
-        display:none;
+    .movieTopActions{
+        display:none !important;
+    }
 
     }
 
