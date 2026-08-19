@@ -1,6 +1,6 @@
 /* =========================================================
-                        CINEVERSE
-                     APP.JS COMPLETO
+                    CINEVERSE
+                 APP.JS COMPLETO
 ========================================================= */
 
 "use strict";
@@ -49,7 +49,13 @@ async function iniciarCineverse() {
             peliculas.length
         );
 
+
+        /* HERO */
+
         inicializarHero();
+
+
+        /* SECCIONES */
 
         cargarTendencias();
 
@@ -57,23 +63,55 @@ async function iniciarCineverse() {
 
         cargarMiLista();
 
-        cargarContinuarViendo();
+
+        /*
+         * CONTINUAR VIENDO
+         *
+         * Se desactiva completamente.
+         * Ya no utilizaremos historial ni
+         * porcentaje de reproducción.
+         */
+
+        ocultarContinuarViendo();
+
+
+        /* CATEGORÍAS */
 
         inicializarCategorias();
 
+
+        /* CARRUSELES */
+
         inicializarCarruseles();
+
+
+        /* BÚSQUEDA */
 
         inicializarBusqueda();
 
+
+        /* BOTÓN ARRIBA */
+
         inicializarBotonTop();
+
+
+        /* MODAL */
 
         inicializarModal();
 
+
+        /* BOTONES GENERALES */
+
         inicializarBotonesGenerales();
+
 
         ocultarLoading();
 
-        console.log("✅ CINEVERSE listo");
+
+        console.log(
+            "✅ CINEVERSE listo"
+        );
+
 
     } catch (error) {
 
@@ -102,6 +140,7 @@ async function cargarPeliculas() {
                 `${JSON_URL}?v=${Date.now()}`
             );
 
+
         if (!respuesta.ok) {
 
             throw new Error(
@@ -110,8 +149,10 @@ async function cargarPeliculas() {
 
         }
 
+
         peliculas =
             await respuesta.json();
+
 
         if (!Array.isArray(peliculas)) {
 
@@ -121,6 +162,7 @@ async function cargarPeliculas() {
 
         }
 
+
         console.log(
             "✅ JSON cargado correctamente"
         );
@@ -129,6 +171,7 @@ async function cargarPeliculas() {
             "Películas:",
             peliculas.length
         );
+
 
     } catch (error) {
 
@@ -153,10 +196,15 @@ async function cargarPeliculas() {
 function obtenerTitulo(pelicula) {
 
     return (
+
         pelicula.titulo ||
+
         pelicula.title ||
+
         pelicula.nombre ||
+
         "Sin título"
+
     );
 
 }
@@ -165,11 +213,17 @@ function obtenerTitulo(pelicula) {
 function obtenerPoster(pelicula) {
 
     return (
+
         pelicula.poster ||
+
         pelicula.portada ||
+
         pelicula.imagen ||
+
         pelicula.posterUrl ||
+
         ""
+
     );
 
 }
@@ -178,11 +232,17 @@ function obtenerPoster(pelicula) {
 function obtenerBanner(pelicula) {
 
     return (
+
         pelicula.banner ||
+
         pelicula.backdrop ||
+
         pelicula.hero ||
+
         pelicula.fondo ||
+
         obtenerPoster(pelicula)
+
     );
 
 }
@@ -191,10 +251,15 @@ function obtenerBanner(pelicula) {
 function obtenerDescripcion(pelicula) {
 
     return (
+
         pelicula.descripcion ||
+
         pelicula.description ||
+
         pelicula.sinopsis ||
+
         "Sin descripción disponible."
+
     );
 
 }
@@ -203,11 +268,17 @@ function obtenerDescripcion(pelicula) {
 function obtenerAnio(pelicula) {
 
     return (
+
         pelicula.año ||
+
         pelicula.anio ||
+
         pelicula.year ||
+
         pelicula.estreno ||
+
         ""
+
     );
 
 }
@@ -216,10 +287,15 @@ function obtenerAnio(pelicula) {
 function obtenerRating(pelicula) {
 
     return (
+
         pelicula.rating ||
+
         pelicula.calificacion ||
+
         pelicula.puntuacion ||
+
         "0.0"
+
     );
 
 }
@@ -228,10 +304,15 @@ function obtenerRating(pelicula) {
 function obtenerDuracion(pelicula) {
 
     return (
+
         pelicula.duracion ||
+
         pelicula.duration ||
+
         pelicula.runtime ||
+
         ""
+
     );
 
 }
@@ -240,10 +321,15 @@ function obtenerDuracion(pelicula) {
 function obtenerGenero(pelicula) {
 
     return (
+
         pelicula.genero ||
+
         pelicula.generos ||
+
         pelicula.genre ||
+
         "Película"
+
     );
 
 }
@@ -252,13 +338,21 @@ function obtenerGenero(pelicula) {
 function obtenerFuente(pelicula) {
 
     return (
+
         pelicula.url ||
+
         pelicula.video ||
+
         pelicula.videoUrl ||
+
         pelicula.src ||
+
         pelicula.link ||
+
         pelicula.fuente ||
+
         ""
+
     );
 
 }
@@ -267,18 +361,24 @@ function obtenerFuente(pelicula) {
 function obtenerTrailer(pelicula) {
 
     return (
+
         pelicula.trailer ||
+
         pelicula.trailerUrl ||
+
         pelicula.youtube ||
+
         pelicula.youtubeUrl ||
+
         ""
+
     );
 
 }
 
 
 /* =========================================================
-                    HERO
+                        HERO
 ========================================================= */
 
 function inicializarHero() {
@@ -293,10 +393,12 @@ function inicializarHero() {
 
     }
 
+
     const anterior =
         document.getElementById(
             "heroAnterior"
         );
+
 
     const siguiente =
         document.getElementById(
@@ -317,13 +419,17 @@ function inicializarHero() {
 
 
     const hero =
-        document.getElementById("hero");
+        document.getElementById(
+            "hero"
+        );
 
 
     hero?.addEventListener(
         "mouseenter",
         () => {
+
             heroPausa = true;
+
         }
     );
 
@@ -331,7 +437,9 @@ function inicializarHero() {
     hero?.addEventListener(
         "mouseleave",
         () => {
+
             heroPausa = false;
+
         }
     );
 
@@ -352,36 +460,35 @@ function actualizarHero() {
         peliculas[peliculaActual];
 
 
-    console.log(
-        "🎬 HERO:",
-        obtenerTitulo(pelicula)
-    );
-
-
     const titulo =
         document.getElementById(
             "heroTitulo"
         );
+
 
     const rating =
         document.getElementById(
             "heroRating"
         );
 
+
     const anio =
         document.getElementById(
             "heroAno"
         );
+
 
     const duracion =
         document.getElementById(
             "heroDuracion"
         );
 
+
     const descripcion =
         document.getElementById(
             "heroDescripcion"
         );
+
 
     const fondo =
         document.getElementById(
@@ -392,7 +499,9 @@ function actualizarHero() {
     if (titulo) {
 
         titulo.textContent =
-            obtenerTitulo(pelicula);
+            obtenerTitulo(
+                pelicula
+            );
 
     }
 
@@ -400,7 +509,9 @@ function actualizarHero() {
     if (rating) {
 
         rating.textContent =
-            obtenerRating(pelicula);
+            obtenerRating(
+                pelicula
+            );
 
     }
 
@@ -408,7 +519,9 @@ function actualizarHero() {
     if (anio) {
 
         anio.textContent =
-            obtenerAnio(pelicula);
+            obtenerAnio(
+                pelicula
+            );
 
     }
 
@@ -416,7 +529,9 @@ function actualizarHero() {
     if (duracion) {
 
         duracion.textContent =
-            obtenerDuracion(pelicula) ||
+            obtenerDuracion(
+                pelicula
+            ) ||
             "Película";
 
     }
@@ -425,7 +540,9 @@ function actualizarHero() {
     if (descripcion) {
 
         descripcion.textContent =
-            obtenerDescripcion(pelicula);
+            obtenerDescripcion(
+                pelicula
+            );
 
     }
 
@@ -433,19 +550,22 @@ function actualizarHero() {
     if (fondo) {
 
         const banner =
-            obtenerBanner(pelicula);
+            obtenerBanner(
+                pelicula
+            );
 
-        fondo.style.backgroundImage =
-            `url("${banner}")`;
+
+        if (banner) {
+
+            fondo.style.backgroundImage =
+                `url("${banner}")`;
+
+        }
 
     }
 
 
     actualizarIndicadores();
-
-    console.log(
-        "✅ HERO ACTUALIZADO"
-    );
 
 }
 
@@ -487,15 +607,18 @@ function iniciarHeroAutomatico() {
 
 
     heroTimer =
-        setInterval(() => {
+        setInterval(
+            () => {
 
-            if (!heroPausa) {
+                if (!heroPausa) {
 
-                cambiarHero(1);
+                    cambiarHero(1);
 
-            }
+                }
 
-        }, 7000);
+            },
+            7000
+        );
 
 }
 
@@ -504,7 +627,9 @@ function detenerHeroAutomatico() {
 
     if (heroTimer) {
 
-        clearInterval(heroTimer);
+        clearInterval(
+            heroTimer
+        );
 
         heroTimer = null;
 
@@ -520,6 +645,7 @@ function actualizarIndicadores() {
             "heroIndicadores"
         );
 
+
     if (!contenedor) return;
 
 
@@ -530,11 +656,15 @@ function actualizarIndicadores() {
 
 
     indicadores.forEach(
-        (indicador, indice) => {
+        (
+            indicador,
+            indice
+        ) => {
 
             indicador.classList.toggle(
                 "activo",
-                indice === peliculaActual
+                indice ===
+                peliculaActual
             );
 
         }
@@ -554,10 +684,12 @@ function inicializarBotonesGenerales() {
             "btnVer"
         );
 
+
     const btnTrailer =
         document.getElementById(
             "btnTrailer"
         );
+
 
     const btnDetalles =
         document.getElementById(
@@ -570,7 +702,9 @@ function inicializarBotonesGenerales() {
         () => {
 
             abrirPelicula(
-                peliculas[peliculaActual]
+                peliculas[
+                    peliculaActual
+                ]
             );
 
         }
@@ -582,7 +716,9 @@ function inicializarBotonesGenerales() {
         () => {
 
             abrirTrailer(
-                peliculas[peliculaActual]
+                peliculas[
+                    peliculaActual
+                ]
             );
 
         }
@@ -594,7 +730,9 @@ function inicializarBotonesGenerales() {
         () => {
 
             mostrarDetalles(
-                peliculas[peliculaActual]
+                peliculas[
+                    peliculaActual
+                ]
             );
 
         }
@@ -604,7 +742,7 @@ function inicializarBotonesGenerales() {
 
 
 /* =========================================================
-                ABRIR PELÍCULA
+                    ABRIR PELÍCULA
 ========================================================= */
 
 function abrirPelicula(pelicula) {
@@ -613,7 +751,9 @@ function abrirPelicula(pelicula) {
 
 
     const indice =
-        peliculas.indexOf(pelicula);
+        peliculas.indexOf(
+            pelicula
+        );
 
 
     if (indice >= 0) {
@@ -628,7 +768,9 @@ function abrirPelicula(pelicula) {
 
     localStorage.setItem(
         "cineversePeliculaSeleccionada",
-        JSON.stringify(pelicula)
+        JSON.stringify(
+            pelicula
+        )
     );
 
 
@@ -645,7 +787,7 @@ function abrirPelicula(pelicula) {
 
 
 /* =========================================================
-                    TRAILER
+                        TRAILER
 ========================================================= */
 
 function abrirTrailer(pelicula) {
@@ -654,7 +796,9 @@ function abrirTrailer(pelicula) {
 
 
     const trailer =
-        obtenerTrailer(pelicula);
+        obtenerTrailer(
+            pelicula
+        );
 
 
     if (!trailer) {
@@ -688,6 +832,7 @@ function cargarTendencias() {
             "tendencias"
         );
 
+
     if (!contenedor) return;
 
 
@@ -697,7 +842,10 @@ function cargarTendencias() {
     const lista =
         peliculas.slice(
             0,
-            Math.min(10, peliculas.length)
+            Math.min(
+                10,
+                peliculas.length
+            )
         );
 
 
@@ -727,6 +875,7 @@ function cargarEstrenos() {
             "estrenos"
         );
 
+
     if (!contenedor) return;
 
 
@@ -737,16 +886,28 @@ function cargarEstrenos() {
         [...peliculas]
             .sort(
                 (a, b) =>
+
                     Number(
-                        obtenerAnio(b)
-                    ) -
-                    Number(
-                        obtenerAnio(a)
+                        obtenerAnio(
+                            b
+                        )
                     )
+
+                    -
+
+                    Number(
+                        obtenerAnio(
+                            a
+                        )
+                    )
+
             )
             .slice(
                 0,
-                Math.min(10, peliculas.length)
+                Math.min(
+                    10,
+                    peliculas.length
+                )
             );
 
 
@@ -784,19 +945,27 @@ function crearTarjetaPelicula(
 
 
     const poster =
-        obtenerPoster(pelicula);
+        obtenerPoster(
+            pelicula
+        );
 
 
     const titulo =
-        obtenerTitulo(pelicula);
+        obtenerTitulo(
+            pelicula
+        );
 
 
     const anio =
-        obtenerAnio(pelicula);
+        obtenerAnio(
+            pelicula
+        );
 
 
     const rating =
-        obtenerRating(pelicula);
+        obtenerRating(
+            pelicula
+        );
 
 
     tarjeta.innerHTML = `
@@ -815,7 +984,8 @@ function crearTarjetaPelicula(
                 <button
                     class="playMovie"
                     type="button"
-                    aria-label="Ver ${titulo}">
+                    aria-label="Ver ${titulo}"
+                >
 
                     <i class="fa-solid fa-play"></i>
 
@@ -825,6 +995,7 @@ function crearTarjetaPelicula(
 
         </div>
 
+
         <div class="movieInfo">
 
             <h3 class="movieTitle">
@@ -833,6 +1004,7 @@ function crearTarjetaPelicula(
 
             </h3>
 
+
             <div class="movieMeta">
 
                 <span class="movieYear">
@@ -840,6 +1012,7 @@ function crearTarjetaPelicula(
                     ${anio}
 
                 </span>
+
 
                 <span class="movieRating">
 
@@ -872,7 +1045,7 @@ function crearTarjetaPelicula(
 
 
 /* =========================================================
-                    MI LISTA
+                        MI LISTA
 ========================================================= */
 
 function cargarMiLista() {
@@ -881,6 +1054,7 @@ function cargarMiLista() {
         document.getElementById(
             "miLista"
         );
+
 
     if (!contenedor) return;
 
@@ -901,8 +1075,10 @@ function cargarMiLista() {
                 <i class="fa-regular fa-heart"></i>
 
                 <p>
+
                     Todavía no tienes
                     películas en tu lista.
+
                 </p>
 
             </div>
@@ -933,11 +1109,15 @@ function obtenerMiLista() {
 
     try {
 
-        return JSON.parse(
-            localStorage.getItem(
-                "cineverseMiLista"
-            )
-        ) || [];
+        return (
+
+            JSON.parse(
+                localStorage.getItem(
+                    "cineverseMiLista"
+                )
+            ) || []
+
+        );
 
     } catch {
 
@@ -949,139 +1129,198 @@ function obtenerMiLista() {
 
 
 /* =========================================================
-                CONTINUAR VIENDO
+              CONTINUAR VIENDO DESACTIVADO
 ========================================================= */
+
+/*
+ * Esta función se mantiene solamente para
+ * evitar errores si alguna parte antigua
+ * de la página intenta llamarla.
+ *
+ * Ya NO carga historial.
+ * Ya NO muestra porcentajes.
+ * Ya NO crea tarjetas.
+ */
 
 function cargarContinuarViendo() {
 
-    const contenedor =
+    ocultarContinuarViendo();
+
+}
+
+
+function ocultarContinuarViendo() {
+
+    const seccion =
         document.getElementById(
-            "continuarLista"
+            "continuarSection"
         );
 
-    if (!contenedor) return;
 
+    if (seccion) {
 
-    contenedor.innerHTML = "";
-
-
-    let historial = [];
-
-    try {
-
-        historial =
-            JSON.parse(
-                localStorage.getItem(
-                    "cineverseContinuarViendo"
-                )
-            ) || [];
-
-    } catch {
-
-        historial = [];
+        seccion.style.display =
+            "none";
 
     }
 
 
-    if (!historial.length) {
+    /*
+     * También ocultamos cualquier
+     * contenedor antiguo que pudiera
+     * haber quedado en el HTML.
+     */
 
-        const vacio =
-            document.getElementById(
-                "continuarVacio"
-            );
-
-        if (vacio) {
-
-            contenedor.appendChild(
-                vacio
-            );
-
-        }
-
-        return;
-
-    }
+    const listas =
+        document.querySelectorAll(
+            "#continuarLista"
+        );
 
 
-    historial.forEach(
-        item => {
+    listas.forEach(
+        lista => {
 
-            let pelicula =
-                item.pelicula ||
-                item;
-
-            const progreso =
-                Number(
-                    item.progreso ||
-                    item.progress ||
-                    0
-                );
-
-
-            const tarjeta =
-                document.createElement(
-                    "article"
-                );
-
-
-            tarjeta.className =
-                "continuarCard";
-
-
-            tarjeta.innerHTML = `
-
-                <img
-                    src="${obtenerPoster(pelicula)}"
-                    alt="${obtenerTitulo(pelicula)}"
-                    loading="lazy"
-                >
-
-                <div class="continuarCardInfo">
-
-                    <h3>
-                        ${obtenerTitulo(pelicula)}
-                    </h3>
-
-                    <div class="continuarProgress">
-
-                        <span
-                            style="width:${Math.min(
-                                100,
-                                progreso
-                            )}%">
-                        </span>
-
-                    </div>
-
-                </div>
-
-            `;
-
-
-            tarjeta.addEventListener(
-                "click",
-                () => {
-
-                    abrirPelicula(
-                        pelicula
-                    );
-
-                }
-            );
-
-
-            contenedor.appendChild(
-                tarjeta
-            );
+            lista.innerHTML = "";
 
         }
     );
+
+
+    const vacio =
+        document.getElementById(
+            "continuarVacio"
+        );
+
+
+    if (vacio) {
+
+        vacio.style.display =
+            "none";
+
+    }
 
 }
 
 
 /* =========================================================
                     CATEGORÍAS
+========================================================= */
+
+/*
+ * Categorías oficiales de CINEVERSE.
+ *
+ * Los iconos se agregan desde JS para que
+ * el diseño permanezca consistente aunque
+ * el HTML tenga solamente el texto.
+ */
+
+const CATEGORIAS_CINEVERSE = {
+
+    "accion": {
+
+        icono:
+            "fa-solid fa-bolt",
+
+        clase:
+            "accion"
+
+    },
+
+    "ciencia-ficcion": {
+
+        icono:
+            "fa-solid fa-rocket",
+
+        clase:
+            "ciencia"
+
+    },
+
+    "ciencia ficcion": {
+
+        icono:
+            "fa-solid fa-rocket",
+
+        clase:
+            "ciencia"
+
+    },
+
+    "ciencia": {
+
+        icono:
+            "fa-solid fa-rocket",
+
+        clase:
+            "ciencia"
+
+    },
+
+    "fantasia": {
+
+        icono:
+            "fa-solid fa-wand-magic-sparkles",
+
+        clase:
+            "fantasia"
+
+    },
+
+    "fantasía": {
+
+        icono:
+            "fa-solid fa-wand-magic-sparkles",
+
+        clase:
+            "fantasia"
+
+    },
+
+    "terror": {
+
+        icono:
+            "fa-solid fa-ghost",
+
+        clase:
+            "terror"
+
+    },
+
+    "animacion": {
+
+        icono:
+            "fa-solid fa-clapperboard",
+
+        clase:
+            "animacion"
+
+    },
+
+    "animación": {
+
+        icono:
+            "fa-solid fa-clapperboard",
+
+        clase:
+            "animacion"
+
+    },
+
+    "anime": {
+
+        icono:
+            "fa-solid fa-dragon",
+
+        clase:
+            "anime"
+
+    }
+
+};
+
+
+/* =========================================================
+                INICIALIZAR CATEGORÍAS
 ========================================================= */
 
 function inicializarCategorias() {
@@ -1092,8 +1331,24 @@ function inicializarCategorias() {
         );
 
 
+    if (!categorias.length) {
+
+        console.warn(
+            "⚠️ No se encontraron categorías."
+        );
+
+        return;
+
+    }
+
+
     categorias.forEach(
         card => {
+
+            prepararCategoria(
+                card
+            );
+
 
             card.addEventListener(
                 "click",
@@ -1127,9 +1382,13 @@ function inicializarCategorias() {
 
 
                     /*
-                     * Preparado para conectar
-                     * posteriormente con
-                     * peliculas.html.
+                     * Dejamos preparado el enlace
+                     * para conectar posteriormente
+                     * con peliculas.html.
+                     *
+                     * No lo activamos todavía para
+                     * no alterar el funcionamiento
+                     * actual.
                      */
 
                     // window.location.href =
@@ -1141,19 +1400,473 @@ function inicializarCategorias() {
         }
     );
 
+
+    prepararFlechasUniversos();
+
 }
 
 
 /* =========================================================
-            CARRUSEL DE UNIVERSOS
+            PREPARAR TARJETA DE CATEGORÍA
 ========================================================= */
 
-function inicializarCarruselUniversos() {
+function prepararCategoria(
+    card
+) {
 
-    const lista =
+    let genero =
+        card.dataset.genero;
+
+
+    if (!genero) {
+
+        const titulo =
+            card.querySelector(
+                "h3"
+            );
+
+
+        if (titulo) {
+
+            genero =
+                titulo.textContent
+                    .trim()
+                    .toLowerCase();
+
+            card.dataset.genero =
+                genero;
+
+        }
+
+    }
+
+
+    if (!genero) return;
+
+
+    const clave =
+        genero
+            .trim()
+            .toLowerCase();
+
+
+    const categoria =
+        CATEGORIAS_CINEVERSE[
+            clave
+        ];
+
+
+    if (!categoria) return;
+
+
+    /*
+     * Aplicamos clase correspondiente.
+     */
+
+    if (
+        categoria.clase &&
+        !card.classList.contains(
+            categoria.clase
+        )
+    ) {
+
+        card.classList.add(
+            categoria.clase
+        );
+
+    }
+
+
+    /*
+     * Si ya existe icono no creamos
+     * otro.
+     */
+
+    if (
+        card.querySelector(
+            ".universoIcon"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const info =
+        card.querySelector(
+            ".universoInfo"
+        );
+
+
+    if (!info) return;
+
+
+    const icono =
+        document.createElement(
+            "div"
+        );
+
+
+    icono.className =
+        "universoIcon";
+
+
+    icono.innerHTML = `
+
+        <i class="${categoria.icono}"></i>
+
+    `;
+
+
+    /*
+     * Lo colocamos al principio
+     * de la información.
+     */
+
+    info.insertBefore(
+        icono,
+        info.firstChild
+    );
+
+}
+
+
+/* =========================================================
+            FLECHAS UNIVERSOS
+========================================================= */
+
+function prepararFlechasUniversos() {
+
+    const grid =
         document.querySelector(
             ".universosGrid"
         );
+
+
+    if (!grid) return;
+
+
+    const section =
+        grid.closest(
+            ".universos"
+        );
+
+
+    if (!section) return;
+
+
+    /*
+     * Si las flechas ya existen,
+     * solamente las conectamos.
+     */
+
+    let anterior =
+        document.getElementById(
+            "universosAnterior"
+        );
+
+
+    let siguiente =
+        document.getElementById(
+            "universosSiguiente"
+        );
+
+
+    /*
+     * Si NO existen, las creamos.
+     */
+
+    if (!anterior) {
+
+        anterior =
+            document.createElement(
+                "button"
+            );
+
+
+        anterior.id =
+            "universosAnterior";
+
+
+        anterior.className =
+            "universosFlecha universosFlechaIzquierda";
+
+
+        anterior.type =
+            "button";
+
+
+        anterior.setAttribute(
+            "aria-label",
+            "Categorías anteriores"
+        );
+
+
+        anterior.innerHTML = `
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        `;
+
+    }
+
+
+    if (!siguiente) {
+
+        siguiente =
+            document.createElement(
+                "button"
+            );
+
+
+        siguiente.id =
+            "universosSiguiente";
+
+
+        siguiente.className =
+            "universosFlecha universosFlechaDerecha";
+
+
+        siguiente.type =
+            "button";
+
+
+        siguiente.setAttribute(
+            "aria-label",
+            "Siguientes categorías"
+        );
+
+
+        siguiente.innerHTML = `
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        `;
+
+    }
+
+
+    /*
+     * Creamos un contenedor para
+     * las flechas si todavía no existe.
+     */
+
+    let controles =
+        section.querySelector(
+            ".universosControles"
+        );
+
+
+    if (!controles) {
+
+        controles =
+            document.createElement(
+                "div"
+            );
+
+
+        controles.className =
+            "universosControles";
+
+
+        section.appendChild(
+            controles
+        );
+
+    }
+
+
+    /*
+     * Movemos las flechas al
+     * contenedor correcto.
+     */
+
+    if (
+        !controles.contains(
+            anterior
+        )
+    ) {
+
+        controles.appendChild(
+            anterior
+        );
+
+    }
+
+
+    if (
+        !controles.contains(
+            siguiente
+        )
+    ) {
+
+        controles.appendChild(
+            siguiente
+        );
+
+    }
+
+
+    /*
+     * Evitamos registrar eventos
+     * duplicados.
+     */
+
+    if (
+        anterior.dataset.cineverseReady !==
+        "true"
+    ) {
+
+        anterior.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                moverUniversos(
+                    -1
+                );
+
+            }
+        );
+
+
+        anterior.dataset.cineverseReady =
+            "true";
+
+    }
+
+
+    if (
+        siguiente.dataset.cineverseReady !==
+        "true"
+    ) {
+
+        siguiente.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                moverUniversos(
+                    1
+                );
+
+            }
+        );
+
+
+        siguiente.dataset.cineverseReady =
+            "true";
+
+    }
+
+
+    actualizarEstadoFlechasUniversos();
+
+}
+
+
+/* =========================================================
+                MOVER UNIVERSOS
+========================================================= */
+
+function moverUniversos(
+    direccion
+) {
+
+    const grid =
+        document.querySelector(
+            ".universosGrid"
+        );
+
+
+    if (!grid) return;
+
+
+    /*
+     * Calculamos el desplazamiento
+     * según el tamaño real de las tarjetas.
+     */
+
+    const tarjeta =
+        grid.querySelector(
+            ".universoCard"
+        );
+
+
+    let cantidad;
+
+
+    if (tarjeta) {
+
+        const ancho =
+            tarjeta.getBoundingClientRect()
+                .width;
+
+
+        const estilos =
+            window.getComputedStyle(
+                grid
+            );
+
+
+        const gap =
+            parseFloat(
+                estilos.columnGap ||
+                estilos.gap ||
+                "16"
+            );
+
+
+        cantidad =
+            ancho + gap;
+
+    } else {
+
+        cantidad =
+            Math.max(
+                240,
+                grid.clientWidth * 0.75
+            );
+
+    }
+
+
+    grid.scrollBy({
+
+        left:
+            cantidad *
+            direccion,
+
+        behavior:
+            "smooth"
+
+    });
+
+
+    setTimeout(
+        actualizarEstadoFlechasUniversos,
+        350
+    );
+
+}
+
+
+/* =========================================================
+            ESTADO DE FLECHAS UNIVERSOS
+========================================================= */
+
+function actualizarEstadoFlechasUniversos() {
+
+    const grid =
+        document.querySelector(
+            ".universosGrid"
+        );
+
+
+    if (!grid) return;
 
 
     const anterior =
@@ -1168,42 +1881,28 @@ function inicializarCarruselUniversos() {
         );
 
 
-    if (!lista) return;
+    const margen =
+        5;
 
 
-    function mover(direccion) {
+    if (anterior) {
 
-        const cantidad =
-            Math.max(
-                220,
-                lista.clientWidth * 0.75
-            );
-
-
-        lista.scrollBy({
-
-            left:
-                cantidad *
-                direccion,
-
-            behavior:
-                "smooth"
-
-        });
+        anterior.disabled =
+            grid.scrollLeft <=
+            margen;
 
     }
 
 
-    anterior?.addEventListener(
-        "click",
-        () => mover(-1)
-    );
+    if (siguiente) {
 
+        siguiente.disabled =
+            grid.scrollLeft +
+            grid.clientWidth >=
+            grid.scrollWidth -
+            margen;
 
-    siguiente?.addEventListener(
-        "click",
-        () => mover(1)
-    );
+    }
 
 }
 
@@ -1214,8 +1913,16 @@ function inicializarCarruselUniversos() {
 
 function inicializarCarruseles() {
 
-    inicializarCarruselUniversos();
+    /*
+     * Universos
+     */
 
+    prepararFlechasUniversos();
+
+
+    /*
+     * Tendencias
+     */
 
     configurarCarrusel(
         "tendencias",
@@ -1224,6 +1931,10 @@ function inicializarCarruseles() {
     );
 
 
+    /*
+     * Estrenos
+     */
+
     configurarCarrusel(
         "estrenos",
         "estrenosPrev",
@@ -1231,14 +1942,17 @@ function inicializarCarruseles() {
     );
 
 
-    configurarCarrusel(
-        "continuarLista",
-        "continuarAnterior",
-        "continuarSiguiente"
-    );
+    /*
+     * Ya NO inicializamos
+     * Continuar viendo.
+     */
 
 }
 
+
+/* =========================================================
+                CARRUSEL GENERAL
+========================================================= */
 
 function configurarCarrusel(
     listaId,
@@ -1267,13 +1981,51 @@ function configurarCarrusel(
     if (!lista) return;
 
 
-    function mover(direccion) {
+    function mover(
+        direccion
+    ) {
 
-        const cantidad =
-            Math.max(
-                250,
-                lista.clientWidth * 0.75
+        const tarjeta =
+            lista.querySelector(
+                ".movieCard"
             );
+
+
+        let cantidad;
+
+
+        if (tarjeta) {
+
+            const ancho =
+                tarjeta.getBoundingClientRect()
+                    .width;
+
+
+            const estilos =
+                window.getComputedStyle(
+                    lista
+                );
+
+
+            const gap =
+                parseFloat(
+                    estilos.gap ||
+                    "16"
+                );
+
+
+            cantidad =
+                ancho + gap;
+
+        } else {
+
+            cantidad =
+                Math.max(
+                    250,
+                    lista.clientWidth * 0.75
+                );
+
+        }
 
 
         lista.scrollBy({
@@ -1359,12 +2111,17 @@ function inicializarBusqueda() {
 
 
                         return (
+
                             titulo.includes(
                                 texto
-                            ) ||
+                            )
+
+                            ||
+
                             genero.includes(
                                 texto
                             )
+
                         );
 
                     }
@@ -1381,6 +2138,10 @@ function inicializarBusqueda() {
 }
 
 
+/* =========================================================
+            MOSTRAR RESULTADOS BÚSQUEDA
+========================================================= */
+
 function mostrarResultadosBusqueda(
     resultados
 ) {
@@ -1394,7 +2155,8 @@ function mostrarResultadosBusqueda(
     if (!tendencias) return;
 
 
-    tendencias.innerHTML = "";
+    tendencias.innerHTML =
+        "";
 
 
     if (!resultados.length) {
@@ -1433,6 +2195,10 @@ function mostrarResultadosBusqueda(
 }
 
 
+/* =========================================================
+            RESTAURAR PELÍCULAS
+========================================================= */
+
 function restaurarPeliculas() {
 
     cargarTendencias();
@@ -1441,7 +2207,7 @@ function restaurarPeliculas() {
 
 
 /* =========================================================
-                    MODAL
+                        MODAL
 ========================================================= */
 
 function inicializarModal() {
@@ -1486,6 +2252,10 @@ function inicializarModal() {
 }
 
 
+/* =========================================================
+                    MOSTRAR DETALLES
+========================================================= */
+
 function mostrarDetalles(
     pelicula
 ) {
@@ -1517,15 +2287,22 @@ function mostrarDetalles(
                 alt="${obtenerTitulo(pelicula)}"
             >
 
+
             <div>
 
                 <h2>
+
                     ${obtenerTitulo(pelicula)}
+
                 </h2>
 
+
                 <p>
+
                     ${obtenerDescripcion(pelicula)}
+
                 </p>
+
 
                 <div>
 
@@ -1550,6 +2327,10 @@ function mostrarDetalles(
 
 }
 
+
+/* =========================================================
+                    CERRAR MODAL
+========================================================= */
 
 function cerrarModal() {
 
@@ -1675,7 +2456,7 @@ function ocultarLoading() {
 
 
 /* =========================================================
-                    TOAST
+                        TOAST
 ========================================================= */
 
 function mostrarToast(
@@ -1723,6 +2504,20 @@ function mostrarToast(
 
 
 /* =========================================================
+            ACTUALIZAR FLECHAS AL REDIMENSIONAR
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        actualizarEstadoFlechasUniversos();
+
+    }
+);
+
+
+/* =========================================================
                 EXPOSICIÓN GLOBAL
 ========================================================= */
 
@@ -1737,6 +2532,12 @@ window.CINEVERSE = {
     mostrarDetalles,
 
     cargarMiLista,
+
+    /*
+     * Se conserva el nombre para evitar
+     * errores con código anterior,
+     * pero ya no muestra historial.
+     */
 
     cargarContinuarViendo,
 
