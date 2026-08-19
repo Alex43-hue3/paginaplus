@@ -2,7 +2,7 @@
 
 /* =========================================================
                     CINEVERSE APP.JS
-                    VERSION CORREGIDA
+                    VERSIÓN FINAL
 ========================================================= */
 
 let peliculas = [];
@@ -13,11 +13,16 @@ let listaHeroActual = [];
 let miLista = [];
 
 try {
-    miLista = JSON.parse(
-        localStorage.getItem("miLista")
-    ) || [];
+
+    miLista =
+        JSON.parse(
+            localStorage.getItem("miLista")
+        ) || [];
+
 } catch (error) {
+
     miLista = [];
+
 }
 
 
@@ -88,61 +93,86 @@ const movieCardTemplate =
 
 
 /* =========================================================
-                    CONFIGURACIÓN
+                    CATEGORÍAS
 ========================================================= */
 
 const CATEGORIAS = [
 
     {
         nombre: "Acción",
+
         genero: "accion",
+
         icono: "fa-solid fa-bolt",
+
         clase: "accion",
+
         descripcion:
             "Explosiones, persecuciones y adrenalina."
     },
 
     {
         nombre: "Ciencia ficción",
+
         genero: "ciencia ficcion",
+
         icono: "fa-solid fa-rocket",
+
         clase: "ciencia",
+
         descripcion:
             "Viajes espaciales y mundos futuristas."
     },
 
     {
         nombre: "Fantasía",
+
         genero: "fantasia",
-        icono: "fa-solid fa-wand-magic-sparkles",
+
+        icono:
+            "fa-solid fa-wand-magic-sparkles",
+
         clase: "fantasia",
+
         descripcion:
             "Dragones, magia y aventuras épicas."
     },
 
     {
         nombre: "Terror",
+
         genero: "terror",
+
         icono: "fa-solid fa-ghost",
+
         clase: "terror",
+
         descripcion:
             "Suspenso y miedo hasta el último minuto."
     },
 
     {
         nombre: "Animación",
+
         genero: "animacion",
+
         icono: "fa-solid fa-clapperboard",
+
         clase: "animacion",
+
         descripcion:
             "Historias para disfrutar a cualquier edad."
     },
 
     {
         nombre: "Anime",
+
         genero: "anime",
+
         icono: "fa-solid fa-dragon",
+
         clase: "anime",
+
         descripcion:
             "Aventuras, mundos y personajes inolvidables."
     }
@@ -171,11 +201,27 @@ function iniciarCineverse() {
     );
 
 
+    /*
+     * Eliminamos completamente
+     * Continuar viendo.
+     */
+
     ocultarContinuarViendo();
+
+
+    /*
+     * Preparamos categorías.
+     */
 
     prepararCategorias();
 
+
+    /*
+     * Cargamos películas.
+     */
+
     cargarPeliculas()
+
         .then(() => {
 
             if (!peliculas.length) {
@@ -226,10 +272,10 @@ function iniciarCineverse() {
 
             console.log(
                 "===================================="
-
             );
 
         })
+
         .catch(error => {
 
             console.error(
@@ -289,8 +335,9 @@ async function cargarPeliculas() {
             peliculas.length
         );
 
+    }
 
-    } catch (error) {
+    catch (error) {
 
         console.error(
             "❌ Error cargando peliculas.json:",
@@ -305,7 +352,7 @@ async function cargarPeliculas() {
 
 
 /* =========================================================
-                PREPARAR HERO
+                    PREPARAR HERO
 ========================================================= */
 
 function prepararHero() {
@@ -360,10 +407,6 @@ function mostrarHero() {
     }
 
 
-    /* -----------------------------------------------------
-                        TÍTULO
-    ----------------------------------------------------- */
-
     if (heroTitulo) {
 
         heroTitulo.textContent =
@@ -372,10 +415,6 @@ function mostrarHero() {
 
     }
 
-
-    /* -----------------------------------------------------
-                    DESCRIPCIÓN
-    ----------------------------------------------------- */
 
     if (heroDescripcion) {
 
@@ -386,10 +425,6 @@ function mostrarHero() {
     }
 
 
-    /* -----------------------------------------------------
-                        RATING
-    ----------------------------------------------------- */
-
     if (heroRating) {
 
         heroRating.textContent =
@@ -398,10 +433,6 @@ function mostrarHero() {
 
     }
 
-
-    /* -----------------------------------------------------
-                          AÑO
-    ----------------------------------------------------- */
 
     if (heroAno) {
 
@@ -412,10 +443,6 @@ function mostrarHero() {
     }
 
 
-    /* -----------------------------------------------------
-                       DURACIÓN
-    ----------------------------------------------------- */
-
     if (heroDuracion) {
 
         heroDuracion.textContent =
@@ -424,10 +451,6 @@ function mostrarHero() {
 
     }
 
-
-    /* -----------------------------------------------------
-                    FONDO HERO
-    ----------------------------------------------------- */
 
     if (heroBackground) {
 
@@ -446,10 +469,6 @@ function mostrarHero() {
 
     }
 
-
-    /* -----------------------------------------------------
-                         TRAILER
-    ----------------------------------------------------- */
 
     if (btnTrailer) {
 
@@ -789,17 +808,10 @@ function prepararCategorias() {
     }
 
 
-    /* -----------------------------------------------------
-                LIMPIAR CATEGORÍAS EXISTENTES
-    ----------------------------------------------------- */
-
-    grid.innerHTML =
-        "";
-
-
-    /* -----------------------------------------------------
-                    CONTENEDOR CARRUSEL
-    ----------------------------------------------------- */
+    /*
+     * Evitamos crear varios carruseles
+     * si app.js se ejecuta nuevamente.
+     */
 
     let carrusel =
         seccion.querySelector(
@@ -832,18 +844,26 @@ function prepararCategorias() {
     }
 
 
-    /* -----------------------------------------------------
-                    CLASE DE GRID
-    ----------------------------------------------------- */
+    /*
+     * Limpiamos tarjetas anteriores.
+     */
+
+    grid.innerHTML =
+        "";
+
+
+    /*
+     * Clase para el slider.
+     */
 
     grid.classList.add(
         "universosSlider"
     );
 
 
-    /* -----------------------------------------------------
-                        CREAR CARDS
-    ----------------------------------------------------- */
+    /*
+     * Creamos las 6 categorías.
+     */
 
     CATEGORIAS.forEach(
         categoria => {
@@ -874,6 +894,18 @@ function prepararCategorias() {
             );
 
 
+            /*
+             * IMPORTANTE:
+             *
+             * La estructura está separada:
+             *
+             * ICONO
+             * INFORMACIÓN
+             *
+             * Esto evita que el icono se
+             * monte sobre el texto.
+             */
+
             card.innerHTML = `
 
                 <div class="universoGlow"></div>
@@ -901,9 +933,9 @@ function prepararCategorias() {
             `;
 
 
-            /* ------------------------------------------------
-                        CLICK CATEGORÍA
-            ------------------------------------------------ */
+            /*
+             * CLICK
+             */
 
             card.addEventListener(
                 "click",
@@ -918,6 +950,10 @@ function prepararCategorias() {
             );
 
 
+            /*
+             * TECLADO
+             */
+
             card.addEventListener(
                 "keydown",
                 event => {
@@ -928,6 +964,7 @@ function prepararCategorias() {
                     ) {
 
                         event.preventDefault();
+
 
                         seleccionarCategoria(
                             categoria.genero,
@@ -948,11 +985,24 @@ function prepararCategorias() {
     );
 
 
-    /* -----------------------------------------------------
-                    CREAR FLECHAS
-    ----------------------------------------------------- */
+    /*
+     * Creamos flechas.
+     */
 
     crearFlechasCategorias(
+        carrusel,
+        grid
+    );
+
+
+    /*
+     * Ajustes visuales mínimos
+     * desde JS para garantizar
+     * la estructura.
+     */
+
+    prepararEstiloCategorias(
+        seccion,
         carrusel,
         grid
     );
@@ -962,6 +1012,129 @@ function prepararCategorias() {
         "✅ Categorías preparadas:",
         CATEGORIAS.length
     );
+
+}
+
+
+/* =========================================================
+            ESTILO BASE DE CATEGORÍAS
+========================================================= */
+
+function prepararEstiloCategorias(
+    seccion,
+    carrusel,
+    slider
+) {
+
+    if (!seccion || !carrusel || !slider) {
+
+        return;
+
+    }
+
+
+    /*
+     * El carrusel será la referencia
+     * para las flechas.
+     */
+
+    carrusel.style.position =
+        "relative";
+
+
+    /*
+     * El slider mantiene el
+     * desplazamiento horizontal.
+     */
+
+    slider.style.overflowX =
+        "auto";
+
+
+    slider.style.scrollBehavior =
+        "smooth";
+
+
+    slider.style.scrollbarWidth =
+        "none";
+
+
+    /*
+     * Evita que las tarjetas
+     * se aplasten.
+     */
+
+    slider.style.display =
+        "flex";
+
+
+    slider.style.flexWrap =
+        "nowrap";
+
+
+    slider.style.alignItems =
+        "stretch";
+
+
+    /*
+     * Tarjetas.
+     */
+
+    slider
+        .querySelectorAll(
+            ".universoCard"
+        )
+        .forEach(
+            card => {
+
+                card.style.position =
+                    "relative";
+
+
+                card.style.flex =
+                    "0 0 auto";
+
+
+                /*
+                 * El icono queda separado
+                 * de la información.
+                 */
+
+                const icono =
+                    card.querySelector(
+                        ".universoIcon"
+                    );
+
+
+                if (icono) {
+
+                    icono.style.position =
+                        "absolute";
+
+                    icono.style.zIndex =
+                        "3";
+
+                }
+
+
+                const info =
+                    card.querySelector(
+                        ".universoInfo"
+                    );
+
+
+                if (info) {
+
+                    info.style.position =
+                        "absolute";
+
+                    info.style.zIndex =
+                        "4";
+
+                }
+
+            }
+        );
 
 }
 
@@ -982,23 +1155,27 @@ function crearFlechasCategorias(
     }
 
 
-    /* -----------------------------------------------------
-                    ELIMINAR FLECHAS ANTERIORES
-    ----------------------------------------------------- */
+    /*
+     * Eliminamos cualquier flecha
+     * creada anteriormente.
+     */
 
     contenedor
         .querySelectorAll(
             ".universosArrow"
         )
         .forEach(
-            flecha =>
-                flecha.remove()
+            flecha => {
+
+                flecha.remove();
+
+            }
         );
 
 
-    /* -----------------------------------------------------
-                        ANTERIOR
-    ----------------------------------------------------- */
+    /*
+     * ANTERIOR
+     */
 
     const anterior =
         document.createElement(
@@ -1024,9 +1201,9 @@ function crearFlechasCategorias(
     );
 
 
-    /* -----------------------------------------------------
-                        SIGUIENTE
-    ----------------------------------------------------- */
+    /*
+     * SIGUIENTE
+     */
 
     const siguiente =
         document.createElement(
@@ -1052,6 +1229,11 @@ function crearFlechasCategorias(
     );
 
 
+    /*
+     * Añadimos las flechas
+     * directamente al carrusel.
+     */
+
     contenedor.appendChild(
         anterior
     );
@@ -1062,43 +1244,69 @@ function crearFlechasCategorias(
     );
 
 
-    /* -----------------------------------------------------
-                    DESPLAZAMIENTO
-    ----------------------------------------------------- */
+    /*
+     * Movimiento.
+     */
 
-    const mover =
-        direccion => {
+    function mover(
+        direccion
+    ) {
+
+        const tarjeta =
+            slider.querySelector(
+                ".universoCard"
+            );
+
+
+        let desplazamiento =
+            420;
+
+
+        if (tarjeta) {
 
             const ancho =
-                slider.clientWidth;
+                tarjeta.getBoundingClientRect()
+                    .width;
 
 
-            const desplazamiento =
-                Math.max(
-                    260,
-                    Math.floor(
-                        ancho * 0.75
-                    )
-                );
+            const espacio =
+                14;
 
 
-            slider.scrollBy({
+            desplazamiento =
+                (
+                    ancho +
+                    espacio
+                ) * 2;
 
-                left:
-                    direccion *
-                    desplazamiento,
+        }
 
-                behavior:
-                    "smooth"
 
-            });
+        slider.scrollBy({
 
-        };
+            left:
+                direccion *
+                desplazamiento,
 
+            behavior:
+                "smooth"
+
+        });
+
+    }
+
+
+    /*
+     * EVENTOS
+     */
 
     anterior.addEventListener(
         "click",
-        () => {
+        event => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
 
             mover(-1);
 
@@ -1108,7 +1316,11 @@ function crearFlechasCategorias(
 
     siguiente.addEventListener(
         "click",
-        () => {
+        event => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
 
             mover(1);
 
@@ -1116,9 +1328,9 @@ function crearFlechasCategorias(
     );
 
 
-    /* -----------------------------------------------------
-                    ACTUALIZAR FLECHAS
-    ----------------------------------------------------- */
+    /*
+     * Estado de flechas.
+     */
 
     function actualizarFlechas() {
 
@@ -1131,16 +1343,33 @@ function crearFlechasCategorias(
             slider.scrollLeft;
 
 
+        const necesitaFlechas =
+            limite > 5;
+
+
         anterior.classList.toggle(
             "disabled",
+            !necesitaFlechas ||
             posicion <= 5
         );
 
 
         siguiente.classList.toggle(
             "disabled",
+            !necesitaFlechas ||
             posicion >=
             limite - 5
+        );
+
+
+        /*
+         * Si no hay desplazamiento,
+         * ocultamos las flechas.
+         */
+
+        contenedor.classList.toggle(
+            "sinMovimiento",
+            !necesitaFlechas
         );
 
     }
@@ -1164,6 +1393,12 @@ function crearFlechasCategorias(
     setTimeout(
         actualizarFlechas,
         100
+    );
+
+
+    setTimeout(
+        actualizarFlechas,
+        500
     );
 
 }
@@ -1228,45 +1463,61 @@ function seleccionarCategoria(
     }
 
 
-    const tituloTendencias =
-        document.querySelector(
-            ".moviesSection .sectionHeader h2"
-        );
+    /*
+     * Buscamos la sección
+     * de películas.
+     */
 
-
-    if (tituloTendencias) {
-
-        tituloTendencias.textContent =
-            nombre;
-
-    }
-
-
-    const mini =
-        document.querySelector(
-            ".moviesSection .sectionHeader .sectionMini"
-        );
-
-
-    if (mini) {
-
-        mini.textContent =
-            "Categoría seleccionada";
-
-    }
-
-
-    const seccion =
-        document.querySelector(
+    const secciones =
+        document.querySelectorAll(
             ".moviesSection"
         );
 
 
+    const seccion =
+        secciones.length
+            ? secciones[0]
+            : null;
+
+
     if (seccion) {
 
+        const titulo =
+            seccion.querySelector(
+                ".sectionHeader h2"
+            );
+
+
+        if (titulo) {
+
+            titulo.textContent =
+                nombre;
+
+        }
+
+
+        const mini =
+            seccion.querySelector(
+                ".sectionMini"
+            );
+
+
+        if (mini) {
+
+            mini.textContent =
+                "Categoría seleccionada";
+
+        }
+
+
         seccion.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
+
+            behavior:
+                "smooth",
+
+            block:
+                "start"
+
         });
 
     }
@@ -1612,9 +1863,9 @@ function crearTarjetaPelicula(
     }
 
 
-    /* -----------------------------------------------------
-                        POSTER
-    ----------------------------------------------------- */
+    /*
+     * POSTER
+     */
 
     const poster =
         tarjeta.querySelector(
@@ -1646,7 +1897,8 @@ function crearTarjetaPelicula(
 
                 if (
                     pelicula.banner &&
-                    pelicula.banner !== pelicula.poster
+                    pelicula.banner !==
+                    pelicula.poster
                 ) {
 
                     poster.onerror =
@@ -1665,9 +1917,9 @@ function crearTarjetaPelicula(
     }
 
 
-    /* -----------------------------------------------------
-                        TÍTULO
-    ----------------------------------------------------- */
+    /*
+     * TÍTULO
+     */
 
     const titulo =
         tarjeta.querySelector(
@@ -1684,9 +1936,9 @@ function crearTarjetaPelicula(
     }
 
 
-    /* -----------------------------------------------------
-                            AÑO
-    ----------------------------------------------------- */
+    /*
+     * AÑO
+     */
 
     const anio =
         tarjeta.querySelector(
@@ -1703,9 +1955,9 @@ function crearTarjetaPelicula(
     }
 
 
-    /* -----------------------------------------------------
-                          RATING
-    ----------------------------------------------------- */
+    /*
+     * RATING
+     */
 
     const rating =
         tarjeta.querySelector(
@@ -1732,9 +1984,9 @@ function crearTarjetaPelicula(
         "pointer";
 
 
-    /* -----------------------------------------------------
-                        PLAY
-    ----------------------------------------------------- */
+    /*
+     * PLAY
+     */
 
     const play =
         tarjeta.querySelector(
@@ -1762,9 +2014,9 @@ function crearTarjetaPelicula(
     }
 
 
-    /* -----------------------------------------------------
-                    CLICK TARJETA
-    ----------------------------------------------------- */
+    /*
+     * CLICK TARJETA
+     */
 
     tarjeta.addEventListener(
         "click",
@@ -1937,8 +2189,7 @@ function configurarBusqueda() {
                             Array.isArray(
                                 pelicula.tags
                             )
-                                ? pelicula.tags
-                                    .join(" ")
+                                ? pelicula.tags.join(" ")
                                 : "";
 
 
@@ -2166,7 +2417,9 @@ function abrirEnlaceVideo(
             "noopener,noreferrer"
         );
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         window.location.href =
             url;
@@ -2193,17 +2446,19 @@ function configurarBotonDetalles() {
         "click",
         () => {
 
-            const hero =
+            const seccion =
                 document.querySelector(
                     ".moviesSection"
                 );
 
 
-            if (hero) {
+            if (seccion) {
 
-                hero.scrollIntoView({
+                seccion.scrollIntoView({
+
                     behavior:
                         "smooth"
+
                 });
 
             }
@@ -2240,8 +2495,10 @@ function configurarVerTodo() {
                         if (seccion) {
 
                             seccion.scrollIntoView({
+
                                 behavior:
                                     "smooth"
+
                             });
 
                         }
@@ -2261,24 +2518,28 @@ function configurarVerTodo() {
 
 function ocultarContinuarViendo() {
 
-    const secciones =
-        document.querySelectorAll(
+    /*
+     * Eliminamos cualquier sección
+     * de continuar viendo.
+     */
+
+    document
+        .querySelectorAll(
             ".continuar, #continuarSection"
+        )
+        .forEach(
+            seccion => {
+
+                seccion.remove();
+
+            }
         );
 
 
-    secciones.forEach(
-        seccion => {
-
-            seccion.remove();
-
-        }
-    );
-
-
     /*
-     * También eliminamos contenedores
-     * duplicados de continuar viendo.
+     * Eliminamos solamente los
+     * contenedores visuales de
+     * continuar viendo.
      */
 
     document
@@ -2295,8 +2556,12 @@ function ocultarContinuarViendo() {
 
 
     /*
-     * Ya no utilizamos continuarViendo.
-     * No borramos otros datos de localStorage.
+     * IMPORTANTE:
+     *
+     * NO borramos localStorage.
+     *
+     * De esta manera Mi Lista
+     * y otros datos permanecen.
      */
 
     console.log(
@@ -2532,7 +2797,9 @@ if (
         iniciarCineverse
     );
 
-} else {
+}
+
+else {
 
     iniciarCineverse();
 
@@ -2540,9 +2807,9 @@ if (
 
 
 /* =========================================================
-                    DEBUG
+                        DEBUG
 ========================================================= */
 
 console.log(
-    "🔥 CINEVERSE APP.JS CORREGIDO CARGADO"
+    "🔥 CINEVERSE APP.JS FINAL CARGADO"
 );
