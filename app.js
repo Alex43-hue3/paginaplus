@@ -1,8 +1,9 @@
+
 "use strict";
 
 /* =========================================================
                     CINEVERSE APP.JS
-                    VERSIÓN FINAL
+                    VERSION CATEGORÍAS
 ========================================================= */
 
 let peliculas = [];
@@ -93,86 +94,61 @@ const movieCardTemplate =
 
 
 /* =========================================================
-                    CATEGORÍAS
+                    CONFIGURACIÓN
 ========================================================= */
 
 const CATEGORIAS = [
 
     {
         nombre: "Acción",
-
         genero: "accion",
-
         icono: "fa-solid fa-bolt",
-
         clase: "accion",
-
         descripcion:
             "Explosiones, persecuciones y adrenalina."
     },
 
     {
         nombre: "Ciencia ficción",
-
         genero: "ciencia ficcion",
-
         icono: "fa-solid fa-rocket",
-
         clase: "ciencia",
-
         descripcion:
             "Viajes espaciales y mundos futuristas."
     },
 
     {
         nombre: "Fantasía",
-
         genero: "fantasia",
-
-        icono:
-            "fa-solid fa-wand-magic-sparkles",
-
+        icono: "fa-solid fa-wand-magic-sparkles",
         clase: "fantasia",
-
         descripcion:
             "Dragones, magia y aventuras épicas."
     },
 
     {
         nombre: "Terror",
-
         genero: "terror",
-
         icono: "fa-solid fa-ghost",
-
         clase: "terror",
-
         descripcion:
             "Suspenso y miedo hasta el último minuto."
     },
 
     {
         nombre: "Animación",
-
         genero: "animacion",
-
         icono: "fa-solid fa-clapperboard",
-
         clase: "animacion",
-
         descripcion:
             "Historias para disfrutar a cualquier edad."
     },
 
     {
         nombre: "Anime",
-
         genero: "anime",
-
         icono: "fa-solid fa-dragon",
-
         clase: "anime",
-
         descripcion:
             "Aventuras, mundos y personajes inolvidables."
     }
@@ -201,27 +177,11 @@ function iniciarCineverse() {
     );
 
 
-    /*
-     * Eliminamos completamente
-     * Continuar viendo.
-     */
-
     ocultarContinuarViendo();
-
-
-    /*
-     * Preparamos categorías.
-     */
 
     prepararCategorias();
 
-
-    /*
-     * Cargamos películas.
-     */
-
     cargarPeliculas()
-
         .then(() => {
 
             if (!peliculas.length) {
@@ -275,7 +235,6 @@ function iniciarCineverse() {
             );
 
         })
-
         .catch(error => {
 
             console.error(
@@ -335,9 +294,8 @@ async function cargarPeliculas() {
             peliculas.length
         );
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "❌ Error cargando peliculas.json:",
@@ -352,7 +310,7 @@ async function cargarPeliculas() {
 
 
 /* =========================================================
-                    PREPARAR HERO
+                PREPARAR HERO
 ========================================================= */
 
 function prepararHero() {
@@ -808,10 +766,9 @@ function prepararCategorias() {
     }
 
 
-    /*
-     * Evitamos crear varios carruseles
-     * si app.js se ejecuta nuevamente.
-     */
+    grid.innerHTML =
+        "";
+
 
     let carrusel =
         seccion.querySelector(
@@ -844,26 +801,10 @@ function prepararCategorias() {
     }
 
 
-    /*
-     * Limpiamos tarjetas anteriores.
-     */
-
-    grid.innerHTML =
-        "";
-
-
-    /*
-     * Clase para el slider.
-     */
-
     grid.classList.add(
         "universosSlider"
     );
 
-
-    /*
-     * Creamos las 6 categorías.
-     */
 
     CATEGORIAS.forEach(
         categoria => {
@@ -894,18 +835,6 @@ function prepararCategorias() {
             );
 
 
-            /*
-             * IMPORTANTE:
-             *
-             * La estructura está separada:
-             *
-             * ICONO
-             * INFORMACIÓN
-             *
-             * Esto evita que el icono se
-             * monte sobre el texto.
-             */
-
             card.innerHTML = `
 
                 <div class="universoGlow"></div>
@@ -933,10 +862,6 @@ function prepararCategorias() {
             `;
 
 
-            /*
-             * CLICK
-             */
-
             card.addEventListener(
                 "click",
                 () => {
@@ -950,10 +875,6 @@ function prepararCategorias() {
             );
 
 
-            /*
-             * TECLADO
-             */
-
             card.addEventListener(
                 "keydown",
                 event => {
@@ -964,7 +885,6 @@ function prepararCategorias() {
                     ) {
 
                         event.preventDefault();
-
 
                         seleccionarCategoria(
                             categoria.genero,
@@ -985,24 +905,7 @@ function prepararCategorias() {
     );
 
 
-    /*
-     * Creamos flechas.
-     */
-
     crearFlechasCategorias(
-        carrusel,
-        grid
-    );
-
-
-    /*
-     * Ajustes visuales mínimos
-     * desde JS para garantizar
-     * la estructura.
-     */
-
-    prepararEstiloCategorias(
-        seccion,
         carrusel,
         grid
     );
@@ -1012,129 +915,6 @@ function prepararCategorias() {
         "✅ Categorías preparadas:",
         CATEGORIAS.length
     );
-
-}
-
-
-/* =========================================================
-            ESTILO BASE DE CATEGORÍAS
-========================================================= */
-
-function prepararEstiloCategorias(
-    seccion,
-    carrusel,
-    slider
-) {
-
-    if (!seccion || !carrusel || !slider) {
-
-        return;
-
-    }
-
-
-    /*
-     * El carrusel será la referencia
-     * para las flechas.
-     */
-
-    carrusel.style.position =
-        "relative";
-
-
-    /*
-     * El slider mantiene el
-     * desplazamiento horizontal.
-     */
-
-    slider.style.overflowX =
-        "auto";
-
-
-    slider.style.scrollBehavior =
-        "smooth";
-
-
-    slider.style.scrollbarWidth =
-        "none";
-
-
-    /*
-     * Evita que las tarjetas
-     * se aplasten.
-     */
-
-    slider.style.display =
-        "flex";
-
-
-    slider.style.flexWrap =
-        "nowrap";
-
-
-    slider.style.alignItems =
-        "stretch";
-
-
-    /*
-     * Tarjetas.
-     */
-
-    slider
-        .querySelectorAll(
-            ".universoCard"
-        )
-        .forEach(
-            card => {
-
-                card.style.position =
-                    "relative";
-
-
-                card.style.flex =
-                    "0 0 auto";
-
-
-                /*
-                 * El icono queda separado
-                 * de la información.
-                 */
-
-                const icono =
-                    card.querySelector(
-                        ".universoIcon"
-                    );
-
-
-                if (icono) {
-
-                    icono.style.position =
-                        "absolute";
-
-                    icono.style.zIndex =
-                        "3";
-
-                }
-
-
-                const info =
-                    card.querySelector(
-                        ".universoInfo"
-                    );
-
-
-                if (info) {
-
-                    info.style.position =
-                        "absolute";
-
-                    info.style.zIndex =
-                        "4";
-
-                }
-
-            }
-        );
 
 }
 
@@ -1155,27 +935,15 @@ function crearFlechasCategorias(
     }
 
 
-    /*
-     * Eliminamos cualquier flecha
-     * creada anteriormente.
-     */
-
     contenedor
         .querySelectorAll(
             ".universosArrow"
         )
         .forEach(
-            flecha => {
-
-                flecha.remove();
-
-            }
+            flecha =>
+                flecha.remove()
         );
 
-
-    /*
-     * ANTERIOR
-     */
 
     const anterior =
         document.createElement(
@@ -1201,10 +969,6 @@ function crearFlechasCategorias(
     );
 
 
-    /*
-     * SIGUIENTE
-     */
-
     const siguiente =
         document.createElement(
             "button"
@@ -1229,11 +993,6 @@ function crearFlechasCategorias(
     );
 
 
-    /*
-     * Añadimos las flechas
-     * directamente al carrusel.
-     */
-
     contenedor.appendChild(
         anterior
     );
@@ -1244,69 +1003,39 @@ function crearFlechasCategorias(
     );
 
 
-    /*
-     * Movimiento.
-     */
-
-    function mover(
-        direccion
-    ) {
-
-        const tarjeta =
-            slider.querySelector(
-                ".universoCard"
-            );
-
-
-        let desplazamiento =
-            420;
-
-
-        if (tarjeta) {
+    const mover =
+        direccion => {
 
             const ancho =
-                tarjeta.getBoundingClientRect()
-                    .width;
+                slider.clientWidth;
 
 
-            const espacio =
-                14;
+            const desplazamiento =
+                Math.max(
+                    260,
+                    Math.floor(
+                        ancho * 0.75
+                    )
+                );
 
 
-            desplazamiento =
-                (
-                    ancho +
-                    espacio
-                ) * 2;
+            slider.scrollBy({
 
-        }
+                left:
+                    direccion *
+                    desplazamiento,
 
+                behavior:
+                    "smooth"
 
-        slider.scrollBy({
+            });
 
-            left:
-                direccion *
-                desplazamiento,
+        };
 
-            behavior:
-                "smooth"
-
-        });
-
-    }
-
-
-    /*
-     * EVENTOS
-     */
 
     anterior.addEventListener(
         "click",
-        event => {
-
-            event.preventDefault();
-
-            event.stopPropagation();
+        () => {
 
             mover(-1);
 
@@ -1316,21 +1045,13 @@ function crearFlechasCategorias(
 
     siguiente.addEventListener(
         "click",
-        event => {
-
-            event.preventDefault();
-
-            event.stopPropagation();
+        () => {
 
             mover(1);
 
         }
     );
 
-
-    /*
-     * Estado de flechas.
-     */
 
     function actualizarFlechas() {
 
@@ -1343,33 +1064,16 @@ function crearFlechasCategorias(
             slider.scrollLeft;
 
 
-        const necesitaFlechas =
-            limite > 5;
-
-
         anterior.classList.toggle(
             "disabled",
-            !necesitaFlechas ||
             posicion <= 5
         );
 
 
         siguiente.classList.toggle(
             "disabled",
-            !necesitaFlechas ||
             posicion >=
             limite - 5
-        );
-
-
-        /*
-         * Si no hay desplazamiento,
-         * ocultamos las flechas.
-         */
-
-        contenedor.classList.toggle(
-            "sinMovimiento",
-            !necesitaFlechas
         );
 
     }
@@ -1395,17 +1099,11 @@ function crearFlechasCategorias(
         100
     );
 
-
-    setTimeout(
-        actualizarFlechas,
-        500
-    );
-
 }
 
 
 /* =========================================================
-                SELECCIONAR CATEGORÍA
+            SELECCIONAR CATEGORÍA
 ========================================================= */
 
 function seleccionarCategoria(
@@ -1414,186 +1112,23 @@ function seleccionarCategoria(
 ) {
 
     console.log(
-        "🎬 Género seleccionado:",
+        "🎬 Abriendo categoría:",
         nombre
     );
-
-
-    const resultados =
-        peliculas.filter(
-            pelicula =>
-                peliculaCoincideGenero(
-                    pelicula,
-                    genero
-                )
-        );
-
-
-    if (!resultados.length) {
-
-        mostrarToast(
-            `Todavía no hay películas de ${nombre}.`
-        );
-
-        return;
-
-    }
-
-
-    renderizarSeccion(
-        tendencias,
-        resultados,
-        nombre
-    );
-
-
-    if (estrenos) {
-
-        estrenos.innerHTML =
-            "";
-
-    }
-
-
-    if (miListaContenedor) {
-
-        miListaContenedor.innerHTML =
-            "";
-
-    }
 
 
     /*
-     * Buscamos la sección
-     * de películas.
+     * YA NO FILTRAMOS LA PÁGINA PRINCIPAL.
+     *
+     * Ahora cada género tiene su propia página.
      */
 
-    const secciones =
-        document.querySelectorAll(
-            ".moviesSection"
-        );
-
-
-    const seccion =
-        secciones.length
-            ? secciones[0]
-            : null;
-
-
-    if (seccion) {
-
-        const titulo =
-            seccion.querySelector(
-                ".sectionHeader h2"
-            );
-
-
-        if (titulo) {
-
-            titulo.textContent =
-                nombre;
-
-        }
-
-
-        const mini =
-            seccion.querySelector(
-                ".sectionMini"
-            );
-
-
-        if (mini) {
-
-            mini.textContent =
-                "Categoría seleccionada";
-
-        }
-
-
-        seccion.scrollIntoView({
-
-            behavior:
-                "smooth",
-
-            block:
-                "start"
-
-        });
-
-    }
-
-}
-
-
-/* =========================================================
-                COMPROBAR GÉNERO
-========================================================= */
-
-function peliculaCoincideGenero(
-    pelicula,
-    generoBuscado
-) {
-
-    if (!pelicula) {
-
-        return false;
-
-    }
-
-
-    const objetivo =
-        normalizarTexto(
-            generoBuscado
-        );
-
-
-    const campos = [];
-
-
-    if (pelicula.genero) {
-
-        campos.push(
-            pelicula.genero
-        );
-
-    }
-
-
-    if (pelicula.subgenero) {
-
-        campos.push(
-            pelicula.subgenero
-        );
-
-    }
-
-
-    if (Array.isArray(pelicula.generos)) {
-
-        campos.push(
-            ...pelicula.generos
-        );
-
-    }
-
-
-    if (Array.isArray(pelicula.tags)) {
-
-        campos.push(
-            ...pelicula.tags
-        );
-
-    }
-
-
-    return campos.some(
-        valor =>
-            normalizarTexto(
-                valor
-            ).includes(
-                objetivo
+    window.location.href =
+        `categorias.html?genero=${
+            encodeURIComponent(
+                genero
             )
-    );
+        }`;
 
 }
 
@@ -1863,10 +1398,6 @@ function crearTarjetaPelicula(
     }
 
 
-    /*
-     * POSTER
-     */
-
     const poster =
         tarjeta.querySelector(
             ".poster"
@@ -1897,8 +1428,7 @@ function crearTarjetaPelicula(
 
                 if (
                     pelicula.banner &&
-                    pelicula.banner !==
-                    pelicula.poster
+                    pelicula.banner !== pelicula.poster
                 ) {
 
                     poster.onerror =
@@ -1917,10 +1447,6 @@ function crearTarjetaPelicula(
     }
 
 
-    /*
-     * TÍTULO
-     */
-
     const titulo =
         tarjeta.querySelector(
             ".movieTitle"
@@ -1936,10 +1462,6 @@ function crearTarjetaPelicula(
     }
 
 
-    /*
-     * AÑO
-     */
-
     const anio =
         tarjeta.querySelector(
             ".movieYear"
@@ -1954,10 +1476,6 @@ function crearTarjetaPelicula(
 
     }
 
-
-    /*
-     * RATING
-     */
 
     const rating =
         tarjeta.querySelector(
@@ -1984,10 +1502,6 @@ function crearTarjetaPelicula(
         "pointer";
 
 
-    /*
-     * PLAY
-     */
-
     const play =
         tarjeta.querySelector(
             ".playMovie"
@@ -2013,10 +1527,6 @@ function crearTarjetaPelicula(
 
     }
 
-
-    /*
-     * CLICK TARJETA
-     */
 
     tarjeta.addEventListener(
         "click",
@@ -2047,7 +1557,7 @@ function crearTarjetaPelicula(
 
 
 /* =========================================================
-                    RUTA DE IMAGEN
+                    RUTA IMAGEN
 ========================================================= */
 
 function prepararRutaImagen(
@@ -2189,7 +1699,8 @@ function configurarBusqueda() {
                             Array.isArray(
                                 pelicula.tags
                             )
-                                ? pelicula.tags.join(" ")
+                                ? pelicula.tags
+                                    .join(" ")
                                 : "";
 
 
@@ -2417,9 +1928,7 @@ function abrirEnlaceVideo(
             "noopener,noreferrer"
         );
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         window.location.href =
             url;
@@ -2446,19 +1955,17 @@ function configurarBotonDetalles() {
         "click",
         () => {
 
-            const seccion =
+            const hero =
                 document.querySelector(
                     ".moviesSection"
                 );
 
 
-            if (seccion) {
+            if (hero) {
 
-                seccion.scrollIntoView({
-
+                hero.scrollIntoView({
                     behavior:
                         "smooth"
-
                 });
 
             }
@@ -2495,10 +2002,8 @@ function configurarVerTodo() {
                         if (seccion) {
 
                             seccion.scrollIntoView({
-
                                 behavior:
                                     "smooth"
-
                             });
 
                         }
@@ -2518,29 +2023,20 @@ function configurarVerTodo() {
 
 function ocultarContinuarViendo() {
 
-    /*
-     * Eliminamos cualquier sección
-     * de continuar viendo.
-     */
-
-    document
-        .querySelectorAll(
+    const secciones =
+        document.querySelectorAll(
             ".continuar, #continuarSection"
-        )
-        .forEach(
-            seccion => {
-
-                seccion.remove();
-
-            }
         );
 
 
-    /*
-     * Eliminamos solamente los
-     * contenedores visuales de
-     * continuar viendo.
-     */
+    secciones.forEach(
+        seccion => {
+
+            seccion.remove();
+
+        }
+    );
+
 
     document
         .querySelectorAll(
@@ -2554,15 +2050,6 @@ function ocultarContinuarViendo() {
             }
         );
 
-
-    /*
-     * IMPORTANTE:
-     *
-     * NO borramos localStorage.
-     *
-     * De esta manera Mi Lista
-     * y otros datos permanecen.
-     */
 
     console.log(
         "🗑️ Continuar viendo desactivado."
@@ -2797,9 +2284,7 @@ if (
         iniciarCineverse
     );
 
-}
-
-else {
+} else {
 
     iniciarCineverse();
 
@@ -2807,9 +2292,9 @@ else {
 
 
 /* =========================================================
-                        DEBUG
+                    DEBUG
 ========================================================= */
 
 console.log(
-    "🔥 CINEVERSE APP.JS FINAL CARGADO"
+    "🔥 CINEVERSE APP.JS - CATEGORÍAS ACTIVAS"
 );
