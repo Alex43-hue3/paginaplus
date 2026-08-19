@@ -2731,3 +2731,400 @@ button{
     }
 
 }
+/* =========================================================
+   CINEVERSE — AJUSTE FINAL DE CARRUSELES
+   No afecta las categorías ni el resto del diseño
+========================================================= */
+
+
+/* =========================================================
+   CONTINUAR VIENDO
+========================================================= */
+
+.continuarCarrusel {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+/* Lista horizontal */
+
+.continuarLista {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+
+    gap: 16px;
+
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+
+    padding: 5px 4px 15px;
+}
+
+.continuarLista::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Tarjetas de continuar */
+
+.continuarLista .movieCard,
+.continuarLista .continuarCard {
+    flex: 0 0 190px !important;
+
+    width: 190px !important;
+
+    min-width: 190px !important;
+
+    max-width: 190px !important;
+
+    position: relative;
+}
+
+
+/* Imagen */
+
+.continuarLista .moviePoster,
+.continuarLista .continuarPoster {
+    width: 100%;
+
+    height: 270px;
+
+    aspect-ratio: 2 / 3;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    position: relative;
+}
+
+
+/* Imagen interna */
+
+.continuarLista .moviePoster img,
+.continuarLista .continuarPoster img,
+.continuarLista .poster {
+    width: 100% !important;
+
+    height: 100% !important;
+
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* Información */
+
+.continuarLista .movieInfo {
+    padding: 9px 3px 0;
+}
+
+.continuarLista .movieInfo h3 {
+    margin: 0;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.continuarLista .movieMeta {
+    margin-top: 5px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FLECHAS CONTINUAR
+========================================================= */
+
+.continuarFlecha {
+    flex: 0 0 42px;
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    background: rgba(18,18,30,.88);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    transition: .25s ease;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 8px 25px rgba(0,0,0,.35);
+}
+
+.continuarFlecha:hover {
+    background: rgba(124,58,237,.35);
+
+    border-color: rgba(139,92,246,.55);
+
+    transform: scale(1.06);
+}
+
+.continuarFlecha:active {
+    transform: scale(.95);
+}
+
+
+/* =========================================================
+   CARRUSELES GENERALES
+   TENDENCIAS / ESTRENOS
+========================================================= */
+
+.moviesSection .sliderWrapper {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    gap: 12px;
+}
+
+
+.moviesSection .movieSlider {
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    flex-wrap: nowrap !important;
+
+    gap: 16px;
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
+    scrollbar-width: none;
+
+    scroll-behavior: smooth;
+
+    padding: 5px 4px 15px;
+}
+
+.moviesSection .movieSlider::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Tamaño correcto de las tarjetas */
+
+.moviesSection .movieCard {
+    flex: 0 0 190px !important;
+
+    width: 190px !important;
+
+    min-width: 190px !important;
+
+    max-width: 190px !important;
+}
+
+
+/* Tamaño correcto de portada */
+
+.moviesSection .moviePoster {
+    width: 100%;
+
+    height: 270px;
+
+    aspect-ratio: 2 / 3;
+
+    overflow: hidden;
+
+    border-radius: 14px;
+
+    position: relative;
+}
+
+.moviesSection .moviePoster img,
+.moviesSection .moviePoster .poster {
+    width: 100% !important;
+
+    height: 100% !important;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   FLECHAS GENERALES
+========================================================= */
+
+.moviesSection .sliderArrow {
+    flex: 0 0 42px;
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    background: rgba(18,18,30,.88);
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    z-index: 5;
+
+    transition: .25s ease;
+
+    backdrop-filter: blur(12px);
+}
+
+.moviesSection .sliderArrow:hover {
+    background: rgba(124,58,237,.35);
+
+    border-color: rgba(139,92,246,.55);
+
+    transform: scale(1.06);
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media(max-width:600px) {
+
+    .continuarCarrusel,
+    .moviesSection .sliderWrapper {
+        gap: 7px;
+    }
+
+
+    /* Tarjetas pequeñas */
+
+    .continuarLista .movieCard,
+    .continuarLista .continuarCard,
+    .moviesSection .movieCard {
+
+        flex-basis: 145px !important;
+
+        width: 145px !important;
+
+        min-width: 145px !important;
+
+        max-width: 145px !important;
+
+    }
+
+
+    /* Portadas */
+
+    .continuarLista .moviePoster,
+    .continuarLista .continuarPoster,
+    .moviesSection .moviePoster {
+
+        height: 218px;
+
+        border-radius: 12px;
+
+    }
+
+
+    /* Flechas */
+
+    .continuarFlecha,
+    .moviesSection .sliderArrow {
+
+        flex-basis: 36px;
+
+        width: 36px;
+
+        height: 36px;
+
+    }
+
+
+    .continuarFlecha i,
+    .moviesSection .sliderArrow i {
+
+        font-size: 12px;
+
+    }
+
+}
+
+
+/* =========================================================
+   TELÉFONOS PEQUEÑOS
+========================================================= */
+
+@media(max-width:400px) {
+
+    .continuarLista .movieCard,
+    .continuarLista .continuarCard,
+    .moviesSection .movieCard {
+
+        flex-basis: 135px !important;
+
+        width: 135px !important;
+
+        min-width: 135px !important;
+
+        max-width: 135px !important;
+
+    }
+
+
+    .continuarLista .moviePoster,
+    .continuarLista .continuarPoster,
+    .moviesSection .moviePoster {
+
+        height: 202px;
+
+    }
+
+}
