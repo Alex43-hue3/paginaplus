@@ -1,0 +1,2502 @@
+
+/* =========================================================
+                    CINEVERSE PLAYER
+                DISEÑO A + D + E
+========================================================= */
+
+
+/* =========================================================
+                    VARIABLES
+========================================================= */
+
+:root{
+
+    --cv-bg:#07070d;
+    --cv-bg-soft:#0d0d16;
+
+    --cv-card:#11111b;
+    --cv-card-soft:rgba(18,18,30,.82);
+
+    --cv-purple:#7c3aed;
+    --cv-purple-light:#8b5cf6;
+
+    --cv-blue:#2563eb;
+
+    --cv-text:#ffffff;
+    --cv-text-soft:#c7c7d1;
+    --cv-text-muted:#8d8d9d;
+
+    --cv-border:rgba(255,255,255,.10);
+
+    --cv-radius:20px;
+
+}
+
+
+/* =========================================================
+                    RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    margin:0;
+
+    background:
+        radial-gradient(
+            circle at 20% 10%,
+            rgba(124,58,237,.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(37,99,235,.10),
+            transparent 35%
+        ),
+        var(--cv-bg);
+
+    color:var(--cv-text);
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+}
+
+
+/* =========================================================
+                    FONDO
+========================================================= */
+
+.playerBackground{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-5;
+
+    background-position:center;
+
+    background-size:cover;
+
+    background-repeat:no-repeat;
+
+    filter:blur(30px);
+
+    transform:scale(1.15);
+
+    opacity:.22;
+
+}
+
+.playerBackgroundOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:-4;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(7,7,13,.78),
+            rgba(7,7,13,.96) 55%,
+            #07070d 100%
+        );
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================================
+                    PAGINA
+========================================================= */
+
+.moviePage{
+
+    width:min(
+        1450px,
+        calc(100% - 48px)
+    );
+
+    margin:auto;
+
+    padding:
+
+        22px
+
+        0
+
+        80px;
+
+}
+
+
+/* =========================================================
+                    BARRA SUPERIOR
+========================================================= */
+
+.movieTopBar{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:18px;
+
+}
+
+.movieTopActions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.movieTopButton{
+
+    width:46px;
+
+    min-width:46px;
+
+    height:46px;
+
+    border:1px solid var(--cv-border);
+
+    border-radius:50%;
+
+    background:
+        rgba(20,20,32,.72);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    transition:
+
+        transform .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+
+    backdrop-filter:blur(14px);
+
+}
+
+.movieTopButton span{
+
+    display:none;
+
+}
+
+.movieTopButton:hover{
+
+    transform:translateY(-2px);
+
+    background:
+        rgba(124,58,237,.25);
+
+    border-color:
+        rgba(139,92,246,.65);
+
+    box-shadow:
+        0 10px 30px rgba(124,58,237,.18);
+
+}
+
+.movieTopButton i{
+
+    font-size:15px;
+
+}
+
+
+/* =========================================================
+                    HERO
+========================================================= */
+
+.movieHero{
+
+    display:grid;
+
+    grid-template-columns:
+
+        minmax(320px,480px)
+
+        minmax(0,1fr);
+
+    gap:42px;
+
+    align-items:center;
+
+    padding:
+
+        15px
+
+        0
+
+        35px;
+
+}
+
+
+/* =========================================================
+                    PORTADA
+========================================================= */
+
+.moviePosterArea{
+
+    width:100%;
+
+}
+
+.moviePosterFrame{
+
+    position:relative;
+
+    width:100%;
+
+    aspect-ratio:2 / 3;
+
+    overflow:hidden;
+
+    border-radius:24px;
+
+    background:#111;
+
+    border:
+
+        1px solid
+
+        rgba(255,255,255,.12);
+
+    box-shadow:
+
+        0 30px 80px
+        rgba(0,0,0,.55),
+
+        0 0 60px
+        rgba(124,58,237,.10);
+
+}
+
+.moviePosterImage{
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:
+        transform .7s ease;
+
+}
+
+.moviePosterFrame:hover
+.moviePosterImage{
+
+    transform:scale(1.035);
+
+}
+
+.moviePosterGradient{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            transparent 55%,
+            rgba(0,0,0,.55)
+        );
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================================
+                BOTÓN PLAY PORTADA
+========================================================= */
+
+.posterPlayButton{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.9);
+
+    width:76px;
+
+    height:76px;
+
+    border-radius:50%;
+
+    border:
+
+        2px solid
+        rgba(255,255,255,.65);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--cv-purple),
+            var(--cv-blue)
+        );
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    transition:
+
+        opacity .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+
+    box-shadow:
+
+        0 15px 45px
+        rgba(124,58,237,.45);
+
+}
+
+.moviePosterFrame:hover
+.posterPlayButton{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+
+}
+
+.posterPlayButton i{
+
+    margin-left:3px;
+
+    font-size:23px;
+
+}
+
+
+/* =========================================================
+                INFORMACIÓN PRINCIPAL
+========================================================= */
+
+.movieMainInfo{
+
+    min-width:0;
+
+}
+
+.movieBadges{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin-bottom:14px;
+
+}
+
+.movieBadge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:30px;
+
+    padding:
+
+        5px
+
+        10px;
+
+    border-radius:8px;
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.13);
+
+    background:
+
+        rgba(255,255,255,.045);
+
+    color:#e8e8ef;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.movieBadge:first-child{
+
+    color:#fff;
+
+    border-color:
+        rgba(139,92,246,.45);
+
+    background:
+        rgba(124,58,237,.16);
+
+}
+
+
+/* =========================================================
+                    TITULO
+========================================================= */
+
+.movieTitle{
+
+    margin:0 0 8px;
+
+    font-size:
+
+        clamp(
+            32px,
+            4vw,
+            58px
+        );
+
+    line-height:1.08;
+
+    letter-spacing:-1.5px;
+
+    font-weight:800;
+
+}
+
+.movieOriginalTitle{
+
+    margin:0 0 15px;
+
+    color:var(--cv-text-muted);
+
+    font-size:14px;
+
+}
+
+
+/* =========================================================
+                    METADATA
+========================================================= */
+
+.movieMeta{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:var(--cv-text-soft);
+
+    font-size:14px;
+
+    margin-bottom:12px;
+
+}
+
+.movieMeta span{
+
+    display:inline-flex;
+
+    align-items:center;
+
+}
+
+.movieMeta span:not(:last-child)::after{
+
+    content:"•";
+
+    margin-left:10px;
+
+    color:#686878;
+
+}
+
+.movieRating{
+
+    color:#facc15;
+
+    font-weight:700;
+
+}
+
+
+/* =========================================================
+                    GENEROS
+========================================================= */
+
+.movieGenres{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin:
+
+        12px
+
+        0
+
+        18px;
+
+}
+
+.movieGenre{
+
+    padding:
+
+        5px
+
+        11px;
+
+    border-radius:20px;
+
+    color:
+
+        #c4b5fd;
+
+    background:
+
+        rgba(124,58,237,.12);
+
+    border:
+
+        1px solid
+        rgba(124,58,237,.28);
+
+    font-size:12px;
+
+}
+
+
+/* =========================================================
+                    DESCRIPCION
+========================================================= */
+
+.movieDescription{
+
+    max-width:760px;
+
+    margin:
+
+        0
+
+        0
+
+        22px;
+
+    color:
+
+        var(--cv-text-soft);
+
+    font-size:15px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+                    BOTONES
+========================================================= */
+
+.movieActions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:24px;
+
+}
+
+.movieActionButton{
+
+    min-height:46px;
+
+    padding:
+
+        0
+
+        20px;
+
+    border-radius:12px;
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+
+        rgba(255,255,255,.045);
+
+    color:white;
+
+    font-family:inherit;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+
+}
+
+.movieActionButton:hover{
+
+    transform:translateY(-2px);
+
+    background:
+
+        rgba(255,255,255,.08);
+
+}
+
+.movieActionPrimary{
+
+    border:none;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            var(--cv-purple),
+            var(--cv-blue)
+        );
+
+    box-shadow:
+
+        0 10px 30px
+        rgba(124,58,237,.28);
+
+    padding-left:25px;
+
+    padding-right:25px;
+
+}
+
+.movieActionPrimary:hover{
+
+    box-shadow:
+
+        0 15px 40px
+        rgba(124,58,237,.45);
+
+}
+
+
+/* =========================================================
+                BLOQUES DE INFORMACIÓN
+========================================================= */
+
+.movieInfoBlocks{
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(
+            5,
+            minmax(0,1fr)
+        );
+
+    width:100%;
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.10);
+
+    background:
+
+        rgba(17,17,27,.70);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(14px);
+
+}
+
+.movieInfoBlock{
+
+    min-height:105px;
+
+    padding:
+
+        18px
+
+        15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    border-right:
+
+        1px solid
+        rgba(255,255,255,.08);
+
+}
+
+.movieInfoBlock:last-child{
+
+    border-right:none;
+
+}
+
+.movieInfoIcon{
+
+    width:34px;
+
+    height:34px;
+
+    margin-bottom:8px;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#a78bfa;
+
+    background:
+
+        rgba(124,58,237,.13);
+
+    border:
+
+        1px solid
+        rgba(124,58,237,.22);
+
+}
+
+.movieInfoLabel{
+
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+    color:#77778a;
+
+    margin-bottom:3px;
+
+}
+
+.movieInfoValue{
+
+    color:#eeeef5;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+
+/* =========================================================
+                SECCION SECUNDARIA
+========================================================= */
+
+.movieDetailsSection{
+
+    margin-top:22px;
+
+    padding:
+
+        25px;
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    background:
+
+        rgba(17,17,27,.70);
+
+    backdrop-filter:blur(14px);
+
+}
+
+.movieDetailsTitle{
+
+    margin:
+
+        0
+
+        0
+
+        15px;
+
+    font-size:18px;
+
+}
+
+.movieDetailsText{
+
+    margin:0;
+
+    color:var(--cv-text-soft);
+
+    line-height:1.8;
+
+    font-size:14px;
+
+}
+
+
+/* =========================================================
+                REPARTO
+========================================================= */
+
+.castSection{
+
+    margin-top:35px;
+
+}
+
+.sectionTitle{
+
+    margin-bottom:15px;
+
+}
+
+.sectionTitle h2{
+
+    margin:0;
+
+    font-size:20px;
+
+}
+
+.sectionTitle p{
+
+    margin:4px 0 0;
+
+    color:var(--cv-text-muted);
+
+    font-size:12px;
+
+}
+
+.castGrid{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+}
+
+.castCard{
+
+    width:110px;
+
+    text-align:center;
+
+}
+
+.castImage{
+
+    width:72px;
+
+    height:72px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:
+
+        2px solid
+        rgba(124,58,237,.35);
+
+    background:#171722;
+
+}
+
+.castName{
+
+    margin:
+
+        8px
+
+        0
+
+        2px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+.castRole{
+
+    color:var(--cv-text-muted);
+
+    font-size:10px;
+
+}
+
+
+/* =========================================================
+                RELACIONADAS
+========================================================= */
+
+.relatedSection{
+
+    margin-top:45px;
+
+}
+
+.relatedSlider{
+
+    display:flex;
+
+    gap:16px;
+
+    overflow-x:auto;
+
+    padding:
+
+        5px
+
+        5px
+
+        18px;
+
+    scroll-behavior:smooth;
+
+    scrollbar-width:none;
+
+}
+
+.relatedSlider::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+.relatedCard{
+
+    flex:
+
+        0 0 190px;
+
+    overflow:hidden;
+
+    border-radius:15px;
+
+    background:#11111b;
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.08);
+
+    cursor:pointer;
+
+    transition:.3s ease;
+
+}
+
+.relatedCard:hover{
+
+    transform:
+        translateY(-6px);
+
+    border-color:
+
+        rgba(124,58,237,.4);
+
+}
+
+.relatedCard img{
+
+    display:block;
+
+    width:100%;
+
+    aspect-ratio:2 / 3;
+
+    object-fit:cover;
+
+}
+
+.relatedInfo{
+
+    padding:
+
+        11px;
+
+}
+
+.relatedInfo h3{
+
+    margin:0;
+
+    font-size:12px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.relatedMeta{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:5px;
+
+    color:#858596;
+
+    font-size:10px;
+
+}
+
+
+/* =========================================================
+            BARRA INFERIOR — MOBILE
+========================================================= */
+
+.mobileActionBar{
+
+    display:none;
+
+}
+
+
+/* =========================================================
+                    REPRODUCTOR
+========================================================= */
+
+.videoPlayerOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:1000;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+}
+
+.videoPlayerOverlay.active{
+
+    display:flex;
+
+}
+
+.videoPlayerWrapper{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.videoPlayerWrapper video,
+.videoPlayerWrapper iframe{
+
+    width:100%;
+
+    height:100%;
+
+    border:0;
+
+    background:#000;
+
+    object-fit:contain;
+
+}
+
+
+/* =========================================================
+                BOTÓN CERRAR PLAYER
+========================================================= */
+
+.closePlayerButton{
+
+    position:absolute;
+
+    top:20px;
+
+    left:20px;
+
+    z-index:20;
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:50%;
+
+    border:
+
+        1px solid
+        rgba(255,255,255,.15);
+
+    background:
+
+        rgba(0,0,0,.55);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(10px);
+
+}
+
+
+/* =========================================================
+                    CONTROLES MP4
+========================================================= */
+
+.cineverseControls{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:
+
+        14px
+
+        18px;
+
+    background:
+
+        linear-gradient(
+            transparent,
+            rgba(0,0,0,.9)
+        );
+
+}
+
+.cineverseControls button{
+
+    border:none;
+
+    background:transparent;
+
+    color:white;
+
+    cursor:pointer;
+
+    min-width:35px;
+
+}
+
+.cineverseControls input[type="range"]{
+
+    accent-color:
+
+        var(--cv-purple);
+
+}
+
+#progressBar{
+
+    flex:1;
+
+}
+
+#timeDisplay{
+
+    color:white;
+
+    font-size:12px;
+
+    white-space:nowrap;
+
+}
+
+
+/* =========================================================
+                    RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .movieHero{
+
+        grid-template-columns:
+            330px
+            minmax(0,1fr);
+
+        gap:28px;
+
+    }
+
+    .movieInfoBlocks{
+
+        grid-template-columns:
+            repeat(3,1fr);
+
+    }
+
+    .movieInfoBlock:nth-child(3){
+
+        border-right:none;
+
+    }
+
+    .movieInfoBlock:nth-child(-n+3){
+
+        border-bottom:
+            1px solid
+            rgba(255,255,255,.08);
+
+    }
+
+}
+
+
+/* =========================================================
+                    TABLET
+========================================================= */
+
+@media(max-width:760px){
+
+    .moviePage{
+
+        width:
+            calc(100% - 24px);
+
+        padding-top:12px;
+
+        padding-bottom:95px;
+
+    }
+
+    .movieTopBar{
+
+        margin-bottom:12px;
+
+    }
+
+    .movieTopButton{
+
+        width:42px;
+
+        min-width:42px;
+
+        height:42px;
+
+    }
+
+    .movieTopButton span{
+
+        display:none;
+
+    }
+
+    .movieHero{
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:20px;
+
+        padding-top:0;
+
+    }
+
+    .moviePosterArea{
+
+        width:100%;
+
+        display:flex;
+
+        justify-content:center;
+
+    }
+
+    .moviePosterFrame{
+
+        width:min(
+            100%,
+            360px
+        );
+
+    }
+
+    .movieMainInfo{
+
+        width:100%;
+
+    }
+
+    .movieTitle{
+
+        font-size:32px;
+
+        letter-spacing:-.7px;
+
+    }
+
+    .movieDescription{
+
+        font-size:13px;
+
+        line-height:1.7;
+
+    }
+
+    .movieInfoBlocks{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .movieInfoBlock{
+
+        border-right:
+            1px solid
+            rgba(255,255,255,.08);
+
+        border-bottom:
+            1px solid
+            rgba(255,255,255,.08);
+
+    }
+
+    .movieInfoBlock:nth-child(even){
+
+        border-right:none;
+
+    }
+
+    .movieInfoBlock:nth-last-child(-n+2){
+
+        border-bottom:none;
+
+    }
+
+    .movieActions{
+
+        margin-bottom:10px;
+
+    }
+
+}
+
+
+/* =========================================================
+                    TELEFONO
+========================================================= */
+
+@media(max-width:520px){
+
+    .moviePage{
+
+        width:
+            calc(100% - 20px);
+
+        padding-top:8px;
+
+    }
+
+    .movieTopBar{
+
+        position:relative;
+
+        z-index:5;
+
+    }
+
+    .movieTopActions{
+
+        gap:6px;
+
+    }
+
+    .movieTopButton{
+
+        width:40px;
+
+        min-width:40px;
+
+        height:40px;
+
+    }
+
+    .movieHero{
+
+        gap:17px;
+
+    }
+
+    .moviePosterFrame{
+
+        width:100%;
+
+        max-width:330px;
+
+        border-radius:18px;
+
+    }
+
+    .posterPlayButton{
+
+        width:64px;
+
+        height:64px;
+
+        opacity:1;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+    }
+
+    .movieBadges{
+
+        gap:6px;
+
+    }
+
+    .movieBadge{
+
+        min-height:27px;
+
+        padding:
+
+            4px
+
+            8px;
+
+        font-size:10px;
+
+    }
+
+    .movieTitle{
+
+        font-size:29px;
+
+    }
+
+    .movieMeta{
+
+        font-size:12px;
+
+        gap:7px;
+
+    }
+
+    .movieGenres{
+
+        margin-bottom:14px;
+
+    }
+
+    .movieDescription{
+
+        font-size:12px;
+
+        line-height:1.7;
+
+        margin-bottom:16px;
+
+    }
+
+    .movieActions{
+
+        display:grid;
+
+        grid-template-columns:
+            1fr
+            1fr;
+
+        gap:8px;
+
+    }
+
+    .movieActionPrimary{
+
+        grid-column:
+            1 / -1;
+
+    }
+
+    .movieActionButton{
+
+        min-height:43px;
+
+        padding:
+
+            0
+
+            12px;
+
+        font-size:11px;
+
+    }
+
+    .movieInfoBlocks{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+        border-radius:15px;
+
+    }
+
+    .movieInfoBlock{
+
+        min-height:88px;
+
+        padding:12px 7px;
+
+    }
+
+    .movieInfoIcon{
+
+        width:30px;
+
+        height:30px;
+
+        margin-bottom:5px;
+
+        font-size:11px;
+
+    }
+
+    .movieInfoLabel{
+
+        font-size:8px;
+
+    }
+
+    .movieInfoValue{
+
+        font-size:10px;
+
+    }
+
+    .movieDetailsSection{
+
+        padding:18px;
+
+    }
+
+    .relatedCard{
+
+        flex-basis:145px;
+
+    }
+
+    .relatedInfo h3{
+
+        font-size:11px;
+
+    }
+
+}
+
+
+/* =========================================================
+            BARRA INFERIOR MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    .mobileActionBar{
+
+        position:fixed;
+
+        left:10px;
+
+        right:10px;
+
+        bottom:
+
+            calc(
+                10px +
+                env(safe-area-inset-bottom)
+            );
+
+        z-index:500;
+
+        height:66px;
+
+        padding:
+
+            7px;
+
+        display:grid;
+
+        grid-template-columns:
+            repeat(4,1fr);
+
+        gap:4px;
+
+        border:
+
+            1px solid
+            rgba(255,255,255,.12);
+
+        border-radius:18px;
+
+        background:
+
+            rgba(13,13,22,.90);
+
+        backdrop-filter:
+            blur(20px);
+
+        box-shadow:
+
+            0 20px 50px
+            rgba(0,0,0,.55);
+
+    }
+
+    .mobileActionButton{
+
+        border:none;
+
+        background:transparent;
+
+        color:#aaaaba;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:3px;
+
+        font-family:inherit;
+
+        font-size:9px;
+
+        cursor:pointer;
+
+    }
+
+    .mobileActionButton i{
+
+        font-size:15px;
+
+    }
+
+    .mobileActionButton.active,
+    .mobileActionButton:hover{
+
+        color:white;
+
+    }
+
+    .mobileActionButton.active i{
+
+        color:#8b5cf6;
+
+    }
+
+}
+
+
+/* =========================================================
+            ORIENTACIÓN HORIZONTAL
+========================================================= */
+
+@media(
+    max-width:900px
+) and (
+    orientation:landscape
+){
+
+    .moviePage{
+
+        padding-bottom:30px;
+
+    }
+
+    .moviePosterFrame{
+
+        max-width:280px;
+
+    }
+
+    .movieHero{
+
+        grid-template-columns:
+            280px
+            minmax(0,1fr);
+
+        display:grid;
+
+        align-items:start;
+
+    }
+
+    .movieTitle{
+
+        font-size:27px;
+
+    }
+
+    .mobileActionBar{
+
+        display:none;
+
+    }
+
+}
+
+
+/* =========================================================
+                ACCESIBILIDAD
+========================================================= */
+
+button:focus-visible{
+
+    outline:
+
+        2px solid
+        #8b5cf6;
+
+    outline-offset:3px;
+
+}
+
+
+/* =========================================================
+                    ANIMACIONES
+========================================================= */
+
+@keyframes cineverseFadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+.movieHero{
+
+    animation:
+        cineverseFadeIn
+        .5s
+        ease
+        both;
+
+}
+
+.movieDetailsSection,
+.relatedSection,
+.castSection{
+
+    animation:
+        cineverseFadeIn
+        .6s
+        ease
+        both;
+
+}
+
+
+/* =========================================================
+                    FIN PLAYER CSS
+========================================================= */
+.movieCenterMenu{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    flex:1;
+
+}
+
+
+.movieCenterMenu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:9px 14px;
+
+    border-radius:12px;
+
+    color:rgba(255,255,255,.75);
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+
+.movieCenterMenu a:hover{
+
+    color:#fff;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+
+.movieCenterMenu a i{
+
+    font-size:13px;
+
+}
+
+
+.movieCenterMenu a:first-child{
+
+    color:#fff;
+
+    background:rgba(124,58,237,.18);
+
+}
+
+
+@media(max-width:600px){
+
+    .movieTopBar{
+        width:100%;
+        display:flex;
+        align-items:center;
+        justify-content:flex-start;
+    }
+
+    .movieTopActions{
+        display:none !important;
+    }
+
+    }
+
+}
+/* =====================================================
+                GOOGLE DRIVE PLAYER
+===================================================== */
+
+.driveSource{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    min-height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+    overflow:hidden;
+
+}
+
+
+.driveSource iframe{
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:100%;
+
+    min-height:100%;
+
+    border:0;
+
+    background:#000;
+
+}
+
+
+/* =====================================================
+                    MÓVIL
+===================================================== */
+
+@media(max-width:768px){
+
+    .driveSource{
+
+        width:100vw;
+
+        height:100vh;
+
+        min-height:100vh;
+
+    }
+
+    .driveSource iframe{
+
+        width:100vw;
+
+        height:100vh;
+
+        min-width:100vw;
+
+        min-height:100vh;
+
+    }
+
+}
+/* =========================================================
+            CONTENEDOR REAL DEL REPRODUCTOR
+========================================================= */
+
+#videoPlayerContainer{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:0;
+
+    min-height:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+    overflow:hidden;
+
+}
+
+
+/* =========================================================
+                FUENTES DEL PLAYER
+========================================================= */
+
+#videoPlayerContainer .playerSource{
+
+    position:relative;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:0;
+
+    min-height:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                    GOOGLE DRIVE
+========================================================= */
+
+#videoPlayerContainer .driveSource{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:100%;
+
+    min-height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#000;
+
+}
+
+
+/* IFRAME DRIVE */
+
+#videoPlayerContainer .driveSource iframe{
+
+    position:absolute;
+
+    inset:0;
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    min-width:100%;
+
+    min-height:100%;
+
+    margin:0;
+
+    padding:0;
+
+    border:0;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                    MP4
+========================================================= */
+
+#videoPlayerContainer video{
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    max-width:100%;
+
+    max-height:100%;
+
+    object-fit:contain;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                    YOUTUBE
+========================================================= */
+
+#videoPlayerContainer iframe:not(#drivePlayer){
+
+    display:block;
+
+    width:100%;
+
+    height:100%;
+
+    max-width:100%;
+
+    max-height:100%;
+
+    border:0;
+
+    background:#000;
+
+}
+
+
+/* =========================================================
+                MOBILE DRIVE
+========================================================= */
+
+@media(max-width:768px){
+
+    #videoPlayerOverlay{
+
+        width:100vw;
+
+        height:100dvh;
+
+    }
+
+
+    #videoPlayerOverlay .videoPlayerWrapper{
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+
+    #videoPlayerContainer{
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+
+    #videoPlayerContainer .driveSource{
+
+        position:absolute;
+
+        inset:0;
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+
+    #videoPlayerContainer .driveSource iframe{
+
+        position:absolute;
+
+        inset:0;
+
+        width:100vw;
+
+        height:100dvh;
+
+        min-width:100vw;
+
+        min-height:100dvh;
+
+    }
+
+}
+/* =========================================================
+        CINEVERSE - NAVEGACIÓN MÓVIL FINAL
+========================================================= */
+
+@media screen and (max-width: 600px) {
+
+    /* Barra superior */
+    .movieTopBar {
+        position: relative;
+        width: 100%;
+        height: 46px;
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        margin-bottom: 10px;
+    }
+
+
+    /* Ocultar menú central */
+    .movieTopBar .movieCenterMenu {
+        display: none !important;
+    }
+
+
+    /* Ocultar TODOS los botones de acciones */
+    .movieTopBar .movieTopActions {
+        display: none !important;
+    }
+
+
+    /* Mostrar únicamente regresar */
+    .movieTopBar #btnBack {
+        display: flex !important;
+
+        width: 42px;
+        min-width: 42px;
+        height: 42px;
+
+        padding: 0;
+        margin: 0;
+
+        border-radius: 50%;
+    }
+
+
+    .movieTopBar #btnBack span {
+        display: none !important;
+    }
+
+
+    /* =====================================================
+                    BARRA INFERIOR
+    ===================================================== */
+
+    .mobileActionBar {
+        display: grid !important;
+
+        position: fixed;
+
+        left: 10px;
+        right: 10px;
+
+        bottom:
+            calc(
+                10px +
+                env(safe-area-inset-bottom)
+            );
+
+        z-index: 5000;
+
+        height: 66px;
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+        gap: 4px;
+
+        padding: 7px;
+
+        border:
+            1px solid
+            rgba(255,255,255,.12);
+
+        border-radius: 18px;
+
+        background:
+            rgba(13,13,22,.94);
+
+        backdrop-filter:
+            blur(20px);
+
+        -webkit-backdrop-filter:
+            blur(20px);
+
+        box-shadow:
+            0 20px 50px
+            rgba(0,0,0,.55);
+    }
+
+
+    /* Botones inferiores */
+
+    .mobileActionBar .mobileActionButton {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 3px;
+
+        width: 100%;
+        height: 100%;
+
+        padding: 0;
+
+        border: none;
+
+        background: transparent;
+
+        color: #aaaaba;
+
+        font-family: inherit;
+
+        font-size: 9px;
+
+        cursor: pointer;
+    }
+
+
+    .mobileActionBar
+    .mobileActionButton i {
+
+        font-size: 15px;
+    }
+
+
+    .mobileActionBar
+    .mobileActionButton.active {
+
+        color: #ffffff;
+    }
+
+
+    .mobileActionBar
+    .mobileActionButton.active i {
+
+        color: #8b5cf6;
+    }
+
+}
