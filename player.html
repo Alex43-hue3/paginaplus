@@ -1,1 +1,386 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CINEVERSE - Reproductor</title>
+
+    <link rel="stylesheet" href="player.css">
+
+    <!-- HLS.js para reproducir .m3u8 cuando el navegador no lo soporte nativamente -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+
+<body>
+
+    <main class="player-page">
+
+        <header class="player-header">
+            <a href="index.html" class="back-button">
+                ← Volver
+            </a>
+
+            <div class="player-brand">
+                CINE<span>VERSE</span>
+            </div>
+        </header>
+
+
+        <section class="player-container">
+
+            <div class="video-wrapper" id="videoWrapper">
+
+                <!-- Video HTML5 -->
+                <video
+                    id="videoPlayer"
+                    class="video-element"
+                    controls
+                    playsinline
+                    preload="metadata">
+                </video>
+
+
+                <!-- Reproductor Embed -->
+                <iframe
+                    id="embedPlayer"
+                    class="embed-player"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen
+                    frameborder="0">
+                </iframe>
+
+
+                <!-- Pantalla de carga -->
+                <div id="loadingScreen" class="loading-screen">
+                    <div class="loader"></div>
+                    <p>Cargando reproductor...</p>
+                </div>
+
+
+                <!-- Mensaje de error -->
+                <div id="errorScreen" class="error-screen">
+                    <div class="error-icon">⚠</div>
+
+                    <h2>No se pudo cargar el video</h2>
+
+                    <p id="errorMessage">
+                        La fuente de video no pudo ser reproducida.
+                    </p>
+
+                    <button onclick="location.reload()">
+                        Intentar nuevamente
+                    </button>
+                </div>
+
+            </div>
+
+
+            <!-- Información de la película -->
+
+            <div class="movie-info">
+
+                <div>
+                    <h1 id="movieTitle">
+                        CINEVERSE
+                    </h1>
+
+                    <p id="movieDescription">
+                        Reproductor de video
+                    </p>
+                </div>
+
+                <div class="source-selector">
+
+                    <span>Servidor:</span>
+
+                    <select id="sourceSelect">
+                        <option value="">
+                            Seleccionar fuente
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+<script>
+
+const videoPlayer = document.getElementById("videoPlayer");
+const embedPlayer = document.getElementById("embedPlayer");
+
+const loadingScreen = document.getElementById("loadingScreen");
+const errorScreen = document.getElementById("errorScreen");
+
+const errorMessage = document.getElementById("errorMessage");
+
+const sourceSelect = document.getElementById("sourceSelect");
+
+let hls = null;
+
+
+/* --------------------------------------------------
+   OBTENER DATOS DE LA URL
+-------------------------------------------------- */
+
+const params = new URLSearchParams(window.location.search);
+
+const url = params.get("url");
+const type = params.get("type") || detectarTipo(url);
+
+
+/* --------------------------------------------------
+   DETECTAR TIPO DE VIDEO
+-------------------------------------------------- */
+
+function detectarTipo(videoUrl) {
+
+    if (!videoUrl) {
+        return null;
+    }
+
+    const lowerUrl = videoUrl.toLowerCase();
+
+    if (
+        lowerUrl.includes(".m3u8")
+    ) {
+        return "hls";
+    }
+
+    if (
+        lowerUrl.includes(".mp4") ||
+        lowerUrl.includes(".webm") ||
+        lowerUrl.includes(".ogg")
+    ) {
+        return "mp4";
+    }
+
+    return "embed";
+}
+
+
+/* --------------------------------------------------
+   OCULTAR ELEMENTOS
+-------------------------------------------------- */
+
+function ocultarReproductores() {
+
+    videoPlayer.style.display = "none";
+    embedPlayer.style.display = "none";
+
+}
+
+
+/* --------------------------------------------------
+   CARGAR VIDEO
+-------------------------------------------------- */
+
+function cargarVideo(videoUrl, videoType) {
+
+    ocultarReproductores();
+
+    errorScreen.style.display = "none";
+    loadingScreen.style.display = "flex";
+
+
+    if (!videoUrl) {
+
+        mostrarError(
+            "No se encontró ninguna fuente de video."
+        );
+
+        return;
+    }
+
+
+    /* ----------------------------------------------
+       EMBED
+    ---------------------------------------------- */
+
+    if (videoType === "embed") {
+
+        embedPlayer.style.display = "block";
+
+        embedPlayer.src = videoUrl;
+
+        loadingScreen.style.display = "none";
+
+        return;
+    }
+
+
+    /* ----------------------------------------------
+       MP4 / WEBM
+    ---------------------------------------------- */
+
+    if (videoType === "mp4") {
+
+        videoPlayer.style.display = "block";
+
+        videoPlayer.src = videoUrl;
+
+        videoPlayer.load();
+
+        videoPlayer.oncanplay = () => {
+
+            loadingScreen.style.display = "none";
+
+        };
+
+        videoPlayer.onerror = () => {
+
+            mostrarError(
+                "El navegador no pudo reproducir este archivo."
+            );
+
+        };
+
+        return;
+    }
+
+
+    /* ----------------------------------------------
+       HLS
+    ---------------------------------------------- */
+
+    if (videoType === "hls") {
+
+        videoPlayer.style.display = "block";
+
+
+        /*
+         * Algunos navegadores soportan HLS
+         * directamente.
+         */
+
+        if (videoPlayer.canPlayType(
+            "application/vnd.apple.mpegurl"
+        )) {
+
+            videoPlayer.src = videoUrl;
+
+            videoPlayer.addEventListener(
+                "loadedmetadata",
+                () => {
+
+                    loadingScreen.style.display = "none";
+
+                },
+                { once: true }
+            );
+
+            return;
+        }
+
+
+        /*
+         * Chrome / Edge / Firefox normalmente
+         * necesitan HLS.js.
+         */
+
+        if (typeof Hls !== "undefined" && Hls.isSupported()) {
+
+            hls = new Hls();
+
+            hls.loadSource(videoUrl);
+
+            hls.attachMedia(videoPlayer);
+
+
+            hls.on(
+                Hls.Events.MANIFEST_PARSED,
+                () => {
+
+                    loadingScreen.style.display = "none";
+
+                }
+            );
+
+
+            hls.on(
+                Hls.Events.ERROR,
+                function(event, data) {
+
+                    if (data.fatal) {
+
+                        mostrarError(
+                            "No se pudo cargar el streaming HLS."
+                        );
+
+                    }
+
+                }
+            );
+
+            return;
+        }
+
+
+        mostrarError(
+            "Este navegador no soporta reproducción HLS."
+        );
+
+    }
+
+}
+
+
+/* --------------------------------------------------
+   ERROR
+-------------------------------------------------- */
+
+function mostrarError(mensaje) {
+
+    loadingScreen.style.display = "none";
+
+    videoPlayer.style.display = "none";
+    embedPlayer.style.display = "none";
+
+    errorScreen.style.display = "flex";
+
+    errorMessage.textContent = mensaje;
+
+}
+
+
+/* --------------------------------------------------
+   INICIAR
+-------------------------------------------------- */
+
+cargarVideo(url, type);
+
+
+/* --------------------------------------------------
+   EVENTO PARA CAMBIAR DE SERVIDOR
+-------------------------------------------------- */
+
+sourceSelect.addEventListener(
+    "change",
+    function() {
+
+        const selectedUrl = this.value;
+
+        if (!selectedUrl) {
+            return;
+        }
+
+        const selectedType = detectarTipo(selectedUrl);
+
+        cargarVideo(
+            selectedUrl,
+            selectedType
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
